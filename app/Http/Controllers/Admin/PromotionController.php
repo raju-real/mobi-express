@@ -81,7 +81,7 @@ class PromotionController extends Controller
     }
 
     public function promotionProducts($id){
-        $products = PromotionProduct::where('promotion_id',$id)->get();
+        $products = PromotionProduct::where('promotion_id',$id)->paginate(20);
         return view('admin.promotion.promotion_products',compact('products'));
     }
 
