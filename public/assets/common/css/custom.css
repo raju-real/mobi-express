@@ -1,0 +1,8 @@
+.pointer{
+	cursor: pointer;
+}
+
+.val-error{
+	color: red;
+	font-size: 12px;
+}

@@ -1,0 +1,119 @@
+<nav class="page-sidebar" id="sidebar">
+    <div id="sidebar-collapse">
+        <div class="admin-block d-flex">
+            
+            <div class="admin-info">
+                <div class="font-strong">
+                </div><small>
+                    {{ Auth::user()->name }}
+                </small></div>
+            </div>
+        @if(Request::is('admin*'))
+        <ul class="side-menu metismenu">
+            <li>
+                <a class="active" href=""><i class="sidebar-item-icon fa fa-th-large"></i>
+                    <span class="nav-label">Dashboard</span>
+                </a>
+            </li>
+            <li class="heading">Featured Menu</li>
+            <li>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-first-order"></i>
+                    <span class="nav-label">Order List</span><i class="fa fa-angle-left arrow"></i></a>
+                <ul class="nav-2-level collapse">
+                    <li>
+                        <a href="colors.html">
+                            <i class="fa fa-circle-o"></i>
+                            Pending Order
+                            <span class="badge badge-danger" style="float: right;">
+                                5
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="colors.html">
+                            <i class="fa fa-circle-o"></i>
+                            Received Order
+                            <span class="badge badge-primary" style="float: right;">
+                                5
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="colors.html">
+                            <i class="fa fa-circle-o"></i>
+                            Processing Order
+                            <span class="badge badge-info" style="float: right;">
+                                5
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="colors.html">
+                            <i class="fa fa-circle-o"></i>
+                            Delivered Order
+                            <span class="badge badge-success" style="float: right;">5</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </li>
+            <li>
+                <a href="{{ route('admin.product.index') }}"><i class="sidebar-item-icon fa fa-product-hunt"></i>
+                    <span class="nav-label">Products</span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-list-ul"></i>
+                    <span class="nav-label">Product Attributes</span><i class="fa fa-angle-left arrow"></i></a>
+                <ul class="nav-2-level collapse">
+                    <li>
+
+                        <a href="{{ route('admin.category.index') }}">
+                            <i class="fa fa-circle-o"></i>
+                            Category
+                        </a>
+                    </li>
+                    {{-- <li>
+                        <a href="{{ route('admin.subcategory.index') }}">
+                            <i class="fa fa-circle-o"></i>
+                            Sub Category
+                        </a>
+                    </li> --}}
+                    <li>
+                        <a href="{{ route('admin.brand.index') }}">
+                            <i class="fa fa-circle-o"></i>
+                            Brand
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.color.index') }}">
+                            <i class="fa fa-circle-o"></i>
+                            Color
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.size.index') }}">
+                            <i class="fa fa-circle-o"></i>
+                            Size
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.unit.index') }}">
+                            <i class="fa fa-circle-o"></i>
+                            Unit
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="{{ route('admin.promotion.index') }}"><i class="sidebar-item-icon fa fa-bullhorn"></i>
+                    <span class="nav-label">Promotion</span>
+                </a>
+            </li>
+            
+            
+        </ul>
+        @endif
+    </div>
+</nav>
