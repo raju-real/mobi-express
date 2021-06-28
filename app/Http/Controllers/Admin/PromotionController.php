@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use App\Model\Promotion;
 use App\Model\PromotionProduct;
+use App\Model\Product;
 Use Alert;
 
 class PromotionController extends Controller
@@ -81,40 +82,68 @@ class PromotionController extends Controller
     }
 
     public function promotionProducts($id){
+        $promotion_id = $id;
         $products = PromotionProduct::where('promotion_id',$id)->paginate(20);
-        return view('admin.promotion.promotion_products',compact('products'));
+        return view('admin.promotion.promotion_products',compact('products','promotion_id'));
     }
 
-    public function promotionProductStore(Request $request)
+    public function createPromotionProduct($id){
+        $promotion = Promotion::find($id);
+        $products = Product::where('discount_price','==',0)
+            ->select('id','name','unit_price')
+            ->get();
+        return view('admin.promotion.create_promotion_products',compact('promotion','products'));
+    }
+
+    public function storePromotionProduct(Request $request)
     {
         $this->validate($request,
-            ['promotion_id' => 'required',
+            [
+                'promotion_id' => 'required',
                 'product_id' => 'required',
-                'offer_price' => 'required',
+                'discount_type' => 'required',
+                'discount' => 'required',
                 'status' => 'required'
             ]);
-
-        $product = new Promotionproduct();
-        $product->promotion_id = $request->promotion_id;
-        $product->product_id = $request->product_id;
-        $product->offer_price = $request->offer_price;
-        $product->status = $request->status;
-        $findProduct = Product::findOrFail($request->product_id);
-        $result = (($findProduct->unit_price - $request->offer_price)*100)
-            /$findProduct->unit_price;
-//        $result = ($findProduct->unit_price * $request->offer_price) / 100;
-        $product->percentage = round($result).'%';
-
-        $check = Promotionproduct::where('promotion_id', $request->promotion_id)
-            ->where('product_id', $request->product_id)
-            ->get();
-        if (sizeof($check) > 0) {
-            Toastr::info('Product Already Added On This Promotion');
+        $where = [
+            'promotion_id'=>$request->promotion_id,
+            'product_id'=>$request->product_id
+        ];
+            
+        if (sizeof(PromotionProduct::where($where)->get()) > 0) {
+            toast('Product Already Added On This Promotion','error');
             return redirect()->back();
 
         } else {
+            $product = new PromotionProduct();
+            $product->promotion_id = $request->promotion_id;
+            $product->product_id = $request->product_id;
+            $product->discount_type = $request->discount_type;
+            $product->status = $request->status;
+            $findProduct = Product::findOrFail($request->product_id);
+            $product->unit_price = $findProduct->unit_price;
+
+            if($request->discount_type === 'amount'){
+                $result = (($findProduct->unit_price - $request->discount)*100) /
+                $findProduct->unit_price;
+                $product->percentage = round($result);
+                $product->discount_price = $request->discount;
+                // Change price to product
+                $findProduct->discount_price = $request->discount;
+                $findProduct->percentage = round($result);
+                $findProduct->save();
+            } elseif($request->discount_type === 'percentage'){
+                $discount = (($findProduct->unit_price * $request->discount)/100);
+                $discount_price = $findProduct->unit_price - $discount;
+                $product->percentage = $request->discount;
+                $product->discount_price = $discount_price;
+                // Change price to product
+                $findProduct->discount_price = $discount_price;
+                $findProduct->percentage = $request->discount;
+                $findProduct->save();
+            }    
             $product->save();
-            Toastr::success('Product Successfully Added');
+            toast('Product Successfully Added','success');
             return redirect()->back();
         }
     }

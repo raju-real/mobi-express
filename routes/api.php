@@ -60,3 +60,5 @@ Route::get('upazilas/{district_id}', function ($district_id) {
         'data' => $upazilas
     ]);
 });
+
+

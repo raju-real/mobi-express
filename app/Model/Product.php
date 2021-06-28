@@ -3,9 +3,22 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Model\Promotion;
+use App\Model\PromotionProduct;
 
 class Product extends Model
 {
+    protected $guarded = [];
+
+    public static function getProducts(){
+        $promotion = Promotion::where('status',1)->get();
+        $data = Product::query();
+        $promotion_products = PromotionProduct::whereIn('promotion_id',$promotion->pluck('id'));
+        $data->whereNotIn('id',$promotion_products->pluck('product_id'))->get();
+        $products = $data->get();
+        return $products;
+
+    }
 
     public function category()
     {

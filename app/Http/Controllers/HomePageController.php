@@ -1,26 +1,90 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Model\Cart;
-use App\Model\Division;
-use App\Model\Favorite;
-use App\Model\Product;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Model\Cart;
+use App\Model\Division;
+use App\Model\Favorite;
+use App\Model\Product;
+use App\Model\Category;
+use App\Model\SubCategory;
+use App\Model\Promotion;
+use App\Model\PromotionProduct;
 
 class HomePageController extends Controller
 {
+    public  function getProducts($take=null,$paginate=null){
+        $promotion = Promotion::where('status',1)->get();
+        $data = Product::query();
+        $promotion_products = PromotionProduct::whereIn('promotion_id',$promotion->pluck('id'));
+        $data->whereNotIn('id',$promotion_products->pluck('product_id'));
+        $products = [];
+        if($take != null){
+            $products = $data->take($take)->get();
+        } elseif($paginate != null){
+            $products = $data->paginate($paginate);
+        } else{
+            $products = $data->get();
+        }
+        return $products;
+    }
+
+    public function promotionProducts(){
+        $promotion = Promotion::where('status',1)->get();
+        $promotion_products = PromotionProduct::whereIn('promotion_id',$promotion->pluck('id'))->get();
+        return $promotion_products;
+    }
+
     public function index(){
-        $products = Product::all();
-        return view('welcome',compact('products'));
+        $data = Product::query();
+        $promotion = Promotion::where('status',1)->get();
+        $promotion_products = PromotionProduct::whereIn('promotion_id',$promotion->pluck('id'));
+        $data->whereNotIn('id',$promotion_products->pluck('product_id'));
+        $data->orderBy('updated_at','DESC');
+        $data->whereNotNull('discount_price');
+        $featuredProducts = $data->take(20)->get();
+        //return $featuredProducts;
+        $categories = Category::all();
+        return view('welcome',compact('featuredProducts','categories'));
     }
 
     public function productDetails($slug){
-        $product = Product::where('slug',$slug)->first();
-        return view('pages.product_details',compact('product'));
+        $product = Product::with('images','sizes','units','colors')
+            ->where('slug',$slug)->first();
+        $regularProducts = $this->getProducts(); 
+        $releatedProducts = $regularProducts->where('category_id',$product->category_id)->take(20);
+        //return $releatedProducts;
+        return view('pages.product_details',compact('product','releatedProducts'));
+    }
+
+    public function categoryProducts($slug){
+        $category = Category::where('slug',$slug)->first();
+        $promotionProducts = $this->promotionProducts();
+        $products = Product::whereNotIn('id',$promotionProducts->pluck('product_id'))
+            ->where('category_id',$category->id)
+            ->paginate(20);
+        $title = $category->name;    
+        $pageTitle = 'Category/'.$category->name;
+        $image = $category->image;
+        //return $products;
+        return view('pages.vendor_products',compact('products','title','pageTitle','image'));
+    }
+
+    public function subcategoryProducts($slug){
+        $subcategory = SubCategory::where('slug',$slug)->first();
+        $promotionProducts = $this->promotionProducts();
+        $products = Product::whereNotIn('id',$promotionProducts->pluck('product_id'))
+            ->where('subcategory_id',$subcategory->id)
+            ->paginate(20);
+        $title = $subcategory->name;    
+        $pageTitle = 'Subcategory/'.$subcategory->name;
+        $image = $subcategory->image;
+        //return $products;
+        return view('pages.vendor_products',compact('products','title','pageTitle','image'));
     }
 
     public function addToCart(Request $request){
@@ -144,5 +208,6 @@ class HomePageController extends Controller
             return redirect()->route('login');
         }
     }
+
 
 }

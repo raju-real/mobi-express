@@ -15,7 +15,7 @@
                 </div>
                 
                 <div class="ibox-title text-right">
-                	<a href="{{ route('admin.product.create') }}" class="badge badge-primary">
+                	<a href="{{ route('admin.promotion-product.create',$promotion_id) }}" class="badge badge-primary">
                 		<i class="fa fa-plus-circle"></i>
                 	Add New
                 </a>
@@ -28,11 +28,10 @@
                         <tr>
                             <th>Sl.no</th>
                             <th>Name</th>
-                            <th>Category</th>
                             <th>Unit Price</th>
+                            <th>Discount</th>
                             <th>Discount Price</th>
-                            <th>Stock</th>
-                            <th>Quantity</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -40,11 +39,10 @@
                         <tr>
                             <th>Sl.no</th>
                             <th>Name</th>
-                            <th>Category</th>
                             <th>Unit Price</th>
+                            <th>Discount</th>
                             <th>Discount Price</th>
-                            <th>Stock</th>
-                            <th>Quantity</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
@@ -53,19 +51,19 @@
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $product->category->name }}</td>
                             <td>{{ $product->unit_price }}</td>
                             <td>
-                                {{ $product->discount_price }}
-                                <span class="badge badge-success">{{ $product->percentage }} Off</span>
+                                <span class="badge badge-success">{{ $product->percentage }} % Off</span>
                             </td>
-                            <td>{{ $product->stock_status }}</td>
-                            <td>{{ $product->quantity }}</td>
+                            <td>{{ $product->discount_price }}</td>
                             <td>
-                            	<a href="{{ route('admin.product.show',$product->slug) }}" class="badge badge-info">
+                                {{ $product->status == 1 ? 'Active' : 'In Active' }}
+                            </td>
+                            <td>
+                            	<a href="" class="badge badge-info">
                             		<i class="fa fa-eye"></i>
                             	</a>
-                                <a href="{{ route('admin.product.edit',$product->slug) }}" class="badge badge-primary">
+                                <a href="" class="badge badge-primary">
                                     <i class="fa fa-edit"></i>
                                 </a>
                             </td>

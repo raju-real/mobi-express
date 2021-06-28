@@ -18,9 +18,10 @@ class CreatePromotionProductsTable extends Migration
             $table->integer('promotion_id');
             $table->integer('product_id');
             $table->string('discount_type');
-            $table->string('discount');
+            $table->string('percentage');
             $table->double('unit_price',8,2);
             $table->double('discount_price',8,2);
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

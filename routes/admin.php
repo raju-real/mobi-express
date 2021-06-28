@@ -18,8 +18,10 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('product', 'ProductController');
     Route::delete('remove-image/{id}','ProductController@removeImage');
     Route::resource('promotion','PromotionController');
-    Route::get('promotion/products/{id}','PromotionController@promotionProducts')
-        ->name('promotion-products');
+    Route::get('promotion/products/{id}','PromotionController@promotionProducts')->name('promotion-products');
+    Route::get('promotion/product/create/{promotion_id}','PromotionController@createPromotionProduct')
+        ->name('promotion-product.create');
+    Route::post('promotion-product','PromotionController@storePromotionProduct') ->name('promotion-product.store'); 
 });
 
 Route::post('admin-login',function(Request $request){

@@ -15,7 +15,8 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    //'default' => env('DB_CONNECTION', 'e-grocery'),
+    'default' => env('DB_CONNECTION', 'e-grocery'),
 
     /*
     |--------------------------------------------------------------------------
@@ -61,6 +62,20 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+        ],
+
+        'e-grocery' => [
+            'driver'    => 'mysql',
+            'host'      => '127.0.0.1',
+            'port'      => '3306',
+            'database'  => 'e-grocery',
+            'username'  => 'root',
+            'password'  => 'Raju@7258',
+            'charset'   => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix'    => '',
+            'strict'    => false,
+            'engine'    => null,
         ],
 
         'pgsql' => [
