@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
 use App\Model\Product;
 use App\Model\Category;
 use App\Model\SubCategory;
@@ -50,8 +51,7 @@ class ProductController extends Controller
         $product->brand_id = $request->brand_id;
         $product->product_code = $request->product_code;
         $product->name = $request->name;
-        $slug = preg_replace('/\s+/', '-', $request->name);
-        $product->slug = $slug;
+        $product->slug = strtolower(Str::slug($request->name));
         $product->product_details = $request->product_details;
         $product->unit_price = $request->unit_price;
         $product->unit_weight = $request->unit_weight;
@@ -75,7 +75,7 @@ class ProductController extends Controller
             {
                 $imageName = time().$image->getClientOriginalName();
                 $image_resize = Image::make($image->getRealPath());
-                $image_resize->resize(244, 244);
+                $image_resize->resize(600, 600);
                 $image_resize->filesize(100);
                 $image_resize->save('images/product/' .$imageName);
                 $data[] = $imageName;
@@ -123,8 +123,7 @@ class ProductController extends Controller
         $product->brand_id = $request->brand_id;
         $product->product_code = $request->product_code;
         $product->name = $request->name;
-        $slug = preg_replace('/\s+/', '-', $request->name);
-        $product->slug = strtolower($slug);
+        $product->slug = strtolower(Str::slug($request->name));
         $product->product_details = $request->product_details;
         $product->unit_price = $request->unit_price;
         $product->unit_weight = $request->unit_weight;
@@ -144,7 +143,7 @@ class ProductController extends Controller
             {
                 $imageName = time().$image->getClientOriginalName();
                 $image_resize = Image::make($image->getRealPath());
-                $image_resize->resize(244, 244);
+                $image_resize->resize(600, 600);
                 $image_resize->filesize(100);
                 $image_resize->save('images/product/' .$imageName);
                 $data[] = $imageName;

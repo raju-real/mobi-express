@@ -8,7 +8,7 @@ return [
 
     'neverLoadJS' => env('SWEET_ALERT_NEVER_LOAD_JS', false),
 
-    'timer' => env('SWEET_ALERT_TIMER', 3000),
+    'timer' => env('SWEET_ALERT_TIMER', 10000),
 
     'width' => env('SWEET_ALERT_WIDTH', '32rem'),
 
@@ -17,7 +17,7 @@ return [
     'padding' => env('SWEET_ALERT_PADDING', '1.25rem'),
 
     'animation' => [
-        'enable' => env('SWEET_ALERT_ANIMATION_ENABLE', false),
+        'enable' => env('SWEET_ALERT_ANIMATION_ENABLE', true),
     ],
 
     'animatecss' => env('SWEET_ALERT_ANIMATECSS', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css'),

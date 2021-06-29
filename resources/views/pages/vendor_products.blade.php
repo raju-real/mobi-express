@@ -79,7 +79,13 @@
                         <article class="single_product">
                             <figure>
                                 <div class="product_thumb">
-                                    <a class="primary_img" href="{{ route('product-details',$product->slug) }}"><img src="{{ asset($image) }}" alt=""></a>
+                                    <a class="primary_img" href="{{ route('product-details',$product->slug) }}">
+                                        @if(isset($image) && file_exists($image) AND !empty($image))
+                                        <img src="{{ asset($image) }}" alt="">
+                                        @else
+                                        <img src="{{ asset('assets/common/images/product.png') }}" alt="">
+                                        @endif
+                                    </a>
                                 </div>
 
                                 <div class="product_content grid_content">
@@ -108,7 +114,7 @@
                                         </div>
                                     </div>
                                     <div class="add_to_cart">
-                                        <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <a href="javascript:void(0)" onclick="addToCartSingle({{ $product->id }})" title="Add to cart">Add to cart</a>
                                     </div>
                                 </div>
                                 <div class="product_content list_content">
@@ -140,7 +146,7 @@
                                         </p>
                                     </div>
                                     <div class="add_to_cart">
-                                        <a href="cart.html" title="Add to cart">Add to cart</a>
+                                        <a href="javascript:void(0)" onclick="addToCartSingle({{ $product->id }})" title="Add to cart">Add to cart</a>
                                     </div>
                                     
                                 </div>

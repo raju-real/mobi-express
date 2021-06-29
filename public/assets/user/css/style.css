@@ -1487,6 +1487,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 }
 
 .mini_cart {
+  overflow-y: scroll;
   position: fixed;
   min-width: 355px;
   height: 100%;

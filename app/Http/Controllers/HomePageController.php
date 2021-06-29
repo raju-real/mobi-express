@@ -14,6 +14,7 @@ use App\Model\Category;
 use App\Model\SubCategory;
 use App\Model\Promotion;
 use App\Model\PromotionProduct;
+Use Alert;
 
 class HomePageController extends Controller
 {
@@ -87,15 +88,14 @@ class HomePageController extends Controller
         return view('pages.vendor_products',compact('products','title','pageTitle','image'));
     }
 
-    public function addToCart(Request $request){
+    public function addToCart(){
         if(empty(Session::get('session_id'))){
-            Session::put('session_id', Str::random(20));
+            Session::put('session_id', Str::random(40));
         }
         $session_id       = Session::get('session_id');
-        $product_id       = $request->product_id;
+        $product_id       = request()->get('product_id');
         $product          = Product::find($product_id);
         if(Cart::where('session_id',$session_id)->where('product_id',$product_id)->exists()){
-            //return redirect()->route('product_details', $product->slug)->with(['message' => 'Product Already Added To Cart', 'type' => 'danger']);
             return response()->json([
                 'message' => 'Product Already Added To Cart',
                 'type' => 'danger'
@@ -105,13 +105,13 @@ class HomePageController extends Controller
         $cart = new Cart();
         $cart->session_id = $session_id;
         $cart->product_id = $product_id;
-        $unit_price       = $product->discount_price != null ? $product->discount_price : $product->unit_price;
-        $cart->unit_price = $unit_price;
-        $quantity         = $request->quantity;
+        $cart->unit_price = $product->unit_price;
+        $order_price = $product->discount_price != null ? $product->discount_price : $product->unit_price;
+        $quantity         = 1;
         $cart->quantity   = $quantity;
-        $cart->total_price = $unit_price * $quantity;
+        $cart->order_price = $order_price;
+        $cart->total_price = $order_price * $quantity;
         $cart->save();
-        //return redirect()->route('product_details', $product->slug)->with(['message' => 'Product Successfully Added To Cart', 'type' => 'success']);
         return response()->json([
             'message'=>'Product Successfully Added To Cart',
             'type'=>'success'
@@ -119,22 +119,20 @@ class HomePageController extends Controller
     }
 
     public function shoppingCart(){
-        $carts = Cart::with('product')->where('session_id', Session::get('session_id'))->get();
-        return view('pages.carts',compact('carts'));
+        // $carts = Cart::with('product')->where('session_id', Session::get('session_id'))->get();
+        return view('pages.carts');
     }
 
     public function incrementCartProduct($cart_id){
         $cart = Cart::find($cart_id);
         if(isset($cart)){
             $quantity = $cart->quantity + 1;
-            $totalPrice = $cart->unit_price * $quantity;
+            $totalPrice = $cart->order_price * $quantity;
             $cart->quantity = $quantity;
             $cart->total_price = $totalPrice;
             $cart->save();
-            // return redirect()->route('carts')->with(['message'=>'Product Quantity Updated','type'=>'success']);
             return response()->json(['message' => 'Product Quantity Updated', 'type' => 'success']);
         } else {
-            // return redirect()->route('carts')->with(['message' => 'Invalid Product', 'type' => 'danger']);
             return response()->json(['message' => 'Invalid Product', 'type' => 'danger']);
         }
     }
@@ -145,30 +143,26 @@ class HomePageController extends Controller
             $quantity = $cart->quantity - 1;
             if($quantity < 1){
                 $cart->delete();
-                // return redirect()->route('carts')->with(['message' => 'Product Removed From Cart', 'type' => 'danger']);
                 return response()->json(['message' => 'Product Removed From Cart', 'type' => 'danger']);
             }
-            $totalPrice = $cart->unit_price * $quantity;
+            $totalPrice = $cart->order_price * $quantity;
             $cart->quantity = $quantity;
             $cart->total_price = $totalPrice;
             $cart->save();
-            // return redirect()->route('carts')->with(['message' => 'Product Quantity Updated', 'type' => 'warning']);
             return response()->json(['message' => 'Product Quantity Updated', 'type' => 'warning']);
         } else {
-            // return redirect()->route('carts')->with(['message' => 'Invalid Product', 'type' => 'danger']);
             return response()->json(['message' => 'Invalid Product', 'type' => 'danger']);
         }
     }
 
 
-    public function removeCartProduct($cart_id){
+    public function removeCartProduct(){
+        $cart_id = request()->get('cart_id');
         $cart = Cart::find($cart_id);
         if(isset($cart)){
             $cart->delete();
-            // return redirect()->route('carts')->with(['message' => 'Product Removed From Cart', 'type' => 'danger']);
             return response()->json(['message' => 'Product Removed From Cart', 'type' => 'danger']);
         } else{
-            // return redirect()->route('carts')->with(['message' => 'Invalid Product', 'type' => 'danger']);
             return response()->json(['message' => 'Invalid Product', 'type' => 'danger']);
         }
     }
@@ -195,10 +189,9 @@ class HomePageController extends Controller
             if(!empty(Session::get('url'))){
                 Session::forget('url');
             }
-            $divisions = Division::all();
             $carts = Cart::with('product')->where('session_id', Session::get('session_id'))->get();
             if(sizeof($carts)>0){
-                return view('pages.checkout', compact('carts','divisions'));
+                return view('pages.checkout', compact('carts'));
             } else{
                 return redirect()->route('carts')->with(['message' => 'Your Cart Is Empty', 'type'=> 'danger']);
             }

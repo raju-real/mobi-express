@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div class="add_to_cart">
-                    <a href="cart.html" title="Add to cart">Add to cart</a>
+                    <a href="javascript:void(0)" onclick="addToCartSingle({{ $product->id }})" title="Add to cart">Add to cart</a>
                 </div>
 
             </div>

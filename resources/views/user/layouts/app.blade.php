@@ -16,11 +16,13 @@
 
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{ asset('assets/user/css/style.css') }}">
-
+    <!-- Sweetalert cdn -->
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    @stack('css')
 </head>
 
 <body>
-
+    @include('sweetalert::alert')
     <!--Offcanvas menu area start-->
     <div class="off_canvars_overlay"></div>
     <div class="Offcanvas_menu">
@@ -112,11 +114,21 @@
                                         <span class="wishlist_count">3</span>
                                     </a>
                                 </div>
+
                                 <div class="mini_cart_wrapper">
-                                    <a href="javascript:void(0)">
+                                    @php
+                                        $carts = DB::table('carts')->where('session_id',session()->get('session_id'))->get();
+                                        $totalPrice = 0;
+                                        foreach($carts as $cart){
+                                            $totalPrice += $cart->total_price;
+                                        }
+                                    @endphp
+                                    <a href="{{ route('carts') }}">
                                         <i class="fa fa-shopping-bag"></i>
-                                        <span class="cart_price">$152.00 <i class="ion-ios-arrow-down"></i></span>
-                                        <span class="cart_count">2</span>
+                                        {{-- <span class="cart_price">
+                                            {{ $totalPrice }}
+                                            <i class="ion-ios-arrow-down"></i></span> --}}
+                                        <span class="cart_count">{{ $carts->count() }}</span>
 
                                     </a>
                                 </div>
@@ -127,7 +139,10 @@
                 <!--header middel end-->
                 
                  <!--mini cart-->
-                <div class="mini_cart">
+                {{-- <div class="mini_cart">
+                    @php
+                        $cartData = App\Model\Cart::where('session_id',session()->get('session_id'))->get();
+                    @endphp
                     <div class="cart_close">
                         <div class="cart_text">
                             <h3>cart</h3>
@@ -136,30 +151,29 @@
                             <a href="javascript:void(0)"><i class="ion-android-close"></i></a>
                         </div>
                     </div>
+                    @foreach($cartData as $cart)
                     <div class="cart_item">
                         <div class="cart_img">
-                            <a href="#"><img src="assets/img/s-product/product.jpg" alt=""></a>
+                            @php
+                                $image = DB::table('product_images')->where('product_id',$cart->product->id)
+                                ->whereNotNull('image')->first()->image;
+                            @endphp
+                            <a href="{{ route('product-details',$cart->product->slug) }}"><img src="{{ asset($image) }}" alt=""></a>
                         </div>
                         <div class="cart_info">
-                            <a href="#">Primis In Faucibus</a>
-                            <p>Qty: 1 X <span> $60.00 </span></p>
+                            <a href="{{ route('product-details',$cart->product->slug) }}">
+                                {{ $cart->product->name }}
+                            </a>
+                            <p>
+                                Qty: {{ $cart->quantity }} X 
+                                <span>{{ $cart->total_price }}</span>
+                            </p>
                         </div>
                         <div class="cart_remove">
-                            <a href="#"><i class="ion-android-close"></i></a>
+                            <a href="javascript:void(0)" onclick="removeCartItem({{ $cart->id }})"><i class="ion-android-close"></i></a>
                         </div>
                     </div>
-                    <div class="cart_item">
-                        <div class="cart_img">
-                            <a href="#"><img src="assets/img/s-product/product2.jpg" alt=""></a>
-                        </div>
-                        <div class="cart_info">
-                            <a href="#">Letraset Sheets</a>
-                            <p>Qty: 1 X <span> $60.00 </span></p>
-                        </div>
-                        <div class="cart_remove">
-                            <a href="#"><i class="ion-android-close"></i></a>
-                        </div>
-                    </div>
+                    @endforeach
                     <div class="mini_cart_table">
                         <div class="cart_total">
                             <span>Sub total:</span>
@@ -179,7 +193,7 @@
                         </div>
 
                     </div>
-                </div>
+                </div> --}}
                 <!--mini cart end-->
 
                 <!--header bottom satrt-->
@@ -190,123 +204,7 @@
                                 <div class="categories_title">
                                     <h2 class="categori_toggle">ALL CATEGORIES</h2>
                                 </div>
-                                <div class="categories_menu_toggle">
-                                    <ul>
-                                        <li class="menu_item_children"><a href="#">Brake Parts <i class="fa fa-angle-right"></i></a>
-                                            <ul class="categories_mega_menu">
-                                                <li class="menu_item_children"><a href="#">Dresses</a>
-                                                    <ul class="categorie_sub_menu">
-                                                        <li><a href="#">Sweater</a></li>
-                                                        <li><a href="#">Evening</a></li>
-                                                        <li><a href="#">Day</a></li>
-                                                        <li><a href="#">Sports</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu_item_children"><a href="#">Handbags</a>
-                                                    <ul class="categorie_sub_menu">
-                                                        <li><a href="#">Shoulder</a></li>
-                                                        <li><a href="#">Satchels</a></li>
-                                                        <li><a href="#">kids</a></li>
-                                                        <li><a href="#">coats</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu_item_children"><a href="#">shoes</a>
-                                                    <ul class="categorie_sub_menu">
-                                                        <li><a href="#">Ankle Boots</a></li>
-                                                        <li><a href="#">Clog sandals </a></li>
-                                                        <li><a href="#">run</a></li>
-                                                        <li><a href="#">Books</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu_item_children"><a href="#">Clothing</a>
-                                                    <ul class="categorie_sub_menu">
-                                                        <li><a href="#">Coats Jackets </a></li>
-                                                        <li><a href="#">Raincoats</a></li>
-                                                        <li><a href="#">Jackets</a></li>
-                                                        <li><a href="#">T-shirts</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu_item_children"><a href="#"> Wheels & Tires <i class="fa fa-angle-right"></i></a>
-                                            <ul class="categories_mega_menu column_3">
-                                                <li class="menu_item_children"><a href="#">Chair</a>
-                                                    <ul class="categorie_sub_menu">
-                                                        <li><a href="#">Dining room</a></li>
-                                                        <li><a href="#">bedroom</a></li>
-                                                        <li><a href="#"> Home & Office</a></li>
-                                                        <li><a href="#">living room</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu_item_children"><a href="#">Lighting</a>
-                                                    <ul class="categorie_sub_menu">
-                                                        <li><a href="#">Ceiling Lighting</a></li>
-                                                        <li><a href="#">Wall Lighting</a></li>
-                                                        <li><a href="#">Outdoor Lighting</a></li>
-                                                        <li><a href="#">Smart Lighting</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu_item_children"><a href="#">Sofa</a>
-                                                    <ul class="categorie_sub_menu">
-                                                        <li><a href="#">Fabric Sofas</a></li>
-                                                        <li><a href="#">Leather Sofas</a></li>
-                                                        <li><a href="#">Corner Sofas</a></li>
-                                                        <li><a href="#">Sofa Beds</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu_item_children"><a href="#"> Furnitured & Decor <i class="fa fa-angle-right"></i></a>
-                                            <ul class="categories_mega_menu column_2">
-                                                <li class="menu_item_children"><a href="#">Brake Tools</a>
-                                                    <ul class="categorie_sub_menu">
-                                                        <li><a href="#">Driveshafts</a></li>
-                                                        <li><a href="#">Spools</a></li>
-                                                        <li><a href="#">Diesel </a></li>
-                                                        <li><a href="#">Gasoline</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu_item_children"><a href="#">Emergency Brake</a>
-                                                    <ul class="categorie_sub_menu">
-                                                        <li><a href="#">Dolls for Girls</a></li>
-                                                        <li><a href="#">Girls' Learning Toys</a></li>
-                                                        <li><a href="#">Arts and Crafts for Girls</a></li>
-                                                        <li><a href="#">Video Games for Girls</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu_item_children"><a href="#"> Turbo System <i class="fa fa-angle-right"></i></a>
-                                            <ul class="categories_mega_menu column_2">
-                                                <li class="menu_item_children"><a href="#">Check Trousers</a>
-                                                    <ul class="categorie_sub_menu">
-                                                        <li><a href="#">Building</a></li>
-                                                        <li><a href="#">Electronics</a></li>
-                                                        <li><a href="#">action figures </a></li>
-                                                        <li><a href="#">specialty & boutique toy</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="menu_item_children"><a href="#">Calculators</a>
-                                                    <ul class="categorie_sub_menu">
-                                                        <li><a href="#">Dolls for Girls</a></li>
-                                                        <li><a href="#">Girls' Learning Toys</a></li>
-                                                        <li><a href="#">Arts and Crafts for Girls</a></li>
-                                                        <li><a href="#">Video Games for Girls</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#"> Lighting</a></li>
-                                        <li><a href="#"> Accessories</a></li>
-                                        <li><a href="#">Body Parts</a></li>
-                                        <li><a href="#">Networking</a></li>
-                                        <li><a href="#">Perfomance Filters</a></li>
-                                        <li><a href="#"> Engine Parts</a></li>
-                                        <li class="hidden"><a href="#">New Sofas</a></li>
-                                        <li class="hidden"><a href="#">Sleight Sofas</a></li>
-                                        <li><a href="#" id="more-btn"><i class="fa fa-plus" aria-hidden="true"></i> More Categories</a></li>
-                                    </ul>
-                                </div>
+                                @include('user.layouts.category_menu')
                             </div>
                         </div>
                         <div class="column2 col-lg-6 ">
@@ -620,9 +518,78 @@
 
     <!-- Plugins JS -->
     <script src="{{ asset('assets/user/js/plugins.js') }}"></script>
-
     <!-- Main JS -->
     <script src="{{ asset('assets/user/js/main.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    {!! Toastr::message() !!}
+    <script>
+        @if($errors->any())
+        @foreach($errors->all() as $error)
+              toastr.error('{{ $error }}','Error',{
+                  closeButton:true,
+                  progressBar:true,
+               });
+        @endforeach
+    @endif
+    </script>
+
+    <script type="text/javascript">
+        function addToCartSingle(product_id){
+            $.ajax({
+            method : 'GET',
+            url : "{{ route('add-to-cart') }}",
+            data : {product_id: product_id},
+           // dataType : 'JSON',
+            success : function(response){
+                if(response.type == 'success'){
+                    Swal.fire({
+                      position: 'top-end',
+                      icon: 'success',
+                      text: response.message,
+                      showConfirmButton: true,
+                      timer: 5000
+                    })
+                    $(".mini_cart_wrapper").load(location.href + " .mini_cart_wrapper");
+                } else if(response.type == 'danger') {
+                    Swal.fire({
+                      position: 'top-end',
+                      icon: 'info',
+                      text: response.message,
+                      showConfirmButton: true,
+                      timer: 5000
+                    })
+                }
+
+            }
+            });
+        }
+
+        // function removeCartItem(cart_id){
+        //     Swal.fire({
+        //     title: 'Are you sure?',
+        //     text: "You won't be able to revert this!",
+        //     icon: 'warning',
+        //     showCancelButton: true,
+        //     confirmButtonColor: '#3085d6',
+        //     cancelButtonColor: '#d33',
+        //     confirmButtonText: 'Yes, delete it!'
+        //     }).then((result) => {
+        //     if (result.isConfirmed) {
+        //         $.ajax({
+        //         method : 'GET',
+        //         url : "{{ route('remove-cart-product') }}",
+        //         data : {cart_id: cart_id},
+        //         success : function(response){
+        //             if(response.type == 'danger') {
+        //                 $(".mini_cart_wrapper").load(location.href + " .mini_cart_wrapper");
+        //             }
+        //         }
+        //         });
+        //     }
+        //     })
+
+        // }
+    </script>
     @stack('js')
 </body>
 
