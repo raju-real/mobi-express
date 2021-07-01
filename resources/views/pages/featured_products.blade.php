@@ -21,18 +21,18 @@
                 {{-- <div class="label_product">
                     <span class="label_sale">Sale</span>
                 </div> --}}
-                {{-- <div class="action_links">
+                <div class="action_links">
                     <ul>
                         <li class="wishlist">
-                            <a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a>
+                            <a href="javascript:void(0)" onclick="addToFavorite({{ $product->id }})" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a>
                         </li>
-                        <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
+                        {{-- <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
                         <li class="quick_button">
                             <a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#product-preview-{{ $product->id }}" data-tippy="quick view"><i class="ion-ios-search-strong"></i>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
-                </div> --}}
+                </div>
             </div>
             <div class="product_content">
                 <div class="product_content_inner">

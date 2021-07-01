@@ -87,40 +87,44 @@
                                     <h3>Available Options</h3>
                                     <hr>
                                     <div class="row">
+                                        @if(sizeof($product->colors) > 0)
                                         <div class="form-group col-3">
                                             <label>Color</label>
-                                            <select name="color_id" class="form-control form-select-sm">
+                                            <select name="color_id" id="color_id" class="form-control form-select-sm">
                                                 @foreach($product->colors as $color)
-                                                    <option>Select Color</option>
+                                                    <option value="">Select Color</option>
                                                     <option value="{{ $color->id }}">
                                                         {{ $color->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
+                                        @endif
+                                        @if(sizeof($product->sizes) > 0)
                                         <div class="form-group col-3">
                                             <label>Size</label>
-                                            <select name="size_id" class="form-control form-select-sm">
+                                            <select name="size_id" id="size_id" class="form-control form-select-sm">
                                                 @foreach($product->sizes as $size)
-                                                    <option>Select Size</option>
+                                                    <option value="">Select Size</option>
                                                     <option value="{{ $size->id }}">
                                                         {{ $size->name }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
+                                        @endif
                                     </div>
                                                                         
                                 </div>
                                 <div class="product_variant quantity">
                                     <label>quantity</label>
-                                    <input min="1" max="{{ $product->quantity }}" value="1" type="number">
-                                    <button class="button" type="submit">add to cart</button>
+                                    <input name="quantity" id="quantity" min="1" max="{{ $product->quantity }}" value="1" type="number">
+                                    <button onclick="addToCart({{ $product->id }})" class="button" type="button">add to cart</button>
 
                                 </div>
                                 <div class=" product_d_action">
                                     <ul>
-                                        <li><a href="#" title="Add to wishlist">+ Add to Wishlist</a></li>
+                                        <li><a href="javascript:void(0)" onclick="addToFavorite({{ $product->id }})" title="Add to wishlist">+ Add to Wishlist</a></li>
                                     </ul>
                                 </div>
                                 <div class="product_meta">
@@ -321,7 +325,7 @@
                                 </div>
                             </div>
                             <div class="add_to_cart">
-                                <a href="cart.html" title="Add to cart">Add to cart</a>
+                                <a href="javascript:void(0)" onclick="addToCartSingle({{ $product->id }})" title="Add to cart">Add to cart</a>
                             </div>
 
                         </div>
@@ -334,7 +338,7 @@
         <!--product area end-->
 
         <!--product area start-->
-        <section class="product_area upsell_products">
+        {{-- <section class="product_area upsell_products">
             <div class="row">
                 <div class="col-12">
                     <div class="section_title">
@@ -536,7 +540,7 @@
                     </figure>
                 </article>
             </div>
-        </section>
+        </section> --}}
         <!--product area end-->
     </div>
 </div>
@@ -552,65 +556,50 @@
     }
 });
 
-  function getInputs(){
-      var product_id = $('#product_id').val();
-      var quantity = $('#quantity').val();
-      return { product_id : product_id,quantity : quantity }
-  }
-
-  function addToCart(){
+  function addToCart(product_id){
+    var product_id = product_id;
+    var color_id = $('#color_id').val();
+    var size_id = $('#size_id').val();
+    var quantity = $('#quantity').val();
+    let data = {
+        product_id : product_id,
+        color_id : color_id,
+        size_id : size_id,
+        quantity : quantity
+    };
+    
     $.ajax({
-    method : 'POST',
+    method : 'GET',
     url : "{{ route('add-to-cart') }}",
-    data : getInputs(),
+    data : data,
     dataType : 'JSON',
     success : function(response){
-        if(response.type == 'success'){
-            Swal.fire({
-                text: response.message,
-                icon: "success",
-                button: "Ok",
-            });
-            $("#nav").load(location.href + " #nav");
-            //$('#alert').addClass('alert alert-success').text(response.message);
-        } else if(response.type == 'danger') {
-            Swal.fire({
-                text: response.message,
-                icon: "error",
-                button: "Ok",
-            })
-           // $('#alert').addClass('alert alert-danger').text(response.message);
-        }
+                if(response.type == 'success'){
+                    Swal.fire({
+                      position: 'top-end',
+                      icon: 'success',
+                      text: response.message,
+                      showConfirmButton: true,
+                      timer: 5000
+                    })
+                    //toastr.success(response.message, response.type);
+                    //toastr.success(response.message);
+                    $(".header_configure_area").load(location.href + " .header_configure_area");
+                } else if(response.type == 'danger') {
+                    Swal.fire({
+                      position: 'top-end',
+                      icon: 'info',
+                      text: response.message,
+                      showConfirmButton: true,
+                      timer: 5000
+                    })
+                }
 
-    }
+            }
     });
   }
 
-  // function addToFavorite(){
-  //     $.ajax({
-  //       method : 'POST',
-  //       url : "{{ route('add-to-favorite') }}",
-  //       data : {'product_id':$('#product_id').val()},
-  //       dataType : 'JSON',
-  //       success : function(response){
-  //           if(response.type == 'success'){
-  //           Swal.fire({
-  //               text: response.message,
-  //               icon: "success",
-  //               button: "Ok",
-  //           });
-  //       } else if(response.type == 'error') {
-  //           Swal.fire({
-  //               text: response.message,
-  //               icon: "error",
-  //               button: "Ok",
-  //           })
-  //           //window.location.href = response.redirect;
-  //          // $('#alert').addClass('alert alert-danger').text(response.message);
-  //       }
-  //       }
-  //     });
-  // }
+  
 </script>
 @endpush
 

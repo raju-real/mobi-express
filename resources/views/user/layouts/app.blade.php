@@ -17,7 +17,27 @@
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{ asset('assets/user/css/style.css') }}">
     <!-- Sweetalert cdn -->
- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- toastr -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/topuhit/Font-Bangla@1.0.3/1.0.0/font-bangla.css">
+   <style type="text/css">
+       .autocomplete-item{
+        display: grid;
+       }     
+       .autocomplete-item a {
+          padding: 3px 0px 3px 10px;
+          cursor: pointer;
+          background-color: #fff;
+          /*border-bottom: 1px solid #d4d4d4;*/
+          font-size: 15px;
+        }
+        .autocomplete-item a:hover {
+          /*when hovering an item:*/
+          /*background-color: #e9e9e9;*/
+          color: #1a9cb7;
+        }
+   </style>
     @stack('css')
 </head>
 
@@ -110,28 +130,35 @@
                         <div class="col-lg-3 col-md-7 col-6">
                             <div class="header_configure_area">
                                 <div class="header_wishlist">
-                                    <a href="wishlist.html"><i class="ion-android-favorite-outline"></i>
-                                        <span class="wishlist_count">3</span>
+                                    <a href="{{ route('user.dashboard') }}"><i class="fa fa-user"></i>
                                     </a>
                                 </div>
 
-                                <div class="mini_cart_wrapper">
-                                    @php
-                                        $carts = DB::table('carts')->where('session_id',session()->get('session_id'))->get();
-                                        $totalPrice = 0;
-                                        foreach($carts as $cart){
-                                            $totalPrice += $cart->total_price;
-                                        }
-                                    @endphp
-                                    <a href="{{ route('carts') }}">
-                                        <i class="fa fa-shopping-bag"></i>
-                                        {{-- <span class="cart_price">
-                                            {{ $totalPrice }}
-                                            <i class="ion-ios-arrow-down"></i></span> --}}
-                                        <span class="cart_count">{{ $carts->count() }}</span>
+                                @php
+                                    $carts = DB::table('carts')->where('session_id',session()->get('session_id'))->get();
+                                    $totalPrice = 0;
+                                    foreach($carts as $cart){
+                                        $totalPrice += $cart->total_price;
+                                    }
+                                @endphp
 
+                                <div class="header_wishlist">
+                                    <a href="{{ route('wishlists') }}"><i class="ion-android-favorite-outline"></i>
+                                        <span class="wishlist_count">
+                                            {{ Auth::check() ? App\Model\Favorite::where('user_id',Auth::id())->count() : 0 }}
+                                        </span>
                                     </a>
                                 </div>
+
+                                 <div class="header_wishlist">
+                                    <a href="{{ route('carts') }}"><i class="fa fa-shopping-bag"></i>
+                                        <span class="wishlist_count">
+                                            {{ $carts->count() }}
+                                        </span>
+                                    </a>
+                                </div>
+
+                                
                             </div>
                         </div>
                     </div>
@@ -209,31 +236,36 @@
                         </div>
                         <div class="column2 col-lg-6 ">
                             <div class="search_container">
+                                @php
+                                    $categories = DB::table('categories')->orderBy('name','asc')->get();
+                                @endphp
                                 <form action="#">
                                     <div class="hover_category">
-                                        <select class="select_option" name="select" id="categori2">
-                                            <option selected value="1">All Categories</option>
-                                            <option value="2">Accessories</option>
-                                            <option value="3">Accessories & More</option>
-                                            <option value="4">Butters & Eggs</option>
-                                            <option value="5">Camera & Video </option>
-                                            <option value="6">Mornitors</option>
-                                            <option value="7">Tablets</option>
-                                            <option value="8">Laptops</option>
-                                            <option value="9">Handbags</option>
-                                            <option value="10">Headphone & Speaker</option>
-                                            <option value="11">Herbs & botanicals</option>
-                                            <option value="12">Vegetables</option>
-                                            <option value="13">Shop</option>
-                                            <option value="14">Laptops & Desktops</option>
-                                            <option value="15">Watchs</option>
-                                            <option value="16">Electronic</option>
+                                        <select class="select_option" name="select" id="category_id">
+                                            <option selected value="">All Categories</option>
+                                            @foreach($categories as $category)
+                                            <option value="{{ $category->id }}">
+                                                {{ $category->name }}
+                                            </option>
+                                            @endforeach
+                                            
                                         </select>
                                     </div>
-                                    <div class="search_box">
-                                        <input placeholder="Search product..." type="text">
-                                        <button type="submit">Search</button>
+                                    <div class="search_box" 
+                                        style="position: relative;
+                                            display: inline-block;">
+                                        <input id="product_name" autocomplete="off" placeholder="Search product..." type="text" onkeyup="searchProduct()">
+                                        {{-- <button type="submit">Search</button> --}}
+                                        <div id="searchResult" style="display: none;position: absolute;width: 100%;">
+                                        <ul class="dropdown-menu" style="display:block; position:relative;">
+                                            <li class="autocomplete-item">
+                                                
+                                            </li>
+                                            
+                                        </ul>
                                     </div>
+                                    </div>
+                                    
                                 </form>
                             </div>
 
@@ -534,6 +566,36 @@
     </script>
 
     <script type="text/javascript">
+
+        function searchProduct() {
+            let category_id = $('#category_id').val();
+            let product_name = $('#product_name').val();
+            let data = {
+                category_id : category_id,
+                product_name : product_name
+            };
+            
+            if((product_name.trim() != " ") && (product_name.length >= 2)) {
+                $.ajax({
+                method : 'GET',
+                url: "{{ route('search-product') }}",
+                data: data,
+                dataType: 'JSON',
+                success: function(response){
+                    //console.log(response.data);
+                    let products = response.data;
+                    if(products.length){
+                        $('#searchResult').show();
+                        $('.autocomplete-item').html(products);
+                    } else {
+                        $('#searchResult').hide();
+                    }
+                }
+            });
+            }
+            
+        }
+
         function addToCartSingle(product_id){
             $.ajax({
             method : 'GET',
@@ -549,7 +611,9 @@
                       showConfirmButton: true,
                       timer: 5000
                     })
-                    $(".mini_cart_wrapper").load(location.href + " .mini_cart_wrapper");
+                    //toastr.success(response.message, response.type);
+                    //toastr.success(response.message);
+                    $(".header_configure_area").load(location.href + " .header_configure_area");
                 } else if(response.type == 'danger') {
                     Swal.fire({
                       position: 'top-end',
@@ -564,31 +628,32 @@
             });
         }
 
-        // function removeCartItem(cart_id){
-        //     Swal.fire({
-        //     title: 'Are you sure?',
-        //     text: "You won't be able to revert this!",
-        //     icon: 'warning',
-        //     showCancelButton: true,
-        //     confirmButtonColor: '#3085d6',
-        //     cancelButtonColor: '#d33',
-        //     confirmButtonText: 'Yes, delete it!'
-        //     }).then((result) => {
-        //     if (result.isConfirmed) {
-        //         $.ajax({
-        //         method : 'GET',
-        //         url : "{{ route('remove-cart-product') }}",
-        //         data : {cart_id: cart_id},
-        //         success : function(response){
-        //             if(response.type == 'danger') {
-        //                 $(".mini_cart_wrapper").load(location.href + " .mini_cart_wrapper");
-        //             }
-        //         }
-        //         });
-        //     }
-        //     })
-
-        // }
+        function addToFavorite(product_id){
+          $.ajax({
+            method : 'GET',
+            url : "{{ route('add-to-favorite') }}",
+            data : {product_id:product_id},
+            dataType : 'JSON',
+            success : function(response){
+                if(response.type == 'success'){
+                    $(".header_configure_area").load(location.href + " .header_configure_area");
+                    Swal.fire({
+                        text: response.message,
+                        icon: "success",
+                        button: "Ok",
+                    });
+                } else if(response.type == 'error') {
+                    $(".header_configure_area").load(location.href + " .header_configure_area");
+                    Swal.fire({
+                        text: response.message,
+                        icon: "error",
+                        button: "Ok",
+                    })
+                
+                }
+            }
+          });
+        }
     </script>
     @stack('js')
 </body>

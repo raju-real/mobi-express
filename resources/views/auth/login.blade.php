@@ -1,64 +1,125 @@
-@extends('layouts.app')
+@extends('user.layouts.app')
 @section('title','Login')
 @push('css')
 	{{-- expr --}}
 @endpush
 
 @section('content')
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact" style="min-height:530px;">
-      <div class="container" data-aos="fade-up">
-        <div class="row mt-5">
-            <div class="col-lg-3"></div>
-          <div class="col-lg-6 mt-5 mt-lg-0">
-              <div class="alert alert-danger" style="display:none" id="alert">
-                <p id="alert-message"></p>
-              </div>
-                @if(Session::has('message'))
-                <p class="alert alert-danger">{{ Session::get('message') }}</p>
-                @endif
-                @error('name')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            <form method="POST" action="{{ route('user-login') }}" onsubmit="return validate()">
-                @csrf
-                <div class="form-group">
-                    <label for="mobile">Mobile</label>
-                    <input name="mobile" id="mobile" type="text" class="form-control" >
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="{{ route('home') }}">home</a></li>
+                        <li>Login/Register</li>
+                    </ul>
                 </div>
-
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input id="password" type="password" class="form-control" name="password">
-                </div>
-
-                <div class="form-group">
-                    <span style="float: left">
-                        <button type="submit" class="btn btn-primary" style="background: #00ada7;border: 1px solid #00ada7;">
-                            {{ __('Login') }}
-                        </button>
-                    </span>
-                    <span style="float: right">
-                        <p>Do not have an account ?
-                            <a href="{{ route('register') }}">Registration here</a>
-                        </p>
-                    </span>
-                </div>
-            </form>
-
-          </div>
-          <div class="col-lg-3"></div>
+            </div>
         </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
 
-      </div>
-    </section><!-- End Contact Section -->
+<!-- customer login start -->
+<div class="login_page_bg">
+    <div class="container">
+        <div class="customer_login">
+            <div class="row">
+                <!--register area start-->
+                <div class="col-lg-7 col-md-7">
+                    <div class="account_form register">
+                        <h2>Register</h2>
+                        <form action="{{ route('register') }}" method="POST">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>
+                                        <label>Name
+                                            <span style="color: red;">*</span>
+                                        </label>
+                                        <input type="text" name="name" id="reg_name">
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>
+                                        <label>Mobile
+                                            <span style="color: red;">*</span>
+                                        </label>
+                                        <input type="number" name="mobile" id="reg_mobile">
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>
+                                        <label>Password
+                                            <span style="color: red;">*</span>
+                                        </label>
+                                        <input type="password" name="password" id="reg_password">
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>
+                                        <label>
+                                            Confirm Password 
+                                            <span style="color: red;">*</span>
+                                        </label>
+                                        <input type="password" name="confirm_password" id="reg_confirm_password">
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="login_submit">
+                                <button type="submit">Register</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--register area end-->
+                <!--login area start-->
+                <div class="col-lg-5 col-md-5">
+                    <div class="account_form login">
+                        <h2>login</h2>
+                        <form action="{{ route('login') }}" method="POST" onsubmit="return loginValidate()">
+                            @csrf
+                            <p>
+                                <label>Username or email <span style="color: red;">*</span></label>
+                                <input type="text" name="mobile" id="log_mobile">
+                            </p>
+                            <p>
+                                <label>Passwords <span style="color: red;">*</span></label>
+                                <input type="password" name="password" id="log_password">
+                            </p>
+                            <div class="login_submit">
+                                <a href="#">Lost your password?</a>
+                                <label for="remember">
+                                    <input id="remember" type="checkbox">
+                                    Remember me
+                                </label>
+                                <button type="submit">login</button>
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <!--login area start-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- customer login end -->    
 @endsection
 
 @push('js')
 	<script>
-        function validate(){
-            var mobile = document.getElementById('mobile');
-            var password = document.getElementById('password');
+        function loginValidate(){
+            var mobile = document.getElementById('log_mobile');
+            var password = document.getElementById('log_password');
             if(mobile.value.trim() == ""){
                 mobile.style.border = '1px solid red';
                 return false;

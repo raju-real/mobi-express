@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Model\Cart;
+use App\Model\OrderPrice;
 use App\Model\Division;
 use App\Model\Favorite;
 use App\Model\Product;
@@ -18,6 +19,32 @@ Use Alert;
 
 class HomePageController extends Controller
 {
+    public function searchProduct(){
+        $output="";
+        $category_id = request()->get('category_id');
+        $product_name = request()->get('product_name');
+        if(isset($category_id)){
+            $products = Product::where('category_id',$category_id)
+            ->where('name','LIKE',"$product_name%")
+            ->get();
+        } else{
+            $products = Product::where('name','LIKE',"$product_name%")
+            ->get();
+        }
+        
+        $output = '';    
+        foreach($products as $product){
+            $name = "'".$product->name."'";
+            $url =  route('product-details',$product->slug);
+            $output.='<a'.' href='.'"'.$url .'"'
+            .'>'
+            .$product->name
+            .'</a>';
+        }
+        return response()->json(['data'=>$output]);
+        //return Response($output);
+    }
+
     public  function getProducts($take=null,$paginate=null){
         $promotion = Promotion::where('status',1)->get();
         $data = Product::query();
@@ -107,10 +134,21 @@ class HomePageController extends Controller
         $cart->product_id = $product_id;
         $cart->unit_price = $product->unit_price;
         $order_price = $product->discount_price != null ? $product->discount_price : $product->unit_price;
-        $quantity         = 1;
+        $quantity = '';
+        if(!empty(request()->get('quantity'))){
+            $quantity = request()->get('quantity');
+        } else{
+            $quantity = 1;
+        }
         $cart->quantity   = $quantity;
         $cart->order_price = $order_price;
         $cart->total_price = $order_price * $quantity;
+        if(!empty(request()->get('color_id'))){
+            $cart->color_id = request()->get('color_id');
+        }
+        if(!empty(request()->get('size_id'))){
+            $cart->size_id = request()->get('size_id');
+        }
         $cart->save();
         return response()->json([
             'message'=>'Product Successfully Added To Cart',
@@ -155,7 +193,6 @@ class HomePageController extends Controller
         }
     }
 
-
     public function removeCartProduct(){
         $cart_id = request()->get('cart_id');
         $cart = Cart::find($cart_id);
@@ -184,20 +221,93 @@ class HomePageController extends Controller
         }
     }
 
-    public function checkout(){
-        if (Auth::check()) {
-            if(!empty(Session::get('url'))){
-                Session::forget('url');
+    public function wishlists(){
+        if(Auth::check()){
+            return view('pages.wishlists',compact('wishlists'));
+        } else {
+            if(!empty(Session::get('current_url'))){
+                Session::forget('current_url');
             }
-            $carts = Cart::with('product')->where('session_id', Session::get('session_id'))->get();
+            session()->put('current_url', URL::current());
+            return redirect()->route('login');
+        }
+        
+    }
+
+    public function removeFavoriteProduct(){
+        $list_id = request()->get('list_id');
+        $list = Favorite::find($list_id);
+        if(isset($list)){
+            $list->delete();
+            return response()->json(['message' => 'Product Removed From Wishlist', 'type' => 'danger']);
+        } else{
+            return response()->json(['message' => 'Invalid Product', 'type' => 'danger']);
+        }
+    }
+
+    public function applyCoupon($coupon_code){
+        $session_id = Session::get('session_id');
+        $identify = [
+            'session_id'=>$session_id,
+            'user_id'=>Auth::id()
+        ];
+        $order_price = OrderPrice::where($identify)->first();
+        //$coupon = Coupon::where('coupon_code',$coupon_code)->first();
+        return 150;
+        return $coupon_code;
+        
+    }
+
+    public function checkout(Request $request){
+        if (Auth::check()) {
+            if(!empty(Session::get('current_url'))){
+                Session::forget('current_url');
+            }
+            $session_id = Session::get('session_id');
+            // put user id on cart
+            Cart::where('session_id',$session_id)
+                ->update(['user_id'=>Auth::id()]);
+
+            $carts = Cart::with(['product'=>function($query){
+                $query->select('id','name');
+            }])->where('session_id',$session_id)->get();
+
             if(sizeof($carts)>0){
-                return view('pages.checkout', compact('carts'));
+                // Set Order Price
+                $identify = [
+                    'session_id'=>$session_id,
+                    'user_id'=>Auth::id()
+                ];
+                $totalPrice = $carts->sum('total_price');
+                // $totalPrice = 0;
+                // foreach($carts as $cart){
+                //     $totalPrice += $cart->total_price;
+                // }
+
+                $coupon_code = $request->coupon_code;
+                if(isset($coupon_code)){
+                    $orderPrice = $this->applyCoupon($coupon_code);
+                } else{
+                    $orderPrice = $totalPrice;
+                }
+
+                $data = [
+                    'session_id' => $session_id,
+                    'user_id' => Auth::id(),
+                    'total_price' => $totalPrice,
+                    'order_price'=> $orderPrice
+                ];
+
+                OrderPrice::updateOrInsert($identify,$data);
+                $order_price = OrderPrice::where($identify)->first();
+                return view('pages.checkout', compact('carts','order_price'));
             } else{
-                return redirect()->route('carts')->with(['message' => 'Your Cart Is Empty', 'type'=> 'danger']);
+                Alert::error('Your Cart Is Empty');
+                return redirect()->route('carts');
             }
             
         } else {
-            session()->put('url', URL::current());
+            session()->put('current_url', URL::current());
             return redirect()->route('login');
         }
     }

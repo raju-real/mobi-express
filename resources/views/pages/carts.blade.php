@@ -33,54 +33,59 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="table_desc">
+                            @if(sizeof($carts) > 0)
                             <div class="cart_page table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th class="product_thumb">Image</th>
-                    <th class="product_name">Product</th>
-                    <th class="product-price">Price</th>
-                    <th class="product_quantity">Quantity</th>
-                    <th class="product_total">Total</th>
-                    <th class="product_remove">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($carts as $cart)
-                @php
-                    $image = DB::table('product_images')->where('product_id',$cart->product->id)->whereNotNull('image')->first()->image;
-                @endphp
-                <tr>
-                    <td class="product_thumb">
-                        <a href="{{ route('product-details',$cart->product->slug) }}"><img src="{{ $image }}" alt=""></a>
-                    </td>
-                    <td class="product_name"><a href="{{ route('product-details',$cart->product->slug) }}">
-                        {{ $cart->product->name }}
-                    </a></td>
-                    <td class="product-price">{{ $cart->order_price }}</td>
-                    <td class="product_quantity">
-                        <button onclick="decrement({{ $cart->id }})" 
-                            type="button" 
-                            class="btn btn-danger btn-sm">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                        <button class="btn btn-info btn-sm">
-                            {{ $cart->quantity }}
-                        </button>
-                        <button onclick="increment({{ $cart->id }})" 
-                            type="button" class="btn btn-primary btn-sm">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </td>
-                    <td class="product_total">{{ $cart->total_price }}</td>
-                    <td class="product_remove"><a href="javascript:void(0)" onclick="removeCartItem({{ $cart->id }})"><i class="fa fa-trash-o"></i></a></td>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="product_thumb">Image</th>
+                                            <th class="product_name">Product</th>
+                                            <th class="product-price">Price</th>
+                                            <th class="product_quantity">Quantity</th>
+                                            <th class="product_total">Total</th>
+                                            <th class="product_remove">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($carts as $cart)
+                                        @php
+                                            $image = DB::table('product_images')->where('product_id',$cart->product->id)->whereNotNull('image')->first()->image;
+                                        @endphp
+                                        <tr>
+                                            <td class="product_thumb">
+                                                <a href="{{ route('product-details',$cart->product->slug) }}"><img src="{{ $image }}" alt=""></a>
+                                            </td>
+                                            <td class="product_name"><a href="{{ route('product-details',$cart->product->slug) }}">
+                                                {{ $cart->product->name }}
+                                            </a></td>
+                                            <td class="product-price">{{ $cart->order_price }}</td>
+                                            <td class="product_quantity">
+                                                <button onclick="decrement({{ $cart->id }})" 
+                                                    type="button" 
+                                                    class="btn btn-danger btn-sm">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                                <button class="btn btn-info btn-sm">
+                                                    {{ $cart->quantity }}
+                                                </button>
+                                                <button onclick="increment({{ $cart->id }})" 
+                                                    type="button" class="btn btn-primary btn-sm">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </td>
+                                            <td class="product_total">{{ $cart->total_price }}</td>
+                                            <td class="product_remove"><a href="javascript:void(0)" onclick="removeCartItem({{ $cart->id }})"><i class="fa fa-trash-o"></i></a></td>
 
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
-                            
+                            @else 
+                                <div class="alert alert-danger text-center" role="alert">
+                                    <strong>Your Cart Is Empty :)</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -104,13 +109,7 @@
                                     <div class="cart_subtotal">
                                         <p>Subtotal</p>
                                         <p class="cart_amount">
-                                            @php
-                                                $subTotal = 0;
-                                                foreach($carts as $cart){
-                                                    $subTotal += $cart->total_price;
-                                                }
-                                            @endphp
-                                            {{ $subTotal }} BDT
+                                            {{ $carts->sum('total_price') }} BDT
                                         </p>
                                     </div>
                                     <div class="checkout_btn">
@@ -171,30 +170,30 @@ function getId(){
   }
 
   function removeCartItem(cart_id){
-            Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                method : 'GET',
-                url : "{{ route('remove-cart-product') }}",
-                data : {cart_id: cart_id},
-                success : function(response){
-                    if(response.type == 'danger') {
-                        $(".mini_cart_wrapper").load(location.href + " .mini_cart_wrapper");
-                        $(".shopping_cart_area").load(location.href + " .shopping_cart_area");
-                    }
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+            method : 'GET',
+            url : "{{ route('remove-cart-product') }}",
+            data : {cart_id: cart_id},
+            success : function(response){
+                if(response.type == 'danger') {
+                    $(".shopping_cart_area").load(location.href + " .shopping_cart_area");
+                    $(".header_configure_area").load(location.href + " .header_configure_area");
                 }
-                });
             }
-            })
-
+            });
         }
+        })
+
+    }
 </script>
 @endpush

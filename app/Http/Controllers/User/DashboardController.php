@@ -11,11 +11,11 @@ class DashboardController extends Controller
 {
     public function index(){
         $user = Auth::user();
-        return view('user.dashboard',compact('user'));
+        return view('user.profile.dashboard',compact('user'));
     }
 
     public function order(){
         $orders = Order::with('products')->where('user_id',Auth::id())->get();
-        return view('user.order_history',compact('orders'));
+        return view('user.profile.order_history',compact('orders'));
     }
 }

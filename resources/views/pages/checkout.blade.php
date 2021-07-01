@@ -1,156 +1,196 @@
-@extends('layouts.app')
+@extends('user.layouts.app')
 @section('title','Checkout')
 @push('css')
-
+<style type="text/css">
+    .red{
+        color: red;
+    }
+</style>
 @endpush
 
 @section('content')
- <!-- ======= About Us Section ======= -->
-    <section id="about" class="about">
-      <div class="container">
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area">
+    <div class="container">
         <div class="row">
-        <div class="col-12">
-            @if(Session::has('message'))
-                <p class="alert alert-{{ Session::get('type') }}">{{ Session::get('message') }}</p>
-            @endif
-             @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                    <p class="alert alert-danger">{{ $error }}</p>
-                @endforeach
-            @endif
-        </div>
-        <div class="col-md-4">
-            <form action="{{ route('user.place_order') }}" method="POST">
-                @csrf
-            <h3>Shipping Address</h3><hr>
-                <div class="form-group">
-                    <label for="division">Division</label>
-                    <select name="division_id" id="division" class="form-control" onchange="getDistrict()">
-                        <option value="">Select Division</option>
-                        @foreach($divisions as $division)
-                            <option value="{{ $division->id }}">{{ $division->english_name }}</option>
-                        @endforeach
-                    </select>
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="{{ route('home') }}">home</a></li>
+                        <li>Checkout</li>
+                    </ul>
                 </div>
-                <div class="form-group">
-                    <label for="district">District</label>
-                    <select name="district_id" id="district" class="form-control" onchange="getUpazila()">
-                        <option value="">Select District</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="upazila">Upazila</label>
-                    <select name="upazila_id" id="upazila" class="form-control">
-                        <option value="">Select Upazila</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="postal_code">Postal Code</label>
-                    <input type="text" name="postal_code" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="address">Address</label>
-                    <textarea type="text" name="address" class="form-control"></textarea>
-                </div>
-        </div>
-        <div class="col-md-4">
-            <h3>Additional Information</h3><hr>
-            <div class="payment">
-                <p>Select Payment</p>
-                <div class="form-group">
-                    <input type="radio" name="payment" id="cash" value="Cash On Delivery" checked onclick="hidePayment()">
-                    <label for="cash">Cash On Delivery</label>
-                    <br>
-                    <input type="radio" name="payment" id="pay_now" value="Pay Now" onclick="showPayment()">
-                    <label for="pay_now">Pay Now</label>
-                </div>
-                <div class="form-group" id="payment_box" style="display: none;">
-                    <lable>Select Payment Method</lable><hr>
-                    <input type="checkbox" id="online_payment" name="payment_status" value="online_payment">
-                    <label for="online_payment">Online Payment</label>
-                    <br>
-                    <input type="checkbox" id="bkash_payment" name="payment_status" value="bkash_payment">
-                    <label for="bkash_payment">Bkash Payment</label>
-                </div>
-
             </div>
         </div>
-        <div class="col-md-4">
-            <h3>Product Information</h3>
-            <table class="table table-bordered" style="font-size: 13px;">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($carts as $cart)
-                    <tr>
-                        <td>{{ $cart->product->product_name }}</td>
-                        <td>
-                            {{ $cart->quantity }}{{ 'X' }}{{ $cart->unit_price }}{{ ' =' }}
-                            {{ $cart->total_price }}
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-                <table class="table table-bordered table-striped">
-                    @php
-                        $subTotal = 0;
-                        $deliveryCharge = 100;
-                        foreach($carts as $cart){
-                            $subTotal += $cart->total_price;
-                        }
-                    @endphp
-                    <thead>
-                        <tr>
-                            <th>Sub Total</th>
-                            <th>:</th>
-                            <th>{{ $subTotal }}</th>
-                        </tr>
-                        <tr>
-                            <th>Delivery Charge</th>
-                            <th>:</th>
-                            <th>100</th>
-                        </tr>
-                        <tr>
-                            <th>Vat</th>
-                            <th>:</th>
-                            <th>0</th>
-                        </tr>
-                        <tr>
-                            <th>Online Payment Charge</th>
-                            <th>:</th>
-                            <th>0</th>
-                        </tr>
-                        <tr>
-                            <th>Grand Total</th>
-                            <th>:</th>
-                            <th>{{ $subTotal + $deliveryCharge }}</th>
-                        </tr>
-                    </thead>
-                </table>
-            </table>
-            <div class="form-group">
-                <button type="submit" class="btn btn-success btn-block btn-lg">Place Order</button>
-            </div>
-        </form>
-        </div>
-
     </div>
-      </div>
-    </section><!-- End About Us Section -->
+</div>
+<!--breadcrumbs area end-->
+
+<!--Checkout page section-->
+<div class="checkout_page_bg" style="padding-top: 0px;">
+    <div class="container">
+        <div class="Checkout_section">
+            <div class="row">
+                <div class="col-12">
+                    <div class="user-actions">
+                        <h3> 
+                            <i class="fa fa-gift" aria-hidden="true"></i>
+                             Do you have any coupon ?
+                            <a class="Returning" href="#checkout_coupon" data-bs-toggle="collapse"  aria-expanded="true">Click here to enter your code</a>     
+
+                        </h3>
+                         <div id="checkout_coupon" class="collapse" data-parent="#accordion">
+                            <div class="checkout_info coupon_info">
+                                <form action="{{ route('checkout') }}" method="POST">
+                                    @csrf
+                                    <input placeholder="Coupon code" type="text" name="coupon_code">
+                                    <button type="submit">Apply coupon</button>
+                                </form>
+                            </div>
+                        </div>    
+                    </div>    
+               </div>
+            </div>
+            <div class="checkout_form">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="checkout_form_left">
+                            <form action="#">
+                                <h3>Billing Details</h3>
+                                <div class="row">
+
+                                    <div class="col-lg-12 mb-20">
+                                        <label>Full Name <span class="red">*</span></label>
+                                        <input name="name" id="name" type="text">
+                                    </div>
+                                   
+                                    <div class="col-12 mb-20">
+                                        <label>Mobile<span class="red">*</span></label>
+                                        <input name="mobile" id="mobile" type="number">
+                                    </div>
+                                    <div class="col-12 mb-20">
+                                        <label>Email</label>
+                                        <input name="email" id="email" type="text">
+                                    </div>
+                                    <div class="col-12 mb-20">
+                                        <label>District<span class="red">*</span></label>
+                                        <input name="district" id="district" type="text">
+                                    </div>
+
+                                    <div class="col-12 mb-20">
+                                        <label>City/ Town<span class="red">*</span></label>
+                                        <input name="city_town" id="city_town" type="text">
+                                    </div>
+                                   
+                                    <div class="col-12">
+                                        <label>
+                                            Address
+                                            <span class="red">*</span>
+                                        </label>
+                                        <textarea name="address" id="address" class="form-control"></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <label>Order Note</label>
+                                        <textarea name="note" id="note" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6 col-md-6">
+                        <div class="checkout_form_right">
+                            <form action="#">
+                                <h3>Your order</h3>
+                                <div class="order_table table-responsive" >
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="text-align: left;">
+                                            @foreach($carts as $cart)
+                                            <tr>
+                                                <td style="text-align: left;">
+                                                    {{ $cart->product->name }}
+                                                    <strong> × 
+                                                        {{ $cart->quantity }}
+                                                    </strong>
+                                                </td>
+                                                <td>
+                                                    {{ $cart->total_price }} 
+                                                    <i class="fb-taka"></i>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th style="text-align: left;">Cart Subtotal</th>
+                                                <td>
+                                                    <strong>
+                                                    {{ $order_price->total_price }}
+                                                    <i class="fb-taka"></i>
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="text-align: left;">  
+                                                    Shipping
+                                                </th>
+                                                <td>
+                                                    <strong>
+                                                        {{ $order_price->delivery_charge }}
+                                                        <i class="fb-taka"></i>
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                            <tr class="order_total">
+                                                <th style="text-align: left;">Order Total</th>
+                                                <td><strong>
+                                                    {{ $order_price->order_price }}
+                                                    <i class="fb-taka"></i>
+                                                </strong></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <div class="payment_method">
+                                    <div class="panel-default">
+                                        <input  name="payment_method" type="radio" value="1" />
+                                        <label for="payment_method">Cash on delivery</label>
+                                        <br>
+                                        <input  name="payment_method" type="radio" value="2"  />
+                                        <label for="payment_method">
+                                            Evaly Voucher
+                                        </label>
+                                        
+                                    </div>
+                                   
+                                    <div class="order_button">
+                                        <button type="submit">
+                                            Submit Order
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Checkout page section end-->
 @endsection
 
 @push('js')
 <script>
-    function showPayment(){
-        $('#payment_box').show();
-    }
-    function hidePayment(){
-        $('#payment_box').hide();
-    }
+
     function getDistrict() {
         $('#district').find('option').remove().end().append('<option value="">Select District</option>');
         var id = document.getElementById('division').value;
