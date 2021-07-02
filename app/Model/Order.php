@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     public function products(){
-        return $this->hasMany(Orderproduct::class);
+        return $this->hasMany(OrderProduct::class);
     }
 
     public function user(){
@@ -35,7 +35,7 @@ class Order extends Model
 
     public static function getInvoiceNumber()
     {
-        $orderInvoice = "DM-" . mt_rand(10000000, 99999999);
+        $orderInvoice = "ME-" . mt_rand(10000000, 99999999);
         if (Order::where('invoice', $orderInvoice)->exists()) {
             Order::getInvoiceNumber();
         }

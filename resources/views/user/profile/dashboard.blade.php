@@ -13,7 +13,7 @@
             <div class="col-12">
                 <div class="breadcrumb_content">
                     <ul>
-                        <li><a href="index.html">home</a></li>
+                        <li><a href="{{ route('home') }}">home</a></li>
                         <li>My account</li>
                     </ul>
                 </div>
@@ -32,14 +32,7 @@
                     <div class="col-sm-12 col-md-3 col-lg-3">
                         <!-- Nav tabs -->
                         <div class="dashboard_tab_button">
-                            <ul role="tablist" class="nav flex-column dashboard-list" id="nav-tab">
-                                <li><a href="#dashboard" data-toggle="tab" class="nav-link active">Dashboard</a></li>
-                                <li> <a href="#orders" data-toggle="tab" class="nav-link">Orders</a></li>
-                                <li><a href="#downloads" data-toggle="tab" class="nav-link">Downloads</a></li>
-                                <li><a href="#address" data-toggle="tab" class="nav-link">Addresses</a></li>
-                                <li><a href="#account-details" data-toggle="tab" class="nav-link">Account details</a></li>
-                                <li><a href="login.html" class="nav-link">logout</a></li>
-                            </ul>
+                            @include('user.profile.user_menus')
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-9 col-lg-9">
@@ -63,20 +56,19 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($orders as $order)
                                             <tr>
-                                                <td>1</td>
-                                                <td>May 10, 2018</td>
+                                                <td>{{ $loop->index + 1 }}</td>
+                                                <td>
+                                                    {{ $order->created_at->format('D,M Y') }}
+                                                </td>
                                                 <td><span class="success">Completed</span></td>
-                                                <td>$25.00 for 1 item </td>
+                                                <td>
+                                                    {{ $order->total_price }} BDT
+                                                </td>
                                                 <td><a href="cart.html" class="view">view</a></td>
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>May 10, 2018</td>
-                                                <td>Processing</td>
-                                                <td>$17.00 for 1 item </td>
-                                                <td><a href="cart.html" class="view">view</a></td>
-                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

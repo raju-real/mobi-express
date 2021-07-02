@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->string('invoice')->unique();
             $table->double('delivery_charge', 8, 2);
             $table->double('vat', 8, 2)->default(0);
+            $table->double('tax', 8, 2)->default(0);
             $table->double('total_price', 8, 2);
             $table->double('product_discount_price', 8, 2)->default(0);
             $table->string('order_status')->default('0');
@@ -34,11 +35,13 @@ class CreateOrdersTable extends Migration
             $table->double('order_price',8,2);
             $table->double('paid_amount', 8, 2)->default(0);
             $table->double('due_amount', 8, 2)->default(0);
-            $table->integer('division')->nullable();
-            $table->integer('district')->nullable();
-            $table->integer('upazila')->nullable();
-            $table->string('postal_code');
+            $table->integer('name');
+            $table->integer('mobile');
+            $table->string('email')->nullable();
+            $table->string('district')->nullable();
+            $table->string('city_town')->nullable();
             $table->text('address');
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

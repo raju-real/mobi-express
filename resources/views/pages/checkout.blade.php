@@ -55,7 +55,8 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="checkout_form_left">
-                            <form action="#">
+                            <form action="{{ route('submit-order') }}" method="POST" id="order-form">
+                                @csrf
                                 <h3>Billing Details</h3>
                                 <div class="row">
 
@@ -94,14 +95,12 @@
                                         <textarea name="note" id="note" class="form-control"></textarea>
                                     </div>
                                 </div>
-                            </form>
                         </div>
                     </div>
 
 
                     <div class="col-lg-6 col-md-6">
                         <div class="checkout_form_right">
-                            <form action="#">
                                 <h3>Your order</h3>
                                 <div class="order_table table-responsive" >
                                     <table>
@@ -129,7 +128,7 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th style="text-align: left;">Cart Subtotal</th>
+                                                <th style="text-align: left;"> Subtotal</th>
                                                 <td>
                                                     <strong>
                                                     {{ $order_price->total_price }}
@@ -137,9 +136,21 @@
                                                     </strong>
                                                 </td>
                                             </tr>
+                                            {{-- @if($order_price->product_discount_price > 0)
+                                            <tr>
+                                                <th style="text-align: left;"> Discount</th>
+                                                <td>
+                                                    <strong>
+                                                        <i class="fa fa-minus"></i>
+                                                    {{ $order_price->product_discount_price }}
+                                                    <i class="fb-taka"></i>
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                            @endif --}}
                                             <tr>
                                                 <th style="text-align: left;">  
-                                                    Shipping
+                                                    Delivery Charge
                                                 </th>
                                                 <td>
                                                     <strong>
@@ -149,7 +160,7 @@
                                                 </td>
                                             </tr>
                                             <tr class="order_total">
-                                                <th style="text-align: left;">Order Total</th>
+                                                <th style="text-align: left;">Total Price</th>
                                                 <td><strong>
                                                     {{ $order_price->order_price }}
                                                     <i class="fb-taka"></i>
@@ -167,16 +178,14 @@
                                         <label for="payment_method">
                                             Evaly Voucher
                                         </label>
-                                        
                                     </div>
-                                   
+                            </form>
                                     <div class="order_button">
-                                        <button type="submit">
+                                        <button type="button" onclick="document.getElementById('order-form').submit()">
                                             Submit Order
                                         </button>
                                     </div>
                                 </div>
-                            </form>
                         </div>
                     </div>
                 </div>

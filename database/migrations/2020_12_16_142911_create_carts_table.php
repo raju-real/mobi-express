@@ -22,6 +22,7 @@ class CreateCartsTable extends Migration
             $table->double('order_price',8,2);
             $table->integer('quantity');
             $table->double('total_price', 8, 2);
+            $table->double('total_discount_price', 8, 2)->default(0);
             $table->integer('color_id',10)->nullable();
             $table->integer('size_id',10)->nullable();
             $table->timestamps();

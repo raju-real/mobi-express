@@ -7,10 +7,7 @@ include 'admin.php'; // Admin Routes
 include 'user.php'; // User Routes
 
 //Auth::routes();
-Route::get('logout',function(){
-    Auth::logout();
-    return redirect()->route('home');
-});
+
 
 // Basic Activity Routes
 Route::get('/','HomePageController@index')->name('home');
@@ -34,6 +31,8 @@ Route::get('carts','HomePageController@shoppingCart')->name('carts');
 Route::get('increment-cart-product/{id}','HomePageController@incrementCartProduct')->name('increment-cart-product'); 
 Route::get('decrement-cart-product/{id}','HomePageController@decrementCartProduct')->name('decrement-cart-product');
 Route::any('checkout','HomePageController@checkout')->name('checkout');  
+Route::any('submit-order','HomePageController@submitOrder')
+    ->name('submit-order');  
 
 include 'operation.php';
 

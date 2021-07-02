@@ -15,6 +15,8 @@ use App\Model\Category;
 use App\Model\SubCategory;
 use App\Model\Promotion;
 use App\Model\PromotionProduct;
+use App\Model\Order;
+use App\Model\OrderProduct;
 Use Alert;
 
 class HomePageController extends Controller
@@ -143,6 +145,10 @@ class HomePageController extends Controller
         $cart->quantity   = $quantity;
         $cart->order_price = $order_price;
         $cart->total_price = $order_price * $quantity;
+        if($product->discount_price > 0){
+            $discount = $product->unit_price - $product->discount_price;
+            $cart->total_discount_price = $discount * $quantity;
+        }
         if(!empty(request()->get('color_id'))){
             $cart->color_id = request()->get('color_id');
         }
@@ -168,6 +174,9 @@ class HomePageController extends Controller
             $totalPrice = $cart->order_price * $quantity;
             $cart->quantity = $quantity;
             $cart->total_price = $totalPrice;
+            if($cart->total_discount_price > 0){
+                $cart->total_discount_price = ($cart->unit_price - $cart->order_price) * $quantity;
+            }
             $cart->save();
             return response()->json(['message' => 'Product Quantity Updated', 'type' => 'success']);
         } else {
@@ -186,6 +195,9 @@ class HomePageController extends Controller
             $totalPrice = $cart->order_price * $quantity;
             $cart->quantity = $quantity;
             $cart->total_price = $totalPrice;
+            if($cart->total_discount_price > 0){
+                $cart->total_discount_price = ($cart->unit_price - $cart->order_price) * $quantity;
+            }
             $cart->save();
             return response()->json(['message' => 'Product Quantity Updated', 'type' => 'warning']);
         } else {
@@ -279,10 +291,7 @@ class HomePageController extends Controller
                     'user_id'=>Auth::id()
                 ];
                 $totalPrice = $carts->sum('total_price');
-                // $totalPrice = 0;
-                // foreach($carts as $cart){
-                //     $totalPrice += $cart->total_price;
-                // }
+                $productDiscountPrice = $carts->sum('total_discount_price');
 
                 $coupon_code = $request->coupon_code;
                 if(isset($coupon_code)){
@@ -295,7 +304,8 @@ class HomePageController extends Controller
                     'session_id' => $session_id,
                     'user_id' => Auth::id(),
                     'total_price' => $totalPrice,
-                    'order_price'=> $orderPrice
+                    'order_price'=> $orderPrice,
+                    'product_discount_price' => $productDiscountPrice
                 ];
 
                 OrderPrice::updateOrInsert($identify,$data);
@@ -308,6 +318,73 @@ class HomePageController extends Controller
             
         } else {
             session()->put('current_url', URL::current());
+            return redirect()->route('login');
+        }
+    }
+
+    public function submitOrder(Request $request){
+        if(Auth::check()){
+            //return $request;
+            $session_id = Session::get('session_id');
+            $identify = [
+                    'session_id'=>$session_id,
+                    'user_id'=>Auth::id()
+                ];
+            
+            // Find order price
+            $order_price = OrderPrice::where($identify)->first();
+
+            // Save order info to order table
+            $order_info = new Order();
+            // Order Info
+            $order_info->user_id = Auth::id();
+            $order_info->order_number = Order::getOrderNumber();
+            $order_info->invoice  = Order::getInvoiceNumber();
+            $order_info->delivery_charge = $order_price->delivery_charge;
+            $order_info->vat = $order_price->vat;
+            $order_info->tax = $order_price->tax;
+            $order_info->total_price = $order_price->total_price;
+            $order_info->product_discount_price = $order_price->product_discount_price;
+            $order_info->order_price = $order_price->order_price;
+            $order_info->due_amount = $order_price->order_price;
+            if($order_price->coupon_code != null){
+                $order_info->has_coupon = 'yes';
+                $order_info->coupon_code = $order_price->coupon_code;
+                $order_info->coupon_discount_amount = $order_price->coupon_discount;
+                $order_info->total_discount_amount = $order_price->product_discount_price + $order_price->coupon_discount;
+            } else{
+                $order_info->total_discount_amount = $order_price->product_discount_price;
+            }
+
+            // Basic Info
+            $order_info->name = $request->name;
+            $order_info->mobile = $request->mobile;
+            $order_info->email = $request->email;
+            $order_info->district = $request->district;
+            $order_info->city_town = $request->city_town;
+            $order_info->address = $request->address;
+            $order_info->note = $request->note;
+            $order_info->save();
+
+            // Find Cart & Save Order Product
+            $carts = Cart::where($identify)->get();
+            foreach($carts as $cart){
+                $order_product = new OrderProduct();
+                $order_product->order_id = $order_info->id;
+                $order_product->product_id = $cart->product_id;
+                $order_product->order_price = $cart->order_price;
+                $order_product->quantity = $cart->quantity;
+                $order_product->total_price = $cart->total_price;
+                $order_product->save();
+                // Delete Cart
+                $cart->delete();
+            }
+
+            Alert::success('Your Order Placed Successfully');
+            return redirect(route('user.dashboard'));
+
+        } else {
+            Session::put('current_url',route('checkout'));
             return redirect()->route('login');
         }
     }

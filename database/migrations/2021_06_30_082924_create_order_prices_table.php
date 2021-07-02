@@ -18,10 +18,13 @@ class CreateOrderPricesTable extends Migration
             $table->string('session_id');
             $table->integer('user_id');
             $table->double('total_price',8,2);
-            $table->double('discount_price',8,2)->default(0);
+            $table->double('product_discount_price',8,2)->default(0);
             $table->double('delivery_charge',8,2)->default(0);
+            $table->double('vat',8,2)->default(0);
+            $table->double('tax',8,2)->default(0);
             $table->double('order_price',8,2)->default(0);
             $table->string('coupon_code')->nullable();
+            $table->double('coupon_discount',8,2)->default(0);
             $table->timestamps();
         });
     }
