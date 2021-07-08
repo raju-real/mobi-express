@@ -18,21 +18,37 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('product', 'ProductController');
     Route::delete('remove-image/{id}','ProductController@removeImage');
     Route::resource('promotion','PromotionController');
-    Route::get('promotion/products/{id}','PromotionController@promotionProducts')->name('promotion-products');
+    Route::get('promotion/products/{id}','PromotionController@promotionProducts')
+        ->name('promotion-products');
     Route::get('promotion/product/create/{promotion_id}','PromotionController@createPromotionProduct')
         ->name('promotion-product.create');
-    Route::post('promotion-product','PromotionController@storePromotionProduct') ->name('promotion-product.store'); 
+    Route::post('promotion-product','PromotionController@storePromotionProduct')
+        ->name('promotion-product.store'); 
+    // order section
+    Route::get('orders/pending','OrderController@pendingOrders')
+        ->name('pending-orders');
+    Route::get('orders/received','OrderController@receivedOrders')
+        ->name('received-orders');
+    Route::get('orders/processing','OrderController@processingOrders')
+        ->name('processing-orders');
+    Route::get('orders/delivered','OrderController@deliveredOrders')
+        ->name('delivered-orders');
+    Route::get('orders/cancled','OrderController@cancledOrders')
+        ->name('cancled-orders');                 
+    Route::get('order','OrderController@orderDetails')
+        ->name('order.show');       
 });
 
+
+// login section
 Route::post('admin-login',function(Request $request){
+    if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+        return redirect()->intended(route('admin.dashboard'));
 
-        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-            return redirect()->intended(route('admin.dashboard'));
-
-        } else {
-            
-            return redirect()->back()->withInput($request->only('email', 'remember'))->with('message','Email & Password Mismatch');
-        }
+    } else {
+        
+        return redirect()->back()->withInput($request->only('email', 'remember'))->with('message','Email & Password Mismatch');
+    }
 })->name('admin-login');
 
 Route::get('admin-logout',function(){

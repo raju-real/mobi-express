@@ -2,13 +2,25 @@
 
 namespace App\Model;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Model\ProductImage;
 use App\Model\Promotion;
 use App\Model\PromotionProduct;
+use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
     protected $guarded = [];
+
+    // Append Extra Filed To Return
+    protected $appends = array('image');
+
+    public function getImageAttribute()
+    {
+        $image = ProductImage::where('product_id',$this->id)
+        ->whereNotNull('image')->first()->image;
+        return $image;
+        //return $this->SetAttributes['image'] == $image;
+    }
 
     public static function getProducts(){
         $promotion = Promotion::where('status',1)->get();

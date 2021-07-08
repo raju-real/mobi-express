@@ -10,7 +10,7 @@
                 <i class="fa fa-angle-right"></i>
             </a>
             @if(sizeof($category->subcategories) > 0)
-            <ul class="categories_mega_menu">
+            <ul class="categories_mega_menu" style="width: max-content;">
                     <ul class="categorie_sub_menu">
                         @foreach($category->subcategories as $subcategory)
                         <li>

@@ -162,8 +162,10 @@ function getId(){
     success : function(response){
         if(response.type == 'warning'){
         $(".shopping_cart_area").load(location.href + " .shopping_cart_area");
+        $(".header_configure_area").load(location.href + " .header_configure_area");
         } else if(response.type == 'danger') {
         $(".shopping_cart_area").load(location.href + " .shopping_cart_area");
+        $(".header_configure_area").load(location.href + " .header_configure_area");
         }
     }
     });

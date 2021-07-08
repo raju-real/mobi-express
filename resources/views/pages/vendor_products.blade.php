@@ -69,19 +69,27 @@
                 <div class="row no-gutters shop_wrapper">
                 	@foreach($products as $product)
                     <div class="col-lg-3 col-md-4 col-12 ">
-                    	@php
+                    	{{-- @php
                             $image = DB::table('product_images')
                                 ->where('product_id',$product['id'])
                                 ->whereNotNull('image')
                                 ->latest()
                                 ->first()->image;
-                        @endphp
+                        @endphp --}}
                         <article class="single_product">
                             <figure>
                                 <div class="product_thumb">
                                     <a class="primary_img" href="{{ route('product-details',$product->slug) }}">
-                                        @if(isset($image) && file_exists($image) AND !empty($image))
-                                        <img src="{{ asset($image) }}" alt="">
+                                        @if(isset($product->image) && file_exists($product->image) AND !empty($product->image))
+                                        <img src="{{ asset($product->image) }}" alt="">
+                                        @else
+                                        <img src="{{ asset('assets/common/images/product.png') }}" alt="">
+                                        @endif
+                                    </a>
+
+                                    <a class="secondary_img" href="{{ route('product-details',$product->slug) }}">
+                                        @if(isset($product->image) && file_exists($product->image) AND !empty($product->image))
+                                        <img src="{{ asset($product->image) }}" alt="">
                                         @else
                                         <img src="{{ asset('assets/common/images/product.png') }}" alt="">
                                         @endif

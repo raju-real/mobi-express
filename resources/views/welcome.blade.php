@@ -105,12 +105,20 @@
                         <div class="product_carousel product_style product_column5 owl-carousel">
                             @include('pages.featured_products')
                         </div>
+
+                        {{-- New Arrivals --}}
+                            @include('pages.new_arrivals')
+                        {{-- New Arrivals End --}}
                     </div>
                 </div>
                 <!--product area end-->
 
+                {{-- New Arrivals Product --}}
+
+
+
                 <!--banner area start-->
-                <div class="banner_area mb-55">
+                {{-- <div class="banner_area mb-55">
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
                             <figure class="single_banner">
@@ -127,11 +135,11 @@
                             </figure>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!--banner area end-->
 
                 <!--product area start-->
-                <div class="small_product_area mb-55">
+                {{-- <div class="small_product_area mb-55">
                     <div class="row">
                         <div class="col-12">
                             <div class="product_header row">
@@ -1051,11 +1059,11 @@
                         </div>
 
                     </div>
-                </div>
+                </div> --}}
                 <!--product area end-->
 
                 <!--banner area start-->
-                <div class="banner_area banner_style2 mb-55">
+                {{-- <div class="banner_area banner_style2 mb-55">
                     <div class="row">
                         <div class="col-lg-3 col-md-3">
                             <figure class="single_banner">
@@ -1079,7 +1087,7 @@
                             </figure>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!--banner area end-->
 
             </div>
@@ -1088,7 +1096,7 @@
     </div>
 
     <!--product area start-->
-    <div class="small_product_area small_product_style2">
+    {{-- <div class="small_product_area small_product_style2">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
@@ -1838,7 +1846,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!--product area end-->
 </div>
 <!--home section bg area end-->

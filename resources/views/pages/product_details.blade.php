@@ -28,15 +28,15 @@
                 <div class="row">
                     <div class="col-lg-5 col-md-6">
                         <div class="product-details-tab">
-                            @php
+                           {{--  @php
                                 $image = DB::table('product_images')
                                 ->where('product_id',$product->id)
                                 ->whereNotNull('image')
                                 ->first();
-                            @endphp
+                            @endphp --}}
                             <div id="img-1" class="zoomWrapper single-zoom">
                                 <a href="#">
-                                    <img id="zoom1" src="{{ asset($image->image) }}" data-zoom-image="{{ asset($image->image) }}" alt="big-1">
+                                    <img id="zoom1" src="{{ asset($product->image) }}" data-zoom-image="{{ asset($product->image) }}" alt="big-1">
                                 </a>
                             </div>
                             <div class="single-zoom-thumb">
@@ -294,15 +294,17 @@
                 @foreach($releatedProducts as $product)
                 <article class="single_product">
                     <figure>
-                        @php
+                        {{-- @php
                             $image = DB::table('product_images')
                                 ->where('product_id',$product['id'])
                                 ->whereNotNull('image')
                                 ->latest()
                                 ->first()->image;
-                        @endphp
+                        @endphp --}}
                         <div class="product_thumb">
-                            <a class="primary_img" href="{{ route('product-details',$product->slug) }}"><img src="{{ asset($image) }}" alt=""></a>
+                            <a class="primary_img" href="{{ route('product-details',$product->slug) }}"><img src="{{ asset($product->image) }}" alt=""></a>
+                            <a class="secondary_img" href="{{ route('product-details',$product->slug) }}"><img src="{{ asset($product->image) }}" alt=""></a>
+
                             {{-- <div class="label_product">
                                 <span class="label_sale">Sale</span>
                             </div> --}}

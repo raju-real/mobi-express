@@ -12,11 +12,12 @@
 		<div class="card-header">
 			<div class="card-title">
 				{{ $product->name }}
-			</div>
-			<div class="card-title" style="float: right;">
 				<a href="{{ route('admin.product.edit',$product->slug) }}">
 					<i class="fa fa-edit"></i>
 				</a>
+			</div>
+			<div class="card-title" style="float: right;">
+				
 			</div>
 		</div>
 		<div class="card-body">

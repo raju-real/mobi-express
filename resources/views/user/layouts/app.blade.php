@@ -229,7 +229,7 @@
                         <div class="column1 col-lg-3 col-md-6">
                             <div class="categories_menu categories_three">
                                 <div class="categories_title">
-                                    <h2 class="categori_toggle">ALL CATEGORIES</h2>
+                                    <h2 class="categori_toggle">SHOP BY CATEGORY</h2>
                                 </div>
                                 @include('user.layouts.category_menu')
                             </div>

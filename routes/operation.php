@@ -1,8 +1,11 @@
 <?php 
+use App\Model\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 Route::get('add_product',function(){
+	//Product::whereBetween('id',[401,600])->update(['category_id'=>3]);
+	return 'ok';
 	//return 'ok';
 	// $products = DB::connection('e-grocery')->table('products')
 	// ->whereNotNull("image")
