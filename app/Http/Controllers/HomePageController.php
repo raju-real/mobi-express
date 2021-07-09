@@ -30,7 +30,7 @@ class HomePageController extends Controller
             ->where('name','LIKE',"$product_name%")
             ->get();
         } else{
-            $products = Product::where('name','LIKE',"$product_name%")
+            $products = Product::where('name','LIKE',"{$product_name}%")
             ->get();
         }
         
@@ -354,6 +354,7 @@ class HomePageController extends Controller
                 $order_info->total_discount_amount = $order_price->product_discount_price + $order_price->coupon_discount;
             } else{
                 $order_info->total_discount_amount = $order_price->product_discount_price;
+                $order_info->coupon_discount_amount = 0;
             }
 
             // Basic Info

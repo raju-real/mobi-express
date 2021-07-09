@@ -12,41 +12,46 @@ class OrderController extends Controller
     public function pendingOrders($limit=15){
         $limit = request()->get('limit');
         $orders = Order::where('order_status',0)->paginate($limit);
-        $route = 'pending-orders';
         $title = 'Pending Orders';
-        return view('admin.orders.orders',compact('orders','route','title'));
+        return view('admin.orders.orders',compact('orders','title'));
     }
 
     public function receivedOrders($limit=15){
         $limit = request()->get('limit');
         $orders = Order::where('order_status',1)->paginate($limit);
-        $route = 'received-orders';
         $title = 'Received Orders';
-        return view('admin.orders.orders',compact('orders','route','title'));
+        return view('admin.orders.orders',compact('orders','title'));
     }
 
     public function processingOrders($limit=15){
         $limit = request()->get('limit');
         $orders = Order::where('order_status',2)->paginate($limit);
-        $route = 'processing-orders';
         $title = 'Processing Orders';
-        return view('admin.orders.orders',compact('orders','route','title'));
+        return view('admin.orders.orders',compact('orders','title'));
     }
 
     public function deliveredOrders($limit=15){
         $limit = request()->get('limit');
         $orders = Order::where('order_status',3)->paginate($limit);
-        $route = 'delivered-orders';
         $title = 'Delivered Orders';
-        return view('admin.orders.orders',compact('orders','route','title'));
+        return view('admin.orders.orders',compact('orders','title'));
     }
 
     public function cancledOrders($limit=15){
         $limit = request()->get('limit');
         $orders = Order::where('order_status',4)->paginate($limit);
-        $route = 'cancled-orders';
         $title = 'Cancled Orders';
-        return view('admin.orders.orders',compact('orders','route','title'));
+        return view('admin.orders.orders',compact('orders','title'));
+    }
+
+    public function searchOrder($limit=15){
+        $query = request()->get('query');
+        $orders = Order::where('invoice','LIKE',"%{$query}%")
+            ->orWhere('mobile','LIKE',"%{$query}%")
+            ->paginate($limit);
+        $title = 'Search Result'; 
+        return view('admin.orders.orders',compact('orders','title'));
+
     }
 
     public function orderDetails(){
@@ -58,6 +63,14 @@ class OrderController extends Controller
             }]);
         }])
             ->where('invoice',$invoice)->first();
-        return $order;
+        //return $order;
+        return view('admin.orders.show',compact('order'));
+    }
+
+    public function changeOrderStatus(){
+        $invoice = request()->get('invoice');
+        $order_status = request()->get('order_status');
+        Order::where('invoice',$invoice)->update(['order_status'=>$order_status]);
+        return redirect()->route('admin.order.show',['invoice'=>$invoice]);
     }
 }

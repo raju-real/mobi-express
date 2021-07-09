@@ -26,10 +26,9 @@
 <div class="shop_area">
     <div class="container">
         <div class="row">
-
         	<!--product part-->
             <div class="col-lg-9 col-md-12">
-
+                @if(sizeof($products) > 0)
                 <!--shop banner area start-->
                 <div class="shop_banner_area mb-30">
                     <div class="row">
@@ -69,13 +68,6 @@
                 <div class="row no-gutters shop_wrapper">
                 	@foreach($products as $product)
                     <div class="col-lg-3 col-md-4 col-12 ">
-                    	{{-- @php
-                            $image = DB::table('product_images')
-                                ->where('product_id',$product['id'])
-                                ->whereNotNull('image')
-                                ->latest()
-                                ->first()->image;
-                        @endphp --}}
                         <article class="single_product">
                             <figure>
                                 <div class="product_thumb">
@@ -166,18 +158,18 @@
 
                 <div class="shop_toolbar t_bottom">
                     <div class="pagination">
-                        <ul>
-                            <li class="current">1</li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li class="next"><a href="#">next</a></li>
-                            <li><a href="#">>></a></li>
-                        </ul>
+                        {{ $products->links() }}
                     </div>
                 </div>
                 <!--shop toolbar end-->
                 <!--shop wrapper end-->
+                @else 
+                    <div class="alert alert-danger text-center" role="alert">
+                        <strong>No Items Found :)</strong>
+                    </div>
+                @endif
             </div>
+            
 
             <!--sidebar part-->
             <div class="col-lg-3 col-md-12">

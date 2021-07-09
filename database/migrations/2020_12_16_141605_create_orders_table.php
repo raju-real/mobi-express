@@ -36,7 +36,7 @@ class CreateOrdersTable extends Migration
             $table->double('paid_amount', 8, 2)->default(0);
             $table->double('due_amount', 8, 2)->default(0);
             $table->integer('name');
-            $table->integer('mobile');
+            $table->string('mobile',14)->nullable();
             $table->string('email')->nullable();
             $table->string('district')->nullable();
             $table->string('city_town')->nullable();

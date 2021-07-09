@@ -38,10 +38,9 @@ include 'operation.php';
 
 Route::get('/product/{category_id}',function($category_id){
     $products = Product::where('category_id',$category_id)->take(20)->get();
-    //return View::make("pages.ajax_products",compact('products'))->render();
     return view('pages.ajax_products',compact('products'));
-    //return $products;
 });
+
 
 
 

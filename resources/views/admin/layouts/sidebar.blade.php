@@ -129,7 +129,7 @@
             </li>
 
             <li>
-                <a href="{{ route('admin.promotion.index') }}"><i class="sidebar-item-icon fa fa-sliders"></i>
+                <a href="{{ route('admin.slider.index') }}"><i class="sidebar-item-icon fa fa-sliders"></i>
                     <span class="nav-label">Slider Image</span>
                 </a>
             </li>

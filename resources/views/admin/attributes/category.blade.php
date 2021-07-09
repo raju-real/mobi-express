@@ -29,7 +29,7 @@
 					          <span aria-hidden="true">&times;</span>
 					        </button>
 					      </div>
-					       <form action="{{ route('admin.category.store') }}" method="POST" role="form" onsubmit="return validate()">
+					       <form action="{{ route('admin.category.store') }}" method="POST" role="form" onsubmit="return validate()" enctype="multipart/form-data">
 						      	@csrf
 						        <div class="modal-body">
 						        	<div class="form-group text-left">
@@ -37,6 +37,12 @@
 						        			Category Name
 						        		</label>
 						        		<input type="text" name="name" class="form-control" id="category" placeholder="Category Name">
+						        	</div>
+						        	<div class="form-group text-left">
+						        		<label for="image">
+						        			Category Image
+						        		</label>
+						        		<input type="file" name="image" class="form-control" id="image">
 						        	</div>
 						      	</div>
 							    <div class="modal-footer">
@@ -55,6 +61,7 @@
                         <tr>
                             <th class="text-center">Sl.no</th>
                             <th class="text-center">Category Name</th>
+                            <th class="text-center">Category Image</th>
                             <th class="text-center">Product Count</th>
                             <th class="text-center">Action</th>
                         </tr>
@@ -64,6 +71,7 @@
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $category->name }}</td>
+                            <td><img src="{{ asset($category->image) }}" class="img-fluid img-thumbnail" alt="Category image" style="height: 100px;width: 100px;"></td>
                             <td>{{ $category->products->count() }}</td>
                             <td>
                             	{{-- Delete Activity --}}
@@ -83,7 +91,7 @@
 								          <span aria-hidden="true">&times;</span>
 								        </button>
 								      </div>
-								       <form action="{{ route('admin.category.update',$category->id) }}" method="POST" role="form">
+								       <form action="{{ route('admin.category.update',$category->id) }}" method="POST" role="form" enctype="multipart/form-data">
 									      	@csrf
 									      	@method('PUT')
 									        <div class="modal-body">
@@ -93,6 +101,12 @@
 									        		</label>
 									        		<input type="text" name="name" class="form-control" value="{{ $category->name }}">
 									        	</div>
+									        	<div class="form-group text-left">
+								        		<label for="image">
+								        			Category Image
+								        		</label>
+								        		<input type="file" name="image" class="form-control">
+								        	</div>
 									      	</div>
 										    <div class="modal-footer">
 										      	<button type="submit" class="btn btn-primary pointer">Update</button>

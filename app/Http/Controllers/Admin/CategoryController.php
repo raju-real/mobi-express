@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
 use App\Model\Category;
 use App\Model\SubCategory;
 use App\Model\Product;
@@ -20,8 +22,15 @@ class CategoryController extends Controller
         $request->validate(['name' => 'required']);
         $category = new Category();
         $category->name = $request->name;
-        $slug = strtolower(preg_replace('/\s+/', '-', $request->name));
-        $category->slug = $slug;
+        $category->slug = strtolower(Str::slug($request->name));
+        if($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time().$image->getClientOriginalName();
+            $image_resize = Image::make($image->getRealPath());              
+            $image_resize->resize(987.75, 215.5);
+            $image_resize->save('images/category/' .$imageName);
+        }
+        $category->image = 'images/category/'.$imageName;
         $category->save();
         toast('Category Added Successfully','success');
         return redirect()->route('admin.category.index');
@@ -36,8 +45,22 @@ class CategoryController extends Controller
         $request->validate(['name' => 'required']);
         $category = Category::find($id);
         $category->name = $request->name;
-        $slug = strtolower(preg_replace('/\s+/', '-', $request->name));
-        $category->slug = $slug;
+        $category->slug = strtolower(Str::slug($request->name));
+        if($file = $request->file('image')) {
+            if(file_exists($category->image) AND !empty($category->image)){
+                unlink($category->image);
+            }
+            $image = $request->file('image');
+            $name = time().$image->getClientOriginalName();
+            $image_resize = Image::make($image->getRealPath());              
+            $image_resize->resize(987.75, 215.5);
+            $image_resize->save('images/category/' .$name);
+            $imageName = 'images/category/'.$name;
+            
+        } else{
+                $imageName = $category->image;
+        }
+        $category->image = $imageName;    
         $category->save();
         toast('Category Update Successfully','info');
         return redirect()->route('admin.category.index');

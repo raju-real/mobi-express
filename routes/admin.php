@@ -24,6 +24,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         ->name('promotion-product.create');
     Route::post('promotion-product','PromotionController@storePromotionProduct')
         ->name('promotion-product.store'); 
+    Route::resource('slider','SliderController');    
     // order section
     Route::get('orders/pending','OrderController@pendingOrders')
         ->name('pending-orders');
@@ -34,9 +35,13 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('orders/delivered','OrderController@deliveredOrders')
         ->name('delivered-orders');
     Route::get('orders/cancled','OrderController@cancledOrders')
-        ->name('cancled-orders');                 
+        ->name('cancled-orders');
+    Route::get('search','OrderController@searchOrder')
+        ->name('search-order');                     
     Route::get('order','OrderController@orderDetails')
-        ->name('order.show');       
+        ->name('order.show');  
+    Route::get('change-status','OrderController@changeOrderStatus')         
+        ->name('change-status');
 });
 
 

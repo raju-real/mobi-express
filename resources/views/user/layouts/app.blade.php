@@ -575,7 +575,7 @@
                 product_name : product_name
             };
             
-            if(product_name.trim() != " ") {
+            if((product_name.trim() != "") && (product_name.length) >= 2) {
                 $.ajax({
                 method : 'GET',
                 url: "{{ route('search-product') }}",
