@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('product_details');
+            $table->text('specification')->nullable();
             $table->double('unit_price', 8, 2);
             $table->string('unit_weight')->default(1);
             $table->double('discount_price', 8, 2)->default(0);

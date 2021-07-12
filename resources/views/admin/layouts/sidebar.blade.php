@@ -95,12 +95,12 @@
                             Category
                         </a>
                     </li>
-                    {{-- <li>
+                    <li>
                         <a href="{{ route('admin.subcategory.index') }}">
                             <i class="fa fa-circle-o"></i>
                             Sub Category
                         </a>
-                    </li> --}}
+                    </li>
                     <li>
                         <a href="{{ route('admin.brand.index') }}">
                             <i class="fa fa-circle-o"></i>
@@ -128,11 +128,11 @@
                 </ul>
             </li>
 
-            <li>
+            {{-- <li>
                 <a href="{{ route('admin.slider.index') }}"><i class="sidebar-item-icon fa fa-sliders"></i>
                     <span class="nav-label">Slider Image</span>
                 </a>
-            </li>
+            </li> --}}
 
             <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-plus-circle"></i>
@@ -140,7 +140,7 @@
                 <ul class="nav-2-level collapse">
                     <li>
 
-                        <a href="{{ route('admin.category.index') }}">
+                        <a href="{{ route('admin.featured-products.index') }}">
                             <i class="fa fa-circle-o"></i>
                             Featured Products
                         </a>

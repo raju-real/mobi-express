@@ -24,7 +24,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         ->name('promotion-product.create');
     Route::post('promotion-product','PromotionController@storePromotionProduct')
         ->name('promotion-product.store'); 
-    Route::resource('slider','SliderController');    
+    Route::resource('slider','SliderController');  
+    Route::resource('featured-products','FeaturedProductController');  
     // order section
     Route::get('orders/pending','OrderController@pendingOrders')
         ->name('pending-orders');

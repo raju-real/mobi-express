@@ -1,6 +1,29 @@
 @extends('admin.layouts.app')
 @section('title','Add Product')
 @push('css')
+<style>
+    .button {
+      float: right;     
+      padding: 15px 25px;
+      font-size: 24px;
+      text-align: center;
+      cursor: pointer;
+      outline: none;
+      color: #fff;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 9px #999;
+    }
+
+    .button:hover {background-color: #3e8e41}
+
+    .button:active {
+      background-color: #3e8e41;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+    }
+</style>
 @endpush
 
 @section('content')
@@ -11,7 +34,7 @@
                 <div class="ibox-title">Add New Product</div>
             </div>
             <div class="ibox-body">
-                <form action="{{ route('admin.product.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.product.store') }}" method="POST" enctype="multipart/form-data" onsubmit="return validate()">
                 	@csrf
                     <div class="row">
                         <div class="col-sm-6 form-group">
@@ -62,7 +85,7 @@
                             <input type="text" name="unit_price" id="unit_price" class="form-control" placeholder="Unit Price">
                         </div>
                         <div class="col-sm-3 form-group">
-                            <label for="discount_price">Discount Price</label>
+                            <label for="discount_price" id="discount_label">Discount Price</label>
                             <input type="text" name="discount_price" id="discount_price" class="form-control" placeholder="Discount Price">
                         </div>
                     </div>
@@ -140,6 +163,19 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label id="specification_label">
+                                Product Specification
+                            </label>
+                            <textarea name="specification" class="form-control"
+                                      id="specification"></textarea>
+                            <script>
+                                CKEDITOR.replace('specification')
+                            </script>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
                     	<div class="col-sm-4 form-group">
                     		<label for="images">Images(Multiple)</label>
                             <input type="file" name="images[]" id="images" class="form-control" multiple>
@@ -152,7 +188,10 @@
                     		</select>
                     	</div>
                     	<div class="col-sm-4 form-group btn-block">
-                    		<button class="btn btn-default" type="submit">Submit</button>
+                            <label></label>
+                    		<button type="submit"  class="button preview"> 
+                                Add Product
+                            </button>
                     	</div>
                     </div>
                 </form>
@@ -165,5 +204,37 @@
 @push('js')
 <script>
 	$('.select2_demo_1').select2();
+    function validate(){
+        var name = $('#name').val();
+        var category = $('#category_id').val();
+        var unit_price = $('#unit_price').val();
+        var discount_price = $('#discount_price').val();
+        var product_details = document.getElementById("product_details");
+        var total_length = CKEDITOR.instances['product_details'].getData().replace(/<[^>]*>/gi, '').length;
+        var image = $('#images').val();
+
+        if(!(name.length) && (name.trim() == "")){
+            $('#name').css("border","1px solid red");
+            return false;
+        } else if(!category.length){
+            $('#category_id').css("border","1px solid red");
+            return false;
+        } else if(!(unit_price.length) && (unit_price.trim() == "")){
+            $('#unit_price').css("border","1px solid red");
+            return false;
+        } else if((discount_price.length > 0) && (discount_price >= unit_price)){
+            $('#discount_price').css("border","1px solid red");
+            $("#discount_label").append("<span style='color: red;'>Invalid Discount Price</span>");
+            return false;
+        } else if (total_length == 0){
+            $('#details_label').append("<span style='color:red;'>Required</span>");
+            return false;
+        } else if(!(image.length)){
+            $('#images').css("border","1px solid red");
+            return false;
+        } else {
+            return true;
+        }
+    }
 </script>
 @endpush

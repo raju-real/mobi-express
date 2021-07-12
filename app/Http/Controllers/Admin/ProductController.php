@@ -53,6 +53,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->slug = strtolower(Str::slug($request->name));
         $product->product_details = $request->product_details;
+        $product->specification = $request->specification;
         $product->unit_price = $request->unit_price;
         $product->unit_weight = $request->unit_weight;
         $product->discount_price = $request->discount_price;
@@ -125,6 +126,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->slug = strtolower(Str::slug($request->name));
         $product->product_details = $request->product_details;
+        $product->specification = $request->specification;
         $product->unit_price = $request->unit_price;
         $product->unit_weight = $request->unit_weight;
         $product->discount_price = $request->discount_price;
