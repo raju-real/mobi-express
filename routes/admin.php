@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('admin',function(){
 	return view('auth.admin_login');
-});
+})->name('admin');
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth:admin'], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
