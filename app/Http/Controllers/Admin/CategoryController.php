@@ -23,14 +23,14 @@ class CategoryController extends Controller
         $category = new Category();
         $category->name = $request->name;
         $category->slug = strtolower(Str::slug($request->name));
-        if($request->hasFile('image')) {
+        if(isset($request->image) && $request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time().$image->getClientOriginalName();
             $image_resize = Image::make($image->getRealPath());              
             $image_resize->resize(987.75, 215.5);
             $image_resize->save('images/category/' .$imageName);
+            $category->image = 'images/category/'.$imageName;
         }
-        $category->image = 'images/category/'.$imageName;
         $category->save();
         toast('Category Added Successfully','success');
         return redirect()->route('admin.category.index');

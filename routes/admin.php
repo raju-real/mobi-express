@@ -17,6 +17,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('unit','UnitController');
     Route::resource('product', 'ProductController');
     Route::delete('remove-image/{id}','ProductController@removeImage');
+    Route::resource('offer','OfferController');
     Route::resource('promotion','PromotionController');
     Route::get('promotion/products/{id}','PromotionController@promotionProducts')
         ->name('promotion-products');

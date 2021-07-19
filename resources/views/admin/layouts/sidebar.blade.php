@@ -172,6 +172,11 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('admin.offer.index') }}"><i class="sidebar-item-icon fa fa-percent"></i>
+                    <span class="nav-label">Offer Product</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('admin.promotion.index') }}"><i class="sidebar-item-icon fa fa-gift"></i>
                     <span class="nav-label">Coupon</span>
                 </a>
