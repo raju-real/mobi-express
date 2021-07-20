@@ -73,8 +73,8 @@
                         <tr>
                             <th class="text-center">Sl.no</th>
                             <th class="text-center">Name</th>
-                            <th class="text-center">Image</th>
                             <th class="text-center">Category</th>
+                            <th class="text-center">Image</th>
                             <th class="text-center">Product Count</th>
                             <th class="text-center">Action</th>
                         </tr>
