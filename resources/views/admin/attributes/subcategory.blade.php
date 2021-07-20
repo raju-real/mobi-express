@@ -85,7 +85,13 @@
                             <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $subcategory->name }}</td>
                             <td>{{ $subcategory->category->name }}</td>
-                            <td><img src="{{ asset($subcategory->image) }}" class="img-fluid img-thumbnail" alt="Category image" style="height: 100px;width: 100px;"></td>
+                            <td>
+                            	@if($subcategory->image != null)
+                            	<img src="{{ asset($subcategory->image) }}" class="img-fluid img-thumbnail" alt="Category image" style="height: 100px;width: 100px;">
+                            	@else 
+                            	{{ 'None' }}
+                            	@endif
+                            </td>
                             <td>{{ $subcategory->products->count() }}</td>
                             <td>
                             	{{-- Delete Activity --}}
