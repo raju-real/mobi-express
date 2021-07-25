@@ -21,7 +21,7 @@
                         </div>
                         <div class="col-sm-3 form-group">
                             <label for="category_id">Category</label>
-                            <select name="category_id" id="category_id" class="form-control">
+                            <select name="category_id" id="category_id" class="form-control" onchange="getSubcategory()">
                             	<option value="{{ $product->category_id }}">
                                  {{ $product->category->name }}   
                                 </option>
@@ -35,12 +35,10 @@
                         <div class="col-sm-3 form-group">
                             <label for="subcategory_id">Sub Category</label>
                             <select name="subcategory_id" id="subcategory_id" class="form-control">
-                            	<option value="">Select Category</option>
-                            	@foreach($categories as $category)
-                            	<option value="{{ $category->id }}">
-                            		{{ $category->name }}
-                            	</option>
-                            	@endforeach
+                            	<option value="{{ $product->subcategory_id != null? $product->subcategory->id : '' }}" >
+                                            {{ $product->subcategory_id != null? $product->subcategory->name : '' }}
+                                        </option>
+                            	
                             </select>
                         </div>
                     </div>
@@ -239,6 +237,26 @@
               )
           }
       })  
+    }
+
+    function getSubcategory(){
+        $('#subcategory_id') .find('option') .remove() .end() .append('<option value="">Select Sub Category</option>');
+        var id = document.getElementById('category_id').value;
+
+         axios.get(`/api/get_subcategory/${id}`)
+        .then(function (response) {
+            var list = response.data;
+            var select = document.getElementById("subcategory_id");
+            for(i = 0; i < list.length ;i ++){
+                var el = document.createElement("option");
+                var subcategorys = list[i];
+                var subcategoryName = subcategorys.name;
+                var subcategoryId = subcategorys.id;
+                el.textContent = subcategoryName;
+                el.value = subcategoryId;
+                select.appendChild(el);
+            }
+        });
     }
 </script>
 @endpush

@@ -55,7 +55,7 @@ class ProductController extends Controller
         $product->product_details = $request->product_details;
         $product->specification = $request->specification;
         $product->unit_price = $request->unit_price;
-        $product->unit_weight = $request->unit_weight;
+        $product->unit_weight = isset($request->unit_weight) ? $request->unit_weight : 1;
         $product->discount_price = $request->discount_price;
         if($request->discount_price){
             $product->discount_price = $request->discount_price;

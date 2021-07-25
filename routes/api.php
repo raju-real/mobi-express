@@ -1,9 +1,10 @@
 <?php
 
-use App\Model\Upazila;
 use App\Model\District;
 use App\Model\Division;
+use App\Model\SubCategory;
 use App\Model\Union;
+use App\Model\Upazila;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -59,6 +60,10 @@ Route::get('upazilas/{district_id}', function ($district_id) {
         'status' => 200,
         'data' => $upazilas
     ]);
+});
+
+Route::get('get_subcategory/{id}',function($id){
+    return SubCategory::where('category_id',$id)->get();
 });
 
 
