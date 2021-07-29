@@ -1,22 +1,24 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use App\Model\Cart;
-use App\Model\OrderPrice;
+use App\Model\Category;
 use App\Model\Division;
 use App\Model\Favorite;
+use App\Model\FeaturedProduct;
+use App\Model\Order;
+use App\Model\OrderPrice;
+use App\Model\OrderProduct;
 use App\Model\Product;
-use App\Model\Category;
-use App\Model\SubCategory;
 use App\Model\Promotion;
 use App\Model\PromotionProduct;
-use App\Model\Order;
-use App\Model\OrderProduct;
+use App\Model\SpecialOffer;
+use App\Model\SubCategory;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 Use Alert;
 
 class HomePageController extends Controller
@@ -69,17 +71,37 @@ class HomePageController extends Controller
         return $promotion_products;
     }
 
+    // public function index(){
+    //     $data = Product::query();
+    //     $promotion = Promotion::where('status',1)->get();
+    //     $promotion_products = PromotionProduct::whereIn('promotion_id',$promotion->pluck('id'));
+    //     $data->whereNotIn('id',$promotion_products->pluck('product_id'));
+    //     $data->orderBy('updated_at','DESC');
+    //     $data->whereNotNull('discount_price');
+    //     $featuredProducts = $data->take(20)->get();
+    //     //return $featuredProducts;
+    //     $categories = Category::all();
+    //     $offers = SpecialOffer::with('product')->get();
+    //     return view('welcome',compact('featuredProducts','categories','offers'));
+    // }
+
     public function index(){
-        $data = Product::query();
-        $promotion = Promotion::where('status',1)->get();
-        $promotion_products = PromotionProduct::whereIn('promotion_id',$promotion->pluck('id'));
-        $data->whereNotIn('id',$promotion_products->pluck('product_id'));
-        $data->orderBy('updated_at','DESC');
-        $data->whereNotNull('discount_price');
-        $featuredProducts = $data->take(20)->get();
-        //return $featuredProducts;
         $categories = Category::all();
-        return view('welcome',compact('featuredProducts','categories'));
+        $offers = SpecialOffer::with('product')->get();
+        $featuredProducts = FeaturedProduct::with('product')
+            ->orderBy('serial','asc')->take(20)->get();
+        return view('welcome',compact('featuredProducts','categories','offers'));
+    }
+
+    public function featuredProducts(){
+        $ids = FeaturedProduct::orderBy('serial','asc')
+        ->select('id')
+        ->get();
+        $products = Product::whereIn('id',$ids->pluck('id'))
+            ->paginate(20);
+        $title = 'Featured Products';    
+        $pageTitle = 'Featured Products';
+        return view('pages.vendor_products',compact('products','title','pageTitle'));
     }
 
     public function productDetails($slug){

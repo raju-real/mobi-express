@@ -36,7 +36,7 @@
                             <td>
                             	<img src="{{ asset($f_p->product->image) }}" class="img-responsive" style="height: 50px;width:50px;">
                             </td>
-                            <td>{{ $f_p->product->name }}</td>
+                            <td class="text-left">{{ $f_p->product->name }}</td>
                             <td>{{ $f_p->serial }}</td>
                             <td>
                             	{{ $f_p->status == 1 ? 'Active' : 'In Active' }}

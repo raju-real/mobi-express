@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="row">
-                    	<div class="col-sm-3 form-group">
+                    	<div class="col-sm-2 form-group">
                             <label for="brand_id">Brand</label>
                             <select name="brand_id" id="brand_id" class="form-control">
                             	<option value="{{ $product->brand_id }}">{{ $product->brand->name }}</option>
@@ -54,29 +54,22 @@
                             	@endforeach
                             </select>
                         </div>
-                        <div class="col-sm-3 form-group">
+                        <div class="col-sm-2 form-group">
                             <label for="product_code">Product Code</label>
                             <input type="text" name="product_code" id="product_code" class="form-control" value="{{ $product->product_code }}">
                         </div>
-                        <div class="col-sm-3 form-group">
+                        <div class="col-sm-2 form-group">
                             <label for="unit_price">Unit Price</label>
                             <input type="text" name="unit_price" id="unit_price" class="form-control" value="{{ $product->unit_price }}">
                         </div>
-                        <div class="col-sm-3 form-group">
+                        <div class="col-sm-2 form-group">
                             <label for="discount_price">Discount Price</label>
                             <input type="text" name="discount_price" id="discount_price" class="form-control" value="{{ $product->discount_price }}">
                         </div>
-                    </div>
-
-                    <div class="row">
-                    	<div class="col-sm-3 form-group">
-                            <label for="unit_weight">Unit Weight</label>
-                            <input name="unit_weight" id="unit_weight" class="form-control" value="{{ $product->unit_weight }}">
-                        </div>
-                        <div class="col-sm-3 form-group">
+                        <div class="col-sm-2 form-group">
                             <label for="stock_status">Stock Status</label>
                             <select name="stock_status" id="stock_status" class="form-control">
-                            	<option value="{{ $product->stock_status }}">
+                                <option value="{{ $product->stock_status }}">
                                  {{ $product->stock_status == 1 ? 'In Stock' : 'Out Of Stock' }}   
                                 @if($product->stock_status == 1)
                                     <option value="0">Out Of Stock</option>
@@ -84,12 +77,20 @@
                                     <option value="1">In Stock</option>
                                 @endif
                                 </option>
-                            </select>	
+                            </select>   
                         </div>
-                        <div class="col-sm-3 form-group">
+                        <div class="col-sm-2 form-group">
                             <label for="quantity">Quantity</label>
                             <input name="quantity" id="quantity" class="form-control" value="{{ $product->quantity }}">
                         </div>
+                    </div>
+
+                    <div class="row">
+                    	{{-- <div class="col-sm-3 form-group">
+                            <label for="unit_weight">Unit Weight</label>
+                            <input name="unit_weight" id="unit_weight" class="form-control" value="{{ $product->unit_weight }}">
+                        </div> --}}
+                        
                     </div>
 
                     <div class="row">
@@ -143,6 +144,13 @@
                         <div class="col-sm-6 form-group">
                             <label for="video_link">Video Link</label>
                             <input type="text" name="video_link" id="video_link" class="form-control" value="{{ $product->video_link }}">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label for="short_description">Product Short Description</label>
+                            <textarea name="short_description" id="short_description" class="form-control">{{ $product->short_description }}</textarea>
                         </div>
                     </div>
 

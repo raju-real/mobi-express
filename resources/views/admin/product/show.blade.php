@@ -64,8 +64,8 @@
 						<th>{{ $product->percentage }}</th>
 					</tr>
 					<tr>
-						<th>Unit Weight</th>
-						<th>{{ $product->unit_weight }}</th>
+						<th>Short Description</th>
+						<th>{{ $product->short_description }}</th>
 					</tr>
 					<tr>
 						<th>Details</th>

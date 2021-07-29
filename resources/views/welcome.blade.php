@@ -89,25 +89,51 @@
             <div class="row">
 
                 <div class="col-xl-9 col-lg-8 col-12 order-lg-2">
-
                     <!--product area start-->
-                    @include('pages.featured_products')
+                    <div class="product_area">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="product_header row">
+                                    <div class="section_title col-xl-auto col-12">
+                                        <h2>Featured Products</h2>
+                                    </div>
+                                    <div class="section_title col-xl-auto col-12">
+                                        <a href="{{ route('featured-products') }}" class="btn btn-sm btn-warning">View All</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="Computer3" role="tabpanel">
+                                <div class="product_carousel product_style product_column4 owl-carousel">
+                                    @include('pages.featured_products')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!--product area end-->
 
-                    <!--banner area start-->
-                    
-                    <!--banner area end-->
-
-                    <!--Best Selling Producs-->
-
-                    {{-- @include('pages.best_selling_product') --}}
-
-                    <!--product area end-->
-
                     <!--product area start-->
-
-                    @include('pages.new_arrivals')
-                    
+                    <div class="product_area">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="product_header row">
+                                    <div class="section_title col-xl-auto col-12">
+                                        <h2>Featured Products</h2>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="Computer3" role="tabpanel">
+                                <div class="product_carousel product_style product_column4 owl-carousel">
+                                    @include('pages.featured_products')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!--product area end-->
 
                 </div>
@@ -115,215 +141,30 @@
                 <div class="col-xl-3 col-lg-4 col-12">
                     <!--sidebar widget start-->
                     <aside class="sidebar_widget mb-5">
-                        <div class="widget_list widget_products">
-                            <h3>Deals Of The Month</h3>
-                            <div class="product_carousel product_style product_sidebar_slider owl-carousel">
-                                <article class="single_product">
-                                    <figure>
-
-                                        <div class="product_thumb">
-                                            <a class="primary_img" href="product-countdown.html"><img src="assets/img/product/product1.jpg" alt=""></a>
-                                            <a class="secondary_img" href="product-countdown.html"><img src="assets/img/product/product2.jpg" alt=""></a>
-                                            <div class="label_product">
-                                                <span class="label_sale">Sale</span>
-                                            </div>
-                                            <div class="action_links">
-                                                <ul>
-                                                    <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                    <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                    <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product_content">
-                                            <div class="product_content_inner">
-                                                <h4 class="product_name"><a href="product-countdown.html">Eodem modo vel mattis ante facilisis nec porttitor efficitur</a></h4>
-                                                <div class="price_box">
-                                                    <span class="old_price">$86.00</span>
-                                                    <span class="current_price">$79.00</span>
-                                                </div>
-                                                <div class="countdown_text">
-                                                    <p><span>Hurry Up!</span> Offers ends in: </p>
-                                                </div>
-                                                <div class="product_timing">
-                                                    <div data-countdown="2021/12/15"></div>
-                                                </div>
-                                            </div>
-                                            <div class="add_to_cart">
-                                                <a href="cart.html" title="Add to cart">Add to cart</a>
-                                            </div>
-
-                                        </div>
-                                    </figure>
-                                </article>
-                                <article class="single_product">
-                                    <figure>
-
-                                        <div class="product_thumb">
-                                            <a class="primary_img" href="product-countdown.html"><img src="assets/img/product/product3.jpg" alt=""></a>
-                                            <a class="secondary_img" href="product-countdown.html"><img src="assets/img/product/product4.jpg" alt=""></a>
-                                            <div class="label_product">
-                                                <span class="label_sale">Sale</span>
-                                            </div>
-                                            <div class="action_links">
-                                                <ul>
-                                                    <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                    <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                    <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product_content">
-                                            <div class="product_content_inner">
-                                                <h4 class="product_name"><a href="product-countdown.html">Donec tempus pretium arcu et faucibus commodo</a></h4>
-                                                <div class="price_box">
-                                                    <span class="old_price">$82.00</span>
-                                                    <span class="current_price">$75.00</span>
-                                                </div>
-                                                <div class="countdown_text">
-                                                    <p><span>Hurry Up!</span> Offers ends in: </p>
-                                                </div>
-                                                <div class="product_timing">
-                                                    <div data-countdown="2021/08/15"></div>
-                                                </div>
-                                            </div>
-                                            <div class="add_to_cart">
-                                                <a href="cart.html" title="Add to cart">Add to cart</a>
-                                            </div>
-
-                                        </div>
-                                    </figure>
-                                </article>
-                                <article class="single_product">
-                                    <figure>
-
-                                        <div class="product_thumb">
-                                            <a class="primary_img" href="product-countdown.html"><img src="assets/img/product/product5.jpg" alt=""></a>
-                                            <a class="secondary_img" href="product-countdown.html"><img src="assets/img/product/product6.jpg" alt=""></a>
-                                            <div class="label_product">
-                                                <span class="label_sale">Sale</span>
-                                            </div>
-                                            <div class="action_links">
-                                                <ul>
-                                                    <li class="wishlist"><a href="wishlist.html" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true" data-tippy="Add to Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                                    <li class="compare"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-tippy="Add to Compare"><i class="ion-ios-settings-strong"></i></a></li>
-                                                    <li class="quick_button"><a href="#" data-tippy-placement="top" data-tippy-arrow="true" data-tippy-inertia="true"  data-bs-toggle="modal" data-bs-target="#modal_box" data-tippy="quick view"><i class="ion-ios-search-strong"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product_content">
-                                            <div class="product_content_inner">
-                                                <h4 class="product_name"><a href="product-countdown.html">Natus erro at congue massa commodo sit Natus erro</a></h4>
-                                                <div class="price_box">
-                                                    <span class="old_price">$80.00</span>
-                                                    <span class="current_price">$70.00</span>
-                                                </div>
-                                                <div class="countdown_text">
-                                                    <p><span>Hurry Up!</span> Offers ends in: </p>
-                                                </div>
-                                                <div class="product_timing">
-                                                    <div data-countdown="2021/02/15"></div>
-                                                </div>
-                                            </div>
-                                            <div class="add_to_cart">
-                                                <a href="cart.html" title="Add to cart">Add to cart</a>
-                                            </div>
-
-                                        </div>
-                                    </figure>
-                                </article>
-                            </div>
-                        </div>
+                        @if(sizeof($offers) > 0)
+                            @include('pages.special_offer')
+                        @endif
                         <div class="widget_list widget_categories">
                             <h3>Product categories</h3>
                             <div class="categories_sidebar_slider owl-carousel">
                                 <div class="categories_sidebar_slide">
+                                    @foreach($categories as $category)
                                     <div class="single_categories_product">
                                         <div class="categories_product_content">
-                                            <h4><a href="shop.html"> Cells & Tablets</a></h4>
-                                            <p>12 Products</p>
+                                            <h4><a href="{{ route('category-products',$category->slug) }}">
+                                                {{ $category->name }}
+                                            </a></h4>
+                                            <p>{{ $category->products->count() }} Products</p>
                                         </div>
+                                        @if($category->image != null)
                                         <div class="categories_product_thumb">
-                                            <a href="shop.html"><img src="assets/img/s-product/category1.jpg" alt=""></a>
+                                            <a href="{{ route('category-products',$category->slug) }}"><img src="{{ asset($category->image) }}" alt="" style="height: 55px;width: 77px;"></a>
                                         </div>
+                                        @endif
                                     </div>
-                                    <div class="single_categories_product">
-                                        <div class="categories_product_content">
-                                            <h4><a href="shop.html"> Computer</a></h4>
-                                            <p>24 Products</p>
-                                        </div>
-                                        <div class="categories_product_thumb">
-                                            <a href="shop.html"><img src="assets/img/s-product/category2.jpg" alt=""></a>
-                                        </div>
-                                    </div>
-                                    <div class="single_categories_product">
-                                        <div class="categories_product_content">
-                                            <h4><a href="shop.html"> Fashion</a></h4>
-                                            <p>22 Products</p>
-                                        </div>
-                                        <div class="categories_product_thumb">
-                                            <a href="shop.html"><img src="assets/img/s-product/category3.jpg" alt=""></a>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
-                                <div class="categories_sidebar_slide">
-                                    <div class="single_categories_product">
-                                        <div class="categories_product_content">
-                                            <h4><a href="shop.html"> Sunglasses</a></h4>
-                                            <p>06 Products</p>
-                                        </div>
-                                        <div class="categories_product_thumb">
-                                            <a href="shop.html"><img src="assets/img/s-product/category4.jpg" alt=""></a>
-                                        </div>
-                                    </div>
-                                    <div class="single_categories_product">
-                                        <div class="categories_product_content">
-                                            <h4><a href="shop.html"> Baby & Kids</a></h4>
-                                            <p>20 Products</p>
-                                        </div>
-                                        <div class="categories_product_thumb">
-                                            <a href="shop.html"><img src="assets/img/s-product/category5.jpg" alt=""></a>
-                                        </div>
-                                    </div>
-                                    <div class="single_categories_product">
-                                        <div class="categories_product_content">
-                                            <h4><a href="shop.html"> Accessories</a></h4>
-                                            <p>04 Products</p>
-                                        </div>
-                                        <div class="categories_product_thumb">
-                                            <a href="shop.html"><img src="assets/img/s-product/category6.jpg" alt=""></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="categories_sidebar_slide">
-                                    <div class="single_categories_product">
-                                        <div class="categories_product_content">
-                                            <h4><a href="shop.html"> Cells & Tablets</a></h4>
-                                            <p>12 Products</p>
-                                        </div>
-                                        <div class="categories_product_thumb">
-                                            <a href="shop.html"><img src="assets/img/s-product/category7.jpg" alt=""></a>
-                                        </div>
-                                    </div>
-                                    <div class="single_categories_product">
-                                        <div class="categories_product_content">
-                                            <h4><a href="shop.html"> Accessories</a></h4>
-                                            <p>12 Products</p>
-                                        </div>
-                                        <div class="categories_product_thumb">
-                                            <a href="shop.html"><img src="assets/img/s-product/category8.jpg" alt=""></a>
-                                        </div>
-                                    </div>
-                                    <div class="single_categories_product">
-                                        <div class="categories_product_content">
-                                            <h4><a href="shop.html"> Cells & Tablets</a></h4>
-                                            <p>12 Products</p>
-                                        </div>
-                                        <div class="categories_product_thumb">
-                                            <a href="shop.html"><img src="assets/img/s-product/category9.jpg" alt=""></a>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
                         <div class="widget_list widget_banner">

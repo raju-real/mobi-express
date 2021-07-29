@@ -16,8 +16,9 @@ class CreateSpecialOffersTable extends Migration
         Schema::create('special_offers', function (Blueprint $table) {
             $table->id();
             $table->integer('product_id');
-            $table->string('start_date');
-            $table->string('end_date');
+            $table->double('discount_price',8,2);
+            $table->date('start_date');
+            $table->date('end_date');
             $table->integer('status')->default(1);
             $table->timestamps();
         });

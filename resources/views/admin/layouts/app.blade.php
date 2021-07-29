@@ -18,6 +18,8 @@
     <link href="{{ asset('assets/admin/vendors/DataTables/datatables.min.css') }}" rel="stylesheet" />
 
     <link href="{{ asset('assets/admin/vendors/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/admin/vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/admin/vendors/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}" rel="stylesheet" />
 
     {{-- Custom Css --}}
     <link href="{{ asset('assets/common/css/custom.css')}}" rel="stylesheet" />
@@ -123,6 +125,10 @@
     <script src="{{ asset('assets/admin/vendors/jvectormap/jquery-jvectormap-us-aea-en.js') }}" type="text/javascript"></script>
     <!-- CORE SCRIPTS-->
     <script src="{{ asset('assets/admin/js/app.min.js') }}" type="text/javascript"></script>
+
+    <script src="{{ asset('assets/admin/vendors/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/admin/vendors/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/admin/js/scripts/form-plugins.js') }}" type="text/javascript"></script>
 
     <!-- Data Table -->
     <script src="{{ asset('assets/admin/vendors/DataTables/datatables.min.js') }}" type="text/javascript"></script>

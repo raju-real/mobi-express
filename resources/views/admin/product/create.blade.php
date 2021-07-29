@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="row">
-                    	<div class="col-sm-3 form-group">
+                    	<div class="col-sm-2 form-group">
                             <label for="brand_id">Brand</label>
                             <select name="brand_id" id="brand_id" class="form-control">
                             	<option value="">Select Brand</option>
@@ -72,33 +72,26 @@
                             	@endforeach
                             </select>
                         </div>
-                        <div class="col-sm-3 form-group">
+                        <div class="col-sm-2 form-group">
                             <label for="product_code">Product Code</label>
                             <input type="text" name="product_code" id="product_code" class="form-control" placeholder="Product Code">
                         </div>
-                        <div class="col-sm-3 form-group">
+                        <div class="col-sm-2 form-group">
                             <label for="unit_price">Unit Price</label>
                             <input type="text" name="unit_price" id="unit_price" class="form-control" placeholder="Unit Price">
                         </div>
-                        <div class="col-sm-3 form-group">
+                        <div class="col-sm-2 form-group">
                             <label for="discount_price" id="discount_label">Discount Price</label>
                             <input type="text" name="discount_price" id="discount_price" class="form-control" placeholder="Discount Price">
                         </div>
-                    </div>
-
-                    <div class="row">
-                    	<div class="col-sm-3 form-group">
-                            <label for="unit_weight">Unit Weight</label>
-                            <input name="unit_weight" id="unit_weight" class="form-control" placeholder="Unit Weight">
-                        </div>
-                        <div class="col-sm-3 form-group">
+                        <div class="col-sm-2 form-group">
                             <label for="stock_status">Stock Status</label>
                             <select name="stock_status" id="stock_status" class="form-control">
-                            	<option value="1">In Stock</option>
-                            	<option value="0">Out Of Stock</option>
-                            </select>	
+                                <option value="1">In Stock</option>
+                                <option value="0">Out Of Stock</option>
+                            </select>   
                         </div>
-                        <div class="col-sm-3 form-group">
+                        <div class="col-sm-2 form-group">
                             <label for="quantity">Quantity</label>
                             <input name="quantity" id="quantity" class="form-control" placeholder="Quantity">
                         </div>
@@ -143,6 +136,18 @@
                             <label for="video_link">Video Link</label>
                             <input type="text" name="video_link" id="video_link" class="form-control" placeholder="Video Link">
                         </div>
+                    </div>
+
+                    <div class="row">
+                        {{-- <div class="col-sm-3 form-group">
+                            <label for="unit_weight">Unit Weight</label>
+                            <input name="unit_weight" id="unit_weight" class="form-control" placeholder="Unit Weight">
+                        </div> --}}
+                        <div class="col-sm-12 form-group">
+                            <label for="short_description">Product Short Description</label>
+                            <textarea name="short_description" id="short_description" class="form-control"></textarea>
+                        </div>
+                        
                     </div>
 
                     <div class="row">
@@ -205,6 +210,7 @@
         var category = $('#category_id').val();
         var unit_price = $('#unit_price').val();
         var discount_price = $('#discount_price').val();
+        var short_description = $('#short_description').val();
         var product_details = document.getElementById("product_details");
         var total_length = CKEDITOR.instances['product_details'].getData().replace(/<[^>]*>/gi, '').length;
         var image = $('#images').val();
@@ -217,6 +223,9 @@
             return false;
         } else if(!(unit_price.length) && (unit_price.trim() == "")){
             $('#unit_price').css("border","1px solid red");
+            return false;
+        } else if(!(short_description.length) && (short_description.trim() == "")){
+            $('#short_description').css("border","1px solid red");
             return false;
         } else if((discount_price.length > 0) && (discount_price >= unit_price)){
             $('#discount_price').css("border","1px solid red");

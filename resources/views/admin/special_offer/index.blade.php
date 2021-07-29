@@ -27,47 +27,66 @@
                     <thead>
                         <tr>
                             <th>Sl.no</th>
-                            <th>Name</th>
-                            <th>Category</th>
+                            <th>Image</th>
+                            <th>Product</th>
                             <th>Unit Price</th>
                             <th>Discount Price</th>
-                            <th>Stock</th>
-                            <th>Quantity</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>Sl.no</th>
-                            <th>Name</th>
-                            <th>Category</th>
+                            <th>Image</th>
+                            <th>Product</th>
                             <th>Unit Price</th>
                             <th>Discount Price</th>
-                            <th>Stock</th>
-                            <th>Quantity</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                    	@foreach($products as $product)
+                    	@foreach($offers as $offer)
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
-                            <td>{{ $product->name }}</td>
-                            <td>{{ $product->category->name }}</td>
-                            <td>{{ $product->unit_price }}</td>
                             <td>
-                                {{ $product->discount_price }}
-                                <span class="badge badge-success">{{ $product->percentage }} Off</span>
+                                @if($offer->product->image != null)
+                                    <img src="{{ asset($offer->product->image) }}" class="img-fluid img-thumbnail" alt="Category image" style="height: 50px;width: 50px;">
+                                @else
+                                    {{ 'None' }}
+                                @endif
                             </td>
-                            <td>{{ $product->stock_status }}</td>
-                            <td>{{ $product->quantity }}</td>
+                            <td>{{ $offer->product->name }}</td>
+                            <td>{{ $offer->product->unit_price }}</td>
                             <td>
-                            	<a href="{{ route('admin.product.show',$product->slug) }}" class="badge badge-info">
-                            		<i class="fa fa-eye"></i>
-                            	</a>
-                                <a href="{{ route('admin.product.edit',$product->slug) }}" class="badge badge-primary">
+                                {{ $offer->product->discount_price }}
+                                <span class="badge badge-success">{{ $offer->product->percentage }} Off</span>
+                            </td>
+                            <td>{{ date('d-m-y', strtotime($offer->start_date)) }}</td>
+                            <td>{{ date('d-m-y', strtotime($offer->end_date)) }}</td>
+                            <td>
+                                @if($offer->status == 1)
+                                <span class="badge badge-info">Active</span>
+                                @else
+                                <span class="badge badge-danger">In Active</span>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ route('admin.offer.edit',$offer->id) }}" class="badge badge-primary">
                                     <i class="fa fa-edit"></i>
                                 </a>
+                                <button class="badge badge-danger pointer" type="button" onclick="deleteOffer({{ $offer->id }})">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                <form id="delete-offer-{{ $offer->id }}" action="{{ route('admin.offer.destroy',$offer->id) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -90,6 +109,37 @@
            
         });
     })
+
+    function deleteOffer(id) {
+        Swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                event.preventDefault();
+                document.getElementById('delete-offer-'+id).submit();
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === swal.DismissReason.cancel
+            ) {
+                Swal(
+                    'Cancelled',
+                    'Your data is safe :)',
+                    'error'
+                )
+            }
+        })
+    }
 </script>
 
     

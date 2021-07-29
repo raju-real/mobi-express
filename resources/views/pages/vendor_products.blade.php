@@ -30,6 +30,7 @@
             <div class="col-lg-9 col-md-12">
                 @if(sizeof($products) > 0)
                 <!--shop banner area start-->
+                @if(isset($image))
                 <div class="shop_banner_area mb-30">
                     <div class="row">
                         <div class="col-12">
@@ -39,6 +40,7 @@
                         </div>
                     </div>
                 </div>
+                 @endif
                 <!--shop banner area end-->
                 <!--shop toolbar start-->
                 <div class="shop_toolbar_wrapper">

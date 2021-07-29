@@ -39,6 +39,7 @@
                     <thead>
                         <tr>
                             <th>Sl.no</th>
+                            <th>Image</th>
                             <th>Name</th>
                             <th>Category</th>
                             <th>Unit Price</th>
@@ -51,6 +52,7 @@
                     <tfoot>
                         <tr>
                             <th>Sl.no</th>
+                            <th>Image</th>
                             <th>Name</th>
                             <th>Category</th>
                             <th>Unit Price</th>
@@ -64,6 +66,9 @@
                     	@foreach($products as $product)
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
+                            <td>
+                                <img src="{{ asset($product->image) }}" class="img-responsive" style="height: 50px;width:50px;">
+                            </td>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->category->name }}</td>
                             <td>{{ $product->unit_price }}</td>
