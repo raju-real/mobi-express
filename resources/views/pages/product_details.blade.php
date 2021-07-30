@@ -71,16 +71,24 @@
                                 <div class="price_box">
                                     @if($product->discount_price > 0)
                                     <span class="old_price">
-                                        {{ $product->discount_price }}
+                                        {{ $product->unit_price }}
                                     </span>
-                                    @endif
+                                    <span class="current_price">
+                                        {{ $product->discount_price }} BDT
+                                    </span>
+                                    @else
                                     <span class="current_price">
                                         {{ $product->unit_price }} BDT
                                     </span>
+                                    @endif
                                 </div>
                                 <div class="product_desc">
                                     <p>
+                                        @if($product->short_description != null)
+                                        {{ $product->short_description }}
+                                        @else
                                         {!! $product->product_details !!}
+                                        @endif
                                     </p>
                                 </div>
                                 <div class="product_variant color">

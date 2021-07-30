@@ -29,12 +29,16 @@
                         <div class="price_box">
                             @if($offer->product->discount_price > 0)
                                 <span class="old_price">
-                                    {{ $offer->product->discount_price }}
+                                    {{ $offer->product->unit_price }}
+                                </span>
+                                <span class="current_price">
+                                    {{ $offer->product->discount_price }} BDT
+                                </span>
+                            @else
+                                <span class="current_price">
+                                    {{ $offer->product->unit_price }} BDT
                                 </span>
                             @endif
-                            <span class="current_price">
-                                {{ $offer->product->unit_price }} BDT
-                            </span>
                         </div>
                         <div class="countdown_text">
                             <p><span>Hurry Up!</span> Offers ends in: </p>

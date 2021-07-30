@@ -24,13 +24,17 @@
                 </a></h4>
                 <div class="price_box">
                     @if($f_p->product->discount_price > 0)
-                        <span class="old_price">
-                            {{ $f_p->product->discount_price }}
-                        </span>
-                    @endif
+                    <span class="old_price">
+                        {{ $f_p->product->unit_price }}
+                    </span>
+                    <span class="current_price">
+                        {{ $f_p->product->discount_price }} BDT
+                    </span>
+                    @else
                     <span class="current_price">
                         {{ $f_p->product->unit_price }} BDT
                     </span>
+                    @endif
                 </div>
             </div>
             <div class="add_to_cart">
