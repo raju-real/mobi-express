@@ -181,6 +181,11 @@
                     <span class="nav-label">Coupon</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('admin.district.index') }}"><i class="sidebar-item-icon fa fa-area-chart"></i>
+                    <span class="nav-label">Districts</span>
+                </a>
+            </li>
             
             
         </ul>

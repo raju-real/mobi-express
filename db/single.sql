@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 29, 2021 at 02:47 PM
+-- Generation Time: Jul 30, 2021 at 02:48 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -24,37 +24,24 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `special_offers`
+-- Table structure for table `districts`
 --
 
-CREATE TABLE `special_offers` (
+CREATE TABLE `districts` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `discount_price` double(8,2) NOT NULL,
-  `start_date` date NOT NULL,
-  `end_date` date NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1',
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `special_offers`
---
-
-INSERT INTO `special_offers` (`id`, `product_id`, `discount_price`, `start_date`, `end_date`, `status`, `created_at`, `updated_at`) VALUES
-(2, 3, 36.00, '2021-06-10', '2021-07-30', 1, '2021-07-26 03:44:24', '2021-07-26 03:44:24'),
-(3, 5, 10.00, '2021-07-21', '2021-07-31', 1, '2021-07-26 03:45:33', '2021-07-26 04:11:43'),
-(4, 6, 45.00, '2021-07-26', '2021-07-31', 1, '2021-07-26 03:45:48', '2021-07-26 03:45:48');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `special_offers`
+-- Indexes for table `districts`
 --
-ALTER TABLE `special_offers`
+ALTER TABLE `districts`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -62,10 +49,10 @@ ALTER TABLE `special_offers`
 --
 
 --
--- AUTO_INCREMENT for table `special_offers`
+-- AUTO_INCREMENT for table `districts`
 --
-ALTER TABLE `special_offers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `districts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

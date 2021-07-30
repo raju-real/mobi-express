@@ -15,6 +15,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('color','ColorController');
     Route::resource('size','SizeController');
     Route::resource('unit','UnitController');
+    Route::resource('district','DistrictController');
     Route::resource('product', 'ProductController');
     Route::delete('remove-image/{id}','ProductController@removeImage');
     Route::resource('offer','OfferController');
