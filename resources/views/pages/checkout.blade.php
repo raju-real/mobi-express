@@ -73,9 +73,26 @@
                                         <label>Email</label>
                                         <input name="email" id="email" type="text">
                                     </div>
-                                    <div class="col-12 mb-20">
+                                    {{-- <div class="col-12 mb-20">
                                         <label>District<span class="red">*</span></label>
                                         <input name="district" id="district" type="text">
+                                    </div> --}}
+                                    @php
+                                        $districts = DB::table('districts')
+                                            ->get();
+                                    @endphp
+                                    <div class="col-12 mb-20">
+                                        <label>District<span class="red">*</span></label>
+                                        <select name="district" id="district" class="form-control">
+                                        <option value="">
+                                            Select District
+                                        </option>
+                                        @foreach($districts as $district)
+                                        <option value="{{ $district->id }}">
+                                            {{ $district->name }}
+                                        </option>
+                                        @endforeach
+                                        </select>
                                     </div>
 
                                     <div class="col-12 mb-20">
