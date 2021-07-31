@@ -145,14 +145,8 @@
                             Featured Products
                         </a>
                     </li>
-                    {{-- <li>
-                        <a href="{{ route('admin.subcategory.index') }}">
-                            <i class="fa fa-circle-o"></i>
-                            Sub Category
-                        </a>
-                    </li> --}}
                     <li>
-                        <a href="{{ route('admin.brand.index') }}">
+                        <a href="{{ route('admin.new-arrivals.index') }}">
                             <i class="fa fa-circle-o"></i>
                             New Arrivals
                         </a>

@@ -120,7 +120,7 @@
                             <div class="col-12">
                                 <div class="product_header row">
                                     <div class="section_title col-xl-auto col-12">
-                                        <h2>Featured Products</h2>
+                                        <h2>Best Selling Products</h2>
                                         
                                     </div>
                                 </div>
@@ -129,7 +129,7 @@
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="Computer3" role="tabpanel">
                                 <div class="product_carousel product_style product_column4 owl-carousel">
-                                    @include('pages.featured_products')
+                                    @include('pages.best_selling_product')
                                 </div>
                             </div>
                         </div>

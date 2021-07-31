@@ -90,7 +90,10 @@ class HomePageController extends Controller
         $offers = SpecialOffer::with('product')->get();
         $featuredProducts = FeaturedProduct::with('product')
             ->orderBy('serial','asc')->take(20)->get();
-        return view('welcome',compact('featuredProducts','categories','offers'));
+        // Best Selling Product
+        $orderProducts = OrderProduct::all();    
+        $bestSellingProducts = Product::whereIn('id',$orderProducts->pluck('product_id'))->distinct()->take(20)->get();    
+        return view('welcome',compact('featuredProducts','bestSellingProducts','categories','offers'));
     }
 
     public function featuredProducts(){
