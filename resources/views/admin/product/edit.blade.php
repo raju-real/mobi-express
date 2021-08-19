@@ -166,6 +166,18 @@
                         	</script>
                     	</div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label id="specification_label">
+                                Product Specification
+                            </label>
+                            <textarea name="specification" class="form-control"
+                                      id="specification">{{ $product->specification }}</textarea>
+                            <script>
+                                CKEDITOR.replace('specification')
+                            </script>
+                        </div>
+                    </div>
 
                     <div class="row" id="h_i">
                         @foreach($product->images as $image)

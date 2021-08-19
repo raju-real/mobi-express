@@ -9,12 +9,18 @@ Route::post('login','Auth\LoginController@userLogin')->name('login');
 Route::group(['as' => 'user.', 'prefix' => 'user', 'namespace' => 'User', 'middleware' => 'auth'], function () {
     Route::get('dashboard','DashboardController@index')
         ->name('dashboard');
-    Route::get('order_history', 'DashboardController@orderHistory')
-        ->name('order_history');
-    Route::get('order_details', 'DashboardController@orderDetails')
+    Route::get('order-history', 'DashboardController@orderHistory')
+        ->name('order-history');
+    Route::get('order-details', 'DashboardController@orderDetails')
         ->name('order_details');    
     Route::get('profile', 'DashboardController@profile')
-        ->name('profile');    
+        ->name('profile');
+    Route::get('edit-profile','DashboardController@editProfile')
+        ->name('edit-profile');
+    Route::put('update-profile','DashboardController@updateProfile')
+        ->name('update-profile');        
+    Route::get('change-password', 'DashboardController@passChangeForm')
+        ->name('change-password');    
 });
 
 Route::get('logout',function(){

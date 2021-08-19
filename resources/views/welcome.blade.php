@@ -167,90 +167,15 @@
                                 
                             </div>
                         </div>
-                        <div class="widget_list widget_banner">
-                            <figure class="single_banner">
-                                <div class="banner_thumb">
-                                    <a href="shop.html"><img src="assets/img/bg/banner9.jpg" alt=""></a>
-                                </div>
-                            </figure>
-                        </div>
+                        
+                        @if(sizeof($popularProducts) > 0)
                         <div class="widget_list widget_products">
                             <h3>Popular Products</h3>
                             <div class="recent_product_container">
-                                <article class="recent_product_list">
-                                    <figure>
-                                        <div class="product_thumb">
-                                            <a class="primary_img" href="product-details.html"><img src="assets/img/product/product9.jpg" alt=""></a>
-                                            <a class="secondary_img" href="product-details.html"><img src="assets/img/product/product10.jpg" alt=""></a>
-                                        </div>
-                                        <div class="product_content">
-                                            <h4><a href="product-details.html">Aliquam lobortis pellentesque</a></h4>
-                                            <div class="product_rating">
-                                                <ul>
-                                                    <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                    <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                    <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                    <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                    <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="price_box">
-                                                <span class="old_price">$70.00</span>
-                                                <span class="current_price">$65.00</span>
-                                            </div>
-                                        </div>
-                                    </figure>
-                                </article>
-                                <article class="recent_product_list">
-                                    <figure>
-                                        <div class="product_thumb">
-                                            <a class="primary_img" href="product-details.html"><img src="assets/img/product/product11.jpg" alt=""></a>
-                                            <a class="secondary_img" href="product-details.html"><img src="assets/img/product/product12.jpg" alt=""></a>
-                                        </div>
-                                        <div class="product_content">
-                                            <h4><a href="product-details.html">Convallis quam sit vitae sodales</a></h4>
-                                            <div class="product_rating">
-                                                <ul>
-                                                    <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                    <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                    <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                    <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                    <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="price_box">
-                                                <span class="old_price">$70.00</span>
-                                                <span class="current_price">$65.00</span>
-                                            </div>
-                                        </div>
-                                    </figure>
-                                </article>
-                                <article class="recent_product_list">
-                                    <figure>
-                                        <div class="product_thumb">
-                                            <a class="primary_img" href="product-details.html"><img src="assets/img/product/product14.jpg" alt=""></a>
-                                            <a class="secondary_img" href="product-details.html"><img src="assets/img/product/product13.jpg" alt=""></a>
-                                        </div>
-                                        <div class="product_content">
-                                            <h4><a href="product-details.html">Cillum dolore nisl fermentum</a></h4>
-                                            <div class="product_rating">
-                                                <ul>
-                                                    <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                    <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                    <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                    <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                    <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="price_box">
-                                                <span class="old_price">$70.00</span>
-                                                <span class="current_price">$65.00</span>
-                                            </div>
-                                        </div>
-                                    </figure>
-                                </article>
+                                @include('pages.popular_products')
                             </div>
                         </div>
+                        @endif
                     </aside>
                     <!--sidebar widget end-->
                 </div>

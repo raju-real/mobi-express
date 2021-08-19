@@ -21,8 +21,22 @@ class ProductController extends Controller
 {
     public function index(){   
         $limit = request()->get('limit');
-        $products = Product::paginate($limit);
-        return view('admin.product.index',compact('products'));
+        $data = Product::query();
+        $category_id = request()->get('category_id');
+        $subcategory_id = request()->get('subcategory_id');
+        $name = request()->get('name');
+        if(isset($name) && !empty($name)){
+            $data->where('name','like',"%{$name}%");
+        }
+        if(isset($category_id) && !empty($category_id)){
+            $data->where('category_id',$category_id);
+        }
+        if(isset($subcategory_id) && !empty($subcategory_id)){
+            $data->where('subcategory_id',$subcategory_id);
+        }
+        $products = $data->paginate($limit);
+        $categories = Category::all();
+        return view('admin.product.index',compact('products','categories'));
     }
 
     public function create()

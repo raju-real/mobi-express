@@ -63,6 +63,10 @@ class Product extends Model
         return $this->belongsToMany(Color::class,'product_colors')->withTimestamps();
     }
 
+    public function reviews(){
+        return $this->hasMany(Review::class);
+    }
+
     public static function getProductCode(){
         $latestCode = Product::latest('id')->whereNotNull('product_code')->first();
         $productCode = str_pad(1, 4, "0", STR_PAD_LEFT);

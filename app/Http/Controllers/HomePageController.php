@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Model\Brand;
 use App\Model\Cart;
 use App\Model\Category;
 use App\Model\Division;
@@ -12,8 +13,11 @@ use App\Model\OrderProduct;
 use App\Model\Product;
 use App\Model\Promotion;
 use App\Model\PromotionProduct;
+use App\Model\Review;
 use App\Model\SpecialOffer;
 use App\Model\SubCategory;
+use App\Model\Subscriber;
+use App\Model\UserMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -86,14 +90,21 @@ class HomePageController extends Controller
     // }
 
     public function index(){
-        $categories = Category::all();
+        $categories = Category::inRandomOrder()->take(5)->get();
         $offers = SpecialOffer::with('product')->get();
+        // Featured Product
         $featuredProducts = FeaturedProduct::with('product')
             ->orderBy('serial','asc')->take(20)->get();
         // Best Selling Product
         $orderProducts = OrderProduct::all();    
-        $bestSellingProducts = Product::whereIn('id',$orderProducts->pluck('product_id'))->distinct()->take(20)->get();    
-        return view('welcome',compact('featuredProducts','bestSellingProducts','categories','offers'));
+        $bestSellingProducts = Product::whereIn('id',$orderProducts->pluck('product_id'))
+            ->distinct()->take(5)->get(); 
+        // Popular Product
+        $popularProducts = Review::with('product')
+            ->orderBy('rating','desc')
+            ->inRandomOrder()
+            ->distinct()->take(5)->get(); 
+        return view('welcome',compact('featuredProducts','bestSellingProducts','categories','offers','popularProducts'));
     }
 
     public function featuredProducts(){
@@ -108,19 +119,21 @@ class HomePageController extends Controller
     }
 
     public function productDetails($slug){
-        $product = Product::with('images','sizes','units','colors')
+        $product = Product::with('images','sizes','units','colors','reviews')
             ->where('slug',$slug)->first();
-        $regularProducts = $this->getProducts(); 
-        $releatedProducts = $regularProducts->where('category_id',$product->category_id)->take(20);
-        //return $releatedProducts;
+        //$regularProducts = $this->getProducts(); 
+        // $releatedProducts = $regularProducts->where('category_id',$product->category_id)->take(20);
+        $releatedProducts = Product::where('category_id',$product->category_id)->take(20)->get();
         return view('pages.product_details',compact('product','releatedProducts'));
     }
 
     public function categoryProducts($slug){
         $category = Category::where('slug',$slug)->first();
-        $promotionProducts = $this->promotionProducts();
-        $products = Product::whereNotIn('id',$promotionProducts->pluck('product_id'))
-            ->where('category_id',$category->id)
+        // $promotionProducts = $this->promotionProducts();
+        // $products = Product::whereNotIn('id',$promotionProducts->pluck('product_id'))
+        //     ->where('category_id',$category->id)
+        //     ->paginate(20);
+        $products = Product::where('category_id',$category->id)
             ->paginate(20);
         $title = $category->name;    
         $pageTitle = 'Category/'.$category->name;
@@ -131,13 +144,23 @@ class HomePageController extends Controller
 
     public function subcategoryProducts($slug){
         $subcategory = SubCategory::where('slug',$slug)->first();
-        $promotionProducts = $this->promotionProducts();
-        $products = Product::whereNotIn('id',$promotionProducts->pluck('product_id'))
-            ->where('subcategory_id',$subcategory->id)
+        //$promotionProducts = $this->promotionProducts();
+        $products = Product::where('subcategory_id',$subcategory->id)
             ->paginate(20);
         $title = $subcategory->name;    
         $pageTitle = 'Subcategory/'.$subcategory->name;
         $image = $subcategory->image;
+        //return $products;
+        return view('pages.vendor_products',compact('products','title','pageTitle','image'));
+    }
+
+    public function brandProducts($slug){
+        $brand = Brand::where('slug',$slug)->first();
+        $products = Product::where('brand_id',$brand->id)
+            ->paginate(20);
+        $title = $brand->name;    
+        $pageTitle = 'Brand/'.$brand->name;
+        $image = $brand->image;
         //return $products;
         return view('pages.vendor_products',compact('products','title','pageTitle','image'));
     }
@@ -396,6 +419,7 @@ class HomePageController extends Controller
             $carts = Cart::where($identify)->get();
             foreach($carts as $cart){
                 $order_product = new OrderProduct();
+                $order_product->user_id = Auth::id();
                 $order_product->order_id = $order_info->id;
                 $order_product->product_id = $cart->product_id;
                 $order_product->order_price = $cart->order_price;
@@ -413,6 +437,63 @@ class HomePageController extends Controller
             Session::put('current_url',route('checkout'));
             return redirect()->route('login');
         }
+    }
+
+    public function sendMessage(Request $request){
+        $this->validate($request,[
+            'name'=>'required',
+            'mobile'=>'required',
+            'subject'=>'required',
+            'message'=>'required'
+        ]);
+        $message = new UserMessage();
+        $message->name = $request->name;
+        $message->mobile = $request->mobile;
+        $message->email = $request->email;
+        $message->subject = $request->subject;
+        $message->message = $request->message;
+        $message->save();
+        return redirect()->route('contact-us')->with('message','Your message sent successfully. Our admin will contact with you');
+    }
+
+    public function subscribe(Request $request){
+        $this->validate($request,['email'=>'required|unique:subscribers']);
+        $subscriber = new Subscriber();
+        $subscriber->email = $request->email;
+        $subscriber->save();
+        Alert::success('Successfully Subscribed');
+        return redirect()->route('home');
+    }
+
+    public function submitReview(Request $request){
+        $product = Product::where('id',$request->product_id)->select('id','slug')->first();
+        if(Auth::check()){
+            $this->validate($request,[
+            'rating'=>'required',
+            'review'=>'required',
+            'product_id'=>'required'
+            ]);
+            if(OrderProduct::where('user_id',Auth::id())
+                ->where('product_id',$product->id)
+                ->exists()){
+                $review = new Review();
+                $review->user_id = Auth::id();
+                $review->product_id = $product->id;
+                $review->rating = $request->rating;
+                $review->review = $request->review;
+                $review->save();
+                Alert::success('Thank You For Your Review');
+                return redirect()->back()->with('message','');
+            } else{
+                Alert::info('Product Not Found On Your Order List');
+                return redirect()->back();
+            }
+            
+        } else{
+            Session::put('current_url',route('product-details',['slug'=>$product->slug]));
+            return redirect(route('login'));
+        }
+
     }
 
 

@@ -305,16 +305,11 @@
                         </div>
                         <div class="col-lg-5 col-md-12">
                             <div class="subscribe_form">
-                                <form id="mc-form" class="mc-form footer-newsletter">
-                                    <input id="mc-email" type="email" autocomplete="off" placeholder="Your email address..." />
-                                    <button id="mc-submit">Subscribe</button>
+                                <form class="mc-form footer-newsletter" action="{{ route('user-subscribe') }}" method="POST">
+                                    @csrf
+                                    <input name="email" id="mc-email" type="email" autocomplete="off" placeholder="Your email address..." />
+                                    <button type="submit">Subscribe</button>
                                 </form>
-                                <!-- mailchimp-alerts Start -->
-                                <div class="mailchimp-alerts text-centre">
-                                    <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
-                                    <div class="mailchimp-success"></div><!-- mailchimp-success end -->
-                                    <div class="mailchimp-error"></div><!-- mailchimp-error end -->
-                                </div><!-- mailchimp-alerts end -->
                             </div>
                         </div>
                     </div>
@@ -329,14 +324,14 @@
                         <div class="widgets_container contact_us">
                             <h3>GET THE APP</h3>
                             <div class="aff_content">
-                                <p><strong>ANTOMI</strong> App is now available on Google Play & App Store. Get it now.</p>
+                                <p><strong>Mobi Express</strong></p>
                             </div>
                             <div class="app_img">
+                                {{-- <figure class="app_img">
+                                    <a href="#"><img src="{{ asset('assets/user/img/icon/icon-appstore.png') }}" alt=""></a>
+                                </figure> --}}
                                 <figure class="app_img">
-                                    <a href="#"><img src="assets/img/icon/icon-appstore.png" alt=""></a>
-                                </figure>
-                                <figure class="app_img">
-                                    <a href="#"><img src="assets/img/icon/icon-googleplay.png" alt=""></a>
+                                    <a href="#"><img src="{{ asset('assets/user/img/icon/icon-googleplay.png') }}" alt=""></a>
                                 </figure>
                             </div>
                         </div>
@@ -346,12 +341,21 @@
                             <h3>Information</h3>
                             <div class="footer_menu">
                                 <ul>
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="#">Delivery Information</a></li>
-                                    <li><a href="#">New products</a></li>
-                                    <li><a href="#">Best sales</a></li>
-                                    <li><a href="my-account.html">My Account</a></li>
-                                    <li><a href="#">Order History</a></li>
+                                    <li>
+                                        <a href="{{ route('terms-condition') }}">
+                                            Terms & Condition
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('about-us') }}">
+                                            About Us
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('about-us') }}">
+                                            New Products
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -361,12 +365,21 @@
                             <h3>My Account</h3>
                             <div class="footer_menu">
                                 <ul>
-                                    <li><a href="my-account.html">My Account</a></li>
-                                    <li><a href="cart.html">Shopping Cart</a></li>
-                                    <li><a href="wishlist.html">Wish List</a></li>
-                                    <li><a href="#">Prices drop</a></li>
-                                    <li><a href="#">Order History</a></li>
-                                    <li><a href="#">International Orders</a></li>
+                                    <li>
+                                        <a href="{{ route('user.dashboard') }}">
+                                            My Account
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('carts') }}">
+                                            Shopping Cart
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('wishlists') }}">
+                                            Wishlists
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -376,12 +389,16 @@
                             <h3>Customer Service</h3>
                             <div class="footer_menu">
                                 <ul>
-                                    <li><a href="#">Sitemap</a></li>
-                                    <li><a href="my-account.html">My Account</a></li>
-                                    <li><a href="#">Delivery Information</a></li>
-                                    <li><a href="#">Order History</a></li>
-                                    <li><a href="wishlist.html">Wish List</a></li>
-                                    <li><a href="#">Specials</a></li>
+                                    <li>
+                                        <a href="{{ route('contact-us') }}">
+                                            Contact Us
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('contact-us') }}">
+                                            Delivery Informaiton
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

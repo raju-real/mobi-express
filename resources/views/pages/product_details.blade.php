@@ -1,7 +1,8 @@
 @extends('user.layouts.app')
 @section('title', $product->name)
 @push('css')
-
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/user/css/rating.css') }}">
+@endpush
 @section('content')
 <!--breadcrumbs area start-->
 <div class="breadcrumbs_area">
@@ -58,7 +59,7 @@
 
                                 <h3>{{ $product->name }}</h3>
                                 
-                                <div class="product_rating">
+                                {{-- <div class="product_rating">
                                     <ul>
                                         <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
                                         <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
@@ -67,7 +68,7 @@
                                         <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
                                         <li class="review"><a href="#">(1 customer review )</a></li>
                                     </ul>
-                                </div>
+                                </div> --}}
                                 <div class="price_box">
                                     @if($product->discount_price > 0)
                                     <span class="old_price">
@@ -168,11 +169,13 @@
                                     <li>
                                         <a class="active" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="false">Description</a>
                                     </li>
+                                    @if($product->specification != null)
                                     <li>
                                         <a data-toggle="tab" href="#sheet" role="tab" aria-controls="sheet" aria-selected="false">Specification</a>
                                     </li>
+                                    @endif
                                     <li>
-                                        <a data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews (1)</a>
+                                        <a data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews ({{ $product->reviews->count() }})</a>
                                     </li>
                                 </ul>
                             </div>
@@ -193,85 +196,71 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="sheet" role="tabpanel">
-                                    <div class="product_d_table">
-                                        <form action="#">
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="first_child">Compositions</td>
-                                                        <td>Polyester</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="first_child">Styles</td>
-                                                        <td>Girly</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="first_child">Properties</td>
-                                                        <td>Short Dress</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </form>
-                                    </div>
-                                    <div class="product_info_content">
-                                        <p>Fashion has been creating well-designed collections since 2010. The brand offers feminine designs delivering stylish separates and statement dresses which have since evolved into a full ready-to-wear collection in which every item is a vital part of a woman's wardrobe. The result? Cool, easy, chic looks with youthful elegance and unmistakable signature style. All the beautiful pieces are made in Italy and manufactured with the greatest attention. Now Fashion extends to a range of accessories including shoes, hats, belts and more!</p>
-                                    </div>
+                                    
+                                    {!! $product->specification !!}
+                                    
                                 </div>
 
                                 <div class="tab-pane fade" id="reviews" role="tabpanel">
                                     <div class="reviews_wrapper">
-                                        <h2>1 review for Donec eu furniture</h2>
+                                        <h2>{{ $product->reviews->count() }} review for {{ $product->name }}</h2>
+                                        @foreach($product->reviews as $review)
                                         <div class="reviews_comment_box">
                                             <div class="comment_thmb">
-                                                <img src="assets/img/blog/comment2.jpg" alt="">
+                                                @if($review->user->image != null)
+                                                    <img src="{{ asset($review->user->image) }}" alt="">
+                                                @else
+                                                <img src="{{ asset('assets/user/img/blog/comment2.jpg') }}" alt="">
+                                                @endif
                                             </div>
                                             <div class="comment_text">
                                                 <div class="reviews_meta">
-                                                    <div class="product_rating">
+                                                    
+                                                    <p><strong>{{ $review->user->name }} </strong>- September 12, 2018</p>
                                                         <ul>
-                                                            <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                            <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                            <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                            <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                            <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                            <li>
+                                                                @for($i=1;$i<=$review->rating;$i++)
+                                                                <i class="ion-android-star-outline" style="font-size: 20px;color: orange;"></i>
+                                                                @endfor
+                                                            </li>
                                                         </ul>
-                                                    </div>
-                                                    <p><strong>admin </strong>- September 12, 2018</p>
-                                                    <span>roadthemes</span>
+                                                    <span>{{ $review->review }}</span>
                                                 </div>
                                             </div>
-
                                         </div>
-                                        <div class="comment_title">
-                                            <h2>Add a review </h2>
-                                            <p>Your email address will not be published. Required fields are marked </p>
-                                        </div>
-                                        <div class="product_rating mb-10">
-                                            <h3>Your rating</h3>
-                                            <ul>
-                                                <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                            </ul>
-                                        </div>
+                                        @endforeach
+                                        
                                         <div class="product_review_form">
-                                            <form action="#">
+                                           {{--  @if(Session::has('message'))
+                                            <div class="alert alert-info" role="alert">
+                                                <strong>{{ Session::get('message') }}</strong> 
+                                            </div>
+                                            @endif --}}
+                                            <form action="{{ route('submit-review') }}" method="POST">
+                                                @csrf
                                                 <div class="row">
                                                     <div class="col-12">
+                                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                        <div class="form-group required">
+                                                            <div class="stars">
+                                                                <input class="star star-1" id="star-1" type="radio" name="rating" value="1" />
+                                                                <label class="star star-1" for="star-1"></label>
+                                                                <input class="star star-2" id="star-2" type="radio" name="rating" value="2" />
+                                                                <label class="star star-2" for="star-2"></label>
+                                                                <input class="star star-3" id="star-3" type="radio" name="rating" value="3" />
+                                                                <label class="star star-3" for="star-3"></label>
+                                                                <input class="star star-4" id="star-4" type="radio" name="rating" value="4" />
+                                                                <label class="star star-4" for="star-4"></label>
+                                                                <input class="star star-5" id="star-5" type="radio" name="rating" value="5" />
+                                                                <label class="star star-5" for="star-5"></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
                                                         <label for="review_comment">Your review </label>
-                                                        <textarea name="comment" id="review_comment"></textarea>
+                                                        <textarea name="review" id="review_comment" required></textarea>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-6">
-                                                        <label for="author">Name</label>
-                                                        <input id="author" type="text">
-
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6">
-                                                        <label for="email">Email </label>
-                                                        <input id="email" type="text">
-                                                    </div>
+                                                    
                                                 </div>
                                                 <button type="submit">Submit</button>
                                             </form>

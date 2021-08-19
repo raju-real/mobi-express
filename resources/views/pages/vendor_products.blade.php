@@ -61,7 +61,7 @@
                         </form>
                     </div>
                     <div class="page_amount">
-                        <p>Showing {{ '1' }}–9 of {{ $products->count() }} results</p>
+                        <p>Showing {{ $products->count() }} Products</p>
                     </div>
                 </div>
                 <!--shop toolbar end-->

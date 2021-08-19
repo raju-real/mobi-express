@@ -6,6 +6,7 @@ use App\Model\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 use Alert;
 
 class DashboardController extends Controller
@@ -45,6 +46,41 @@ class DashboardController extends Controller
             toast('Invalid Invoice Number','error');
             return redirect()->route('user.dashboard');
         }   
-        
+    }
+
+    public function profile(){
+        $user = Auth::user();
+        return view('user.profile.profile',compact('user'));
+    }
+
+    public function passChangeForm(){
+        $user = Auth::user();
+        return view('user.profile.change_password',compact('user'));
+    }
+
+    public function editProfile(){
+        $user = Auth::user();
+        return view('user.profile.edit_profile',compact('user'));
+    }
+
+    public function updateProfile(Request $request){
+        $user = Auth::user();
+        if($request->file('image') != null) {
+            $this->validate($request,['image'=>'mimes:jpg,png,jpeg']);
+            if(file_exists($user->image) AND !empty($user->image)){
+                unlink($user->image);
+            }
+            $image = $request->file('image');
+            $imageName = time().$image->getClientOriginalName();
+            $image_resize = Image::make($image->getRealPath());
+            $image_resize->resize(100, 100);
+            $image_resize->save('images/user/' .$imageName);
+            $user->image = 'images/user/'.$imageName;
+        } 
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+        toast('Profile Update Successfully','success');
+        return redirect()->route('user.profile');
     }
 }

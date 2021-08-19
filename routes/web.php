@@ -18,7 +18,9 @@ Route::any('product-details/{slug}','HomePageController@productDetails')
 Route::get('featured-products','HomePageController@featuredProducts')   
     ->name('featured-products');    
 Route::get('products/category/{slug}','HomePageController@categoryProducts')    ->name('category-products');
-Route::get('products/subcategory/{slug}','HomePageController@subcategoryProducts')->name('subcategory-products');  
+Route::get('products/subcategory/{slug}','HomePageController@subcategoryProducts')->name('subcategory-products'); 
+Route::get('products/brand/{slug}','HomePageController@brandProducts')    
+    ->name('brand-products'); 
 Route::any('add-to-cart','HomePageController@addToCart')
     ->name('add-to-cart');
 Route::any('remove-cart-product','HomePageController@removeCartProduct')
@@ -36,6 +38,7 @@ Route::get('decrement-cart-product/{id}','HomePageController@decrementCartProduc
 Route::any('checkout','HomePageController@checkout')->name('checkout');  
 Route::any('submit-order','HomePageController@submitOrder')
     ->name('submit-order');  
+Route::post('submit-review','HomePageController@submitReview')->name('submit-review');
 
 include 'operation.php';
 
@@ -43,6 +46,22 @@ Route::get('/product/{category_id}',function($category_id){
     $products = Product::where('category_id',$category_id)->take(20)->get();
     return view('pages.ajax_products',compact('products'));
 });
+
+
+// Website basic routes
+Route::get('about-us',function(){
+    return view('pages.about_us');
+})->name('about-us');
+Route::get('contact-us',function(){
+    return view('pages.contact_us');
+})->name('contact-us');
+Route::get('terms-condition',function(){
+    return view('pages.terms_condition');
+})->name('terms-condition');
+Route::post('send-message','HomePageController@sendMessage')
+    ->name('send-message');
+Route::post('user-subscribe','HomePageController@subscribe')
+    ->name('user-subscribe');
 
 
 

@@ -7,7 +7,40 @@
 
 @section('content')
 <div class="row">
-	<div class="col-xl-12">
+    <div class="col-xl-12">
+        <div class="ibox">
+            <div class="ibox-body">
+                <form action="{{ route('admin.product.index') }}">
+                    <div class="row">
+                        <div class="col-md-2 form-group">
+                            <label>Category</label>
+                            <select name="category_id" id="category_id" class="form-control" onchange="getSubcategory()">
+                                <option value="">Select Category</option>
+                                @foreach($categories as $category)
+                                   <option value="{{ $category->id }}"> {{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label for="subcategory_id">Sub Category</label>
+                            <select name="subcategory_id" id="subcategory_id" class="form-control">
+                                <option value="">Select Category</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Product Name</label>
+                            <input type="text" name="name" class="form-control">
+                        </div>
+                        <div class="col-md-2">
+                            <label>Action</label>
+                            <button type="submit" class="btn btn-info pointer">Search Product</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+	<div class="col-md-12">
 		<div class="ibox">
             <div class="ibox-head">
                 <div class="ibox-title">
@@ -35,7 +68,8 @@
             </div>
             
             <div class="ibox-body">
-                <table class="table table-responsive text-nowrap table-striped table-bordered table-hover" id="product-table" cellspacing="0" width="100%">
+                <div class="table-responsive">
+                    <table class="table text-nowrap table-striped table-bordered table-hover" id="product-table" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>Sl.no</th>
@@ -63,7 +97,7 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                    	@foreach($products as $product)
+                        @foreach($products as $product)
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
                             <td>
@@ -79,9 +113,9 @@
                             <td>{{ $product->stock_status }}</td>
                             <td>{{ $product->quantity }}</td>
                             <td>
-                            	<a href="{{ route('admin.product.show',$product->slug) }}" class="badge badge-info">
-                            		<i class="fa fa-eye"></i>
-                            	</a>
+                                <a href="{{ route('admin.product.show',$product->slug) }}" class="badge badge-info">
+                                    <i class="fa fa-eye"></i>
+                                </a>
                                 <a href="{{ route('admin.product.edit',$product->slug) }}" class="badge badge-primary">
                                     <i class="fa fa-edit"></i>
                                 </a>
@@ -90,6 +124,8 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
+                
                 {{ $products->links() }}
             </div>
         </div>
@@ -108,6 +144,26 @@
            
         });
     })
+
+    function getSubcategory(){
+        $('#subcategory_id') .find('option') .remove() .end() .append('<option value="">Select Sub Category</option>');
+        var id = document.getElementById('category_id').value;
+
+         axios.get(`/api/get_subcategory/${id}`)
+        .then(function (response) {
+            var list = response.data;
+            var select = document.getElementById("subcategory_id");
+            for(i = 0; i < list.length ;i ++){
+                var el = document.createElement("option");
+                var subcategorys = list[i];
+                var subcategoryName = subcategorys.name;
+                var subcategoryId = subcategorys.id;
+                el.textContent = subcategoryName;
+                el.value = subcategoryId;
+                select.appendChild(el);
+            }
+        });
+    }
 </script>
 
     
