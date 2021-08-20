@@ -19,7 +19,7 @@
         </div>
         <div class="product_content">
             <div class="product_content_inner">
-                <h4 class="product_name"><a href="product-details.html">
+                <h4 class="product_name"><a href="{{ route('product-details',$f_p->product->slug) }}">
                     {{ $f_p->product->name }}
                 </a></h4>
                 <div class="price_box">

@@ -152,9 +152,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.color.index') }}">
+                        <a href="{{ route('admin.front-category.index') }}">
                             <i class="fa fa-circle-o"></i>
-                            Trending
+                            Category & Product
                         </a>
                     </li>
                 </ul>
@@ -168,6 +168,11 @@
             <li>
                 <a href="{{ route('admin.offer.index') }}"><i class="sidebar-item-icon fa fa-percent"></i>
                     <span class="nav-label">Offer Product</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('admin.voucher-product.index') }}"><i class="sidebar-item-icon fa fa-money"></i>
+                    <span class="nav-label">Voucher Product</span>
                 </a>
             </li>
             <li>

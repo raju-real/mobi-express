@@ -7,6 +7,7 @@ use App\Model\Category;
 use App\Model\Division;
 use App\Model\Favorite;
 use App\Model\FeaturedProduct;
+use App\Model\FrontCategory;
 use App\Model\Order;
 use App\Model\OrderPrice;
 use App\Model\OrderProduct;
@@ -18,6 +19,7 @@ use App\Model\SpecialOffer;
 use App\Model\SubCategory;
 use App\Model\Subscriber;
 use App\Model\UserMessage;
+use App\Model\VoucherProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -96,15 +98,29 @@ class HomePageController extends Controller
         $featuredProducts = FeaturedProduct::with('product')
             ->orderBy('serial','asc')->take(20)->get();
         // Best Selling Product
-        $orderProducts = OrderProduct::all();    
+        $orderProducts = OrderProduct::latest()->distinct()->take(20)->get();    
         $bestSellingProducts = Product::whereIn('id',$orderProducts->pluck('product_id'))
-            ->distinct()->take(5)->get(); 
+            ->get(); 
         // Popular Product
         $popularProducts = Review::with('product')
             ->orderBy('rating','desc')
             ->inRandomOrder()
             ->distinct()->take(5)->get(); 
-        return view('welcome',compact('featuredProducts','bestSellingProducts','categories','offers','popularProducts'));
+        $frontCategories = FrontCategory::with('category')
+            ->inRandomOrder()->take(3)->get();
+        //return $frontCategories;
+        return view('welcome',compact('featuredProducts','bestSellingProducts','categories','offers','popularProducts','frontCategories'));
+    }
+
+    public function voucherProducts(){
+        $ids = VoucherProduct::orderBy('serial','asc')
+        ->select('id')
+        ->get();
+        $products = Product::whereIn('id',$ids->pluck('id'))
+            ->paginate(20);
+        $title = 'Voucher Products';    
+        $pageTitle = 'Voucher Products';
+        return view('pages.vendor_products',compact('products','title','pageTitle'));
     }
 
     public function featuredProducts(){

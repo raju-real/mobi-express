@@ -19,6 +19,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('product', 'ProductController');
     Route::delete('remove-image/{id}','ProductController@removeImage');
     Route::resource('offer','OfferController');
+    Route::resource('voucher-product','VoucherProductController');
     Route::resource('promotion','PromotionController');
     Route::get('promotion/products/{id}','PromotionController@promotionProducts')
         ->name('promotion-products');
@@ -29,6 +30,17 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('slider','SliderController');  
     Route::resource('featured-products','FeaturedProductController');  
     Route::resource('new-arrivals','NewArrivalsController');  
+    Route::resource('front-category','FrontCategoryController');
+    Route::get('front-category-products','FrontCategoryController@products')
+        ->name('front-category-products');
+    Route::get('front-category-add-product','FrontCategoryController@addProductFrom')
+        ->name('front-category-add-product');
+    Route::post('add-product-front-cat','FrontCategoryController@addProduct')
+        ->name('add-product-front-cat');
+    Route::get('edit-product-front-cat/{id}','FrontCategoryController@editProduct')
+        ->name('edit-product-front-cat'); 
+    Route::put('update-product-front-cat/{id}','FrontCategoryController@updateProduct')->name('update-product-front-cat'); 
+    Route::delete('delete-product-front-cat/{id}','FrontCategoryController@deleteProduct')->name('delete-product-front-cat');      
     // order section
     Route::get('orders/pending','OrderController@pendingOrders')
         ->name('pending-orders');
