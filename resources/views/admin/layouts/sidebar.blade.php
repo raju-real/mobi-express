@@ -180,6 +180,33 @@
                     <span class="nav-label">Coupon</span>
                 </a>
             </li>
+            
+            <li>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-globe"></i>
+                    <span class="nav-label">Website Basic</span><i class="fa fa-angle-left arrow"></i></a>
+                <ul class="nav-2-level collapse">
+                    <li>
+
+                        <a href="{{ route('admin.policy.index') }}">
+                            <i class="fa fa-circle-o"></i>
+                            Policy
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.contact-us') }}">
+                            <i class="fa fa-circle-o"></i>
+                            Contact Us
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.about-us') }}">
+                            <i class="fa fa-circle-o"></i>
+                            About Us
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
             <li>
                 <a href="{{ route('admin.district.index') }}"><i class="sidebar-item-icon fa fa-area-chart"></i>
                     <span class="nav-label">Districts</span>

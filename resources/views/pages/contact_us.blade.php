@@ -9,16 +9,22 @@
         <!--contact area start-->
         <div class="contact_area">
             <div class="row">
+                @php
+                    $contact = App\Model\ContactUs::first();
+                @endphp
                 <div class="col-lg-6 col-md-6">
-                	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.0637270494844!2d90.36965831447442!3d23.74510679489654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755bf4c778c9861%3A0x405ad034dedf13b4!2sMeena%20Bazar!5e0!3m2!1sen!2sbd!4v1629348697071!5m2!1sen!2sbd" width="610" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                	<iframe src="{{ $contact->map_link }}" width="610" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 	<hr>
                     <div class="contact_message content">
                         <h3>contact us</h3>
-                        <p>Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram anteposuerit litterarum formas human. qui sequitur mutationem consuetudium lectorum. Mirum est notare quam</p>
+                        <p>{{ $contact->office_info }}</p>
                         <ul>
-                            <li><i class="fa fa-fax"></i> Address : Your address goes here.</li>
-                            <li><i class="fa fa-phone"></i> <a href="#">demo@example.com</a></li>
-                            <li><i class="fa fa-envelope-o"></i> 0123456789</li>
+                            <li><i class="fa fa-fax"></i> Address : {{ $contact->address }}</li>
+                            <li><i class="fa fa-mobile"></i> <a href="#">
+                                {{ $contact->mobile }}
+                            </a></li>
+                            <li><i class="fa fa-envelope-o"></i> {{ $contact->email }}</li>
+                            <li><i class="fa fa-phone"></i> {{ $contact->phone }}</li>
                         </ul>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 @extends('user.layouts.app')
-@section('title','Delivery Information')
+@section('title','Privacy Policy')
 @push('css')
 @endpush
 
@@ -12,7 +12,7 @@
                 <div class="breadcrumb_content">
                     <ul>
                         <li><a href="{{ route('home') }}">home</a></li>
-                        <li>delivery information</li>
+                        <li>privacy policy</li>
                     </ul>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                {!! App\Model\Policy::first()->delivery_information !!}
+                                {!! App\Model\Policy::first()->privacy_policy !!}
                             </div>
                         </div>
                     </div>

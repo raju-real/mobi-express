@@ -19,6 +19,14 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('product', 'ProductController');
     Route::delete('remove-image/{id}','ProductController@removeImage');
     Route::resource('offer','OfferController');
+    Route::resource('policy','PolicyController');
+    Route::get('policy-edit','PolicyController@edit')->name('policy-edit');
+    Route::get('about-us','AboutContactController@aboutUs')->name('about-us');
+    Route::put('update-about','AboutContactController@updateAboutUs')
+        ->name('update-about');
+    Route::get('contact-us','AboutContactController@contactUs')->name('contact-us');
+    Route::put('update-contact','AboutContactController@updateContactUs')
+        ->name('update-contact');
     Route::resource('voucher-product','VoucherProductController');
     Route::resource('promotion','PromotionController');
     Route::get('promotion/products/{id}','PromotionController@promotionProducts')

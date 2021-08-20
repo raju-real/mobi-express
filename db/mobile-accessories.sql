@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 19, 2021 at 07:49 PM
+-- Generation Time: Aug 20, 2021 at 04:06 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `mobile-accessories`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `about_us`
+--
+
+CREATE TABLE `about_us` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `about_us` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `about_us`
+--
+
+INSERT INTO `about_us` (`id`, `image`, `about_us`, `created_at`, `updated_at`) VALUES
+(1, 'images/basic/1629473518eCommerce-Website-Components-image-1024x660-min-704x454.jpg', '<h2>What Is Electronic Commerce (e-commerce)?</h2>\r\n\r\n<p>Electronic commerce or e-commerce&nbsp;(sometimes written as eCommerce<em>)</em>&nbsp;is a&nbsp;<a href=\"https://www.investopedia.com/terms/b/businessmodel.asp\">business model</a>&nbsp;that lets firms and individuals buy and sell things over the internet. E-commerce operates in all four of the following major market segments:</p>\r\n\r\n<ul>\r\n	<li>Business to business</li>\r\n	<li>Business to consumer</li>\r\n	<li>Consumer to consumer</li>\r\n	<li>Consumer to business</li>\r\n	<li>\r\n	<p>E-commerce, which can be conducted over computers, tablets, or smartphones may be thought of like a digital version of mail-order catalog shopping. Nearly every imaginable product and service is available through e-commerce transactions, including books, music, plane tickets, and financial services such as&nbsp;<a href=\"https://www.investopedia.com/articles/etfs-mutual-funds/080516/4-etfs-fang-stocks-fdnpnqiqqqskyy.asp\">stock investing</a>&nbsp;and online banking. As such, it is considered a very&nbsp;<a href=\"https://www.investopedia.com/terms/d/disruptive-technology.asp\">disruptive technology</a>.</p>\r\n\r\n	<h3>KEY TAKEAWAYS</h3>\r\n	</li>\r\n	<li>E-commerce is the buying and selling of goods and services over the internet.</li>\r\n	<li>E-commerce can be a substitute for brick-and-mortar stores, though some businesses choose to maintain both.</li>\r\n	<li>Almost anything can be purchased through e-commerce today.</li>\r\n	<li>\r\n	<p>&nbsp;</p>\r\n\r\n	<p>E-commerce lets firms and individuals conduct business over the Internet.</p>\r\n	</li>\r\n</ul>', NULL, '2021-08-20 09:31:58');
 
 -- --------------------------------------------------------
 
@@ -159,6 +180,31 @@ INSERT INTO `colors` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `contact_us`
+--
+
+CREATE TABLE `contact_us` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `map_link` text COLLATE utf8mb4_unicode_ci,
+  `office_info` text COLLATE utf8mb4_unicode_ci,
+  `address` text COLLATE utf8mb4_unicode_ci,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mobile` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `contact_us`
+--
+
+INSERT INTO `contact_us` (`id`, `map_link`, `office_info`, `address`, `email`, `mobile`, `phone`, `created_at`, `updated_at`) VALUES
+(1, 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.2350055083375!2d90.38097161447428!3d23.73899769512986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b7e01f1413%3A0x2543f04f47276dd4!2sAarong%2C%20Dhanmondi%20Branch!5e0!3m2!1sen!2sbd!4v1629475518003!5m2!1sen!2sbd', 'Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram anteposuerit litterarum formas human. qui sequitur mutationem consuetudium lectorum. Mirum est notare quam', 'mohammadpur, dhaka', 'raju@mail.com', '01889967514', '6549465416454', NULL, '2021-08-20 10:05:45');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `districts`
 --
 
@@ -236,11 +282,87 @@ INSERT INTO `featured_products` (`id`, `product_id`, `serial`, `status`, `create
 (9, 9, 20, 1, '2021-07-10 06:54:31', '2021-07-26 04:50:14'),
 (10, 123, 1, 1, '2021-07-10 06:54:40', '2021-07-10 06:54:40'),
 (12, 12, 1, 1, '2021-07-10 06:55:01', '2021-07-10 09:48:46'),
-(13, 27, 1, 1, '2021-07-10 06:55:11', '2021-07-10 06:55:11'),
+(13, 437, 10, 0, '2021-07-10 06:55:11', '2021-08-20 03:24:30'),
 (14, 71, 1, 1, '2021-07-10 06:55:19', '2021-07-10 06:55:19'),
 (15, 92, 1, 1, '2021-07-10 06:55:28', '2021-07-10 06:55:28'),
 (16, 73, 1, 1, '2021-07-10 06:55:36', '2021-07-10 06:55:36'),
 (17, 25, 15, 1, '2021-07-10 09:16:04', '2021-07-10 09:16:04');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `front_categories`
+--
+
+CREATE TABLE `front_categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `category_slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `front_categories`
+--
+
+INSERT INTO `front_categories` (`id`, `category_id`, `category_slug`, `status`, `created_at`, `updated_at`) VALUES
+(1, 2, 'charger', 1, '2021-08-19 23:43:23', '2021-08-20 00:06:19'),
+(2, 3, 'backpad', 1, '2021-08-20 00:06:30', '2021-08-20 00:06:30'),
+(5, 1, 'head-phone', 1, '2021-08-20 03:43:52', '2021-08-20 03:43:52');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `front_category_products`
+--
+
+CREATE TABLE `front_category_products` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `front_category_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `serial` int(191) NOT NULL,
+  `status` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `front_category_products`
+--
+
+INSERT INTO `front_category_products` (`id`, `front_category_id`, `product_id`, `serial`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 200, 1, 1, '2021-08-20 02:14:54', '2021-08-20 02:14:54'),
+(2, 1, 201, 2, 1, '2021-08-20 02:16:23', '2021-08-20 02:16:23'),
+(3, 1, 205, 3, 1, '2021-08-20 02:16:34', '2021-08-20 02:16:34'),
+(4, 2, 5, 1, 1, '2021-08-20 02:20:17', '2021-08-20 02:20:17'),
+(5, 2, 401, 2, 1, '2021-08-20 02:20:28', '2021-08-20 02:20:28'),
+(6, 2, 402, 3, 1, '2021-08-20 02:20:38', '2021-08-20 02:20:38'),
+(7, 2, 404, 4, 1, '2021-08-20 02:20:47', '2021-08-20 02:20:47'),
+(8, 2, 405, 5, 1, '2021-08-20 02:20:57', '2021-08-20 02:20:57'),
+(9, 2, 408, 6, 1, '2021-08-20 02:21:08', '2021-08-20 02:21:08'),
+(10, 2, 410, 7, 1, '2021-08-20 02:21:19', '2021-08-20 02:21:19'),
+(14, 1, 202, 4, 1, '2021-08-20 02:22:12', '2021-08-20 02:22:12'),
+(15, 1, 203, 5, 1, '2021-08-20 03:42:23', '2021-08-20 03:42:23'),
+(16, 1, 207, 6, 1, '2021-08-20 03:42:30', '2021-08-20 03:42:30'),
+(17, 1, 204, 7, 1, '2021-08-20 03:42:38', '2021-08-20 03:42:38'),
+(18, 1, 210, 8, 1, '2021-08-20 03:42:45', '2021-08-20 03:42:45'),
+(19, 1, 211, 9, 1, '2021-08-20 03:42:51', '2021-08-20 03:42:51'),
+(20, 1, 212, 10, 1, '2021-08-20 03:42:58', '2021-08-20 03:42:58'),
+(21, 2, 409, 8, 1, '2021-08-20 03:43:14', '2021-08-20 03:43:14'),
+(22, 2, 407, 9, 1, '2021-08-20 03:43:21', '2021-08-20 03:43:21'),
+(23, 2, 411, 10, 1, '2021-08-20 03:43:27', '2021-08-20 03:43:27'),
+(24, 5, 1, 1, 1, '2021-08-20 03:44:02', '2021-08-20 03:44:02'),
+(25, 5, 2, 2, 1, '2021-08-20 03:44:08', '2021-08-20 03:44:08'),
+(26, 5, 4, 3, 1, '2021-08-20 03:44:14', '2021-08-20 03:44:14'),
+(27, 5, 3, 4, 1, '2021-08-20 03:44:20', '2021-08-20 03:44:20'),
+(28, 5, 7, 5, 1, '2021-08-20 03:44:26', '2021-08-20 03:44:26'),
+(29, 5, 8, 6, 1, '2021-08-20 03:44:32', '2021-08-20 03:44:32'),
+(30, 5, 10, 7, 1, '2021-08-20 03:44:39', '2021-08-20 03:44:39'),
+(31, 5, 9, 8, 1, '2021-08-20 03:44:45', '2021-08-20 03:44:45'),
+(32, 5, 12, 9, 1, '2021-08-20 03:44:54', '2021-08-20 03:44:54'),
+(33, 5, 11, 10, 1, '2021-08-20 03:45:01', '2021-08-20 03:45:01');
 
 -- --------------------------------------------------------
 
@@ -266,7 +388,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (30, '2021_07_31_155131_create_new_arrivals_table', 5),
 (31, '2021_08_19_045807_create_user_messages_table', 6),
 (32, '2021_08_19_060338_create_subscribers_table', 7),
-(33, '2021_08_19_100437_create_reviews_table', 8);
+(33, '2021_08_19_100437_create_reviews_table', 8),
+(34, '2021_08_20_052657_create_front_categories_table', 9),
+(35, '2021_08_20_052709_create_front_category_products_table', 9),
+(36, '2021_08_20_103057_create_voucher_products_table', 10),
+(37, '2021_08_20_124432_create_policies_table', 11),
+(38, '2021_08_20_143405_create_contact_us_table', 12),
+(39, '2021_08_20_143420_create_about_us_table', 12);
 
 -- --------------------------------------------------------
 
@@ -334,7 +462,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `order_number`, `invoice`, `delivery_charge`, `vat`, `tax`, `total_price`, `product_discount_price`, `order_status`, `payment_method`, `voucher_code`, `voucher_mobile`, `voucher_amount`, `has_coupon`, `coupon_code`, `coupon_discount_amount`, `total_discount_amount`, `order_price`, `paid_amount`, `due_amount`, `name`, `mobile`, `email`, `district`, `city_town`, `address`, `note`, `created_at`, `updated_at`) VALUES
-(10, 1, '000001', 'ME-19864857', 0.00, 0.00, 0.00, 665.00, 0.00, '0', 1, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 665.00, 0.00, 665.00, 'Raju', '01889967514', 'raju@mail.com', '3', 'Kaunia', 'Baruahat(Shibu lichu bagan)', 'I want this quickly', '2021-08-19 11:02:56', '2021-08-19 11:02:56');
+(10, 1, '000001', 'ME-19864857', 0.00, 0.00, 0.00, 665.00, 0.00, '0', 1, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 665.00, 0.00, 665.00, 'Raju', '01889967514', 'raju@mail.com', '3', 'Kaunia', 'Baruahat(Shibu lichu bagan)', 'I want this quickly', '2021-08-19 11:02:56', '2021-08-19 11:02:56'),
+(11, 1, '000002', 'ME-27405744', 0.00, 0.00, 0.00, 926.00, 29.00, '0', 1, NULL, NULL, 0.00, 'no', NULL, 0.00, 29.00, 926.00, 0.00, 926.00, 'Raju Real', '01889967514', 'rajuf@mail.com', '3', 'Kaunia', 'Shibu(Lichu bagan), Baruahat-5440', 'This is an emergency order', '2021-08-20 04:10:58', '2021-08-20 04:10:58');
 
 -- --------------------------------------------------------
 
@@ -372,7 +501,8 @@ INSERT INTO `order_prices` (`id`, `session_id`, `user_id`, `total_price`, `produ
 (11, 'F6mZtL1uYxQtBPobWrfCMeK5gs0Uey6TZuj6FUb0', 1, 480.00, 0.00, 480.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
 (12, 'FIasJ7J2S6wJm4iMv5SjICLs6VchyKo1BGPySAoc', 1, 615.00, 0.00, 615.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
 (13, 'MgHaSEgGYd1DJfjYSF003zpW5NlwssCwDyzFdspP', 1, 250.00, 0.00, 250.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
-(14, '81kLDd24UGk6zHg7baodXvyivX804RrCMGEEQ4VA', 1, 665.00, 0.00, 665.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL);
+(14, '81kLDd24UGk6zHg7baodXvyivX804RrCMGEEQ4VA', 1, 665.00, 0.00, 665.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
+(15, 'zU8yu4vztmVyA0jynx53iJYL3SEt8neZxyZTgdlB', 1, 926.00, 29.00, 926.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -399,7 +529,14 @@ CREATE TABLE `order_products` (
 INSERT INTO `order_products` (`id`, `user_id`, `order_id`, `product_id`, `order_price`, `quantity`, `total_price`, `created_at`, `updated_at`) VALUES
 (17, 1, 10, 8, 50.00, 1, 50.00, '2021-08-19 11:02:56', '2021-08-19 11:02:56'),
 (18, 1, 10, 71, 45.00, 1, 45.00, '2021-08-19 11:02:56', '2021-08-19 11:02:56'),
-(19, 1, 10, 27, 570.00, 1, 570.00, '2021-08-19 11:02:56', '2021-08-19 11:02:56');
+(19, 1, 10, 27, 570.00, 1, 570.00, '2021-08-19 11:02:56', '2021-08-19 11:02:56'),
+(20, 1, 11, 207, 215.00, 1, 215.00, '2021-08-20 04:10:59', '2021-08-20 04:10:59'),
+(21, 1, 11, 404, 225.00, 1, 225.00, '2021-08-20 04:10:59', '2021-08-20 04:10:59'),
+(22, 1, 11, 3, 36.00, 1, 36.00, '2021-08-20 04:10:59', '2021-08-20 04:10:59'),
+(23, 1, 11, 8, 50.00, 1, 50.00, '2021-08-20 04:10:59', '2021-08-20 04:10:59'),
+(24, 1, 11, 9, 50.00, 1, 50.00, '2021-08-20 04:10:59', '2021-08-20 04:10:59'),
+(25, 1, 11, 409, 250.00, 1, 250.00, '2021-08-20 04:10:59', '2021-08-20 04:10:59'),
+(26, 1, 11, 407, 100.00, 1, 100.00, '2021-08-20 04:10:59', '2021-08-20 04:10:59');
 
 -- --------------------------------------------------------
 
@@ -412,6 +549,29 @@ CREATE TABLE `password_resets` (
   `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `policies`
+--
+
+CREATE TABLE `policies` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `privacy_policy` text COLLATE utf8mb4_unicode_ci,
+  `terms_condition` text COLLATE utf8mb4_unicode_ci,
+  `return_policy` text COLLATE utf8mb4_unicode_ci,
+  `delivery_information` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `policies`
+--
+
+INSERT INTO `policies` (`id`, `privacy_policy`, `terms_condition`, `return_policy`, `delivery_information`, `created_at`, `updated_at`) VALUES
+(1, '<p><strong>Privacy and Confidentiality</strong></p>\r\n\r\n<p>Welcome to the Mobixpress.com.bd website (the &quot;Site&quot;) operated by Mobi Xpress Bangladesh Ltd. We respect your privacy and want to protect your personal information. To learn more, please read this Privacy Policy.<br />\r\n<br />\r\nThis Privacy Policy explains how we collect, use and (under certain conditions) disclose your personal information. This Privacy Policy also explains the steps we have taken to secure your personal information. Finally, this Privacy Policy explains your options regarding the collection, use and disclosure of your personal information. By visiting the Site directly or through another site, you accept the practices described in this Policy.<br />\r\n<br />\r\nData protection is a matter of trust and your privacy is important to us. We shall therefore only use your name and other information which relates to you in the manner set out in this Privacy Policy. We will only collect information where it is necessary for us to do so and we will only collect information if it is relevant to our dealings with you.<br />\r\n<br />\r\nWe will only keep your information for as long as we are either required to by law or as is relevant for the purposes for which it was collected.<br />\r\n<br />\r\nYou can visit the Site and browse without having to provide personal details. During your visit to the Site you remain anonymous and at no time can we identify you unless you have an account on the Site and log on with your user name and password.</p>\r\n\r\n<p><br />\r\n&nbsp;</p>\r\n\r\n<p><strong>1. Data that we collect</strong></p>\r\n\r\n<p>We may collect various pieces of information if you seek to place an order for a product with us on the Site.<br />\r\n<br />\r\nWe collect, store and process your data for processing your purchase on the Site and any possible later claims, and to provide you with our services. We may collect personal information including, but not limited to, your title, name, gender, date of birth, email address, postal address, delivery address (if different), telephone number, mobile number, fax number, payment details, payment card details or bank account details.<br />\r\n<br />\r\nWe will use the information you provide to enable us to process your orders and to provide you with the services and information offered through our website and which you request. Further, we will use the information you provide to administer your account with us; verify and carry out financial transactions in relation to payments you make; audit the downloading of data from our website; improve the layout and/or content of the pages of our website and customize them for users; identify visitors on our website; carry out research on our users&#39; demographics; send you information we think you may find useful or which you have requested from us, including information about our products and services, provided you have indicated that you have not objected to being contacted for these purposes. Subject to obtaining your consent we may contact you by email with details of other products and services. If you prefer not to receive any marketing communications from us, you can opt out at any time.<br />\r\n<br />\r\nWe may pass your name and address on to a third party in order to make delivery of the product to you (for example to our courier or supplier). You must only submit to us the Site information which is accurate and not misleading and you must keep it up to date and inform us of changes.<br />\r\n<br />\r\nYour actual order details may be stored with us but for security reasons cannot be retrieved directly by us. However, you may access this information by logging into your account on the Site. Here you can view the details of your orders that have been completed, those which are open and those which are shortly to be dispatched and administer your address details, bank details ( for refund purposes) and any newsletter to which you may have subscribed. You undertake to treat the personal access data confidentially and not make it available to unauthorized third parties. We cannot assume any liability for misuse of passwords unless this misuse is our fault.</p>\r\n\r\n<p><br />\r\n&nbsp;</p>\r\n\r\n<p><strong>Other uses of your Personal Information</strong></p>\r\n\r\n<p>We may use your personal information for opinion and market research. Your details are anonymous and will only be used for statistical purposes. You can choose to opt out of this at any time. Any answers to surveys or opinion polls we may ask you to complete will not be forwarded on to third parties. Disclosing your email address is only necessary if you would like to take part in competitions. We save the answers to our surveys separately from your email address.<br />\r\n<br />\r\nWe may also send you other information about us, the Site, our other websites, our products, sales promotions, our newsletters, anything relating to other companies in our group or our business partners. If you would prefer not to receive any of this additional information as detailed in this paragraph (or any part of it) please click the &#39;unsubscribe&#39; link in any email that we send to you. Within 7 working days (days which are neither (i) a Sunday, nor (ii) a public holiday anywhere in Bangladesh) of receipt of your instruction we will cease to send you information as requested. If your instruction is unclear we will contact you for clarification.<br />\r\n<br />\r\nWe may further anonymize data about users of the Site generally and use it for various purposes, including ascertaining the general location of the users and usage of certain aspects of the Site or a link contained in an email to those registered to receive them, and supplying that anonymized data to third parties such as publishers. However, that anonymized data will not be capable of identifying you personally.</p>\r\n\r\n<p><br />\r\n&nbsp;</p>\r\n\r\n<p><strong>Competitions</strong></p>\r\n\r\n<p>For any competition we use the data to notify winners and advertise our offers. You can find more details where applicable in our participation terms for the respective competition.</p>\r\n\r\n<p><br />\r\n&nbsp;</p>\r\n\r\n<p><strong>Third Parties and Links</strong></p>\r\n\r\n<p>We may pass your details to other companies in our group. We may also pass your details to our agents and subcontractors to help us with any of our uses of your data set out in our Privacy Policy. For example, we may use third parties to assist us with delivering products to you, to help us to collect payments from you, to analyze data and to provide us with marketing or customer service assistance.<br />\r\n<br />\r\nWe may exchange information with third parties for the purposes of fraud protection and credit risk reduction. We may transfer our databases containing your personal information if we sell our business or part of it. Other than as set out in this Privacy Policy, we shall NOT sell or disclose your personal data to third parties without obtaining your prior consent unless this is necessary for the purposes set out in this Privacy Policy or unless we are required to do so by law. The Site may contain advertising of third parties and links to other sites or frames of other sites. Please be aware that we are not responsible for the privacy practices or content of those third parties or other sites, nor for any third party to whom we transfer your data in accordance with our Privacy Policy.</p>\r\n\r\n<p><br />\r\n&nbsp;</p>\r\n\r\n<p><strong>2. Cookies</strong></p>\r\n\r\n<p>The acceptance of cookies is not a requirement for visiting the Site. However we would like to point out that the use of the &#39;basket&#39; functionality on the Site and ordering is only possible with the activation of cookies. Cookies are tiny text files which identify your computer to our server as a unique user when you visit certain pages on the Site and they are stored by your Internet browser on your computer&#39;s hard drive. Cookies can be used to recognize your Internet Protocol address, saving you time while you are on, or want to enter, the Site. We only use cookies for your convenience in using the Site (for example to remember who you are when you want to amend your shopping cart without having to re-enter your email address) and not for obtaining or using any other information about you (for example targeted advertising). Your browser can be set to not accept cookies, but this would restrict your use of the Site. Please accept our assurance that our use of cookies does not contain any personal or private details and are free from viruses. If you want to find out more information about cookies, go to http://www.allaboutcookies.org or to find out about removing them from your browser, go to http://www.allaboutcookies.org/manage-cookies/index.html.<br />\r\n<br />\r\nThis website uses Google Analytics, a web analytics service provided by Google, Inc. (&quot;Google&quot;). Google Analytics uses cookies, which are text files placed on your computer, to help the website analyze how users use the site. The information generated by the cookie about your use of the website (including your IP address) will be transmitted to and stored by Google on servers in the United States. Google will use this information for the purpose of evaluating your use of the website, compiling reports on website activity for website operators and providing other services relating to website activity and internet usage. Google may also transfer this information to third parties where required to do so by law, or where such third parties process the information on Google&#39;s behalf. Google will not associate your IP address with any other data held by Google. You may refuse the use of cookies by selecting the appropriate settings on your browser, however please note that if you do this you may not be able to use the full functionality of this website. By using this website, you consent to the processing of data about you by Google in the manner and for the purposes set out above.</p>\r\n\r\n<p><br />\r\n&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>3. Security</strong></p>\r\n\r\n<p>We have in place appropriate technical and security measures to prevent unauthorized or unlawful access to or accidental loss of or destruction or damage to your information. When we collect data through the Site, we collect your personal details on a secure server. We use firewalls on our servers. Our security procedures mean that we may occasionally request proof of identity before we disclose personal information to you. You are responsible for protecting against unauthorized access to your password and to your computer.</p>\r\n\r\n<p><br />\r\n&nbsp;</p>\r\n\r\n<p><strong>4. Your rights</strong></p>\r\n\r\n<p>If you are concerned about your data you have the right to request access to the personal data which we may hold or process about you. You have the right to require us to correct any inaccuracies in your data free of charge. At any stage you also have the right to ask us to stop using your personal data for direct marketing purposes</p>', '<p><strong>TERMS AND CONDITIONS</strong></p>\r\n\r\n<p><strong>1. INTRODUCTION</strong></p>\r\n\r\n<p>Welcome to Mobixpress.com.bd also hereby known as &ldquo;we&quot;, &quot;us&quot; or &quot;MobiXpress&quot;. We are an online marketplace and these are the terms and conditions governing your access and use of MobiXpress along with its related sub-domains, sites, mobile app, services and tools (the &quot;Site&quot;). By using the Site, you hereby accept these terms and conditions (including the linked information herein) and represent that you agree to comply with these terms and conditions (the &quot;User Agreement&quot;). This User Agreement is deemed effective upon your use of the Site which signifies your acceptance of these terms. If you do not agree to be bound by this User Agreement please do not access, register with or use this Site.<br />\r\n<br />\r\nThe Site reserves the right to change, modify, add, or remove portions of these Terms and Conditions at any time without any prior notification. Changes will be effective when posted on the Site with no other notice provided. Please check these Terms and Conditions regularly for updates. Your continued use of the Site following the posting of changes to Terms and Conditions of use constitutes your acceptance of those changes.</p>\r\n\r\n<p><strong>2. CONDITIONS OF USE</strong></p>\r\n\r\n<p><strong>2.1 YOUR ACCOUNT</strong></p>\r\n\r\n<p>To access certain services offered by the platform, we may require that you create an account with us or provide personal information to complete the creation of an account. We may at any time in our sole and absolute discretion, invalidate the username and/or password without giving any reason or prior notice and shall not be liable or responsible for any losses suffered by, caused by, arising out of, in connection with or by reason of such request or invalidation.<br />\r\n<br />\r\nYou are responsible for maintaining the confidentiality of your user identification, password, account details and related private information. You agree to accept this responsibility and ensure your account and its related details are maintained securely at all times and all necessary steps are taken to prevent misuse of your account. You should inform us immediately if you have any reason to believe that your password has become known to anyone else, or if the password is being, or is likely to be, used in an unauthorized manner. You agree and acknowledge that any use of the Site and related services offered and/or any access to private information, data or communications using your account and password shall be deemed to be either performed by you or authorized by you as the case may be. You agree to be bound by any access of the Site and/or use of any services offered by the Site (whether such access or use are authorized by you or not). You agree that we shall be entitled (but not obliged) to act upon, rely on or hold you solely responsible and liable in respect thereof as if the same were carried out or transmitted by you. You further agree and acknowledge that you shall be bound by and agree to fully indemnify us against any and all losses arising from the use of or access to the Site through your account.<br />\r\n<br />\r\nPlease ensure that the details you provide us with are correct and complete at all times. You are obligated to update details about your account in real time by accessing your account online. For pieces of information, you are not able to update by accessing Your Account on the Site, you must inform us via our customer service communication channels to assist you with these changes. We reserve the right to refuse access to the Site, terminate accounts, remove or edit content at any time without prior notice to you. We may at any time in our sole and absolute discretion, request that you update your Personal Data or forthwith invalidate the account or related details without giving any reason or prior notice and shall not be liable or responsible for any losses suffered by or caused by you or arising out of or in connection with or by reason of such request or invalidation. You hereby agree to change your password from time to time and to keep your account secure and also shall be responsible for the confidentiality of your account and liable for any disclosure or use (whether such use is authorized or not) of the username and/or password.</p>\r\n\r\n<p><strong>2.2 PRIVACY</strong></p>\r\n\r\n<p>Please review our Privacy Agreement, which also governs your visit to the Site. The personal information / data provided to us by you or your use of the Site will be treated as strictly confidential, in accordance with the Privacy Agreement and applicable laws and regulations. If you object to your information being transferred or used in the manner specified in the Privacy Agreement, please do not use the Site.</p>\r\n\r\n<p><strong>2.3 PLATFORM FOR COMMUNICATION</strong></p>\r\n\r\n<p>You agree, understand and acknowledge that the Site is an online platform that enables you to purchase products listed at the price indicated therein at any time from any location using a payment method of your choice. You further agree and acknowledge that we are only a facilitator and cannot be a party to or control in any manner any transactions on the Site or on a payment gateway as made available to you by an independent service provider. Accordingly, the contract of sale of products on the Site shall be a strictly bipartite contract between you and the sellers on our Site while the payment processing occurs between you, the service provider and in case of prepayments with electronic cards your issuer bank. Accordingly, the contract of payment on the Site shall be strictly a bipartite contract between you and the service provider as listed on our Site.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>2.4 CONTINUED AVAILABILITY OF THE SITE</strong></p>\r\n\r\n<p>We will do our utmost to ensure that access to the Site is consistently available and is uninterrupted and error-free. However, due to the nature of the Internet and the nature of the Site, this cannot be guaranteed. Additionally, your access to the Site may also be occasionally suspended or restricted to allow for repairs, maintenance, or the introduction of new facilities or services at any time without prior notice. We will attempt to limit the frequency and duration of any such suspension or restriction.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>2.5 LICENSE TO ACCESS THE SITE</strong></p>\r\n\r\n<p>We require that by accessing the Site, you confirm that you can form legally binding contracts and therefore you confirm that you are at least 18 years of age or are accessing the Site under the supervision of a parent or legal guardian. We grant you a non-transferable, revocable and non-exclusive license to use the Site, in accordance with the Terms and Conditions described herein, for the purposes of shopping for personal items and services as listed to be sold on the Site. Commercial use or use on behalf of any third party is prohibited, except as explicitly permitted by us in advance. If you are registering as a business entity, you represent that you have the authority to bind that entity to this User Agreement and that you and the business entity will comply with all applicable laws relating to online trading. No person or business entity may register as a member of the Site more than once. Any breach of these Terms and Conditions shall result in the immediate revocation of the license granted in this paragraph without notice to you.<br />\r\n<br />\r\nContent provided on this Site is solely for informational purposes. Product representations including price, available stock, features, add-ons and any other details as expressed on this Site are the responsibility of the vendors displaying them and is not guaranteed as completely accurate by us. Submissions or opinions expressed on this Site are those of the individual(s) posting such content and may not reflect our opinions.<br />\r\n<br />\r\nWe grant you a limited license to access and make personal use of this Site, but not to download (excluding page caches) or modify the Site or any portion of it in any manner. This license does not include any resale or commercial use of this Site or its contents; any collection and use of any product listings, descriptions, or prices; any derivative use of this Site or its contents; any downloading or copying of account information for the benefit of another seller; or any use of data mining, robots, or similar data gathering and extraction tools.<br />\r\n<br />\r\nThis Site or any portion of it (including but not limited to any copyrighted material, trademarks, or other proprietary information) may not be reproduced, duplicated, copied, sold, resold, visited, distributed or otherwise exploited for any commercial purpose without express written consent by us as may be applicable.<br />\r\n<br />\r\nYou may not frame or use framing techniques to enclose any trademark, logo, or other proprietary information (including images, text, page layout, or form) without our express written consent. You may not use any meta tags or any other text utilizing our name or trademark without our express written consent, as applicable. Any unauthorized use terminates the permission or license granted by us to you for access to the Site with no prior notice. You may not use our logo or other proprietary graphic or trademark as part of an external link for commercial or other purposes without our express written consent, as may be applicable.<br />\r\n<br />\r\nYou agree and undertake not to perform restricted activities listed within this section; undertaking these activities will result in an immediate cancellation of your account, services, reviews, orders or any existing incomplete transaction with us and in severe cases may also result in legal action:</p>\r\n\r\n<p>&middot;&nbsp; Refusal to comply with the Terms and Conditions described herein or any other guidelines and policies related to the use of the Site as available on the Site at all times.</p>\r\n\r\n<p>&middot;&nbsp; Impersonate any person or entity or to falsely state or otherwise misrepresent your affiliation with any person or entity.</p>\r\n\r\n<p>&middot;&nbsp; Use the Site for illegal purposes.</p>\r\n\r\n<p>&middot;&nbsp; Attempt to gain unauthorized access to or otherwise interfere or disrupt other computer systems or networks connected to the Platform or Services.</p>\r\n\r\n<p>&middot;&nbsp; Interfere with another&rsquo;s utilization and enjoyment of the Site.</p>\r\n\r\n<p>&middot;&nbsp; Post, promote or transmit through the Site any prohibited materials as deemed illegal by The People&#39;s Republic of Bangladesh.</p>\r\n\r\n<p>&middot;&nbsp; Use or upload, in any way, any software or material that contains, or which you have reason to suspect that contains, viruses, damaging components, malicious code or harmful components which may impair or corrupt the Site&rsquo;s data or damage or interfere with the operation of another Customer&rsquo;s computer or mobile device or the Site and use the Site other than in conformance with the acceptable use policies of any connected computer networks, any applicable Internet standards and any other applicable laws.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>2.6 YOUR CONDUCT</strong></p>\r\n\r\n<p>You must not use the website in any way that causes, or is likely to cause, the Site or access to it to be interrupted, damaged or impaired in any way. You must not engage in activities that could harm or potentially harm the Site, its employees, officers, representatives, stakeholders or any other party directly or indirectly associated with the Site or access to it to be interrupted, damaged or impaired in any way. You understand that you, and not us, are responsible for all electronic communications and content sent from your computer to us and you must use the Site for lawful purposes only. You are strictly prohibited from using the Site<br />\r\n<br />\r\nfor fraudulent purposes, or in connection with a criminal offense or other unlawful activity to send, use or reuse any material that does not belong to you; or is illegal, offensive (including but not limited to material that is sexually explicit content or which promotes racism, bigotry, hatred or physical harm), deceptive, misleading, abusive, indecent, harassing, blasphemous, defamatory, libelous, obscene, pornographic, pedophilic or menacing; ethnically objectionable, disparaging or in breach of copyright, trademark, confidentiality, privacy or any other proprietary information or right; or is otherwise injurious to third parties; or relates to or promotes money laundering or gambling; or is harmful to minors in any way; or impersonates another person; or threatens the unity, integrity, security or sovereignty of Bangladesh or friendly relations with foreign States; or objectionable or otherwise unlawful in any manner whatsoever; or which consists of or contains software viruses, political campaigning, commercial solicitation, chain letters, mass mailings or any &quot;spam&rdquo; Use the Site for illegal purposes. to cause annoyance, inconvenience or needless anxiety for any other purposes that is other than what is intended by us</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>2.7 YOUR SUBMISSION</strong></p>\r\n\r\n<p>Anything that you submit to the Site and/or provide to us, including but not limited to, questions, reviews, comments, and suggestions (collectively, &quot;Submissions&quot;) will become our sole and exclusive property and shall not be returned to you. In addition to the rights applicable to any Submission, when you post comments or reviews to the Site, you also grant us the right to use the name that you submit, in connection with such review, comment, or other content. You shall not use a false e-mail address, pretend to be someone other than yourself or otherwise mislead us or third parties as to the origin of any Submissions. We may, but shall not be obligated to, remove or edit any Submissions without any notice or legal course applicable to us in this regard.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>2.8 CLAIMS AGAINST OBJECTIONABLE CONTENT</strong></p>\r\n\r\n<p>We list thousands of products for sale offered by numerous brands on the Site and host multiple comments on listings, it is not possible for us to be aware of the contents of each product listed for sale, or each comment or review that is displayed. Accordingly, we operate on a &quot;claim, review and takedown&quot; basis. If you believe that any content on the Site is illegal, offensive (including but not limited to material that is sexually explicit content or which promotes racism, bigotry, hatred or physical harm), deceptive, misleading, abusive, indecent, harassing, blasphemous, defamatory, libelous, obscene, pornographic, pedophilic or menacing; ethnically objectionable, disparaging; or is otherwise injurious to third parties; or relates to or promotes money laundering or gambling; or is harmful to minors in any way; or impersonates another person; or threatens the unity, integrity, security or sovereignty of Bangladesh or friendly relations with foreign States; or objectionable or otherwise unlawful in any manner whatsoever; or which consists of or contains software viruses, (&quot; objectionable content &quot;), please notify us immediately by following by writing to us on legal@Mobixpress.com.bd. We will make all practical endeavors to investigate and remove valid objectionable content complained about within a reasonable amount of time.<br />\r\n<br />\r\nPlease ensure to provide your name, address, contact information and as many relevant details of the claim including name of objectionable content party, instances of objection, proof of objection amongst other. Please note that providing incomplete details will render your claim invalid and unusable for legal purposes.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>2.9 CLAIMS AGAINST INFRINGING CONTENT</strong></p>\r\n\r\n<p>We respect the intellectual property of others. If you believe that your intellectual property rights have been used in a way that gives rise to concerns of infringement, please write to us at legal@Mobixpress.com.bd and we will make all reasonable efforts to address your concern within a reasonable amount of time. Please ensure to provide your name, address, contact information and as many relevant details of the claim including name of infringing party, instances of infringement, proof of infringement amongst other. Please note that providing incomplete details will render your claim invalid and unusable for legal purposes. In addition, providing false or misleading information may be considered a legal offense and may be followed by legal proceedings.<br />\r\n<br />\r\nWe also respect a manufacturer&#39;s right to enter into exclusive distribution or resale agreements for its products. However, violations of such agreements do not constitute intellectual property rights infringement. As the enforcement of these agreements is a matter between the manufacturer, distributor and/or respective reseller, it would not be appropriate for us to assist in the enforcement of such activities. While we cannot provide legal advice, nor share private information as protected by the law, we recommend that any questions or concerns regarding your rights may be routed to a legal specialist.</p>\r\n\r\n<p><strong>2.10 TRADEMARKS AND COPYRIGHTS</strong></p>\r\n\r\n<p>Mobixpress.com.bd, MobiXpress logo and other marks indicated on our Site are trademarks or registered trademarks in the relevant jurisdiction(s). Our graphics, logos, page headers, button icons, scripts and service names are the trademarks or trade dress and may not be used in connection with any product or service that does not belong to us or in any manner that is likely to cause confusion among customers, or in any manner that disparages or discredits us. All other trademarks that appear on this Site are the property of their respective owners, who may or may not be affiliated with, connected to, or sponsored by us.<br />\r\n<br />\r\nAll intellectual property rights, whether registered or unregistered, in the Site, information content on the Site and all the website design, including, but not limited to text, graphics, software, photos, video, music, sound, and their selection and arrangement, and all software compilations, underlying source code and software shall remain our property. The entire contents of the Site also are protected by copyright as a collective work under Bangladeshi copyright laws and international conventions. All rights are reserved.</p>\r\n\r\n<p><strong>2.11 DISCLAIMER</strong></p>\r\n\r\n<p>You acknowledge and undertake that you are accessing the services on the Site and transacting at your own risk and are using your best and prudent judgment before entering into any transactions through the Site. We shall neither be liable nor responsible for any actions or inactions of sellers nor any breach of conditions, representations or warranties by the sellers or manufacturers of the products and hereby expressly disclaim and any all responsibility and liability in that regard. We shall not mediate or resolve any dispute or disagreement between you and the sellers or manufacturers of the products.<br />\r\n<br />\r\nWe further expressly disclaim any warranties or representations (express or implied) in respect of quality, suitability, accuracy, reliability, completeness, timeliness, performance, safety, merchantability, fitness for a particular purpose, or legality of the products listed or displayed or transacted or the content (including product or pricing information and/or specifications) on the Site. While we have taken precautions to avoid inaccuracies in content, this Site, all content, information (including the price of products), software, products, services and related graphics are provided as is basis, without warranty of any kind. We do not implicitly or explicitly support or endorse the sale or purchase of any products on the Site. At no time shall any right, title or interest in the products sold through or displayed on the Site vest with us nor shall MobiXpress have any obligations or liabilities in respect of any transactions on the Site.<br />\r\n<br />\r\nWe shall neither be liable or responsible for any actions or inactions of any other service provider as listed on our Site which includes but is not limited to payment providers, instalment offerings, warranty services amongst others.</p>\r\n\r\n<p><strong>2.12 THIRD PARTY BUSINESSES</strong></p>\r\n\r\n<p>Parties other than MobiXpress and its affiliates may operate stores, provide services, or sell product lines on the Site. For example, businesses and individuals offer products via Marketplace. In addition, we provide links to the websites of affiliated companies and certain other businesses. We are not responsible for examining or evaluating, and we do not warrant or endorse the offerings of any of these businesses or individuals, or the content of their websites. We do not assume any responsibility or liability for the actions, products, and content of any of these and any other third-parties. You can tell when a third-party is involved in your transactions by reviewing your transaction carefully, and we may share customer information related to those transactions with that third-party. You should carefully review their privacy statements and related terms and conditions.</p>\r\n\r\n<p><strong>2.14 COMMUNICATING WITH US</strong></p>\r\n\r\n<p>When you visit the Site, or send e-mails to us, you are communicating with us electronically. You will be required to provide a valid phone number while placing an order with us. We may communicate with you by e-mail, SMS, phone call or by posting notices on the Site or by any other mode of communication we choose to employ. For contractual purposes, you consent to receive communications (including transactional, promotional and/or commercial messages), from us with respect to your use of the website (and/or placement of your order) and agree to treat all modes of communication with the same importance.</p>\r\n\r\n<p><strong>2.15 LOSSES</strong></p>\r\n\r\n<p>We will not be responsible for any business or personal losses (including but not limited to loss of profits, revenue, contracts, anticipated savings, data, goodwill, or wasted expenditure) or any other indirect or consequential loss that is not reasonably foreseeable to both you and us when you commenced using the Site.</p>\r\n\r\n<p><strong>2.16 AMENDMENTS TO CONDITIONS OR ALTERATIONS OF SERVICE AND RELATED PROMISE</strong></p>\r\n\r\n<p>We reserve the right to make changes to the Site, its policies, these terms and conditions and any other publicly displayed condition or service promise at any time. You will be subject to the policies and terms and conditions in force at the time you used the Site unless any change to those policies or these conditions is required to be made by law or government authority (in which case it will apply to orders previously placed by you). If any of these conditions is deemed invalid, void, or for any reason unenforceable, that condition will be deemed severable and will not affect the validity and enforceability of any remaining condition.</p>\r\n\r\n<p><strong>2.17 EVENTS BEYOND OUR CONTROL</strong></p>\r\n\r\n<p>We will not be held responsible for any delay or failure to comply with our obligations under these conditions if the delay or failure arises from any cause which is beyond our reasonable control. This condition does not affect your statutory rights.</p>\r\n\r\n<p><strong>2.18 WAIVER</strong></p>\r\n\r\n<p>You acknowledge and recognize that we are a private commercial enterprise and reserve the right to conduct business to achieve our objectives in a manner we deem fit. You also acknowledge that if you breach the conditions stated on our Site and we take no action, we are still entitled to use our rights and remedies in any other situation where you breach these conditions.</p>\r\n\r\n<p><strong>2.19 TERMINATION</strong></p>\r\n\r\n<p>In addition to any other legal or equitable remedies, we may, without prior notice to you, immediately terminate the Terms and Conditions or revoke any or all of your rights granted under the Terms and Conditions. Upon any termination of this Agreement, you shall immediately cease all access to and use of the Site and we shall, in addition to any other legal or equitable remedies, immediately revoke all password(s) and account identification issued to you and deny your access to and use of this Site in whole or in part. Any termination of this agreement shall not affect the respective rights and obligations (including without limitation, payment obligations) of the parties arising before the date of termination. You furthermore agree that the Site shall not be liable to you or to any other person as a result of any such suspension or termination. If you are dissatisfied with the Site or with any terms, conditions, rules, policies, guidelines, or practices in operating the Site, your sole and exclusive remedy is to discontinue using the Site.</p>\r\n\r\n<p><strong>2.20 GOVERNING LAW AND JURISDICTION</strong></p>\r\n\r\n<p>These terms and conditions are governed by and construed in accordance with the laws of The People&#39;s Republic of Bangladesh. You agree that the courts, tribunals and/or quasi-judicial bodies located in Dhaka, Bangladesh shall have the exclusive jurisdiction on any dispute arising inside Bangladesh under this Agreement.</p>\r\n\r\n<p><strong>2.21 CONTACT US</strong></p>\r\n\r\n<p>You may reach us (Mobile - +8801765776600) , (Email &ndash; support@mobixpress.com)</p>\r\n\r\n<p><strong>2.22 OUR SOFTWARE</strong></p>\r\n\r\n<p>Our software includes any software (including any updates or upgrades to the software and any related documentation) that we make available to you from time to time for your use in connection with the Site (the &quot;Software&quot;).<br />\r\n<br />\r\nYou may use the software solely for purposes of enabling you to use and enjoy our services as permitted by the Terms and Conditions and any related applicable terms as available on the Site. You may not incorporate any portion of the Software into your own programs or compile any portion of it in combination with your own programs, transfer it for use with another service, or sell, rent, lease, lend, loan, distribute or sub-license the Software or otherwise assign any rights to the Software in whole or in part. You may not use the Software for any illegal purpose. We may cease providing you service and we may terminate your right to use the Software at any time. Your rights to use the Software will automatically terminate without notice from us if you fail to comply with any of the Terms and Conditions listed here or across the Site. Additional third-party terms contained within the Site or distributed as such that are specifically identified in related documentation may apply and will govern the use of such software in the event of a conflict with these Terms and Conditions. All software used in any of our services is our property and/or our affiliates or its software suppliers and protected by the laws of Bangladesh including but not limited to any other applicable copyright laws.<br />\r\n<br />\r\nWhen you use the Site, you may also be using the services of one or more third parties, such as a wireless carrier or a mobile platform provider. Your use of these third party services may be subject to separate policies, terms of use, and fees of these third parties. You may not, and you will not encourage, assist or authorize any other person to copy, modify, reverse engineer, decompile or disassemble, or otherwise tamper with our software whether in whole or in part, or create any derivative works from or of the Software. In order to keep the Software up-to-date, we may offer automatic or manual updates at any time and without notice to you.</p>\r\n\r\n<p><strong>2.23 CONDITIONS OF SALE (BETWEEN SELLERS AND CUSTOMERS)</strong></p>\r\n\r\n<p>Please read these conditions carefully before placing an order for any products with the Sellers (&ldquo;We&rdquo; or &ldquo;Our&rdquo; or &ldquo;Us&rdquo;, wherever applicable) on the Site. These conditions signify your agreement to be bound by these conditions.</p>\r\n\r\n<p><strong>A. CONDITIONS RELATED TO SALE OF THE PRODUCT OR SERVICE</strong></p>\r\n\r\n<p>This section deals with conditions relating to the sale of products or services on the Site.</p>\r\n\r\n<p><strong>B. THE CONTRACT</strong></p>\r\n\r\n<p>Your order is a legal offer to the seller to buy the product or service displayed on our Site. When you place an order to purchase a product, any confirmations or status updates received prior to the dispatch of your order serves purely to validate the order details provided and in no way implies the confirmation of the order itself. The acceptance of your order is considered confirmed when the product is dispatched to you. If your order is dispatched in more than one package, you may receive separate dispatch confirmations. Upon time of placing the order, we indicate an approximate timeline that the processing of your order will take however we cannot guarantee this timeline to be rigorously precise in every instance as we are dependent on third party service providers to preserve this commitment. We commit to you to make every reasonable effort to ensure that the indicative timeline is met. All commercial/contractual terms are offered by and agreed to between you and the sellers alone. The commercial/contractual terms include without limitation price, shipping costs, payment methods, payment terms, date, period and mode of delivery, warranties related to products and services and after sales services related to products and services. MobiXpress does not have any control or does not determine or advise or in any way involve itself in the offering or acceptance of such commercial/contractual terms between the you and the Sellers. The seller retains the right to cancel any order at its sole discretion prior to dispatch. We will ensure that there is timely intimation to you of such cancellation via an email or SMS. Any prepayments made in case of such cancellation(s), shall be refunded to you within the time frames stipulated.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>E. PRICING, AVAILABILITY AND ORDER PROCESSING</strong></p>\r\n\r\n<p>All prices are listed in Bangladeshi Taka (BDT) and are inclusive of VAT and are listed on the Site by the seller that is selling the product or service. Items in your Shopping Cart will always reflect the most recent price displayed on the item&#39;s product detail page. Please note that this price may differ from the price shown for the item when you first placed it in your cart. Placing an item in your cart does not reserve the price shown at that time. It is also possible that an item&#39;s price may decrease between the time you place it in your basket and the time you purchase it.<br />\r\n<br />\r\nWe do not offer price matching for any items sold by any seller on our Site or other websites.<br />\r\n<br />\r\nWe are determined to provide the most accurate pricing information on the Site to our users; however, errors may still occur, such as cases when the price of an item is not displayed correctly on the Site. As such, we reserve the right to refuse or cancel any order. In the event that an item is mispriced, we may, at our own discretion, either contact you for instructions or cancel your order and notify you of such cancellation. We shall have the right to refuse or cancel any such orders whether or not the order has been confirmed and your prepayment processed. If such a cancellation occurs on your prepaid order, our policies for refund will apply. Please note that MobiXpress possess 100% right on the refund amount. Usually refund amount is calculated based on the customer paid price after deducting any sort of discount and shipping fee.<br />\r\n<br />\r\nWe list availability information for products listed on the Site, including on each product information page. Beyond what we say on that page or otherwise on the Site, we cannot be more specific about availability. Please note that dispatch estimates are just that. They are not guaranteed dispatch times and should not be relied upon as such. As we process your order, you will be informed by e-mail or SMS if any products you order turn out to be unavailable.<br />\r\n<br />\r\nPlease note that there are cases when an order cannot be processed for various reasons. The Site reserves the right to refuse or cancel any order for any reason at any given time. You may be asked to provide additional verifications or information, including but not limited to phone number and address, before we accept the order.<br />\r\n<br />\r\nIn order to avoid any fraud with credit or debit cards, we reserve the right to obtain validation of your payment details before providing you with the product and to verify the personal information you shared with us. This verification can take the shape of an identity, place of residence, or banking information check. The absence of an answer following such an inquiry will automatically cause the cancellation of the order within a reasonable timeline. We reserve the right to proceed to direct cancellation of an order for which we suspect a risk of fraudulent use of banking instruments or other reasons without prior notice or any subsequent legal liability.<br />\r\n&nbsp;</p>\r\n\r\n<p><strong>Refund Voucher</strong></p>\r\n\r\n<p>&middot;&nbsp; Refund voucher can be redeemed on our Website, as full or part payment of products from our Website within the given timeline.</p>\r\n\r\n<p>&middot;&nbsp; Refund voucher cannot be used from different account.</p>\r\n\r\n<p>&middot;&nbsp; Vouchers are not replaceable if expired.</p>\r\n\r\n<p>&middot;&nbsp; Refund Voucher code can be applied only once. The residual amount of the Refund Voucher after applying it once, if any, will not be refunded and cannot be used for next purchases even if the value of order is smaller than remaining voucher value.<br />\r\n<br />\r\n&nbsp;</p>\r\n\r\n<p><strong>Promotional Vouchers</strong></p>\r\n\r\n<p>&middot;&nbsp; Each issued promotional voucher (App voucher and New customer voucher) will be valid for use by a customer only once. Multiple usages changing the identity is illegal.</p>\r\n\r\n<p>&middot;&nbsp; Both promotional voucher and cart rule discount may not be added at the same time.</p>\r\n\r\n<p>&middot;&nbsp; Promotional voucher is non-refundable and cannot be exchanged for cash in part or full and is valid for a single transaction only.</p>\r\n\r\n<p>&middot;&nbsp; Promotional voucher may not be valid during sale or in conjunction with any special promotion.</p>\r\n\r\n<p>&middot;&nbsp; Voucher will work only if minimum purchase amount and other conditions are met.</p>\r\n\r\n<p>&middot;&nbsp; MobiXpress reserves the right to vary or terminate the operation of any voucher at any time without notice.</p>\r\n\r\n<p>&middot;&nbsp; MobiXpress shall not be liable to any customer or household for any financial loss arising out of the refusal, cancellation or withdrawal of any voucher or any failure or inability of a customer to use a voucher for any reason.</p>\r\n\r\n<p>&middot;&nbsp; Vouchers are not replaceable if expired.</p>\r\n\r\n<p>&middot;&nbsp; No promotional offer can be made for baby nutrition products.<br />\r\n<br />\r\n&nbsp;</p>\r\n\r\n<p><strong>Reward Vouchers</strong></p>\r\n\r\n<p>&middot;&nbsp; Customers who have already been listed in MobiXpress for fraudulent activities will not be eligible to avail any voucher and will not be eligible to participate in any campaign.</p>\r\n\r\n<p>&middot;&nbsp; A customer shall not operate more than one account in a single device.<br />\r\n<br />\r\n<br />\r\n&nbsp;</p>\r\n\r\n<p><strong>Security and Fraud</strong></p>\r\n\r\n<p>&middot;&nbsp; When you use a voucher, you warrant to MobiXpress that you are the duly authorized recipient of the voucher and that you are using it in good faith.</p>\r\n\r\n<p>&middot;&nbsp; If you redeem, attempt to redeem or encourage the redemption of voucher to obtain discounts to which you are not entitled you may be committing a civil or criminal offence</p>\r\n\r\n<p>&middot;&nbsp; If we reasonably believe that any voucher is being used unlawfully or illegally, we may reject or cancel any voucher/order and you agree that you will have no claim against us in respect of any rejection or cancellation. MobiXpress reserves the right to take any further action it deems appropriate in such instances<br />\r\n<br />\r\n&nbsp;</p>\r\n\r\n<p><strong>F. RESELLING MOBIXPRESS PRODUCTS</strong></p>\r\n\r\n<p>Reselling MobiXpress products for business purpose is strictly prohibited. If any unauthorized personnel is found committing the above act, legal action may be taken against him/her.</p>\r\n\r\n<p><strong>G. TAXES</strong></p>\r\n\r\n<p>You shall be responsible for payment of all fees/costs/charges associated with the purchase of products from the Site and you agree to bear any and all applicable taxes as per prevailing law.</p>\r\n\r\n<p><strong>H. REPRESENTATIONS AND WARRANTIES</strong></p>\r\n\r\n<p>We do not make any representation or warranty as to specifics (such as quality, value, saleability, etc) of the products or services listed to be sold on the Site when products or services are sold by third parties. We do not implicitly or explicitly support or endorse the sale or purchase of any products or services on the Site. We accept no liability for any errors or omissions, whether on behalf of itself or third parties.<br />\r\n<br />\r\nWe are not responsible for any non-performance or breach of any contract entered into between you and the sellers. We cannot and do not guarantee your actions or those of the sellers as they conclude transactions on the Site. We are not required to mediate or resolve any dispute or disagreement arising from transactions occurring on our Site.<br />\r\n<br />\r\nWe do not at any point of time during any transaction as entered into by you with a third party on our Site, gain title to or have any rights or claims over the products or services offered by a seller. Therefore, we do not have any obligations or liabilities in respect of such contract(s) entered into between you and the seller(s). We are not responsible for unsatisfactory or delayed performance of services or damages or delays as a result of products which are out of stock, unavailable or back ordered.<br />\r\n<br />\r\nPricing on any product(s) or related information as reflected on the Site may due to some technical issue, typographical error or other reason by incorrect as published and as a result you accept that in such conditions the seller or the Site may cancel your order without prior notice or any liability arising as a result. Any prepayments made for such orders will be refunded to you per our refund policy as stipulated</p>\r\n\r\n<p><strong>I. OTHERS</strong></p>\r\n\r\n<p>&middot;&nbsp; <strong>Stock availability:&nbsp;</strong>The orders are subject to availability of stock.</p>\r\n\r\n<p>&middot;&nbsp; <strong>Delivery Timeline:&nbsp;</strong>The delivery might take longer than usual timeframe/line to be followed by MobiXpress. Delivery might be delayed due to force majeure event which includes, but not limited to, political unrest, political event, national/public holidays, etc</p>\r\n\r\n<p>&middot;&nbsp; <strong>Cancellation:&nbsp;</strong>MobiXpress retains unqualified right to cancel any order at its sole discretion prior to dispatch and for any reason which may include, but not limited to, the product being mispriced, out of stock, expired, defective, malfunctioned, and containing incorrect information or description arising out of technical or typographical error or for any other reason.</p>\r\n\r\n<p>&middot;&nbsp; <strong>Refund Timeline:&nbsp;</strong>If any order is canceled, the payment against such order shall be refunded within 10 to 15 working days, but it may take longer time in exceptional cases. Provided that received cash back amount, if any, will be adjusted with the refund amount.<br />\r\n<br />\r\nYou confirm that the product(s) or service(s) ordered by you are purchased for your internal / personal consumption and not for commercial re-sale. You authorize us to declare and provide declaration to any governmental authority on your behalf stating the aforesaid purpose for your orders on the Site. The Seller or the Site may cancel an order wherein the quantities exceed the typical individual consumption. This applies both to the number of products ordered within a single order and the placing of several orders for the same product where the individual orders comprise a quantity that exceeds the typical individual consumption. What comprises a typical individual&#39;s consumption quantity limit shall be based on various factors and at the sole discretion of the Seller or ours and may vary from individual to individual.<br />\r\n<br />\r\nYou may cancel your order at no cost any time before the item is dispatched to you.<br />\r\n<br />\r\nPlease note that we sell products only in quantities which correspond to the typical needs of an average household. This applies both to the number of products ordered within a single order and the placing of several orders for the same product where the individual orders comprise a quantity typical for a normal household. Please review our Refund Policy.</p>', '<p><strong>RETURN POLICY</strong></p>\r\n\r\n<p>Mobixpress.com.bd holds the return policy to high regards as we constantly think of the comfort of our customers. We have a return policy of 3 days for most of our products if the product meets certain criteria listed below-<br />\r\n<br />\r\nWe reserve the right to refuse an exchange or refund if goods are not returned in a saleable condition or are damaged. All returns are evaluated before being processed. Unless faulty, medicines, food, personalized gifts or cosmetics products which have been opened cannot be refunded or exchanged. This does not affect your statutory rights. Faulty items will be accepted up to the manufacturer&rsquo;s warranty terms. If you don&rsquo;t have the money receipt then MobiXpress.com.bd will refuse to accept the return of the product.<br />\r\n<br />\r\nMobiXpress may refund the customer to his/her payment channel by default or desired transactional medium but the process may take up to 3 months or more depending upon the circumstances.</p>\r\n\r\n<h3><strong>Conditions for Returns</strong></h3>\r\n\r\n<ol>\r\n	<li>The product must be unused, unworn, unwashed and without any flaws. Fashion products can be tried on to see if they fit and will still be considered unworn</li>\r\n	<li>The product must include the original tags, user manual, warranty cards, freebies and accessories</li>\r\n	<li>The product must be returned in the original and undamaged manufacturer packaging / box. If the product was delivered in a second layer of Mobi Xpress packaging, it must be returned in the same condition with return shipping label attached. Do not put tape or stickers on the manufacturers box.</li>\r\n</ol>', '<h1><strong>Inside Dhaka</strong></h1>\r\n\r\n<ul>\r\n	<li><strong>Policy One</strong></li>\r\n	<li><strong>Policy Two</strong></li>\r\n</ul>\r\n\r\n<h1><strong>Outside Dhaka</strong></h1>\r\n\r\n<ul>\r\n	<li><strong>Policy Three</strong></li>\r\n	<li><strong>Policy Four</strong></li>\r\n</ul>', NULL, '2021-08-20 08:18:17');
 
 -- --------------------------------------------------------
 
@@ -5907,9 +6067,46 @@ INSERT INTO `user_messages` (`id`, `name`, `mobile`, `email`, `subject`, `messag
 (1, 'Promotion Offer', '01889967514', NULL, 'Test message', 'i\'m just checking mesas', '2021-08-18 23:14:37', '2021-08-18 23:14:37'),
 (2, 'Promotion Offer', '01889967514', NULL, 'dgbd', 'sss', '2021-08-18 23:34:26', '2021-08-18 23:34:26');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `voucher_products`
+--
+
+CREATE TABLE `voucher_products` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `serial` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `voucher_products`
+--
+
+INSERT INTO `voucher_products` (`id`, `product_id`, `serial`, `status`, `created_at`, `updated_at`) VALUES
+(4, 8, 1, 1, '2021-08-20 04:49:08', '2021-08-20 04:49:08'),
+(5, 12, 3, 1, '2021-08-20 04:49:24', '2021-08-20 04:49:24'),
+(6, 9, 3, 1, '2021-08-20 04:49:59', '2021-08-20 04:49:59'),
+(7, 13, 4, 1, '2021-08-20 04:50:16', '2021-08-20 04:50:16'),
+(8, 15, 5, 1, '2021-08-20 04:50:23', '2021-08-20 04:50:23'),
+(9, 21, 6, 1, '2021-08-20 04:50:31', '2021-08-20 04:50:31'),
+(10, 53, 7, 1, '2021-08-20 04:50:40', '2021-08-20 04:51:58'),
+(11, 23, 8, 1, '2021-08-20 04:50:48', '2021-08-20 04:50:48'),
+(12, 60, 9, 1, '2021-08-20 04:50:57', '2021-08-20 04:51:45'),
+(13, 52, 10, 1, '2021-08-20 04:51:06', '2021-08-20 04:51:06');
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `about_us`
+--
+ALTER TABLE `about_us`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `admins`
@@ -5945,6 +6142,12 @@ ALTER TABLE `colors`
   ADD UNIQUE KEY `colors_slug_unique` (`slug`);
 
 --
+-- Indexes for table `contact_us`
+--
+ALTER TABLE `contact_us`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `districts`
 --
 ALTER TABLE `districts`
@@ -5966,6 +6169,18 @@ ALTER TABLE `favorites`
 -- Indexes for table `featured_products`
 --
 ALTER TABLE `featured_products`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `front_categories`
+--
+ALTER TABLE `front_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `front_category_products`
+--
+ALTER TABLE `front_category_products`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -6005,6 +6220,12 @@ ALTER TABLE `order_products`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `policies`
+--
+ALTER TABLE `policies`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `products`
@@ -6110,8 +6331,20 @@ ALTER TABLE `user_messages`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `voucher_products`
+--
+ALTER TABLE `voucher_products`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `about_us`
+--
+ALTER TABLE `about_us`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `admins`
@@ -6129,7 +6362,7 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -6142,6 +6375,12 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `colors`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `contact_us`
+--
+ALTER TABLE `contact_us`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `districts`
@@ -6159,7 +6398,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `featured_products`
@@ -6168,10 +6407,22 @@ ALTER TABLE `featured_products`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
+-- AUTO_INCREMENT for table `front_categories`
+--
+ALTER TABLE `front_categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `front_category_products`
+--
+ALTER TABLE `front_category_products`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `new_arrivals_products`
@@ -6183,19 +6434,25 @@ ALTER TABLE `new_arrivals_products`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `order_prices`
 --
 ALTER TABLE `order_prices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `policies`
+--
+ALTER TABLE `policies`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -6292,6 +6549,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `user_messages`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `voucher_products`
+--
+ALTER TABLE `voucher_products`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

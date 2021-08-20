@@ -338,7 +338,7 @@
                     </div>
                     <div class="col-lg-2 col-md-3 col-sm-5">
                         <div class="widgets_container widget_menu">
-                            <h3>Information</h3>
+                            <h3>Rules</h3>
                             <div class="footer_menu">
                                 <ul>
                                     <li>
@@ -347,13 +347,13 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('about-us') }}">
-                                            About Us
+                                        <a href="{{ route('privacy-policy') }}">
+                                            Privacy Policy
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('about-us') }}">
-                                            New Products
+                                        <a href="{{ route('return-policy') }}">
+                                            Return Policy
                                         </a>
                                     </li>
                                 </ul>
@@ -386,16 +386,21 @@
                     </div>
                     <div class="col-lg-2 col-md-5 col-sm-6">
                         <div class="widgets_container widget_menu">
-                            <h3>Customer Service</h3>
+                            <h3>Information</h3>
                             <div class="footer_menu">
                                 <ul>
+                                    <li>
+                                        <a href="{{ route('about-us') }}">
+                                            About Us
+                                        </a>
+                                    </li>
                                     <li>
                                         <a href="{{ route('contact-us') }}">
                                             Contact Us
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('contact-us') }}">
+                                        <a href="{{ route('delivery-information') }}">
                                             Delivery Informaiton
                                         </a>
                                     </li>

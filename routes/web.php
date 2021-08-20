@@ -60,6 +60,15 @@ Route::get('contact-us',function(){
 Route::get('terms-condition',function(){
     return view('pages.terms_condition');
 })->name('terms-condition');
+Route::get('privacy-confidentiality',function(){
+    return view('pages.privacy_policy');
+})->name('privacy-policy');
+Route::get('return-policy',function(){
+    return view('pages.return_policy');
+})->name('return-policy');
+Route::get('delivery-information',function(){
+    return view('pages.delivery_information');
+})->name('delivery-information');
 Route::post('send-message','HomePageController@sendMessage')
     ->name('send-message');
 Route::post('user-subscribe','HomePageController@subscribe')
