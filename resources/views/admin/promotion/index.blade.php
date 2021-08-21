@@ -44,6 +44,14 @@
 						        		<input type="file" name="image" class="form-control" id="image">
 						        	</div>
 						        	<div class="form-group text-left">
+						        		<label>Serial</label>
+										<select name="serial" class="form-control">
+											@for($i=1;$i<=20;$i++)
+						        			<option value="{{ $i }}">{{ $i }}</option>
+						        			@endfor
+						        		</select>
+						        	</div>
+						        	<div class="form-group text-left">
 						        		<label for="promotion">
 						        			Status
 						        		</label>
@@ -67,7 +75,7 @@
                 <table class="table table-bordered table-striped text-nowrap text-sm text-center ">
                     <thead >
                         <tr>
-                            <th class="text-center">Sl.no</th>
+                            <th class="text-center">Serial</th>
                             <th class="text-center">Image</th>
                             <th class="text-center">Name</th>
                             <th class="text-center">Product</th>
@@ -78,7 +86,7 @@
                     <tbody>
                     	@foreach($promotions as $promotion)
                         <tr>
-                            <td>{{ $loop->index + 1 }}</td>
+                            <td>{{ $promotion->serial }}</td>
                             <td>
                             	<img src="{{ asset($promotion->image) }}" class="img-responsive" style="height: 80px;width:100px;">
                             </td>
@@ -125,6 +133,15 @@
 						        			Promotion Image
 						        		</label>
 						        		<input type="file" name="image" class="form-control">
+						        	</div>
+						        	<div class="form-group text-left">
+						        		<label>Serial</label>
+										<select name="serial" class="form-control">
+											<option value="{{ $promotion->serial }}">{{ $promotion->serial }}</option>
+											@for($i=1;$i<=20;$i++)
+						        			<option value="{{ $i }}">{{ $i }}</option>
+						        			@endfor
+						        		</select>
 						        	</div>
 						        	<div class="form-group text-left">
 						        		<label for="promotion">

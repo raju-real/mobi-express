@@ -9,21 +9,21 @@
 <!--slider area start-->
 <section class="slider_section slider_s_three mb-60 mt-20">
     <div class="slider_area slider3_carousel owl-carousel">
-        <div class="single_slider d-flex align-items-center" data-bgimg="{{ asset('assets/user/img/slider/slider9.jpg') }}">
+        @foreach($promotions as $promotion)
+        <div class="single_slider d-flex align-items-center" data-bgimg="{{ asset($promotion->image) }}">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-12">
                         <div class="slider_content slider_c_three color_white">
-                            <h3>new collection</h3>
-                            <h1>new Arrivals <br> cellphone new model 2019</h1>
-                                <p>discount <span> -30% off</span> this week</p>
-                                <a class="button" href="shop.html">DISCOVER NOW</a>
+                            <h1>{{ $promotion->name }}</h1>
+                                <a class="button" 
+                                href="{{ route('promotion-products',$promotion->slug) }}">Shop Now</a>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
+        @endforeach
     </div>
 </section>
 <!--slider area end-->
@@ -121,7 +121,6 @@
                                 <div class="product_header row">
                                     <div class="section_title col-xl-auto col-12">
                                         <h2>Best Selling Products</h2>
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -136,6 +135,47 @@
                     </div>
                     <!--product area end-->
 
+                    <!--product area start-->
+                    <div class="product_area">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="product_header row">
+                                    <div class="section_title col-xl-auto col-12">
+                                        <h2>New Arrivals</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="Computer3" role="tabpanel">
+                                <div class="product_carousel product_style product_column4 owl-carousel">
+                                    @include('pages.new_arrivals_normal')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--product area end-->
+
+                    <!--banner area start-->
+                    <div class="banner_area mb-55">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <figure class="single_banner">
+                                    <div class="banner_thumb">
+                                        <a href="shop.html"><img src="{{ asset('assets/user/img/bg/banner4.jpg') }}" alt=""></a>
+                                    </div>
+                                </figure>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <figure class="single_banner">
+                                    <div class="banner_thumb">
+                                        <a href="shop.html"><img src="{{ asset('assets/user/img/bg/banner5.jpg') }}" alt=""></a>
+                                    </div>
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                    <!--banner area end-->
                 </div>
 
                 <div class="col-xl-3 col-lg-4 col-12">

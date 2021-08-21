@@ -3,12 +3,13 @@
     <div class="small_product_list">
         <div class="section_title">
             <h2>{{ $front_category->category->name }}</h2>
+            <a href="{{ route('category-products',$front_category->category_slug) }}" class="btn btn-warning btn-sm" style="float: right;">View All</a>
         </div>
         <div class="product_carousel small_p_container  product_column1 owl-carousel">
             @php
                 $categoryProducts = App\Model\FrontCategoryProduct::with('product')
                 ->where('front_category_id',$front_category->id)
-                ->orderBy('serial','asc')->get();
+                ->orderBy('serial','asc')->take(10)->get();
             @endphp
             
             <div class="product_items">

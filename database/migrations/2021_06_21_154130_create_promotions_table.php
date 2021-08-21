@@ -18,6 +18,7 @@ class CreatePromotionsTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('image');
+            $table->string('serial');
             $table->string('expire_date')->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();

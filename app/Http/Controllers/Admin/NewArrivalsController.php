@@ -18,7 +18,9 @@ class NewArrivalsController extends Controller
     }
 
     public function create(){
-        $products = Product::all();
+        $currentProducts = NewArrivals::all();
+        $products = Product::whereNotIn('id',$currentProducts->pluck('product_id'))
+            ->get();
         return view('admin.bind_product.new_arrivals_add_edit',compact('products'));
     }
 
@@ -42,7 +44,9 @@ class NewArrivalsController extends Controller
 
     public function edit($id){
         $f_p = NewArrivals::findOrFail($id);
-        $products = Product::all();
+        $currentProducts = NewArrivals::all();
+        $products = Product::whereNotIn('id',$currentProducts->pluck('product_id'))
+            ->get();
         return view('admin.bind_product.new_arrivals_add_edit',compact('products','f_p'));
     }
 

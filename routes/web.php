@@ -19,10 +19,13 @@ Route::get('featured-products','HomePageController@featuredProducts')
     ->name('featured-products'); 
 Route::get('voucher-products','HomePageController@voucherProducts')   
     ->name('voucher-products');       
-Route::get('products/category/{slug}','HomePageController@categoryProducts')    ->name('category-products');
+Route::get('products/category/{slug}','HomePageController@categoryProducts')    
+    ->name('category-products');
 Route::get('products/subcategory/{slug}','HomePageController@subcategoryProducts')->name('subcategory-products'); 
 Route::get('products/brand/{slug}','HomePageController@brandProducts')    
-    ->name('brand-products'); 
+    ->name('brand-products');
+Route::get('products/promotion/{slug}','HomePageController@promotionProducts')    
+    ->name('promotion-products');     
 Route::any('add-to-cart','HomePageController@addToCart')
     ->name('add-to-cart');
 Route::any('remove-cart-product','HomePageController@removeCartProduct')

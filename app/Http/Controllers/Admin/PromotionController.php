@@ -13,7 +13,9 @@ Use Alert;
 class PromotionController extends Controller
 {
     public function index(){
-        $promotions = Promotion::latest()->paginate(20);
+        $promotions = Promotion::latest()
+            ->orderBy('serial','ASC')
+            ->paginate(20);
         return view('admin.promotion.index',compact('promotions'));
     }
 
@@ -22,6 +24,7 @@ class PromotionController extends Controller
         $this->validate($request,[
             'name'=>'required',
             'image'=>'required',
+            'serial'=>'required',
             'status'=>'required'
         ]);
         $promotion = new Promotion();
@@ -37,6 +40,7 @@ class PromotionController extends Controller
         $promotion->image = 'images/promotion/'.$imageName;
         $slug = preg_replace('/\s+/', '-', $request->name);
         $promotion->slug = $slug;
+        $promotion->serial = $request->serial;
         $promotion->status = $request->status;
         $promotion->save();
         toast('Promotion Added Successfully','success');
@@ -63,6 +67,7 @@ class PromotionController extends Controller
         $promotion->image = $imageName;
         $slug = preg_replace('/\s+/', '-', $request->name);
         $promotion->slug = $slug;
+        $promotion->serial = $request->serial;
         $promotion->status = $request->status;
         $promotion->save();
         toast('Promotion Updated Successfully','info');

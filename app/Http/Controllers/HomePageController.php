@@ -8,6 +8,7 @@ use App\Model\Division;
 use App\Model\Favorite;
 use App\Model\FeaturedProduct;
 use App\Model\FrontCategory;
+use App\Model\NewArrivals;
 use App\Model\Order;
 use App\Model\OrderPrice;
 use App\Model\OrderProduct;
@@ -71,11 +72,7 @@ class HomePageController extends Controller
         return $products;
     }
 
-    public function promotionProducts(){
-        $promotion = Promotion::where('status',1)->get();
-        $promotion_products = PromotionProduct::whereIn('promotion_id',$promotion->pluck('id'))->get();
-        return $promotion_products;
-    }
+    
 
     // public function index(){
     //     $data = Product::query();
@@ -94,13 +91,18 @@ class HomePageController extends Controller
     public function index(){
         $categories = Category::inRandomOrder()->take(5)->get();
         $offers = SpecialOffer::with('product')->get();
+        // Promotions
+        $promotions = Promotion::orderBy('serial','asc')->get();
         // Featured Product
         $featuredProducts = FeaturedProduct::with('product')
             ->orderBy('serial','asc')->take(20)->get();
         // Best Selling Product
         $orderProducts = OrderProduct::latest()->distinct()->take(20)->get();    
         $bestSellingProducts = Product::whereIn('id',$orderProducts->pluck('product_id'))
-            ->get(); 
+            ->get();
+        // New Arrivals
+        $newArrivals = NewArrivals::with('product')
+            ->orderBy('serial','asc')->take(20)->get();     
         // Popular Product
         $popularProducts = Review::with('product')
             ->orderBy('rating','desc')
@@ -108,8 +110,8 @@ class HomePageController extends Controller
             ->distinct()->take(5)->get(); 
         $frontCategories = FrontCategory::with('category')
             ->inRandomOrder()->take(3)->get();
-        //return $frontCategories;
-        return view('welcome',compact('featuredProducts','bestSellingProducts','categories','offers','popularProducts','frontCategories'));
+
+        return view('welcome',compact('featuredProducts','bestSellingProducts','categories','offers','popularProducts','frontCategories','newArrivals','promotions'));
     }
 
     public function voucherProducts(){
@@ -154,6 +156,18 @@ class HomePageController extends Controller
         $title = $category->name;    
         $pageTitle = 'Category/'.$category->name;
         $image = $category->image;
+        //return $products;
+        return view('pages.vendor_products',compact('products','title','pageTitle','image'));
+    }
+
+    public function promotionProducts($slug){
+        $promotion = Promotion::where('slug',$slug)->first();
+        $promotionProducts = PromotionProduct::where('promotion_id',$promotion->id)->get();
+        $products = Product::whereIn('id',$promotionProducts->pluck('product_id'))
+            ->paginate(20);
+        $title = $promotion->name;    
+        $pageTitle = 'Promotion/'.$promotion->name;
+        $image = $promotion->image;
         //return $products;
         return view('pages.vendor_products',compact('products','title','pageTitle','image'));
     }
