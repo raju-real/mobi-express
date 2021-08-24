@@ -13,6 +13,10 @@ class Order extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function district(){
+        return $this->belongsTo(District::class,'district_id','id');
+    }
     
     public static function getOrderNumber()
     {

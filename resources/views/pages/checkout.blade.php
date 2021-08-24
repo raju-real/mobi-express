@@ -33,11 +33,17 @@
             <div class="row">
                 <div class="col-12">
                     <div class="user-actions">
+                        @if(Session::has('coupon_message'))
+                        <p class="alert alert-info mt-2">
+                            {{ Session::get('coupon_message') }}
+                        </p>    
+                        @endif
+                        @if(($order_price->coupon_code == null) AND ($order_price->coupon_apply == true) AND($order_price->voucher_apply == false))
                         <h3> 
                             <i class="fa fa-gift" aria-hidden="true"></i>
                              Do you have any coupon ?
-                            <a class="Returning" href="#checkout_coupon" data-bs-toggle="collapse"  aria-expanded="true">Click here to enter your code</a>     
 
+                            <a class="Returning" href="#checkout_coupon" data-bs-toggle="collapse"  aria-expanded="true">Click here to enter your code</a> 
                         </h3>
                          <div id="checkout_coupon" class="collapse" data-parent="#accordion">
                             <div class="checkout_info coupon_info">
@@ -47,7 +53,8 @@
                                     <button type="submit">Apply coupon</button>
                                 </form>
                             </div>
-                        </div>    
+                        </div>  
+                        @endif  
                     </div>    
                </div>
             </div>
@@ -83,7 +90,7 @@
                                     @endphp
                                     <div class="col-12 mb-20">
                                         <label>District<span class="red">*</span></label>
-                                        <select name="district" id="district" class="form-control">
+                                        <select name="district_id" id="district" class="form-control">
                                         <option value="">
                                             Select District
                                         </option>
@@ -176,6 +183,22 @@
                                                     </strong>
                                                 </td>
                                             </tr>
+                                            @if($order_price->coupon_code !=null)
+                                            <tr>
+                                                <th style="text-align: left;">
+                                                    Coupon Discount
+                                                    <a href="javascript:void(0)" style="color: red;text-decoration: underline;" onclick="document.getElementById('remove-coupon').submit()">
+                                                        Remove Coupon
+                                                    </a>
+                                                </th>
+                                                <td>
+                                                    <strong>
+                                                        {{ $order_price->coupon_discount }}
+                                                        <i class="fb-taka"></i>
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                            @endif
                                             <tr class="order_total">
                                                 <th style="text-align: left;">Total Price</th>
                                                 <td><strong>
@@ -188,12 +211,19 @@
                                 </div>
                                 <div class="payment_method">
                                     <div class="panel-default">
-                                        <input  name="payment_method" type="radio" value="1" />
-                                        <label for="payment_method">Cash on delivery</label>
+                                        <input id="cash-on-delivery"  name="payment_method" type="radio" value="1" checked />
+                                        <label for="cash-on-delivery">Cash on delivery</label>
+                                        @if($order_price->voucher_apply == true)
                                         <br>
-                                        <input  name="payment_method" type="radio" value="2"  />
-                                        <label for="payment_method">
+                                        <input id="evaly-voucher" name="payment_method" type="radio" value="2"  />
+                                        <label for="evaly-voucher">
                                             Evaly Voucher
+                                        </label>
+                                        @endif
+                                        <br>
+                                        <input id="online-payment" name="payment_method" type="radio" value="3"  />
+                                        <label for="online-payment">
+                                            Online Payment
                                         </label>
                                     </div>
                             </form>
@@ -203,6 +233,13 @@
                                         </button>
                                     </div>
                                 </div>
+
+                                {{-- Coupon Remove From --}}
+                                <form id="remove-coupon" action="{{ route('remove-coupon') }}" method="POST" style="display:none;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="coupon_code" value="{{ $order_price->coupon_code }}">
+                                </form>
                         </div>
                     </div>
                 </div>

@@ -15,6 +15,14 @@
                <table class="table table-responsive table-bordered table-hover text-nowrap" style="width: 100%;">
 						<thead>
 							<tr>
+								<th>Invoice</th>
+								<th>
+									<a href="{{ route('admin.invoice',['invoice'=>$order->invoice]) }}">
+										{{ $order->invoice }}
+									</a>
+								</th>
+							</tr>
+							<tr>
 								<th>Action</th>
 								<th>
 									<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>1]) }}" 
@@ -55,10 +63,6 @@
 							<tr>
 								<th>User</th>
 								<th>modal view</th>
-							</tr>
-							<tr>
-								<th>Invoice</th>
-								<th>{{ $order->invoice }}</th>
 							</tr>
 							<tr>
 								<th>Price</th>

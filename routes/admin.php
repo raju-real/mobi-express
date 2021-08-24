@@ -29,6 +29,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         ->name('update-contact');
     Route::resource('voucher-product','VoucherProductController');
     Route::resource('promotion','PromotionController');
+    Route::resource('coupon','CouponController');
     Route::get('promotion/products/{id}','PromotionController@promotionProducts')
         ->name('promotion-products');
     Route::get('promotion/product/create/{promotion_id}','PromotionController@createPromotionProduct')
@@ -66,6 +67,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         ->name('order.show');  
     Route::get('change-status','OrderController@changeOrderStatus')         
         ->name('change-status');
+    Route::get('invoice','OrderController@invoice')->name('invoice');
 });
 
 

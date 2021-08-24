@@ -58,9 +58,19 @@
                                         <td>
                                             {{ $order->created_at->format('D,M Y') }}
                                         </td>
-                                        <td><span class="success">Completed</span></td>
                                         <td>
-                                            {{ $order->total_price }} BDT
+                                            @if($order->order_status == 0)
+                                                <span>Pending</span>
+                                            @elseif($order->order_status == 1)
+                                                <span>Processing</span>
+                                            @elseif($order->order_status == 3)
+                                                <span>Delivered</span> 
+                                            @elseif($order->order_status == 4)
+                                                <span>Cancled</span>       
+                                            @endif
+                                        </td>
+                                        <td>
+                                            {{ $order->order_price }} BDT
                                         </td>
                                         <td><a href="{{ route('user.order_details',['invoice'=>$order->invoice]) }}" class="view">view</a></td>
                                     </tr>

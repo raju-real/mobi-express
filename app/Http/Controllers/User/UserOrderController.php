@@ -54,6 +54,8 @@ class UserOrderController extends Controller
             $order_product = new Orderproduct();
             $order_product->order_id = $order->id;
             $order_product->product_id = $cart->product_id;
+            $order_product->size_id = $cart->size_id;
+            $order_product->color_id = $cart->color_id;
             $order_product->quantity = $cart->quantity;
             $order_product->unit_price = $cart->unit_price;
             $order_product->total_price = $cart->total_price;

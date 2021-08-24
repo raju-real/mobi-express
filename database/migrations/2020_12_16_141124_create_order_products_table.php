@@ -18,6 +18,8 @@ class CreateOrderproductsTable extends Migration
             $table->integer('user_id');
             $table->integer('order_id');
             $table->integer('product_id');
+            $table->integer('size_id')->nullable();
+            $table->integer('color_id')->nullable();
             $table->double('order_price',8,2);
             $table->integer('quantity');
             $table->double('total_price', 8, 2);

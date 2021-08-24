@@ -176,7 +176,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.promotion.index') }}"><i class="sidebar-item-icon fa fa-gift"></i>
+                <a href="{{ route('admin.coupon.index') }}"><i class="sidebar-item-icon fa fa-gift"></i>
                     <span class="nav-label">Coupon</span>
                 </a>
             </li>

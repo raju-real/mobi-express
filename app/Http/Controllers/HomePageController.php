@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use Alert;
 use App\Model\Brand;
 use App\Model\Cart;
 use App\Model\Category;
+use App\Model\Coupon;
+use App\Model\CouponUserUsed;
 use App\Model\Division;
 use App\Model\Favorite;
 use App\Model\FeaturedProduct;
@@ -21,12 +24,12 @@ use App\Model\SubCategory;
 use App\Model\Subscriber;
 use App\Model\UserMessage;
 use App\Model\VoucherProduct;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
-Use Alert;
 
 class HomePageController extends Controller
 {
@@ -115,10 +118,8 @@ class HomePageController extends Controller
     }
 
     public function voucherProducts(){
-        $ids = VoucherProduct::orderBy('serial','asc')
-        ->select('id')
-        ->get();
-        $products = Product::whereIn('id',$ids->pluck('id'))
+        $ids = VoucherProduct::select('product_id')->get();
+        $products = Product::whereIn('id',$ids->pluck('product_id'))
             ->paginate(20);
         $title = 'Voucher Products';    
         $pageTitle = 'Voucher Products';
@@ -126,10 +127,8 @@ class HomePageController extends Controller
     }
 
     public function featuredProducts(){
-        $ids = FeaturedProduct::orderBy('serial','asc')
-        ->select('id')
-        ->get();
-        $products = Product::whereIn('id',$ids->pluck('id'))
+        $ids = FeaturedProduct::select('product_id')->get();
+        $products = Product::whereIn('id',$ids->pluck('product_id'))
             ->paginate(20);
         $title = 'Featured Products';    
         $pageTitle = 'Featured Products';
@@ -335,16 +334,75 @@ class HomePageController extends Controller
         }
     }
 
-    public function applyCoupon($coupon_code){
+    protected function checkUserValidity($coupon_code){
+        $coupon = Coupon::where('coupon_code',$coupon_code)->first();
+        if($coupon->valid_for == 1){
+            return true;
+        } elseif($coupon->valid_for == 2){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    protected function getDiscountAmount($coupon_code){
+        $coupon = Coupon::where('coupon_code',$coupon_code)->first();
+        if($coupon->discount_type == 1){
+            return $coupon->discount;
+        } elseif($coupon->discount_type == 2){
+            $session_id = Session::get('session_id');
+            $identify = [
+                'session_id'=>$session_id,
+                'user_id'=>Auth::id()
+            ];
+            $order_price = OrderPrice::where($identify)->first();
+            $discount_amount = ($order_price->order_price * $coupon->discount)/100;
+            return (int) $discount_amount ;
+        } else {
+            return "invalid";
+        }
+    }
+
+    protected function applyCoupon($coupon_code){
         $session_id = Session::get('session_id');
         $identify = [
             'session_id'=>$session_id,
             'user_id'=>Auth::id()
         ];
-        $order_price = OrderPrice::where($identify)->first();
-        //$coupon = Coupon::where('coupon_code',$coupon_code)->first();
-        return 150;
-        return $coupon_code;
+        $result = '';
+        $coupon = Coupon::where('coupon_code',$coupon_code)->first();
+        if(isset($coupon)){
+            if(($coupon->start_date <= Carbon::today()) AND ($coupon->end_date >= Carbon::today()) AND $coupon->status == 1){
+                $user_validation = $this->checkUserValidity($coupon_code);
+                if($user_validation == true){
+                    if(!CouponUserUsed::where('user_id',Auth::id())
+                        ->where('coupon_code',$coupon_code)
+                        ->exists()){
+                        $orderPrice = OrderPrice::where($identify)->first();
+                        $coupon_discount_amount = $this->getDiscountAmount($coupon_code);
+                        if($coupon_discount_amount != "invalid"){
+                            $orderPrice->order_price = $orderPrice->order_price - $coupon_discount_amount;
+                            $orderPrice->coupon_discount = $coupon_discount_amount;
+                            $orderPrice->coupon_code = $coupon_code;
+                            $orderPrice->save();
+                            $result = 'Coupon Applied Successfully';
+                        } else{
+                            $result = "Invalid Coupon";
+                        }
+                    } else {
+                        $result = 'You Already Used This Coupon';
+                    }
+                } else{
+                    $result = 'You Are Not Valid For This Coupon';
+                }
+            } else{
+                $result = 'Coupon Expired';
+            }
+        } else {
+            $result = 'Invalid Coupon Code';
+        }
+
+        return $result;
         
     }
 
@@ -370,14 +428,14 @@ class HomePageController extends Controller
                 ];
                 $totalPrice = $carts->sum('total_price');
                 $productDiscountPrice = $carts->sum('total_discount_price');
-
-                $coupon_code = $request->coupon_code;
-                if(isset($coupon_code)){
-                    $orderPrice = $this->applyCoupon($coupon_code);
-                } else{
+                $checkCurrent = OrderPrice::where($identify)->first();
+                if(isset($checkCurrent) AND $checkCurrent->coupon_code != null){
+                    $orderPrice = $checkCurrent->order_price;
+                } else {
                     $orderPrice = $totalPrice;
+                    Session::forget('coupon_message');
                 }
-
+                
                 $data = [
                     'session_id' => $session_id,
                     'user_id' => Auth::id(),
@@ -387,6 +445,19 @@ class HomePageController extends Controller
                 ];
 
                 OrderPrice::updateOrInsert($identify,$data);
+                
+                // Apply Coupon
+                $coupon_code = request()->get('coupon_code');
+                if(isset($coupon_code)){
+                    $currentOrderPrice = OrderPrice::where($identify)->first();
+                    if($currentOrderPrice->coupon_code == null){
+                        $result = $this->applyCoupon($coupon_code);
+                        Session::put('coupon_message',$result);
+                    } else{
+                        Session::forget('coupon_message');
+                    }
+                    
+                } 
                 $order_price = OrderPrice::where($identify)->first();
                 return view('pages.checkout', compact('carts','order_price'));
             } else{
@@ -397,6 +468,33 @@ class HomePageController extends Controller
         } else {
             session()->put('current_url', URL::current());
             return redirect()->route('login');
+        }
+    }
+
+    public function removeCoupon(){
+        $coupon_code = request()->get('coupon_code');
+        if(Coupon::where('coupon_code',$coupon_code)->exists()){
+            $session_id = Session::get('session_id');
+            $identify = [
+                'session_id'=>$session_id,
+                'user_id'=>Auth::id()
+            ];
+            $orderPrice = OrderPrice::where($identify)
+                ->where('coupon_code',$coupon_code)->first();
+            if(isset($orderPrice)){
+                $orderPrice->order_price = $orderPrice->order_price + $orderPrice->coupon_discount;
+                $orderPrice->coupon_code = null;
+                $orderPrice->coupon_discount = 0;
+                $orderPrice->save();
+                Session::put('coupon_message','Coupon Removed Successfully');
+                return redirect(route('checkout'));
+            } else{
+                Session::put('coupon_message','Coupon Not Found');
+                return redirect(route('checkout'));
+            }
+        } else{
+            Session::put('coupon_message','Invalid Coupon');
+            return redirect(route('checkout'));
         }
     }
 
@@ -439,7 +537,7 @@ class HomePageController extends Controller
             $order_info->name = $request->name;
             $order_info->mobile = $request->mobile;
             $order_info->email = $request->email;
-            $order_info->district = $request->district;
+            $order_info->district_id = $request->district_id;
             $order_info->city_town = $request->city_town;
             $order_info->address = $request->address;
             $order_info->note = $request->note;
@@ -452,6 +550,8 @@ class HomePageController extends Controller
                 $order_product->user_id = Auth::id();
                 $order_product->order_id = $order_info->id;
                 $order_product->product_id = $cart->product_id;
+                $order_product->size_id = $cart->size_id;
+                $order_product->color_id = $cart->color_id;
                 $order_product->order_price = $cart->order_price;
                 $order_product->quantity = $cart->quantity;
                 $order_product->total_price = $cart->total_price;

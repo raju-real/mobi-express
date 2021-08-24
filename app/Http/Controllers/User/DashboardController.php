@@ -22,7 +22,7 @@ class DashboardController extends Controller
     public function orderHistory(){
         $orders = Order::where('user_id',Auth::id())
             ->latest()
-            ->select('invoice','created_at','order_status','total_price')
+            ->select('invoice','created_at','order_status','order_price')
             ->get();
         return view('user.profile.order_history',compact('orders'));
     }
@@ -30,7 +30,7 @@ class DashboardController extends Controller
     public function orderDetails(){
         $invoice = request()->get('invoice');
         $order = Order::with(['products'=>function($query){
-                $query->select('id','product_id','order_id','order_price','quantity','total_price');
+                $query->select('id','product_id','order_id','order_price','quantity','total_price','size_id','color_id');
                 $query->with(['product'=>function($query){
                     $query->select('id','name');
                 }]);
@@ -38,7 +38,7 @@ class DashboardController extends Controller
             ->where('user_id',Auth::id())
             ->where('invoice',$invoice)
             ->latest()
-            ->select('id','invoice','created_at','order_status','total_price')
+            ->select('id','invoice','created_at','order_status','order_price')
             ->first();
         if(isset($order)){
             return view('user.profile.order_details',compact('order'));

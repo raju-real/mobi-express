@@ -43,7 +43,7 @@
                         <!-- Tab panes -->
                         <h3>Orders</h3>
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered text-nowrap">
                                 <thead>
                                     <tr>
                                         <th style="text-align: left;">Invoice</th>
@@ -53,33 +53,44 @@
                                     <tr>
                                         <th style="text-align: left;">Status</th>
                                         <th style="text-align: left;">:</th>
-                                        <th style="text-align: left;">{{ 'Pending' }}</th>
+                                        <th style="text-align: left;">
+                                            @if($order->order_status == 0)
+                                                <span>Pending</span>
+                                            @elseif($order->order_status == 1)
+                                                <span>Processing</span>
+                                            @elseif($order->order_status == 3)
+                                                <span>Delivered</span> 
+                                            @elseif($order->order_status == 4)
+                                                <span>Cancled</span>       
+                                            @endif
+                                        </th>
                                     </tr>
                                     <tr>
                                         <th style="text-align: left;">Total Price</th>
                                         <th style="text-align: left;">:</th>
                                         <th style="text-align: left;">
-                                            {{ $order->total_price }} BDT
+                                            {{ $order->order_price }} BDT
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th style="vertical-align: top;">Products</th>
+                                        <th style="vertical-align: top;text-align: left;">Products</th>
                                         <th style="vertical-align: top;">:</th>
                                         <th>
-                                            <table class="table table-responsive table-bordered">
+                                            <table class="table table-responsive table-bordered table-striped">
                                                 <thead>
                                                     <tr style="border-bottom: 1px solid grey;">
                                                         <th style="text-align: left;">
                                                             Product
                                                         </th>
                                                         <th style="text-align: left;">
-                                                            Unit Price
+                                                            Size
                                                         </th>
                                                         <th style="text-align: left;">
-                                                            Quantity
+                                                            Color
                                                         </th>
+                                                       
                                                         <th style="text-align: left;">
-                                                            Total Price
+                                                            Price
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -87,13 +98,14 @@
                                                     @foreach($order->products as $order_product)
                                                     <tr>
                                                         <td style="text-align: left;">
-                                                            {{ $order_product->product->name }}
-                                                        </td>
-                                                        <td style="text-align: left;">
-                                                            {{ $order_product->order_price }} BDT
-                                                        </td>
-                                                        <td style="text-align: left;">
+                                                            {{ $order_product->product->name }} x
                                                             {{ $order_product->quantity }}
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            {{ $order_product->size_id != null ? $order_product->size->name :'None' }}
+                                                        </td>
+                                                        <td style="text-align: left;">
+                                                            {{ $order_product->color_id != null ? $order_product->color->name : 'None' }}
                                                         </td>
                                                         <td style="text-align: left;">
                                                             {{ $order_product->total_price }} BDT

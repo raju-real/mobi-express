@@ -45,6 +45,9 @@ class AboutContactController extends Controller
 
     public function updateContactUs(Request $request){
         $contact = ContactUs::first();
+        if(isset($request->company_name)){
+            $contact->company_name = $request->company_name;
+        }
         if(isset($request->mobile)){
             $contact->mobile = $request->mobile;
         }

@@ -41,6 +41,8 @@ Route::get('increment-cart-product/{id}','HomePageController@incrementCartProduc
 Route::get('decrement-cart-product/{id}','HomePageController@decrementCartProduct')
     ->name('decrement-cart-product');
 Route::any('checkout','HomePageController@checkout')->name('checkout');  
+Route::delete('remove-coupon','HomePageController@removeCoupon')
+    ->name('remove-coupon');  
 Route::any('submit-order','HomePageController@submitOrder')
     ->name('submit-order');  
 Route::post('submit-review','HomePageController@submitReview')->name('submit-review');

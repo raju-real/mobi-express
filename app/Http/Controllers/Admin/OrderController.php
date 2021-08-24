@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Order;
 use App\Model\OrderProduct;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -72,5 +73,27 @@ class OrderController extends Controller
         $order_status = request()->get('order_status');
         Order::where('invoice',$invoice)->update(['order_status'=>$order_status]);
         return redirect()->route('admin.order.show',['invoice'=>$invoice]);
+    }
+
+    public function invoice(){
+        $invoice = request()->get('invoice');
+        $order = Order::with('district')->where('invoice',$invoice)->first();
+        if(isset($order)){
+            return view('admin.orders.invoice',compact('order'));
+        } else{
+            Toastr::error('No Order Found');
+            return redirect()->back();
+        }
+    }
+
+    public function downloadInvoice(){
+        $invoice = request()->get('invoice');
+        $order = Order::where('invoice',$invoice)->first();
+        //return view('pdf.hotel_booking_invoice',compact('order'));
+        $invoice = PDF::loadView('admin.orders.invoice',compact('order'));
+        $invoice->setPaper('A4', 'portrait');
+        $invoice_name = 'invoice_'.$order->invoice;
+        //$invoice->save('assets/common/invoice' . '/' . $invoice_name.'.pdf');
+        return $invoice->download($invoice_name . '.pdf');
     }
 }
