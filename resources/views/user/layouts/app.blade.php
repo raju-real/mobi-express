@@ -39,6 +39,8 @@
         }
    </style>
     @stack('css')
+
+    @livewireStyles
 </head>
 
 <body>
@@ -569,6 +571,7 @@
     </div> --}}
     <!-- modal area end-->
 
+     @livewireScripts
 
     <!-- Plugins JS -->
     <script src="{{ asset('assets/user/js/plugins.js') }}"></script>

@@ -113,8 +113,8 @@ class HomePageController extends Controller
             ->distinct()->take(5)->get(); 
         $frontCategories = FrontCategory::with('category')
             ->inRandomOrder()->take(3)->get();
-
-        return view('welcome',compact('featuredProducts','bestSellingProducts','categories','offers','popularProducts','frontCategories','newArrivals','promotions'));
+        $products = Product::take(20)->get();
+        return view('welcome',compact('featuredProducts','bestSellingProducts','categories','offers','popularProducts','frontCategories','newArrivals','promotions','products'));
     }
 
     public function voucherProducts(){

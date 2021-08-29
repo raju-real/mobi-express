@@ -135,8 +135,8 @@
                     </div>
                     <!--product area end-->
 
-                    <!--product area start-->
-                    <div class="product_area">
+                    <!--new arrivals normal start-->
+                    {{-- <div class="product_area">
                         <div class="row">
                             <div class="col-12">
                                 <div class="product_header row">
@@ -153,8 +153,12 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!--product area end-->
+                    </div> --}}
+                    <!--new arrivals normal end-->
+
+                    {{-- New Arrivals Ajax load --}}
+                        @include('pages.new_arrivals')
+                    {{-- New Arrivals Ajax load --}}
 
                     <!--banner area start-->
                     <div class="banner_area mb-55">
