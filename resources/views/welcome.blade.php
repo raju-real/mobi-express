@@ -17,7 +17,7 @@
                         <div class="slider_content slider_c_three color_white">
                             <h1>{{ $promotion->name }}</h1>
                                 <a class="button" 
-                                href="{{ route('promotion-products',$promotion->slug) }}">Shop Now</a>
+                                href="{{ route('campaign-products',$promotion->slug) }}">Shop Now</a>
                         </div>
                     </div>
                 </div>

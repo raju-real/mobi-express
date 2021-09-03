@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" 
+    <link rel="shortcut icon" type="image/x-icon"
         href="assets/img/favicon.ico">
 
     <!-- Plugins CSS -->
@@ -24,7 +24,7 @@
    <style type="text/css">
        .autocomplete-item{
         display: grid;
-       }     
+       }
        .autocomplete-item a {
           padding: 3px 0px 3px 10px;
           cursor: pointer;
@@ -40,7 +40,6 @@
    </style>
     @stack('css')
 
-    @livewireStyles
 </head>
 
 <body>
@@ -82,7 +81,7 @@
                             @include('user.layouts.header_nav')
 
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -160,13 +159,13 @@
                                     </a>
                                 </div>
 
-                                
+
                             </div>
                         </div>
                     </div>
                 </div>
                 <!--header middel end-->
-                
+
                  <!--mini cart-->
                 {{-- <div class="mini_cart">
                     @php
@@ -194,7 +193,7 @@
                                 {{ $cart->product->name }}
                             </a>
                             <p>
-                                Qty: {{ $cart->quantity }} X 
+                                Qty: {{ $cart->quantity }} X
                                 <span>{{ $cart->total_price }}</span>
                             </p>
                         </div>
@@ -250,10 +249,10 @@
                                                 {{ $category->name }}
                                             </option>
                                             @endforeach
-                                            
+
                                         </select>
                                     </div>
-                                    <div class="search_box" 
+                                    <div class="search_box"
                                         style="position: relative;
                                             display: inline-block;">
                                         <input id="product_name" autocomplete="off" placeholder="Search product..." type="text" onkeyup="searchProduct()">
@@ -261,20 +260,20 @@
                                         <div id="searchResult" style="display: none;position: absolute;width: 100%;">
                                         <ul class="dropdown-menu" style="display:block; position:relative;">
                                             <li class="autocomplete-item">
-                                                
+
                                             </li>
-                                            
+
                                         </ul>
                                     </div>
                                     </div>
-                                    
+
                                 </form>
                             </div>
 
                         </div>
                         <div class="column3 col-lg-3 col-md-6">
                             <div class="header_bigsale">
-                                <a href="#">BIG SALE BLACK FRIDAY</a>
+                                <a href="{{ route('campaign') }}">CAMPAIGN</a>
                             </div>
                         </div>
                     </div>
@@ -571,8 +570,6 @@
     </div> --}}
     <!-- modal area end-->
 
-     @livewireScripts
-
     <!-- Plugins JS -->
     <script src="{{ asset('assets/user/js/plugins.js') }}"></script>
     <!-- Main JS -->
@@ -599,26 +596,28 @@
                 category_id : category_id,
                 product_name : product_name
             };
-            
-            if((product_name.trim() != "") && (product_name.length) >= 2) {
+            // && (product_name.length) >= 2
+            if((product_name.trim() != "")) {
                 $.ajax({
-                method : 'GET',
-                url: "{{ route('search-product') }}",
-                data: data,
-                dataType: 'JSON',
-                success: function(response){
-                    //console.log(response.data);
-                    let products = response.data;
-                    if(products.length){
-                        $('#searchResult').show();
-                        $('.autocomplete-item').html(products);
-                    } else {
-                        $('#searchResult').hide();
+                    method : 'GET',
+                    url: "{{ route('search-product') }}",
+                    data: data,
+                    dataType: 'JSON',
+                    success: function(response){
+                        //console.log(response.data);
+                        let products = response.data;
+                        if(products.length){
+                            $('#searchResult').show();
+                            $('.autocomplete-item').html(products);
+                        } else {
+                            $('#searchResult').hide();
+                        }
                     }
-                }
-            });
+                });
+            } else{
+                $('#searchResult').hide();
             }
-            
+
         }
 
         function addToCartSingle(product_id){
@@ -674,7 +673,7 @@
                         icon: "error",
                         button: "Ok",
                     })
-                
+
                 }
             }
           });

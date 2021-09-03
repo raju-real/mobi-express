@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSpecialOffersTable extends Migration
+class CreateReviewImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateSpecialOffersTable extends Migration
      */
     public function up()
     {
-        Schema::create('special_offers', function (Blueprint $table) {
+        Schema::create('review_images', function (Blueprint $table) {
             $table->id();
-            $table->integer('product_id');
-            $table->double('discount_price',8,2);
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
-            $table->integer('status')->default(1);
+            $table->integer('review_id');
+            $table->string('image');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateSpecialOffersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('special_offers');
+        Schema::dropIfExists('review_images');
     }
 }

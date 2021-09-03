@@ -36,14 +36,14 @@
                         @if(Session::has('coupon_message'))
                         <p class="alert alert-info mt-2">
                             {{ Session::get('coupon_message') }}
-                        </p>    
+                        </p>
                         @endif
                         @if(($order_price->coupon_code == null) AND ($order_price->coupon_apply == true) AND($order_price->voucher_apply == false))
-                        <h3> 
+                        <h3>
                             <i class="fa fa-gift" aria-hidden="true"></i>
                              Do you have any coupon ?
 
-                            <a class="Returning" href="#checkout_coupon" data-bs-toggle="collapse"  aria-expanded="true">Click here to enter your code</a> 
+                            <a class="Returning" href="#checkout_coupon" data-bs-toggle="collapse"  aria-expanded="true">Click here to enter your code</a>
                         </h3>
                          <div id="checkout_coupon" class="collapse" data-parent="#accordion">
                             <div class="checkout_info coupon_info">
@@ -53,9 +53,9 @@
                                     <button type="submit">Apply coupon</button>
                                 </form>
                             </div>
-                        </div>  
-                        @endif  
-                    </div>    
+                        </div>
+                        @endif
+                    </div>
                </div>
             </div>
             <div class="checkout_form">
@@ -71,7 +71,7 @@
                                         <label>Full Name <span class="red">*</span></label>
                                         <input name="name" id="name" type="text">
                                     </div>
-                                   
+
                                     <div class="col-12 mb-20">
                                         <label>Mobile<span class="red">*</span></label>
                                         <input name="mobile" id="mobile" type="number">
@@ -106,7 +106,7 @@
                                         <label>City/ Town<span class="red">*</span></label>
                                         <input name="city_town" id="city_town" type="text">
                                     </div>
-                                   
+
                                     <div class="col-12">
                                         <label>
                                             Address
@@ -139,12 +139,12 @@
                                             <tr>
                                                 <td style="text-align: left;">
                                                     {{ $cart->product->name }}
-                                                    <strong> × 
+                                                    <strong> ×
                                                         {{ $cart->quantity }}
                                                     </strong>
                                                 </td>
                                                 <td>
-                                                    {{ $cart->total_price }} 
+                                                    {{ $cart->total_price }}
                                                     <i class="fb-taka"></i>
                                                 </td>
                                             </tr>
@@ -173,7 +173,7 @@
                                             </tr>
                                             @endif --}}
                                             <tr>
-                                                <th style="text-align: left;">  
+                                                <th style="text-align: left;">
                                                     Delivery Charge
                                                 </th>
                                                 <td>

@@ -59,10 +59,16 @@
 						        		<input type="text" name="discount" class="form-control" id="discount" placeholder="Discount">
 						        	</div>
 						        	<div class="form-group text-left">
+						        		<label for="used_limit">
+						        			Used Limit
+						        		</label>
+						        		<input type="number" name="used_limit" class="form-control" id="used_limit" value="1">
+						        	</div>
+						        	<div class="form-group text-left">
 						        		<label for="minimum_cost">
 						        			Minimum Cost
 						        		</label>
-						        		<input type="text" name="minimum_cost" class="form-control" id="minimum_cost" value="0">
+						        		<input type="number" name="minimum_cost" class="form-control" id="minimum_cost" value="0">
 						        	</div>
 						        	<div class="form-group text-left" id="date_1">
 			                            <label class="font-normal">
@@ -80,7 +86,7 @@
 			                                <input name="end_date" class="form-control" type="text" autocomplete="off">
 			                            </div>
 			                        </div>
-						        	
+
 						        	<div class="form-group text-left">
 						        		<label for="coupon">
 						        			Status
@@ -108,8 +114,8 @@
                             <th class="text-center">Sl.no</th>
                             <th class="text-center">Code</th>
                             <th class="text-center">For</th>
-                            <th class="text-center">Type</th>
                             <th class="text-center">Discount</th>
+                            <th class="text-center">Limit</th>
                             <th class="text-center">Min Cost</th>
                             <th class="text-center">Date</th>
                             <th class="text-center">Status</th>
@@ -122,33 +128,25 @@
                             <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $coupon->coupon_code }}</td>
                             <td>
-                            	@if($coupon->valid_for == 1) 
+                            	@if($coupon->valid_for == 1)
                             		{{ 'All User' }}
-                            	@elseif($coupon->valid_for == 2)	
+                            	@elseif($coupon->valid_for == 2)
                             		{{ 'Specific User' }}
                             	@else
-                            		{{ 'Invalid' }}	
-                            	@endif	
-                            </td>
-                            <td>
-                            	@if($coupon->discount_type == 1)
-                            		{{ 'Amount' }}
-                            	@elseif($coupon->discount_type == 2)	
-                            		{{ 'Percentage' }}
-                            	@else 
-                            		{{ 'Invalid' }}	
-                            	@endif	
+                            		{{ 'Invalid' }}
+                            	@endif
                             </td>
                             <td>
                             	{{ $coupon->discount }}
                             	@if($coupon->discount_type == 1)
                             		{{ 'BDT' }}
-                            	@elseif($coupon->discount_type == 2)	
+                            	@elseif($coupon->discount_type == 2)
                             		{{ '%' }}
-                            	@else 
-                            		{{ 'Invalid' }}	
+                            	@else
+                            		{{ 'Invalid' }}
                             	@endif
                             </td>
+                            <td>{{ $coupon->used_limit }}</td>
                             <td>{{ $coupon->minimum_cost }}</td>
                             <td>
                             	{{ date('d-m-y', strtotime($coupon->start_date)) }} -
@@ -205,7 +203,7 @@
 					                    			<option value="{{ $coupon->discount_type }}">
 					                                    {{ $coupon->discount_type == 1 ? 'Amount':'Percentage' }}
 					                                </option>
-					                                @if($coupon->discount_type == 1)    
+					                                @if($coupon->discount_type == 1)
 					                                    <option value="2">Percentage</option>
 					                                @elseif($coupon->discount_type == 2)
 					                                    <option value="1">Amount</option>
@@ -219,10 +217,16 @@
 								        		<input type="text" name="discount" class="form-control" id="discount" value="{{ $coupon->discount }}">
 								        	</div>
 								        	<div class="form-group text-left">
+								        		<label for="used_limit">
+								        			Used Limit
+								        		</label>
+								        		<input type="number" name="used_limit" class="form-control" id="used_limit" value="{{ $coupon->used_limit }}">
+								        	</div>
+								        	<div class="form-group text-left">
 								        		<label for="minimum_cost">
 								        			Minimum Cost
 								        		</label>
-								        		<input type="text" name="minimum_cost" class="form-control" id="minimum_cost" value="{{ $coupon->minimum_cost }}">
+								        		<input type="number" name="minimum_cost" class="form-control" id="minimum_cost" value="{{ $coupon->minimum_cost }}">
 								        	</div>
 								        	<div class="form-group text-left" id="date_1">
 					                            <label class="font-normal">
@@ -240,7 +244,7 @@
 					                                <input name="end_date" class="form-control" type="text" autocomplete="off" value="{{ $coupon->end_date }}">
 					                            </div>
 					                        </div>
-								        	
+
 								        	<div class="form-group text-left">
 								        		<label for="coupon">
 								        			Status
@@ -248,7 +252,7 @@
 								        		<select name="status" id="status" class="form-control">
 					                    			<option value="{{ $coupon->status }}">
 					                                    {{ $coupon->status == 1 ? 'Active':'In Active' }}</option>
-					                                @if($coupon->status == 1)    
+					                                @if($coupon->status == 1)
 					                                    <option value="0">In Active</option>
 					                                @elseif($coupon->status == 0)
 					                                    <option value="1">Active</option>
@@ -261,7 +265,7 @@
 									        <button type="button" class="btn btn-danger pointer" data-dismiss="modal">Close</button>
 									    </div>
 							      </form>
-								       
+
 								    </div>
 								  </div>
 								</div>
@@ -287,7 +291,7 @@
 
 @push('js')
 <script>
-	
+
 	function deletecoupon(id) {
         Swal({
           title: 'Are you sure?',
@@ -316,9 +320,9 @@
                   'error'
               )
           }
-      })  
+      })
     }
 
-	
+
 </script>
 @endpush

@@ -19,6 +19,7 @@ class CreateCouponsTable extends Migration
             $table->string('coupon_code')->unique();
             $table->string('discount_type');
             $table->integer('discount');
+            $table->integer('used_limit')->default(1);
             $table->integer('minimum_cost')->default(0);
             $table->dateTime('start_date');
             $table->dateTime('end_date');

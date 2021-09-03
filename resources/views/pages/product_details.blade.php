@@ -2,6 +2,46 @@
 @section('title', $product->name)
 @push('css')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/user/css/rating.css') }}">
+<style>
+    .rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: left
+}
+
+.rating>input {
+    display: none
+}
+
+.rating>label {
+    position: relative;
+    width: 1em;
+    font-size: 35px;
+    color: #FFD600;
+    cursor: pointer
+}
+
+.rating>label::before {
+    content: "\2605";
+    position: absolute;
+    opacity: 0
+}
+
+.rating>label:hover:before,
+.rating>label:hover~label:before {
+    opacity: 1 !important
+}
+
+.rating>input:checked~label:before {
+    opacity: 1
+}
+
+.rating:hover>input:checked~label:before {
+    opacity: 0.4
+}
+
+
+</style>
 @endpush
 @section('content')
 <!--breadcrumbs area start-->
@@ -29,12 +69,6 @@
                 <div class="row">
                     <div class="col-lg-5 col-md-6">
                         <div class="product-details-tab">
-                           {{--  @php
-                                $image = DB::table('product_images')
-                                ->where('product_id',$product->id)
-                                ->whereNotNull('image')
-                                ->first();
-                            @endphp --}}
                             <div id="img-1" class="zoomWrapper single-zoom">
                                 <a href="#">
                                     <img id="zoom1" src="{{ asset($product->image) }}" data-zoom-image="{{ asset($product->image) }}" alt="big-1">
@@ -58,17 +92,6 @@
                             <form action="#">
 
                                 <h3>{{ $product->name }}</h3>
-                                
-                                {{-- <div class="product_rating">
-                                    <ul>
-                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                        <li class="review"><a href="#">(1 customer review )</a></li>
-                                    </ul>
-                                </div> --}}
                                 <div class="price_box">
                                     @if($product->discount_price > 0)
                                     <span class="old_price">
@@ -123,7 +146,7 @@
                                         </div>
                                         @endif
                                     </div>
-                                                                        
+
                                 </div>
                                 <div class="product_variant quantity">
                                     <label>quantity</label>
@@ -192,13 +215,13 @@
                                                 'height'=>400
                                             ])->parseUrl()
                                             ->getIframe() !!}
-                                        @endif    
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="sheet" role="tabpanel">
-                                    
+
                                     {!! $product->specification !!}
-                                    
+
                                 </div>
 
                                 <div class="tab-pane fade" id="reviews" role="tabpanel">
@@ -208,15 +231,15 @@
                                         <div class="reviews_comment_box">
                                             <div class="comment_thmb">
                                                 @if($review->user->image != null)
-                                                    <img src="{{ asset($review->user->image) }}" alt="">
+                                                    <img src="{{ asset($review->user->image) }}" alt="" class="rounded-circle">
                                                 @else
                                                 <img src="{{ asset('assets/user/img/blog/comment2.jpg') }}" alt="">
                                                 @endif
                                             </div>
                                             <div class="comment_text">
                                                 <div class="reviews_meta">
-                                                    
-                                                    <p><strong>{{ $review->user->name }} </strong>- September 12, 2018</p>
+
+                                                    <p><strong>{{ $review->user->name }} </strong>- {{ $review->updated_at->format('D, M y') }}</p>
                                                         <ul>
                                                             <li>
                                                                 @for($i=1;$i<=$review->rating;$i++)
@@ -226,41 +249,51 @@
                                                         </ul>
                                                     <span>{{ $review->review }}</span>
                                                 </div>
+                                                <div class="review-image">
+                                                    <div class="col-12">
+                                                        @foreach ($review->images as $image )
+                                                            <img src="{{ asset($image->image) }}" alt="" class="img-responsive" style="width: 250px;height: 300px;padding: 10px;">
+                                                        @endforeach
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         @endforeach
-                                        
+
                                         <div class="product_review_form">
                                            {{--  @if(Session::has('message'))
                                             <div class="alert alert-info" role="alert">
-                                                <strong>{{ Session::get('message') }}</strong> 
+                                                <strong>{{ Session::get('message') }}</strong>
                                             </div>
                                             @endif --}}
-                                            <form action="{{ route('submit-review') }}" method="POST">
+                                            <h2>Submit Your Review</h2>
+                                            <hr>
+                                            <form action="{{ route('submit-review') }}" method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                                                         <div class="form-group required">
-                                                            <div class="stars">
-                                                                <input class="star star-1" id="star-1" type="radio" name="rating" value="1" />
-                                                                <label class="star star-1" for="star-1"></label>
-                                                                <input class="star star-2" id="star-2" type="radio" name="rating" value="2" />
-                                                                <label class="star star-2" for="star-2"></label>
-                                                                <input class="star star-3" id="star-3" type="radio" name="rating" value="3" />
-                                                                <label class="star star-3" for="star-3"></label>
-                                                                <input class="star star-4" id="star-4" type="radio" name="rating" value="4" />
-                                                                <label class="star star-4" for="star-4"></label>
-                                                                <input class="star star-5" id="star-5" type="radio" name="rating" value="5" />
-                                                                <label class="star star-5" for="star-5"></label>
+                                                            <div class="rating">
+                                                                <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+                                                                <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+                                                                <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+                                                                <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+                                                                <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <br />
+
                                                     <div class="col-12">
                                                         <label for="review_comment">Your review </label>
                                                         <textarea name="review" id="review_comment" required></textarea>
                                                     </div>
-                                                    
+                                                    <div class="col-3">
+                                                        <label for="">Attach Files</label>
+                                                        <input type="file" name="images[]" id="images" class="form-control" multiple>
+                                                    </div>
+
                                                 </div>
                                                 <button type="submit">Submit</button>
                                             </form>
@@ -281,7 +314,7 @@
                 <div class="col-12">
                     <div class="section_title">
                         <h2>
-                            Related Products 
+                            Related Products
                         </h2>
                         <a href="{{ route('category-products',$product->category->slug) }}" class="btn btn-sm btn-warning" style="float: right;padding-right: 9px;">See All</a>
                     </div>
@@ -305,7 +338,7 @@
                             {{-- <div class="label_product">
                                 <span class="label_sale">Sale</span>
                             </div> --}}
-                            
+
                         </div>
                         <div class="product_content">
                             <div class="product_content_inner">
@@ -566,7 +599,7 @@
         size_id : size_id,
         quantity : quantity
     };
-    
+
     $.ajax({
     method : 'GET',
     url : "{{ route('add-to-cart') }}",
@@ -598,7 +631,7 @@
     });
   }
 
-  
+
 </script>
 @endpush
 

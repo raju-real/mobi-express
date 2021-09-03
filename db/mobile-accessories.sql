@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 20, 2021 at 04:06 PM
+-- Generation Time: Sep 03, 2021 at 04:27 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -116,18 +116,8 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`id`, `session_id`, `user_id`, `product_id`, `unit_price`, `order_price`, `quantity`, `total_price`, `total_discount_price`, `color_id`, `size_id`, `created_at`, `updated_at`) VALUES
-(1, 'soXJi53CknAa7KzjSK75dof5g0pqYCBZUhcKFNGx', 1, 256, 350.00, 350.00, 2, 700.00, 0.00, NULL, NULL, '2021-07-05 12:52:42', '2021-07-05 12:58:09'),
-(2, 'soXJi53CknAa7KzjSK75dof5g0pqYCBZUhcKFNGx', 1, 2, 50.00, 50.00, 3, 150.00, 0.00, NULL, NULL, '2021-07-05 12:52:55', '2021-07-05 12:58:09'),
-(4, '2s4zMIxwcc7mDkR2LJJehbqXiJvF9ZweKWL2yykD', NULL, 514, 130.00, 130.00, 1, 130.00, 0.00, NULL, NULL, '2021-07-08 11:43:18', '2021-07-08 11:43:18'),
-(5, '2s4zMIxwcc7mDkR2LJJehbqXiJvF9ZweKWL2yykD', NULL, 401, 400.00, 400.00, 1, 400.00, 0.00, NULL, NULL, '2021-07-08 11:43:30', '2021-07-08 11:43:30'),
-(9, 'qdWQqxJC2BLKW38lEOIO7DPkgmxttaJtxsOK4mGr', NULL, 514, 130.00, 130.00, 1, 130.00, 0.00, NULL, NULL, '2021-07-09 04:19:08', '2021-07-09 04:19:08'),
-(10, 'qdWQqxJC2BLKW38lEOIO7DPkgmxttaJtxsOK4mGr', NULL, 516, 125.00, 125.00, 1, 125.00, 0.00, NULL, NULL, '2021-07-09 04:19:11', '2021-07-09 04:19:11'),
-(11, 'F6mZtL1uYxQtBPobWrfCMeK5gs0Uey6TZuj6FUb0', 1, 528, 480.00, 480.00, 1, 480.00, 0.00, NULL, NULL, '2021-07-10 03:02:30', '2021-07-10 03:02:42'),
-(12, 'F6mZtL1uYxQtBPobWrfCMeK5gs0Uey6TZuj6FUb0', NULL, 515, 110.00, 110.00, 1, 110.00, 0.00, NULL, NULL, '2021-07-10 03:14:40', '2021-07-10 03:14:40'),
-(13, 'GAOrdUiiVAELc3cZDsegYn4IdaVASUNjoe0YyxV7', NULL, 3, 65.00, 36.00, 1, 36.00, 29.00, NULL, NULL, '2021-07-26 04:28:21', '2021-07-26 04:28:21'),
-(14, 'GAOrdUiiVAELc3cZDsegYn4IdaVASUNjoe0YyxV7', NULL, 5, 30.00, 10.00, 1, 10.00, 20.00, NULL, NULL, '2021-07-26 04:29:14', '2021-07-26 04:29:14'),
-(15, 'GAOrdUiiVAELc3cZDsegYn4IdaVASUNjoe0YyxV7', NULL, 516, 125.00, 125.00, 1, 125.00, 0.00, NULL, NULL, '2021-07-26 04:41:52', '2021-07-26 04:41:52'),
-(16, 'MgHaSEgGYd1DJfjYSF003zpW5NlwssCwDyzFdspP', 1, 123, 125.00, 125.00, 2, 250.00, 0.00, 2, NULL, '2021-08-02 06:40:55', '2021-08-02 06:41:05');
+(52, '3i7CZZ7j2aj59uXuug0UbZrIiT3On6UYNvrp2FKM', 1, 71, 45.00, 45.00, 1, 45.00, 0.00, NULL, NULL, '2021-09-01 22:37:30', '2021-09-01 23:06:14'),
+(53, 'QzgJ8NH0i1yeQbN3xsfGR64pfMn6NFLDB3HZzI8V', NULL, 11, 120.00, 99.00, 1, 99.00, 21.00, NULL, NULL, '2021-09-02 01:24:42', '2021-09-02 01:24:42');
 
 -- --------------------------------------------------------
 
@@ -185,6 +175,7 @@ INSERT INTO `colors` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `contact_us` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `company_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `map_link` text COLLATE utf8mb4_unicode_ci,
   `office_info` text COLLATE utf8mb4_unicode_ci,
   `address` text COLLATE utf8mb4_unicode_ci,
@@ -199,8 +190,53 @@ CREATE TABLE `contact_us` (
 -- Dumping data for table `contact_us`
 --
 
-INSERT INTO `contact_us` (`id`, `map_link`, `office_info`, `address`, `email`, `mobile`, `phone`, `created_at`, `updated_at`) VALUES
-(1, 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.2350055083375!2d90.38097161447428!3d23.73899769512986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b7e01f1413%3A0x2543f04f47276dd4!2sAarong%2C%20Dhanmondi%20Branch!5e0!3m2!1sen!2sbd!4v1629475518003!5m2!1sen!2sbd', 'Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram anteposuerit litterarum formas human. qui sequitur mutationem consuetudium lectorum. Mirum est notare quam', 'mohammadpur, dhaka', 'raju@mail.com', '01889967514', '6549465416454', NULL, '2021-08-20 10:05:45');
+INSERT INTO `contact_us` (`id`, `company_name`, `map_link`, `office_info`, `address`, `email`, `mobile`, `phone`, `created_at`, `updated_at`) VALUES
+(1, 'Mobi Express', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.2350055083375!2d90.38097161447428!3d23.73899769512986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b7e01f1413%3A0x2543f04f47276dd4!2sAarong%2C%20Dhanmondi%20Branch!5e0!3m2!1sen!2sbd!4v1629475518003!5m2!1sen!2sbd', 'Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram anteposuerit litterarum formas human. qui sequitur mutationem consuetudium lectorum. Mirum est notare quam', 'mohammadpur, dhaka', 'raju@mail.com', '01889967514', '6549465416454', NULL, '2021-08-24 04:44:56');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `coupons`
+--
+
+CREATE TABLE `coupons` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `valid_for` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `coupon_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `discount_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `discount` int(11) NOT NULL,
+  `used_limit` int(11) NOT NULL DEFAULT '1',
+  `minimum_cost` int(11) NOT NULL DEFAULT '0',
+  `start_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `coupons`
+--
+
+INSERT INTO `coupons` (`id`, `valid_for`, `coupon_code`, `discount_type`, `discount`, `used_limit`, `minimum_cost`, `start_date`, `end_date`, `status`, `created_at`, `updated_at`) VALUES
+(2, '1', 'ME-1234', '1', 100, 2, 200, '2021-08-24 00:00:00', '2021-09-03 23:59:59', 1, '2021-08-23 05:08:20', '2021-09-01 22:59:26'),
+(3, '1', 'ME-1235', '2', 10, 1, 0, '2021-08-24 00:00:00', '2021-09-04 23:59:59', 1, '2021-08-23 05:34:51', '2021-09-01 22:53:22');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `coupon_user_useds`
+--
+
+CREATE TABLE `coupon_user_useds` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `coupon_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `used_status` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -251,6 +287,13 @@ CREATE TABLE `favorites` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `favorites`
+--
+
+INSERT INTO `favorites` (`id`, `product_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 71, 1, '2021-08-29 11:04:01', '2021-08-29 11:04:01');
 
 -- --------------------------------------------------------
 
@@ -394,7 +437,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (36, '2021_08_20_103057_create_voucher_products_table', 10),
 (37, '2021_08_20_124432_create_policies_table', 11),
 (38, '2021_08_20_143405_create_contact_us_table', 12),
-(39, '2021_08_20_143420_create_about_us_table', 12);
+(39, '2021_08_20_143420_create_about_us_table', 12),
+(40, '2021_08_23_095751_create_coupons_table', 13),
+(41, '2021_08_23_121253_create_coupon_user_useds_table', 14),
+(42, '2021_09_01_080637_create_review_images_table', 15);
 
 -- --------------------------------------------------------
 
@@ -416,7 +462,16 @@ CREATE TABLE `new_arrivals_products` (
 --
 
 INSERT INTO `new_arrivals_products` (`id`, `product_id`, `serial`, `status`, `created_at`, `updated_at`) VALUES
-(3, 4, 1, 1, '2021-07-31 10:30:26', '2021-07-31 10:30:33');
+(4, 55, 1, 1, '2021-08-21 06:17:03', '2021-08-21 06:17:03'),
+(5, 3, 2, 1, '2021-08-21 06:20:25', '2021-08-21 06:20:25'),
+(6, 5, 3, 1, '2021-08-21 06:20:33', '2021-08-21 06:20:33'),
+(7, 7, 4, 1, '2021-08-21 06:20:42', '2021-08-21 06:21:05'),
+(8, 8, 5, 1, '2021-08-21 06:21:15', '2021-08-21 06:21:15'),
+(9, 38, 6, 1, '2021-08-21 06:21:24', '2021-08-21 06:21:24'),
+(10, 61, 7, 1, '2021-08-21 06:21:33', '2021-08-21 06:21:33'),
+(11, 72, 8, 1, '2021-08-21 06:21:44', '2021-08-21 06:21:44'),
+(12, 94, 9, 1, '2021-08-21 06:21:55', '2021-08-21 06:21:55'),
+(13, 95, 10, 1, '2021-08-21 06:22:04', '2021-08-21 06:22:04');
 
 -- --------------------------------------------------------
 
@@ -449,7 +504,7 @@ CREATE TABLE `orders` (
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `mobile` varchar(14) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `district` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `district_id` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `city_town` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `note` text COLLATE utf8mb4_unicode_ci,
@@ -461,9 +516,10 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `order_number`, `invoice`, `delivery_charge`, `vat`, `tax`, `total_price`, `product_discount_price`, `order_status`, `payment_method`, `voucher_code`, `voucher_mobile`, `voucher_amount`, `has_coupon`, `coupon_code`, `coupon_discount_amount`, `total_discount_amount`, `order_price`, `paid_amount`, `due_amount`, `name`, `mobile`, `email`, `district`, `city_town`, `address`, `note`, `created_at`, `updated_at`) VALUES
-(10, 1, '000001', 'ME-19864857', 0.00, 0.00, 0.00, 665.00, 0.00, '0', 1, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 665.00, 0.00, 665.00, 'Raju', '01889967514', 'raju@mail.com', '3', 'Kaunia', 'Baruahat(Shibu lichu bagan)', 'I want this quickly', '2021-08-19 11:02:56', '2021-08-19 11:02:56'),
-(11, 1, '000002', 'ME-27405744', 0.00, 0.00, 0.00, 926.00, 29.00, '0', 1, NULL, NULL, 0.00, 'no', NULL, 0.00, 29.00, 926.00, 0.00, 926.00, 'Raju Real', '01889967514', 'rajuf@mail.com', '3', 'Kaunia', 'Shibu(Lichu bagan), Baruahat-5440', 'This is an emergency order', '2021-08-20 04:10:58', '2021-08-20 04:10:58');
+INSERT INTO `orders` (`id`, `user_id`, `order_number`, `invoice`, `delivery_charge`, `vat`, `tax`, `total_price`, `product_discount_price`, `order_status`, `payment_method`, `voucher_code`, `voucher_mobile`, `voucher_amount`, `has_coupon`, `coupon_code`, `coupon_discount_amount`, `total_discount_amount`, `order_price`, `paid_amount`, `due_amount`, `name`, `mobile`, `email`, `district_id`, `city_town`, `address`, `note`, `created_at`, `updated_at`) VALUES
+(2, 1, '000001', 'ME-21394509', 0.00, 0.00, 0.00, 316.00, 29.00, '1', 1, NULL, NULL, 0.00, 'no', NULL, 0.00, 29.00, 316.00, 0.00, 316.00, 'Raju Real', '01889967514', 'rajuf@mail.com', '3', 'Kaunia', 'shibu', NULL, '2021-08-23 03:30:53', '2021-08-23 03:30:53'),
+(3, 1, '000002', 'ME-24887837', 0.00, 0.00, 0.00, 167.00, 0.00, '1', 1, NULL, NULL, 0.00, 'yes', 'ME-1234', 100.00, 100.00, 67.00, 0.00, 67.00, 'Raju', '01889967514', 'raju@mail.com', '2', 'Kaunia', 'd', NULL, '2021-08-24 01:54:46', '2021-08-24 03:27:45'),
+(4, 1, '000003', 'ME-32696701', 0.00, 0.00, 0.00, 32.00, 18.00, '0', 1, NULL, NULL, 0.00, 'no', NULL, 0.00, 18.00, 32.00, 0.00, 32.00, 'Promotion Offer 2', '01737773393', 'admin@admin.com', '2', 'Kaunia', 'FDSFDSF', NULL, '2021-09-03 15:53:38', '2021-09-03 15:53:38');
 
 -- --------------------------------------------------------
 
@@ -492,17 +548,12 @@ CREATE TABLE `order_prices` (
 --
 
 INSERT INTO `order_prices` (`id`, `session_id`, `user_id`, `total_price`, `product_discount_price`, `order_price`, `delivery_charge`, `vat`, `tax`, `coupon_code`, `coupon_discount`, `created_at`, `updated_at`) VALUES
-(5, 'vAHKZki9FNP5LiwCaD68HhVde3kRz3bQGsYe87dA', 1, 1650.00, 90.00, 1650.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
-(6, 'HIf13oxoDot8f4INYwTy2asAxVLWT7rfUmsr8rvM', 1, 1050.00, 0.00, 1050.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
-(7, 'soXJi53CknAa7KzjSK75dof5g0pqYCBZUhcKFNGx', 1, 850.00, 0.00, 850.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
-(8, '2s4zMIxwcc7mDkR2LJJehbqXiJvF9ZweKWL2yykD', 1, 700.00, 0.00, 700.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
-(9, 'qdWQqxJC2BLKW38lEOIO7DPkgmxttaJtxsOK4mGr', 1, 1620.00, 0.00, 1620.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
-(10, 'kNqLGQiMt3Y0lW2aubmFzdeDDFMleD86gGwWHwb3', 1, 999.00, 51.00, 999.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
-(11, 'F6mZtL1uYxQtBPobWrfCMeK5gs0Uey6TZuj6FUb0', 1, 480.00, 0.00, 480.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
-(12, 'FIasJ7J2S6wJm4iMv5SjICLs6VchyKo1BGPySAoc', 1, 615.00, 0.00, 615.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
-(13, 'MgHaSEgGYd1DJfjYSF003zpW5NlwssCwDyzFdspP', 1, 250.00, 0.00, 250.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
-(14, '81kLDd24UGk6zHg7baodXvyivX804RrCMGEEQ4VA', 1, 665.00, 0.00, 665.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
-(15, 'zU8yu4vztmVyA0jynx53iJYL3SEt8neZxyZTgdlB', 1, 926.00, 29.00, 926.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL);
+(17, 'LMLNzaMR15BfTWT065zwMJCtbxwlUhE210bcAWyh', 1, 100.00, 0.00, 100.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, '2021-08-24 03:13:45'),
+(18, 'ES9d4fhhvoNm3OOPrgPoRx4LyDl04wQU5xIPlhWq', 1, 122.00, 0.00, 122.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
+(19, 'GboW92X6Jp7jjdk2chGqKQMtpvp004cihaccELH8', 1, 140.00, 0.00, 140.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
+(20, 'SHrZIAwvz8Y6qQHxFEMpTMKs873P2z9iprC4PagA', 1, 375.00, 0.00, 375.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
+(21, '3i7CZZ7j2aj59uXuug0UbZrIiT3On6UYNvrp2FKM', 1, 45.00, 0.00, 45.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, '2021-09-01 23:05:11'),
+(22, '3LXtTyeYA2rlNYdEDeoAtebOvtRNAa4txob6hPha', 1, 32.00, 18.00, 32.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -515,6 +566,8 @@ CREATE TABLE `order_products` (
   `user_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
+  `size_id` int(11) DEFAULT NULL,
+  `color_id` int(11) DEFAULT NULL,
   `order_price` double(8,2) NOT NULL,
   `quantity` int(11) NOT NULL,
   `total_price` double(8,2) NOT NULL,
@@ -526,17 +579,12 @@ CREATE TABLE `order_products` (
 -- Dumping data for table `order_products`
 --
 
-INSERT INTO `order_products` (`id`, `user_id`, `order_id`, `product_id`, `order_price`, `quantity`, `total_price`, `created_at`, `updated_at`) VALUES
-(17, 1, 10, 8, 50.00, 1, 50.00, '2021-08-19 11:02:56', '2021-08-19 11:02:56'),
-(18, 1, 10, 71, 45.00, 1, 45.00, '2021-08-19 11:02:56', '2021-08-19 11:02:56'),
-(19, 1, 10, 27, 570.00, 1, 570.00, '2021-08-19 11:02:56', '2021-08-19 11:02:56'),
-(20, 1, 11, 207, 215.00, 1, 215.00, '2021-08-20 04:10:59', '2021-08-20 04:10:59'),
-(21, 1, 11, 404, 225.00, 1, 225.00, '2021-08-20 04:10:59', '2021-08-20 04:10:59'),
-(22, 1, 11, 3, 36.00, 1, 36.00, '2021-08-20 04:10:59', '2021-08-20 04:10:59'),
-(23, 1, 11, 8, 50.00, 1, 50.00, '2021-08-20 04:10:59', '2021-08-20 04:10:59'),
-(24, 1, 11, 9, 50.00, 1, 50.00, '2021-08-20 04:10:59', '2021-08-20 04:10:59'),
-(25, 1, 11, 409, 250.00, 1, 250.00, '2021-08-20 04:10:59', '2021-08-20 04:10:59'),
-(26, 1, 11, 407, 100.00, 1, 100.00, '2021-08-20 04:10:59', '2021-08-20 04:10:59');
+INSERT INTO `order_products` (`id`, `user_id`, `order_id`, `product_id`, `size_id`, `color_id`, `order_price`, `quantity`, `total_price`, `created_at`, `updated_at`) VALUES
+(4, 1, 2, 92, 2, 2, 140.00, 2, 280.00, '2021-08-23 03:30:53', '2021-08-23 03:30:53'),
+(5, 1, 2, 3, NULL, NULL, 36.00, 1, 36.00, '2021-08-23 03:30:53', '2021-08-23 03:30:53'),
+(6, 1, 3, 12, NULL, NULL, 122.00, 1, 122.00, '2021-08-24 01:54:46', '2021-08-24 01:54:46'),
+(7, 1, 3, 71, NULL, NULL, 45.00, 1, 45.00, '2021-08-24 01:54:46', '2021-08-24 01:54:46'),
+(8, 1, 4, 7, NULL, NULL, 32.00, 1, 32.00, '2021-09-03 15:53:38', '2021-09-03 15:53:38');
 
 -- --------------------------------------------------------
 
@@ -5816,6 +5864,7 @@ CREATE TABLE `promotions` (
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `serial` int(11) NOT NULL,
   `expire_date` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -5826,9 +5875,9 @@ CREATE TABLE `promotions` (
 -- Dumping data for table `promotions`
 --
 
-INSERT INTO `promotions` (`id`, `name`, `slug`, `image`, `expire_date`, `status`, `created_at`, `updated_at`) VALUES
-(3, 'Promotion Offer', 'Promotion-Offer', 'images/promotion/162429568531832864593_ddf74ff699_b.jpg', NULL, 1, '2021-06-21 11:14:45', '2021-07-31 10:30:11'),
-(4, 'Promotion Offer 2', 'Promotion-Offer-2', 'images/promotion/1624295697Coxs-Bazar-The-Largest-Sea-Beach.jpg', NULL, 0, '2021-06-21 11:14:57', '2021-07-10 02:39:36');
+INSERT INTO `promotions` (`id`, `name`, `slug`, `image`, `serial`, `expire_date`, `status`, `created_at`, `updated_at`) VALUES
+(3, 'Promotion Offer', 'Promotion-Offer', 'images/promotion/162429568531832864593_ddf74ff699_b.jpg', 2, NULL, 1, '2021-06-21 11:14:45', '2021-08-21 07:00:57'),
+(4, 'Promotion Offer 2', 'Promotion-Offer-2', 'images/promotion/162955106260022733-14eb-4f01-8dca-a90fe35a25b6.jpg', 1, NULL, 0, '2021-06-21 11:14:57', '2021-08-21 07:04:23');
 
 -- --------------------------------------------------------
 
@@ -5880,7 +5929,40 @@ CREATE TABLE `reviews` (
 INSERT INTO `reviews` (`id`, `user_id`, `product_id`, `rating`, `review`, `created_at`, `updated_at`) VALUES
 (1, 1, 71, 2, 'It\'s a nice product. Thanks seller for the best product', '2021-08-19 11:09:32', '2021-08-19 11:09:32'),
 (2, 1, 27, 3, 'it\'s real product. thanks', '2021-08-19 12:11:22', '2021-08-19 12:11:22'),
-(3, 1, 27, 1, 'its awesome product', '2021-08-19 12:11:59', '2021-08-19 12:11:59');
+(3, 1, 27, 1, 'its awesome product', '2021-08-19 12:11:59', '2021-08-19 12:11:59'),
+(4, 1, 92, 3, 'sdfdsfsdf', '2021-08-26 02:04:44', '2021-08-26 02:04:44'),
+(5, 1, 12, 2, 'this product is nice', '2021-08-29 11:06:02', '2021-08-29 11:06:02'),
+(6, 1, 71, 3, 'dd', '2021-09-01 00:40:24', '2021-09-01 00:40:24'),
+(7, 1, 71, 4, 'check image', '2021-09-01 03:01:37', '2021-09-01 03:01:37'),
+(8, 1, 71, 5, 'sdfsdfdsf', '2021-09-01 03:07:31', '2021-09-01 03:07:31'),
+(9, 1, 71, 5, 'check image', '2021-09-01 03:26:36', '2021-09-01 03:26:36'),
+(10, 1, 71, 5, 'dsfdsfdfsd', '2021-09-01 03:30:19', '2021-09-01 03:30:19'),
+(11, 1, 71, 2, 'serertewrtewt', '2021-09-01 03:36:08', '2021-09-01 03:36:08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review_images`
+--
+
+CREATE TABLE `review_images` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `review_id` int(11) NOT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `review_images`
+--
+
+INSERT INTO `review_images` (`id`, `review_id`, `image`, `created_at`, `updated_at`) VALUES
+(1, 10, 'images/review/16304886194bc22387-ed14-4a96-882e-370e688b5863.jpg', '2021-09-01 03:30:19', '2021-09-01 03:30:19'),
+(2, 10, 'images/review/16304886191593711159106277650_276505176903652_5525818149765392198_n.jpg', '2021-09-01 03:30:19', '2021-09-01 03:30:19'),
+(3, 11, 'images/review/16304889681246280_16061017110043391702.jpg', '2021-09-01 03:36:08', '2021-09-01 03:36:08'),
+(4, 11, 'images/review/16304889681597742695_5f3b9e671b2f4-thumb.jpg', '2021-09-01 03:36:08', '2021-09-01 03:36:08'),
+(5, 11, 'images/review/1630488968besthotelsites-1.jpg', '2021-09-01 03:36:09', '2021-09-01 03:36:09');
 
 -- --------------------------------------------------------
 
@@ -5931,8 +6013,8 @@ CREATE TABLE `special_offers` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `product_id` int(11) NOT NULL,
   `discount_price` double(8,2) NOT NULL,
-  `start_date` date NOT NULL,
-  `end_date` date NOT NULL,
+  `start_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -5943,8 +6025,8 @@ CREATE TABLE `special_offers` (
 --
 
 INSERT INTO `special_offers` (`id`, `product_id`, `discount_price`, `start_date`, `end_date`, `status`, `created_at`, `updated_at`) VALUES
-(1, 7, 32.00, '2021-07-30', '2021-08-12', 1, '2021-07-30 08:25:12', '2021-07-30 08:25:12'),
-(2, 11, 99.00, '2021-07-30', '2021-07-30', 1, '2021-07-30 08:25:33', '2021-07-30 08:25:33');
+(1, 7, 32.00, '2021-09-03 00:00:00', '2021-09-04 23:59:59', 1, '2021-07-30 08:25:12', '2021-09-03 15:50:14'),
+(2, 11, 99.00, '2021-09-03 00:00:00', '2021-09-03 23:59:59', 1, '2021-07-30 08:25:33', '2021-09-03 15:57:14');
 
 -- --------------------------------------------------------
 
@@ -6039,7 +6121,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `mobile`, `image`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Raju Real', 'rajuf@mail.com', '01889967514', 'images/user/1629402004white-bg.png', NULL, '$2y$10$zYNq4gTQqSTXA6IHEMXZ8.BaEP85qOqOqhk.UTcH4JUZE8KEobynW', NULL, '2021-06-30 01:06:26', '2021-08-19 13:42:53'),
+(1, 'Raju Real', 'rajuf@mail.com', '01889967514', 'images/user/1630479545IMG_6520.JPG', NULL, '$2y$10$zYNq4gTQqSTXA6IHEMXZ8.BaEP85qOqOqhk.UTcH4JUZE8KEobynW', NULL, '2021-06-30 01:06:26', '2021-09-01 00:59:07'),
 (2, 'Raju', NULL, '01889967515', NULL, NULL, '$2y$10$ZppB0QbmKZY.xDTJ0SYQL.7IDrLKu//0wb7iPVgAINQmBQ7nBG/fq', NULL, '2021-06-30 01:11:38', '2021-06-30 01:11:38');
 
 -- --------------------------------------------------------
@@ -6145,6 +6227,19 @@ ALTER TABLE `colors`
 -- Indexes for table `contact_us`
 --
 ALTER TABLE `contact_us`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `coupons`
+--
+ALTER TABLE `coupons`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `coupons_coupon_code_unique` (`coupon_code`);
+
+--
+-- Indexes for table `coupon_user_useds`
+--
+ALTER TABLE `coupon_user_useds`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -6278,6 +6373,12 @@ ALTER TABLE `reviews`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `review_images`
+--
+ALTER TABLE `review_images`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `sizes`
 --
 ALTER TABLE `sizes`
@@ -6362,7 +6463,7 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -6383,6 +6484,18 @@ ALTER TABLE `contact_us`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `coupons`
+--
+ALTER TABLE `coupons`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `coupon_user_useds`
+--
+ALTER TABLE `coupon_user_useds`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `districts`
 --
 ALTER TABLE `districts`
@@ -6398,7 +6511,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `featured_products`
@@ -6422,31 +6535,31 @@ ALTER TABLE `front_category_products`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `new_arrivals_products`
 --
 ALTER TABLE `new_arrivals_products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `order_prices`
 --
 ALTER TABLE `order_prices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `policies`
@@ -6500,7 +6613,13 @@ ALTER TABLE `promotion_products`
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `review_images`
+--
+ALTER TABLE `review_images`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `sizes`

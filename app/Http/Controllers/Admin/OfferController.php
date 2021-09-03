@@ -7,6 +7,7 @@ use App\Model\Product;
 use App\Model\SpecialOffer;
 use Illuminate\Http\Request;
 use Alert;
+use Carbon\Carbon;
 
 class OfferController extends Controller
 {
@@ -32,8 +33,8 @@ class OfferController extends Controller
         $offer = new SpecialOffer();
         $offer->product_id = $request->product_id;
         $offer->discount_price = $request->discount_price;
-        $startDate = date('Y-m-d', strtotime($request->start_date));
-        $endDate = date('Y-m-d', strtotime($request->end_date));
+        $startDate = Carbon::parse($request->start_date)->startOfDay();
+        $endDate = Carbon::parse($request->end_date)->endOfDay();
         if($startDate > $endDate){
             toast('Invalid Date Range','error');
             return redirect()->back();
@@ -74,8 +75,8 @@ class OfferController extends Controller
         $offer = SpecialOffer::findOrFail($id);
         $offer->product_id = $request->product_id;
         $offer->discount_price = $request->discount_price;
-        $startDate = date('Y-m-d', strtotime($request->start_date));
-        $endDate = date('Y-m-d', strtotime($request->end_date));
+        $startDate = Carbon::parse($request->start_date)->startOfDay();
+        $endDate = Carbon::parse($request->end_date)->endOfDay();
         if($startDate > $endDate){
             toast('Invalid Date Range','error');
             return redirect()->back();

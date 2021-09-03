@@ -40,6 +40,7 @@ class CouponController extends Controller
             Toastr::error('Invalid Date Range');
             return redirect()->back();
         }
+        $coupon->used_limit = $request->used_limit ? $request->used_limit : 1;
         $coupon->start_date = $startDate;
         $coupon->end_date = $endDate;
         $coupon->status = $request->status;
@@ -71,6 +72,7 @@ class CouponController extends Controller
             Toastr::error('Invalid Date Range');
             return redirect()->back();
         }
+        $coupon->used_limit = $request->used_limit ? $request->used_limit : 1;
         $coupon->start_date = $startDate;
         $coupon->end_date = $endDate;
         $coupon->status = $request->status;

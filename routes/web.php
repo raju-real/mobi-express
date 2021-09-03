@@ -24,8 +24,9 @@ Route::get('products/category/{slug}','HomePageController@categoryProducts')
 Route::get('products/subcategory/{slug}','HomePageController@subcategoryProducts')->name('subcategory-products'); 
 Route::get('products/brand/{slug}','HomePageController@brandProducts')    
     ->name('brand-products');
-Route::get('products/promotion/{slug}','HomePageController@promotionProducts')    
-    ->name('promotion-products');     
+Route::get('campaign','HomePageController@campaign')->name('campaign');    
+Route::get('products/campaign/{slug}','HomePageController@promotionProducts')    
+    ->name('campaign-products');
 Route::any('add-to-cart','HomePageController@addToCart')
     ->name('add-to-cart');
 Route::any('remove-cart-product','HomePageController@removeCartProduct')

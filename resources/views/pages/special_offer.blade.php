@@ -42,11 +42,10 @@
                         </div>
                         <div class="countdown_text">
                             <p><span>Hurry Up!</span> Offers ends in: </p>
-                            <h2>{{ date('d-m-y', strtotime($offer->end_date)) }}</h2>
                         </div>
-                        {{-- <div class="product_timing">
-                            <div data-countdown="2021/12/15"></div>
-                        </div> --}}
+                        <div class="product_timing">
+                            <div data-countdown="{{ date('Y/m/d', strtotime($offer->count_down_end_date)) }}"></div>
+                        </div>
                     </div>
                     <div class="add_to_cart">
                         <a href="javascript:void(0)" onclick="addToCartSingle({{ $offer->product->id }})" title="Add to cart">Add to cart</a>

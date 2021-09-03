@@ -19,6 +19,7 @@ use App\Model\Product;
 use App\Model\Promotion;
 use App\Model\PromotionProduct;
 use App\Model\Review;
+use App\Model\ReviewImage;
 use App\Model\SpecialOffer;
 use App\Model\SubCategory;
 use App\Model\Subscriber;
@@ -30,9 +31,39 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class HomePageController extends Controller
 {
+     public function index(){
+        $categories = Category::inRandomOrder()->take(5)->get();
+        $offers = SpecialOffer::with('product')
+            ->where('start_date','<=',Carbon::today())
+            ->where('end_date','>=',Carbon::today())
+            ->where('status',1)->get();
+        // Promotions
+        $promotions = Promotion::orderBy('serial','asc')->get();
+        // Featured Product
+        $featuredProducts = FeaturedProduct::with('product')
+            ->orderBy('serial','asc')->take(20)->get();
+        // Best Selling Product
+        $orderProducts = OrderProduct::latest()->distinct()->take(20)->get();
+        $bestSellingProducts = Product::whereIn('id',$orderProducts->pluck('product_id'))
+            ->get();
+        // New Arrivals
+        $newArrivals = NewArrivals::with('product')
+            ->orderBy('serial','asc')->take(20)->get();
+        // Popular Product
+        $popularProducts = Review::with('product')
+            ->orderBy('rating','desc')
+            ->inRandomOrder()
+            ->distinct()->take(5)->get();
+        $frontCategories = FrontCategory::with('category')
+            ->inRandomOrder()->take(3)->get();
+        $products = Product::take(20)->get();
+        return view('welcome',compact('featuredProducts','bestSellingProducts','categories','offers','popularProducts','frontCategories','newArrivals','promotions','products'));
+    }
+
     public function searchProduct(){
         $output="";
         $category_id = request()->get('category_id');
@@ -45,8 +76,8 @@ class HomePageController extends Controller
             $products = Product::where('name','LIKE',"{$product_name}%")
             ->get();
         }
-        
-        $output = '';    
+
+        $output = '';
         foreach($products as $product){
             $name = "'".$product->name."'";
             $url =  route('product-details',$product->slug);
@@ -75,7 +106,7 @@ class HomePageController extends Controller
         return $products;
     }
 
-    
+
 
     // public function index(){
     //     $data = Product::query();
@@ -91,37 +122,11 @@ class HomePageController extends Controller
     //     return view('welcome',compact('featuredProducts','categories','offers'));
     // }
 
-    public function index(){
-        $categories = Category::inRandomOrder()->take(5)->get();
-        $offers = SpecialOffer::with('product')->get();
-        // Promotions
-        $promotions = Promotion::orderBy('serial','asc')->get();
-        // Featured Product
-        $featuredProducts = FeaturedProduct::with('product')
-            ->orderBy('serial','asc')->take(20)->get();
-        // Best Selling Product
-        $orderProducts = OrderProduct::latest()->distinct()->take(20)->get();    
-        $bestSellingProducts = Product::whereIn('id',$orderProducts->pluck('product_id'))
-            ->get();
-        // New Arrivals
-        $newArrivals = NewArrivals::with('product')
-            ->orderBy('serial','asc')->take(20)->get();     
-        // Popular Product
-        $popularProducts = Review::with('product')
-            ->orderBy('rating','desc')
-            ->inRandomOrder()
-            ->distinct()->take(5)->get(); 
-        $frontCategories = FrontCategory::with('category')
-            ->inRandomOrder()->take(3)->get();
-        $products = Product::take(20)->get();
-        return view('welcome',compact('featuredProducts','bestSellingProducts','categories','offers','popularProducts','frontCategories','newArrivals','promotions','products'));
-    }
-
     public function voucherProducts(){
         $ids = VoucherProduct::select('product_id')->get();
         $products = Product::whereIn('id',$ids->pluck('product_id'))
             ->paginate(20);
-        $title = 'Voucher Products';    
+        $title = 'Voucher Products';
         $pageTitle = 'Voucher Products';
         return view('pages.vendor_products',compact('products','title','pageTitle'));
     }
@@ -130,7 +135,7 @@ class HomePageController extends Controller
         $ids = FeaturedProduct::select('product_id')->get();
         $products = Product::whereIn('id',$ids->pluck('product_id'))
             ->paginate(20);
-        $title = 'Featured Products';    
+        $title = 'Featured Products';
         $pageTitle = 'Featured Products';
         return view('pages.vendor_products',compact('products','title','pageTitle'));
     }
@@ -138,7 +143,7 @@ class HomePageController extends Controller
     public function productDetails($slug){
         $product = Product::with('images','sizes','units','colors','reviews')
             ->where('slug',$slug)->first();
-        //$regularProducts = $this->getProducts(); 
+        //$regularProducts = $this->getProducts();
         // $releatedProducts = $regularProducts->where('category_id',$product->category_id)->take(20);
         $releatedProducts = Product::where('category_id',$product->category_id)->take(20)->get();
         return view('pages.product_details',compact('product','releatedProducts'));
@@ -152,11 +157,16 @@ class HomePageController extends Controller
         //     ->paginate(20);
         $products = Product::where('category_id',$category->id)
             ->paginate(20);
-        $title = $category->name;    
+        $title = $category->name;
         $pageTitle = 'Category/'.$category->name;
         $image = $category->image;
         //return $products;
         return view('pages.vendor_products',compact('products','title','pageTitle','image'));
+    }
+
+    public function campaign(){
+        $campaigns = Promotion::where('status',1)->latest()->get();
+        return view('pages.campaign',compact('campaigns'));
     }
 
     public function promotionProducts($slug){
@@ -164,7 +174,7 @@ class HomePageController extends Controller
         $promotionProducts = PromotionProduct::where('promotion_id',$promotion->id)->get();
         $products = Product::whereIn('id',$promotionProducts->pluck('product_id'))
             ->paginate(20);
-        $title = $promotion->name;    
+        $title = $promotion->name;
         $pageTitle = 'Promotion/'.$promotion->name;
         $image = $promotion->image;
         //return $products;
@@ -176,7 +186,7 @@ class HomePageController extends Controller
         //$promotionProducts = $this->promotionProducts();
         $products = Product::where('subcategory_id',$subcategory->id)
             ->paginate(20);
-        $title = $subcategory->name;    
+        $title = $subcategory->name;
         $pageTitle = 'Subcategory/'.$subcategory->name;
         $image = $subcategory->image;
         //return $products;
@@ -187,7 +197,7 @@ class HomePageController extends Controller
         $brand = Brand::where('slug',$slug)->first();
         $products = Product::where('brand_id',$brand->id)
             ->paginate(20);
-        $title = $brand->name;    
+        $title = $brand->name;
         $pageTitle = 'Brand/'.$brand->name;
         $image = $brand->image;
         //return $products;
@@ -320,7 +330,7 @@ class HomePageController extends Controller
             session()->put('current_url', URL::current());
             return redirect()->route('login');
         }
-        
+
     }
 
     public function removeFavoriteProduct(){
@@ -345,6 +355,17 @@ class HomePageController extends Controller
         }
     }
 
+    protected function checkUserUsedTime($coupon_code){
+        $coupon = Coupon::where('coupon_code',$coupon_code)->first();
+        $user_used = CouponUserUsed::where('coupon_code',$coupon_code)
+            ->where('user_id',Auth::id())->count();
+        if($user_used < $coupon->used_limit){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
     protected function getDiscountAmount($coupon_code){
         $coupon = Coupon::where('coupon_code',$coupon_code)->first();
         if($coupon->discount_type == 1){
@@ -363,6 +384,7 @@ class HomePageController extends Controller
         }
     }
 
+
     protected function applyCoupon($coupon_code){
         $session_id = Session::get('session_id');
         $identify = [
@@ -375,19 +397,22 @@ class HomePageController extends Controller
             if(($coupon->start_date <= Carbon::today()) AND ($coupon->end_date >= Carbon::today()) AND $coupon->status == 1){
                 $user_validation = $this->checkUserValidity($coupon_code);
                 if($user_validation == true){
-                    if(!CouponUserUsed::where('user_id',Auth::id())
-                        ->where('coupon_code',$coupon_code)
-                        ->exists()){
+                    $used_time = $this->checkUserUsedTime($coupon_code);
+                    if($used_time == true){
                         $orderPrice = OrderPrice::where($identify)->first();
-                        $coupon_discount_amount = $this->getDiscountAmount($coupon_code);
-                        if($coupon_discount_amount != "invalid"){
-                            $orderPrice->order_price = $orderPrice->order_price - $coupon_discount_amount;
-                            $orderPrice->coupon_discount = $coupon_discount_amount;
-                            $orderPrice->coupon_code = $coupon_code;
-                            $orderPrice->save();
-                            $result = 'Coupon Applied Successfully';
+                        if($orderPrice->order_price > $coupon->minimum_cost){
+                            $coupon_discount_amount = $this->getDiscountAmount($coupon_code);
+                            if($coupon_discount_amount != "invalid"){
+                                $orderPrice->order_price = $orderPrice->order_price - $coupon_discount_amount;
+                                $orderPrice->coupon_discount = $coupon_discount_amount;
+                                $orderPrice->coupon_code = $coupon_code;
+                                $orderPrice->save();
+                                $result = 'Coupon Applied Successfully';
+                            } else{
+                                $result = "Invalid Coupon";
+                            }
                         } else{
-                            $result = "Invalid Coupon";
+                            $result = "Minimum Cost ".$coupon->minimum_cost;
                         }
                     } else {
                         $result = 'You Already Used This Coupon';
@@ -403,7 +428,7 @@ class HomePageController extends Controller
         }
 
         return $result;
-        
+
     }
 
     public function checkout(Request $request){
@@ -435,7 +460,7 @@ class HomePageController extends Controller
                     $orderPrice = $totalPrice;
                     Session::forget('coupon_message');
                 }
-                
+
                 $data = [
                     'session_id' => $session_id,
                     'user_id' => Auth::id(),
@@ -445,7 +470,7 @@ class HomePageController extends Controller
                 ];
 
                 OrderPrice::updateOrInsert($identify,$data);
-                
+
                 // Apply Coupon
                 $coupon_code = request()->get('coupon_code');
                 if(isset($coupon_code)){
@@ -456,15 +481,15 @@ class HomePageController extends Controller
                     } else{
                         Session::forget('coupon_message');
                     }
-                    
-                } 
+
+                }
                 $order_price = OrderPrice::where($identify)->first();
                 return view('pages.checkout', compact('carts','order_price'));
             } else{
                 Alert::error('Your Cart Is Empty');
                 return redirect()->route('carts');
             }
-            
+
         } else {
             session()->put('current_url', URL::current());
             return redirect()->route('login');
@@ -506,7 +531,7 @@ class HomePageController extends Controller
                     'session_id'=>$session_id,
                     'user_id'=>Auth::id()
                 ];
-            
+
             // Find order price
             $order_price = OrderPrice::where($identify)->first();
 
@@ -612,13 +637,28 @@ class HomePageController extends Controller
                 $review->rating = $request->rating;
                 $review->review = $request->review;
                 $review->save();
+                if($request->hasfile('images')){
+                    foreach($request->file('images') as $image){
+                        $imageName = time().$image->getClientOriginalName();
+                        $image_resize = Image::make($image->getRealPath());
+                        $image_resize->resize(300, 250);
+                        $image_resize->filesize(100);
+                        $image_resize->save('images/review/' .$imageName);
+                        $data[] = $imageName;
+                        $image = new ReviewImage();
+                        $image->review_id = $review->id;
+                        $image->image = 'images/review/'.$imageName;
+                        $image->save();
+                    }
+                }
+
                 Alert::success('Thank You For Your Review');
                 return redirect()->back()->with('message','');
             } else{
                 Alert::info('Product Not Found On Your Order List');
                 return redirect()->back();
             }
-            
+
         } else{
             Session::put('current_url',route('product-details',['slug'=>$product->slug]));
             return redirect(route('login'));
