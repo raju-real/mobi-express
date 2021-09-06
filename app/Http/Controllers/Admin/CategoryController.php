@@ -31,6 +31,7 @@ class CategoryController extends Controller
             $image_resize->save('images/category/' .$imageName);
             $category->image = 'images/category/'.$imageName;
         }
+        $category->serial = $request->serial;
         $category->save();
         toast('Category Added Successfully','success');
         return redirect()->route('admin.category.index');
@@ -60,7 +61,8 @@ class CategoryController extends Controller
         } else{
                 $imageName = $category->image;
         }
-        $category->image = $imageName;    
+        $category->image = $imageName;  
+        $category->serial = $request->serial;  
         $category->save();
         toast('Category Update Successfully','info');
         return redirect()->route('admin.category.index');

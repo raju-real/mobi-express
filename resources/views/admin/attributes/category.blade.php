@@ -44,6 +44,14 @@
 						        		</label>
 						        		<input type="file" name="image" class="form-control" id="image">
 						        	</div>
+						        	<div class="form-group text-left">
+						        		<label>Serial</label>
+										<select name="serial" class="form-control">
+											@for($i=1;$i<=20;$i++)
+						        			<option value="{{ $i }}">{{ $i }}</option>
+						        			@endfor
+						        		</select>
+						        	</div>
 						      	</div>
 							    <div class="modal-footer">
 							      	<button type="submit" class="btn btn-primary pointer">Add</button>
@@ -62,6 +70,7 @@
                             <th class="text-center">Sl.no</th>
                             <th class="text-center">Category Name</th>
                             <th class="text-center">Category Image</th>
+                            <th class="text-center">Serial</th>
                             <th class="text-center">Product Count</th>
                             <th class="text-center">Action</th>
                         </tr>
@@ -78,6 +87,7 @@
                             		{{ 'None' }}
                             	@endif		
                             </td>
+                            <td>{{ $category->serial }}</td>
                             <td>{{ $category->products->count() }}</td>
                             <td>
                             	{{-- Delete Activity --}}
@@ -108,11 +118,20 @@
 									        		<input type="text" name="name" class="form-control" value="{{ $category->name }}">
 									        	</div>
 									        	<div class="form-group text-left">
-								        		<label for="image">
-								        			Category Image
-								        		</label>
-								        		<input type="file" name="image" class="form-control">
-								        	</div>
+									        		<label for="image">
+									        			Category Image
+									        		</label>
+									        		<input type="file" name="image" class="form-control">
+									        	</div>
+									        	<div class="form-group text-left">
+													<label>Serial</label>
+													<select name="serial" class="form-control">
+														<option value="{{ $category->serial }}">{{ $category->serial }}</option>
+														@for($i=1;$i<=20;$i++)
+									        			<option value="{{ $i }}">{{ $i }}</option>
+									        			@endfor
+									        		</select>
+												</div>
 									      	</div>
 										    <div class="modal-footer">
 										      	<button type="submit" class="btn btn-primary pointer">Update</button>
