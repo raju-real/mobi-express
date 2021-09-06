@@ -1,4 +1,5 @@
 @foreach($popularProducts as $p_p)
+@if(isset($p_p->product))
 <article class="recent_product_list">
     <figure>
         <div class="product_thumb">
@@ -35,4 +36,5 @@
         </div>
     </figure>
 </article>
+@endif
 @endforeach

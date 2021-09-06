@@ -21,6 +21,8 @@
     <!-- toastr -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/topuhit/Font-Bangla@1.0.3/1.0.0/font-bangla.css">
+   <script src="{{ asset('assets/user/js/plugins.js') }}"></script>
+   
    <style type="text/css">
        .autocomplete-item{
         display: grid;
@@ -571,7 +573,7 @@
     <!-- modal area end-->
 
     <!-- Plugins JS -->
-    <script src="{{ asset('assets/user/js/plugins.js') }}"></script>
+    {{-- <script src="{{ asset('assets/user/js/plugins.js') }}"></script> --}}
     <!-- Main JS -->
     <script src="{{ asset('assets/user/js/main.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 03, 2021 at 04:27 PM
+-- Generation Time: Sep 06, 2021 at 07:06 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -117,7 +117,12 @@ CREATE TABLE `carts` (
 
 INSERT INTO `carts` (`id`, `session_id`, `user_id`, `product_id`, `unit_price`, `order_price`, `quantity`, `total_price`, `total_discount_price`, `color_id`, `size_id`, `created_at`, `updated_at`) VALUES
 (52, '3i7CZZ7j2aj59uXuug0UbZrIiT3On6UYNvrp2FKM', 1, 71, 45.00, 45.00, 1, 45.00, 0.00, NULL, NULL, '2021-09-01 22:37:30', '2021-09-01 23:06:14'),
-(53, 'QzgJ8NH0i1yeQbN3xsfGR64pfMn6NFLDB3HZzI8V', NULL, 11, 120.00, 99.00, 1, 99.00, 21.00, NULL, NULL, '2021-09-02 01:24:42', '2021-09-02 01:24:42');
+(53, 'QzgJ8NH0i1yeQbN3xsfGR64pfMn6NFLDB3HZzI8V', NULL, 11, 120.00, 99.00, 1, 99.00, 21.00, NULL, NULL, '2021-09-02 01:24:42', '2021-09-02 01:24:42'),
+(54, 'uxT00kMZ48h4FB0yc7mcUJrGWt9bUThkPTbAL5oX', NULL, 700, 250.00, 250.00, 1, 250.00, 0.00, NULL, NULL, '2021-09-04 12:52:42', '2021-09-04 12:52:42'),
+(59, 'IojZlzDePX4OkG8Ove95RGbzh0XyoAuY2QyeOOKP', NULL, 407, 100.00, 100.00, 1, 100.00, 0.00, NULL, NULL, '2021-09-05 11:12:48', '2021-09-05 11:12:48'),
+(60, 'IojZlzDePX4OkG8Ove95RGbzh0XyoAuY2QyeOOKP', NULL, 406, 110.00, 110.00, 1, 110.00, 0.00, NULL, NULL, '2021-09-05 11:12:53', '2021-09-05 11:12:53'),
+(61, 'IojZlzDePX4OkG8Ove95RGbzh0XyoAuY2QyeOOKP', NULL, 710, 250.00, 250.00, 1, 250.00, 0.00, NULL, NULL, '2021-09-05 11:12:58', '2021-09-05 11:12:58'),
+(62, 'ZFULk1SkTmD02k5tL9eTPTaLOm6yhPZiw3cRArMh', 1, 8, 50.00, 50.00, 1, 50.00, 0.00, NULL, NULL, '2021-09-06 06:25:18', '2021-09-06 06:25:29');
 
 -- --------------------------------------------------------
 
@@ -293,7 +298,7 @@ CREATE TABLE `favorites` (
 --
 
 INSERT INTO `favorites` (`id`, `product_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 71, 1, '2021-08-29 11:04:01', '2021-08-29 11:04:01');
+(2, 407, 1, '2021-09-05 11:13:25', '2021-09-05 11:13:25');
 
 -- --------------------------------------------------------
 
@@ -553,7 +558,9 @@ INSERT INTO `order_prices` (`id`, `session_id`, `user_id`, `total_price`, `produ
 (19, 'GboW92X6Jp7jjdk2chGqKQMtpvp004cihaccELH8', 1, 140.00, 0.00, 140.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
 (20, 'SHrZIAwvz8Y6qQHxFEMpTMKs873P2z9iprC4PagA', 1, 375.00, 0.00, 375.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
 (21, '3i7CZZ7j2aj59uXuug0UbZrIiT3On6UYNvrp2FKM', 1, 45.00, 0.00, 45.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, '2021-09-01 23:05:11'),
-(22, '3LXtTyeYA2rlNYdEDeoAtebOvtRNAa4txob6hPha', 1, 32.00, 18.00, 32.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL);
+(22, '3LXtTyeYA2rlNYdEDeoAtebOvtRNAa4txob6hPha', 1, 32.00, 18.00, 32.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
+(23, 'IojZlzDePX4OkG8Ove95RGbzh0XyoAuY2QyeOOKP', 1, 260.00, 0.00, 260.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL),
+(24, 'ZFULk1SkTmD02k5tL9eTPTaLOm6yhPZiw3cRArMh', 1, 50.00, 0.00, 50.00, 0.00, 0.00, 0.00, NULL, 0.00, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -6463,7 +6470,7 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -6511,7 +6518,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `featured_products`
@@ -6553,7 +6560,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `order_prices`
 --
 ALTER TABLE `order_prices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `order_products`

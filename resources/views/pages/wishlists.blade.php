@@ -23,12 +23,6 @@
 <div class="wishlist_page_bg">
     <div class="container">
         <div class="wishlist_area">
-        	@php
-        		$wishlists = App\Model\Favorite::with(['product'=>function($query){
-                $query->select('id','name','slug','quantity','unit_price','discount_price');
-            }])
-            ->latest()->get();
-        	@endphp
             <div class="wishlist_inner">
                 <div class="row">
                     <div class="col-12">
@@ -48,12 +42,10 @@
                                     </thead>
                                     <tbody>
                                     	@foreach($wishlists as $list)
-                                    	@php
-						                    $image = DB::table('product_images')->where('product_id',$list->product->id)->whereNotNull('image')->first()->image;
-						                @endphp
+                                        @if(isset($list->product))
                                         <tr>
                                             <td class="product_thumb">
-						                        <a href="{{ route('product-details',$list->product->slug) }}"><img src="{{ $image }}" alt=""></a>
+						                        <a href="{{ route('product-details',$list->product->image) }}"><img src="{{ $list->product->image }}" alt=""></a>
 						                    </td>
                                             <td class="product_name">
                                             	<a href="{{ route('product-details',$list->product->slug) }}">
@@ -76,13 +68,12 @@
                                             	@else
                                             		<span class="btn btn-danger btn-sm">Out Of Stock</span>
                                             	@endif
-
                                             </td>
                                             <td class="product_remove">
                                             	<a href="javascript:void(0)" onclick="removeFavoriteItem({{ $list->id }})">X</a>
                                             </td>
-
                                         </tr>
+                                        @endif
                                         @endforeach
                                     </tbody>
                                 </table>

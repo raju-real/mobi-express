@@ -250,8 +250,8 @@ class HomePageController extends Controller
     }
 
     public function shoppingCart(){
-        // $carts = Cart::with('product')->where('session_id', Session::get('session_id'))->get();
-        return view('pages.carts');
+        $carts = Cart::with('product')->where('session_id', Session::get('session_id'))->get();
+        return view('pages.carts',compact('carts'));
     }
 
     public function incrementCartProduct($cart_id){
@@ -322,6 +322,10 @@ class HomePageController extends Controller
 
     public function wishlists(){
         if(Auth::check()){
+            $wishlists = Favorite::with(['product'=>function($query){
+                $query->select('id','name','slug','quantity','unit_price','discount_price');
+            }])
+            ->latest()->get();
             return view('pages.wishlists',compact('wishlists'));
         } else {
             if(!empty(Session::get('current_url'))){

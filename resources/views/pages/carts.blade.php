@@ -26,9 +26,6 @@
 <div class="cart_page_bg">
     <div class="container">
         <div class="shopping_cart_area">
-            @php
-                $carts = App\Model\Cart::with('product')->where('session_id', Session::get('session_id'))->get();
-            @endphp
             <form action="#">
                 <div class="row">
                     <div class="col-12">
@@ -48,12 +45,10 @@
                                     </thead>
                                     <tbody>
                                         @foreach($carts as $cart)
-                                        @php
-                                            $image = DB::table('product_images')->where('product_id',$cart->product->id)->whereNotNull('image')->first()->image;
-                                        @endphp
+                                        @if(isset($cart->product))
                                         <tr>
                                             <td class="product_thumb">
-                                                <a href="{{ route('product-details',$cart->product->slug) }}"><img src="{{ $image }}" alt=""></a>
+                                                <a href="{{ route('product-details',$cart->product->slug) }}"><img src="{{ $cart->product->image }}" alt=""></a>
                                             </td>
                                             <td class="product_name"><a href="{{ route('product-details',$cart->product->slug) }}">
                                                 {{ $cart->product->name }}
@@ -75,8 +70,8 @@
                                             </td>
                                             <td class="product_total">{{ $cart->total_price }}</td>
                                             <td class="product_remove"><a href="javascript:void(0)" onclick="removeCartItem({{ $cart->id }})"><i class="fa fa-trash-o"></i></a></td>
-
                                         </tr>
+                                        @endif
                                         @endforeach
                                     </tbody>
                                 </table>

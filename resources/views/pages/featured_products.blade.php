@@ -1,4 +1,5 @@
 @foreach($featuredProducts as $f_p)
+@if(isset($f_p->product))
 <article class="single_product">
     <figure>
         <div class="product_thumb">
@@ -44,6 +45,7 @@
         </div>
     </figure>
 </article>
+@endif
 @endforeach
 
    
