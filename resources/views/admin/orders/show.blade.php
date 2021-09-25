@@ -13,7 +13,7 @@
             
             <div class="ibox-body">
             	<div class="col-md-12 table-responsive">
-            		<table class="table table-bordered table-striped text-nowrap" width="100%">
+            		<table class="table table-bordered table-striped" width="100%">
 					<thead>
 						<tr>
 							<th>Invoice</th>
@@ -81,24 +81,24 @@
 							<th>Price</th>
 							<th>
 								<div class="col-md-12 table-responsive">
-									<table class="table table-sm table-bordered table-striped text-nowrap" width="100%">
+									<table class="table table-sm table-bordered table-striped" width="100%">
 										<tr class="table-primary">
-											<th>
+											<th class="text-nowrap">
 												Total Price
 											</th>
-											<th>
+											<th class="text-nowrap">
 												Product Discount
 											</th>
-											<th>
+											<th class="text-nowrap">
 												Coupon Discount
 											</th>
-											<th>
+											<th class="text-nowrap">
 												Total Discount
 											</th>
-											<th>
+											<th class="text-nowrap">
 												Delivery Charge
 											</th>
-											<th>
+											<th class="text-nowrap">
 												Order Price
 											</th>
 											<th>
@@ -129,7 +129,7 @@
 							</th>
 						</tr>
 						<tr>
-							<th>Customer Info</th>
+							<th class="text-nowrap">Customer Info</th>
 							<th>
 								<div class="col-md-12 table-responsive">
 									<table class="table table-sm table-bordered table-striped" width="100%">
@@ -137,13 +137,13 @@
 										<th class="text-left">Name</th>
 										<th class="text-left">Mobile</th>
 										<th class="text-left">District</th>
-										<th class="text-left">City/Town</th>
+										<th class="text-left text-nowrap">City/Town</th>
 										<th class="text-left">Adress</th>
 									</tr>
 									<tr>
 										<td>{{ $order->name }}</td>
 										<td>{{ $order->mobile }}</td>
-										<td>{{ $order->district->name }}</td>
+										<td>{{ $order->district->name ?? '' }}</td>
 										<td>{{ $order->city_town }}</td>
 										<td>{{ $order->address }}</td>
 									</tr>
@@ -159,9 +159,9 @@
 									<tr class="table-warning">
 										<th class="text-left">Image</th>
 										<th class="text-left">Name</th>
-										<th class="text-left">Order Price</th>
+										<th class="text-left text-nowrap">Order Price</th>
 										<th class="text-left">Quantity</th>
-										<th class="text-left">Total Price</th>
+										<th class="text-left text-nowrap">Total Price</th>
 									</tr>
 									@foreach($order->products as $o_p)
                                         @if($o_p->product)

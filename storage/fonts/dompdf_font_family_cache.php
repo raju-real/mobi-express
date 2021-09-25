@@ -86,4 +86,7 @@
   'themify' => array(
     'normal' => $fontDir . '/themify_normal_7f1860809e1e571eaf5158a5e93578cc',
   ),
+  'glyphicons halflings' => array(
+    'normal' => $fontDir . '/glyphicons_halflings_normal_4ced20531a4f462a8c5c535d4debd2eb',
+  ),
 ) ?>

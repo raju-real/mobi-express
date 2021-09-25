@@ -6,24 +6,98 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Page Title</title>
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-        <style>
-            
-        </style>
+       <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     </head>
     <body>
-       <div class="container-fluid">
+       <div class="container-fluid mt-3">
            <div class="row">
-               <div class="col-md-12">
-                   <h1>গুরুত্বপূর্ণ খবর শিরোনামে একনজরে</h1>
+               <div class="col-xs-6">
+                   <img src="{{ asset('assets/common/images/logo1.png') }}">
+               </div>
+               <div class="col-xs-6">
+                   <h4>Invoice : #MX254875</h4>
+               </div>
+           </div>
+           <hr>
+           <div class="row">
+               <div class="col-xs-4">
+                   <h2>From</h2>
+                   <p>Mobi Xpress</p>
+                   <p>12514651561</p>
+                   <p>mobi@mail.com</p>
+                   <p>Mohammadpur,Shomoly,Basabo-1203, Dhaka</p>
+               </div>
+               <div class="col-xs-4">
+                   <h2>To</h2>
+                   <p>Mobi Xpress</p>
+                   <p>12514651561</p>
+                   <p>mobi@mail.com</p>
+                   <p>Mohammadpur,Shomoly,Basabo-1203, Dhaka</p>
+               </div>
+               <div class="col-xs-4">
+                   <img src="{{ asset('assets/common/qr-code/qr.jpg') }}">
+               </div>
+           </div>
+           <hr>
+           <div class="row">
+               <div class="col-xs-12">
+                   <table class="table table-sm table-bordered" width="100%">
+                       <thead>
+                           <tr>
+                               <th>#</th>
+                               <th>Item</th>
+                               <th>Quantity</th>
+                               <th>Price</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                            @foreach($order->products as $order_product)
+                            <tr>
+                                <td style="width: 10px;">{{ $loop->index + 1 }}</td>
+                                <td style="width: 450px;">{{ $order_product->product->name }}</td>
+                                <td style="width: 50px;text-align: center;">{{ $order_product->quantity }}</td>
+                                <td style="width: 50px;text-align: center;">{{ $order_product->total_price }}</td>
+                            </tr>
+                            @endforeach
+                       </tbody>
+                   </table>
+                   
+               </div>
+           </div>
+           <hr>
+           <div class="row">
+               <div class="col-xs-6">
+                    <table class="table table-bordered" width="100%">
+                            <tr>
+                                <td>Delivery Date:</td>
+                                <td>{{ $order->order_price }} BDT</td>
+                            </tr>
+                            <tr>
+                                <td>User Co:</td>
+                                <td>{{ $order->order_price }} BDT</td>
+                            </tr>
+                    </table>
+               </div>
+               <div class="col-xs-6">
+                   <table class="table table-bordered">
+                            <tr>
+                                <td>Sub Total:</td>
+                                <td>{{ $order->order_price }} BDT</td>
+                            </tr>
+                            <tr>
+                                <td>Delivery Charge:</td>
+                                <td>{{ $order->delivery_charge }} BDT</td>
+                            </tr>
+                            <tr>
+                                <td>Total Price:</td>
+                                <td>{{ $order->order_price }} BDT</td>
+                            </tr>
+                    </table>
                </div>
            </div>
        </div>
 
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script></body>
+       <!-- Latest compiled and minified JavaScript -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 </html>
