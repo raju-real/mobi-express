@@ -31,6 +31,7 @@ class CreateProductsTable extends Migration
             $table->integer('quantity')->nullable()->default('0');
             $table->string('special_note')->nullable();
             $table->string('video_link')->nullable();
+            $table->integer('view_count')->default(0);
             $table->integer('status')->default(1);
             $table->timestamps();
         });
