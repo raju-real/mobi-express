@@ -12,7 +12,7 @@ class Product extends Model
     protected $guarded = [];
 
     // Append Extra Filed To Return
-    protected $appends = array('image');
+    protected $appends = array('image','rating');
 
     public function getImageAttribute()
     {
@@ -20,6 +20,10 @@ class Product extends Model
         ->whereNotNull('image')->first()->image;
         return $image;
         //return $this->SetAttributes['image'] == $image;
+    }
+
+    public function getRatingAttribute(){
+        return Review::where('product_id',$this->id)->max('rating');
     }
 
     public static function getProducts(){
@@ -65,6 +69,10 @@ class Product extends Model
 
     public function reviews(){
         return $this->hasMany(Review::class);
+    }
+
+    public function scopePublished($query){
+        return $query->where('status', 1);
     }
 
     public static function getProductCode(){

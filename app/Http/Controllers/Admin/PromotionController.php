@@ -121,11 +121,13 @@ class PromotionController extends Controller
             $product = new PromotionProduct();
             $product->promotion_id = $request->promotion_id;
             $product->product_id = $request->product_id;
-            $product->discount_type = $request->discount_type;
             $product->status = $request->status;
             $findProduct = Product::findOrFail($request->product_id);
             $product->unit_price = $findProduct->unit_price;
-
+            if($request->discount > $product->unit_price){
+                toast('Invalid Price','error');
+                return redirect()->back();
+            }
             $result = (($findProduct->unit_price - $request->discount)*100) /
             $findProduct->unit_price;
             $product->percentage = round($result);
@@ -163,7 +165,10 @@ class PromotionController extends Controller
         $findProduct = Product::findOrFail($request->product_id);
         $result = (($findProduct->unit_price - $request->offer_price)*100)
             /$findProduct->unit_price;
-//      $result = ($findProduct->unit_price * $request->offer_price) /100;
+        if($request->offer_price > $product->unit_price){
+                toast('Invalid Price','error');
+                return redirect()->back();
+        }
         $product->percentage = round($result).'%';
         $product->status = $request->status;
         $product->save();

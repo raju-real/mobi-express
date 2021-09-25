@@ -120,7 +120,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-2 col-md-3 col-4">
                             <div class="logo">
-                                <a href="{{ route('home') }}"><img src="{{ asset('assets/user/img/logo/demo_3.png') }}" alt=""></a>
+                                <a href="{{ route('home') }}"><img src="{{ asset('assets/common/images/logo1.png') }}" alt=""></a>
                             </div>
                         </div>
                         <div class="col-lg-7 col-md-12">

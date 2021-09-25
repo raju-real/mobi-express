@@ -92,6 +92,18 @@
                             <form action="#">
 
                                 <h3>{{ $product->name }}</h3>
+                                <div class="product_rating">
+                                    <ul>
+                                        @for($i=1;$i<=$product->rating;$i++)
+                                        <li><i class="ion-android-star" style="font-size: 20px;color: orange;"></i></li>
+                                        @endfor
+                                    </ul>
+                                </div>
+                                <div class="product_meta">
+                                    <span>Brand: <a href="#">
+                                        {{ $product->brand->name ?? '' }}</a>
+                                    </span>
+                                </div>
                                 <div class="price_box">
                                     @if($product->discount_price > 0)
                                     <span class="old_price">
@@ -106,10 +118,12 @@
                                     </span>
                                     @endif
                                 </div>
+                                {{-- // Rating
+                                //Brand --}}
                                 <div class="product_desc">
                                     <p>
                                         @if($product->short_description != null)
-                                        {{ $product->short_description }}
+                                        {!! $product->short_description !!}
                                         @else
                                         {!! $product->product_details !!}
                                         @endif
@@ -161,20 +175,20 @@
                                 </div>
                                 <div class="product_meta">
                                     <span>Category: <a href="#">
-                                        {{ $product->category->name }}</a>
+                                        {{ $product->category->name ?? '' }}</a>
                                     </span>
                                 </div>
 
                             </form>
-                            {{-- <div class="priduct_social">
+                            <div class="priduct_social">
                                 <ul>
-                                    <li><a class="facebook" href="#" title="facebook"><i class="fa fa-facebook"></i> Like</a></li>
-                                    <li><a class="twitter" href="#" title="twitter"><i class="fa fa-twitter"></i> tweet</a></li>
+                                    <li><a class="facebook" href="https://www.facebook.com/" target="_blank" title="facebook"><i class="fa fa-facebook"></i> Share</a></li>
+                                    {{-- <li><a class="twitter" href="#" title="twitter"><i class="fa fa-twitter"></i> tweet</a></li>
                                     <li><a class="pinterest" href="#" title="pinterest"><i class="fa fa-pinterest"></i> save</a></li>
                                     <li><a class="google-plus" href="#" title="google +"><i class="fa fa-google-plus"></i> share</a></li>
-                                    <li><a class="linkedin" href="#" title="linkedin"><i class="fa fa-linkedin"></i> linked</a></li>
+                                    <li><a class="linkedin" href="#" title="linkedin"><i class="fa fa-linkedin"></i> linked</a></li> --}}
                                 </ul>
-                            </div> --}}
+                            </div>
 
                         </div>
                     </div>
@@ -243,7 +257,7 @@
                                                         <ul>
                                                             <li>
                                                                 @for($i=1;$i<=$review->rating;$i++)
-                                                                <i class="ion-android-star-outline" style="font-size: 20px;color: orange;"></i>
+                                                                <i class="ion-android-star" style="font-size: 20px;color: orange;"></i>
                                                                 @endfor
                                                             </li>
                                                         </ul>

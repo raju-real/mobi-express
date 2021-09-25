@@ -27,9 +27,13 @@
                                 <option value="">Select Category</option>
                             </select>
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-4 form-group">
                             <label>Product Name</label>
                             <input type="text" name="name" class="form-control">
+                        </div>
+                        <div class="col-md-2">
+                            <label>By Most View</label><br>
+                            <input type="checkbox" name="most_view">Most View
                         </div>
                         <div class="col-md-2">
                             <label>Action</label>
@@ -68,8 +72,8 @@
             </div>
             
             <div class="ibox-body">
-                <div class="table-responsive">
-                    <table class="table text-nowrap table-striped table-bordered table-hover" id="product-table" cellspacing="0" width="100%">
+                <div class="col-md-12 table-responsive">
+                    <table class="table text-nowrap table-striped table-bordered table-hover table-responsive"  width="100%">
                     <thead>
                         <tr>
                             <th>Sl.no</th>
@@ -80,6 +84,7 @@
                             <th>Discount Price</th>
                             <th>Stock</th>
                             <th>Quantity</th>
+                            <th>View</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -93,6 +98,7 @@
                             <th>Discount Price</th>
                             <th>Stock</th>
                             <th>Quantity</th>
+                            <th>View</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
@@ -112,6 +118,7 @@
                             </td>
                             <td>{{ $product->stock_status }}</td>
                             <td>{{ $product->quantity }}</td>
+                            <td>{{ $product->view_count }}</td>
                             <td>
                                 <a href="{{ route('admin.product.show',$product->slug) }}" class="badge badge-info">
                                     <i class="fa fa-eye"></i>

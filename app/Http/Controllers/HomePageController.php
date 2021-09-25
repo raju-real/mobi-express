@@ -36,33 +36,38 @@ use Intervention\Image\Facades\Image;
 class HomePageController extends Controller
 {
      public function index(){
+        // Promotions
+        $promotions = Promotion::orderBy('serial','asc')->where('status',1)
+        ->get();
         $categories = Category::inRandomOrder()->take(5)->get();
         $offers = SpecialOffer::with('product')
             ->where('start_date','<=',Carbon::today())
             ->where('end_date','>=',Carbon::today())
             ->where('status',1)->get();
-        // Promotions
-        $promotions = Promotion::orderBy('serial','asc')->where('status',1)
-        ->get();
         // Featured Product
-        $featuredProducts = FeaturedProduct::with('product')
-            ->orderBy('serial','asc')->take(20)->get();
+        $featuredProducts = FeaturedProduct::with(['product'=>function($query){
+            $query->published();
+        }])->orderBy('serial','asc')->take(20)->get();
         // Best Selling Product
         $orderProducts = OrderProduct::latest()->take(20)
             ->get()->unique('product_id');
         $bestSellingProducts = Product::whereIn('id',$orderProducts->pluck('product_id'))
-            ->get();
+            ->published()->get();
         // New Arrivals
-        $newArrivals = NewArrivals::with('product')
+        $newArrivals = NewArrivals::with(['product'=>function($query){
+                $query->published();
+            }])
             ->orderBy('serial','asc')->take(20)->get();
         // Popular Product
-        $popularProducts = Review::with('product')
+        $popularProducts = Review::with(['product'=>function($query){
+                $query->published();
+            }])
             ->orderBy('rating','desc')
             ->inRandomOrder()
             ->take(5)->get()->unique('product_id');
         $frontCategories = FrontCategory::with('category')
             ->inRandomOrder()->take(3)->get();
-        $products = Product::take(20)->get();
+        $products = Product::published()->take(20)->get();
         return view('welcome',compact('featuredProducts','bestSellingProducts','categories','offers','popularProducts','frontCategories','newArrivals','promotions','products'));
     }
 
@@ -72,11 +77,13 @@ class HomePageController extends Controller
         $product_name = request()->get('product_name');
         if(isset($category_id)){
             $products = Product::where('category_id',$category_id)
+            ->published()
             ->where('name','LIKE',"$product_name%")
             ->get();
         } else{
             $products = Product::where('name','LIKE',"{$product_name}%")
-            ->get();
+                ->published()
+                ->get();
         }
 
         $output = '';
@@ -120,6 +127,7 @@ class HomePageController extends Controller
     public function featuredProducts(){
         $ids = FeaturedProduct::select('product_id')->get();
         $products = Product::whereIn('id',$ids->pluck('product_id'))
+            ->published()
             ->paginate(20);
         $title = 'Featured Products';
         $pageTitle = 'Featured Products';
@@ -130,6 +138,7 @@ class HomePageController extends Controller
         $ids = OrderProduct::latest()->take(20)->get()
             ->unique('product_id');
         $products = Product::whereIn('id',$ids->pluck('product_id'))
+            ->published()
             ->paginate(20);    
         $title = 'Best Selling Products';
         $pageTitle = 'Best Selling Products';
@@ -138,9 +147,14 @@ class HomePageController extends Controller
 
     public function productDetails($slug){
         $product = Product::with('images','sizes','units','colors','reviews')
+            ->published()
             ->where('slug',$slug)->first();
-        //$regularProducts = $this->getProducts();
-        // $releatedProducts = $regularProducts->where('category_id',$product->category_id)->take(20);
+        $productKey = 'product_' . $product->id;
+
+        if (!Session::has($productKey)) {
+            $product->increment('view_count');
+            Session::put($productKey,1);
+        }
         $releatedProducts = Product::where('category_id',$product->category_id)->take(20)->get();
         return view('pages.product_details',compact('product','releatedProducts'));
     }

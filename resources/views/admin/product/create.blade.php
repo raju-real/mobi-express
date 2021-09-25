@@ -146,6 +146,9 @@
                         <div class="col-sm-12 form-group">
                             <label for="short_description">Product Short Description</label>
                             <textarea name="short_description" id="short_description" class="form-control"></textarea>
+                            <script>
+                                CKEDITOR.replace('short_description')
+                            </script>
                         </div>
                         
                     </div>
