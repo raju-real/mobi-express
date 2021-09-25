@@ -82,7 +82,7 @@
                         </div>
                         <div class="col-sm-2 form-group">
                             <label for="discount_price" id="discount_label">Discount Price</label>
-                            <input type="text" name="discount_price" id="discount_price" class="form-control" placeholder="Discount Price">
+                            <input type="text" name="discount_price" id="discount_price" class="form-control" value="0">
                         </div>
                         <div class="col-sm-2 form-group">
                             <label for="stock_status">Stock Status</label>
