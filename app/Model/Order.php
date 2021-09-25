@@ -39,7 +39,7 @@ class Order extends Model
 
     public static function getInvoiceNumber()
     {
-        $orderInvoice = "ME-" . mt_rand(10000000, 99999999);
+        $orderInvoice = "MX-" . mt_rand(10000000, 99999999);
         if (Order::where('invoice', $orderInvoice)->exists()) {
             Order::getInvoiceNumber();
         }

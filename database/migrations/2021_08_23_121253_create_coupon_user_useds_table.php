@@ -18,7 +18,7 @@ class CreateCouponUserUsedsTable extends Migration
             $table->integer('order_id');
             $table->integer('user_id');
             $table->string('coupon_code');
-            $table->integer('used_status');
+            $table->integer('user_used');
             $table->timestamps();
         });
     }

@@ -12,85 +12,99 @@
             </div>
             
             <div class="ibox-body">
-               <table class="table table-responsive table-bordered table-hover text-nowrap" style="width: 100%;">
-						<thead>
-							<tr>
-								<th>Invoice</th>
-								<th>
-									<a href="{{ route('admin.invoice',['invoice'=>$order->invoice]) }}">
-										{{ $order->invoice }}
-									</a>
-								</th>
-							</tr>
-							<tr>
-								<th>Action</th>
-								<th>
-									<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>1]) }}" 
-									class="badge badge-primary {{ ($order->order_status == 1 || $order->order_status == 2 || $order->order_status == 3 ) ? 'btn disabled' : '' }}">
-										Receive
-									</a>
-									<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>2]) }}" 
-										class="badge badge-info {{ ($order->order_status == 0 || $order->order_status == 2 || $order->order_status == 3 || $order->order_status == 4) ? 'btn disabled' : '' }}">
-										Process
-									</a>
-									<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>3]) }}" 
-										class="badge badge-success {{ ($order->order_status == 0 || $order->order_status == 1 || $order->order_status == 3 || $order->order_status == 4) ? 'btn disabled' : '' }}">
-										Deliver
-									</a>
-									<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>4]) }}" class="badge badge-danger {{ $order->order_status == 3 ? 'btn disabled' : '' }}">
-										Cancle
-									</a>
-								</th>
-							</tr>
-							<tr>
-								<th>Status</th>
-								<th>
-									@if($order->order_status == 0)
-										<span class="badge badge-warning">Pending</span>
-									@elseif($order->order_status == 1)
-										<span class="badge badge-primary">Received</span>
-									@elseif($order->order_status == 2)
-										<span class="badge badge-info">Processing</span>
-									@elseif($order->order_status == 3)
-										<span class="badge badge-success">Delivered</span>
-									@elseif($order->order_status == 4)
-										<span class="badge badge-danger">Cancled</span>	
-									@else 
-										<span class="badge badge-secendary">Un known</span>
-									@endif	
-								</th>
-							</tr>
-							<tr>
-								<th>User</th>
-								<th>modal view</th>
-							</tr>
-							<tr>
-								<th>Price</th>
-								<th>
-									<table class="table table-info table-bordered table-sm table-responsive text-nowrap text-center">
+            	<div class="col-md-12 table-responsive">
+            		<table class="table table-bordered table-striped text-nowrap" width="100%">
+					<thead>
+						<tr>
+							<th>Invoice</th>
+							<th>
+								<a href="{{ route('admin.invoice',['invoice'=>$order->invoice]) }}">
+									{{ $order->invoice }}
+								</a>
+							</th>
+						</tr>
+						<tr>
+							<th>Action</th>
+							<th>
+								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>1]) }}" 
+								class="badge badge-primary {{ ($order->order_status == 1 || $order->order_status == 2 || $order->order_status == 3 || $order->order_status == 4 || $order->order_status == 5 || $order->order_status == 6 ) ? 'btn disabled' : '' }}">
+									Process
+								</a>
+								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>2]) }}" 
+									class="badge badge-info {{ ($order->order_status == 0 || $order->order_status == 2 || $order->order_status == 3 || $order->order_status == 4) ? 'btn disabled' : '' }}">
+									Picked
+								</a>
+								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>3]) }}" 
+									class="badge badge-info {{ ($order->order_status == 0  || $order->order_status == 3 || $order->order_status == 4) ? 'btn disabled' : '' }}">
+									Shipped
+								</a>
+								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>4]) }}" 
+									class="badge badge-success {{ ($order->order_status == 0 || $order->order_status == 1  || $order->order_status == 4) ? 'btn disabled' : '' }}">
+									Deliver
+								</a>
+								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>5]) }}" class="badge badge-danger {{ $order->order_status == 4 ? 'btn disabled' : '' }}">
+									Cancle
+								</a>
+								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>6]) }}" class="badge badge-warning {{ $order->order_status == 3 ? 'btn disabled' : '' }}">
+									Return
+								</a>
+							</th>
+						</tr>
+						<tr>
+							<th>Status</th>
+							<th>
+								@if($order->order_status == 0)
+									<span class="badge badge-warning">Pending</span>
+								@elseif($order->order_status == 1)
+									<span class="badge badge-primary">Processing</span>
+								@elseif($order->order_status == 2)
+									<span class="badge badge-info">Picked</span>
+								@elseif($order->order_status == 3)
+									<span class="badge badge-success">Shipped</span>
+								@elseif($order->order_status == 4)
+									<span class="badge badge-success">Delivered</span>
+
+								@elseif($order->order_status == 5)
+									<span class="badge badge-danger">Cancled</span>	
+								@elseif($order->order_status == 6)
+									<span class="badge badge-warning">Returned</span>	
+								@else 
+									<span class="badge badge-secendary">Un known</span>
+								@endif	
+							</th>
+						</tr>
+						<tr>
+							<th>User</th>
+							<th>modal view</th>
+						</tr>
+						<tr>
+							<th>Price</th>
+							<th>
+								<div class="col-md-12 table-responsive">
+									<table class="table table-sm table-bordered table-striped text-nowrap" width="100%">
 										<tr class="table-primary">
-											<th class="text-center">
+											<th>
 												Total Price
 											</th>
-											<th class="text-center">
+											<th>
 												Product Discount
 											</th>
-											<th class="text-center">
+											<th>
 												Coupon Discount
 											</th>
-											<th class="text-center">
+											<th>
 												Total Discount
 											</th>
-											<th class="text-center">
+											<th>
 												Delivery Charge
 											</th>
-											<th class="text-center">
+											<th>
 												Order Price
 											</th>
-											<th class="text-center">
+											<th>
 												Paid
 											</th>
-											<th class="text-center">
+											<th>
 												Due
 											</th>
 										</tr>
@@ -110,43 +124,48 @@
 											<td>{{ $order->paid_amount }}</td>
 											<td>{{ $order->due_amount }}</td>
 										</tr>
-									</table>
-								</th>
-							</tr>
-							<tr>
-								<th>Customer Info</th>
-								<th>
-									<table class="table table-striped table-bordered table-sm table-responsive text-nowrap text-center">
-										<tr class="table-success">
-											<th class="text-center">Name</th>
-											<th class="text-center">Mobile</th>
-											<th class="text-center">District</th>
-											<th class="text-center">City/Town</th>
-											<th class="text-center">Adress</th>
-										</tr>
-										<tr>
-											<td>{{ $order->name }}</td>
-											<td>{{ $order->mobile }}</td>
-											<td>{{ $order->district }}</td>
-											<td>{{ $order->city_town }}</td>
-											<td>{{ $order->address }}</td>
-										</tr>
-									</table>
-								</th>
-							</tr>
-							<tr>
-								<th>Products</th>
-								<th>
-									<table class="table table-striped table-bordered table-sm table-responsive text-nowrap text-center">
-										<tr class="table-warning">
-											<th class="text-center">Image</th>
-											<th class="text-center">Name</th>
-											<th class="text-center">Order Price</th>
-											<th class="text-center">Quantity</th>
-											<th class="text-center">Total Price</th>
-										</tr>
-										@foreach($order->products as $o_p)
-	                                        <tr>
+								</table>
+								</div>
+							</th>
+						</tr>
+						<tr>
+							<th>Customer Info</th>
+							<th>
+								<div class="col-md-12 table-responsive">
+									<table class="table table-sm table-bordered table-striped" width="100%">
+									<tr class="table-success">
+										<th class="text-left">Name</th>
+										<th class="text-left">Mobile</th>
+										<th class="text-left">District</th>
+										<th class="text-left">City/Town</th>
+										<th class="text-left">Adress</th>
+									</tr>
+									<tr>
+										<td>{{ $order->name }}</td>
+										<td>{{ $order->mobile }}</td>
+										<td>{{ $order->district->name }}</td>
+										<td>{{ $order->city_town }}</td>
+										<td>{{ $order->address }}</td>
+									</tr>
+								</table>
+								</div>
+							</th>
+						</tr>
+						<tr>
+							<th>Products</th>
+							<th>
+								<div class="col-md-12 table-responsive">
+									<table class="table table-sm table-bordered table-striped" width="100%">
+									<tr class="table-warning">
+										<th class="text-left">Image</th>
+										<th class="text-left">Name</th>
+										<th class="text-left">Order Price</th>
+										<th class="text-left">Quantity</th>
+										<th class="text-left">Total Price</th>
+									</tr>
+									@foreach($order->products as $o_p)
+                                        @if($o_p->product)
+                                        	<tr>
 	                                            <td>
 	                                                <img 
 	                                                src="{{ asset($o_p->product->image) }}"
@@ -167,38 +186,42 @@
 	                                                {{ $o_p->total_price }}
 	                                            </td>
 	                                        </tr>
-                                        @endforeach
-									</table>
-								</th>
-							</tr>
-							<tr>
-								<th>Payment</th>
-								<th>
-									@if($order->payment_method === 1)
-										{{ 'Cash On Delivery' }}
-									@else
-									<table class="table table-striped table-bordered table-sm table-responsive text-nowrap text-center">
-										<tr class="table-warning">
-											<th class="text-center">
-												Payment Method
-											</th>
-											<th class="text-center">
-												Transaction Id
-											</th>
-											<th class="text-center">
-												Paid Amount
-											</th>
-											<th class="text-center">Due Amount</th>
-										</tr>
-										<tr>
-											
-										</tr>
-									</table>
-									@endif
-								</th>
-							</tr>
-						</thead>
-					</table>
+                                        @endif
+                                    @endforeach
+								</table>
+								</div>
+							</th>
+						</tr>
+						<tr>
+							<th>Payment</th>
+							<th>
+								@if($order->payment_method === 1)
+									{{ 'Cash On Delivery' }}
+								@else
+								{{-- <table class="table table-striped table-bordered table-sm table-responsive text-nowrap text-center">
+									<tr class="table-warning">
+										<th class="text-center">
+											Payment Method
+										</th>
+										<th class="text-center">
+											Transaction Id
+										</th>
+										<th class="text-center">
+											Paid Amount
+										</th>
+										<th class="text-center">Due Amount</th>
+									</tr>
+									<tr>
+										
+									</tr>
+								</table> --}}
+								@endif
+							</th>
+						</tr>
+					</thead>
+				</table>
+            	</div>
+               	
             </div>
         </div>
 	</div>

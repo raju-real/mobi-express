@@ -53,21 +53,28 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     // order section
     Route::get('orders/pending','OrderController@pendingOrders')
         ->name('pending-orders');
-    Route::get('orders/received','OrderController@receivedOrders')
-        ->name('received-orders');
     Route::get('orders/processing','OrderController@processingOrders')
         ->name('processing-orders');
+    Route::get('orders/picked','OrderController@pickedOrders')
+        ->name('picked-orders');
+    Route::get('orders/shipped','OrderController@shippedOrders')
+        ->name('shipped-orders');        
     Route::get('orders/delivered','OrderController@deliveredOrders')
         ->name('delivered-orders');
+    Route::get('orders/delivered','OrderController@deliveredOrders')
+        ->name('delivered-orders');    
     Route::get('orders/cancled','OrderController@cancledOrders')
         ->name('cancled-orders');
+    Route::get('orders/returned','OrderController@returnedOrders')
+        ->name('returned-orders');    
     Route::get('search','OrderController@searchOrder')
         ->name('search-order');                     
     Route::get('order','OrderController@orderDetails')
         ->name('order.show');  
     Route::get('change-status','OrderController@changeOrderStatus')         
         ->name('change-status');
-    Route::get('invoice','OrderController@invoice')->name('invoice');
+    //Route::get('invoice','OrderController@invoice')->name('invoice');
+    Route::get('invoice','OrderController@downloadInvoice')->name('invoice');
 });
 
 

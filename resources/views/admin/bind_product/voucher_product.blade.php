@@ -31,31 +31,33 @@
                     </thead>
                     <tbody>
                     	@foreach($v_products as $v_p)
-                        <tr>
-                            <td>{{ $loop->index + 1 }}</td>
-                            <td>
-                            	<img src="{{ asset($v_p->product->image) }}" class="img-responsive" style="height: 50px;width:50px;">
-                            </td>
-                            <td class="text-left">{{ $v_p->product->name }}</td>
-                            <td>{{ $v_p->serial }}</td>
-                            <td>
-                            	{{ $v_p->status == 1 ? 'Active' : 'In Active' }}
-                            </td>
-                            <td>
-                            	<a href="{{ route('admin.voucher-product.edit',$v_p->id) }}" 
-                            		class="btn btn-primary">
-								  <i class="fa fa-edit"></i>
-								</a>
-								{{-- Delete Activity --}}
-								<button class="btn btn-danger pointer" type="button" onclick="deleteproduct({{ $v_p->id }})">
-			                        <i class="fa fa-trash"></i>
-			                    </button>
-			                    <form id="delete-v_p-{{ $v_p->id }}" action="{{ route('admin.voucher-product.destroy',$v_p->id) }}" method="POST" style="display: none;">
-			                        @csrf
-			                        @method('DELETE')
-			                    </form>
-                            </td>
-                        </tr>
+                            @if($v_p->product)
+                                <tr>
+                                    <td>{{ $loop->index + 1 }}</td>
+                                    <td>
+                                        <img src="{{ asset($v_p->product->image) }}" class="img-responsive" style="height: 50px;width:50px;">
+                                    </td>
+                                    <td class="text-left">{{ $v_p->product->name }}</td>
+                                    <td>{{ $v_p->serial }}</td>
+                                    <td>
+                                        {{ $v_p->status == 1 ? 'Active' : 'In Active' }}
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.voucher-product.edit',$v_p->id) }}" 
+                                            class="btn btn-primary">
+                                          <i class="fa fa-edit"></i>
+                                        </a>
+                                        {{-- Delete Activity --}}
+                                        <button class="btn btn-danger pointer" type="button" onclick="deleteproduct({{ $v_p->id }})">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        <form id="delete-v_p-{{ $v_p->id }}" action="{{ route('admin.voucher-product.destroy',$v_p->id) }}" method="POST" style="display: none;">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

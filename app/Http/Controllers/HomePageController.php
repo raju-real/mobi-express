@@ -42,12 +42,14 @@ class HomePageController extends Controller
             ->where('end_date','>=',Carbon::today())
             ->where('status',1)->get();
         // Promotions
-        $promotions = Promotion::orderBy('serial','asc')->get();
+        $promotions = Promotion::orderBy('serial','asc')->where('status',1)
+        ->get();
         // Featured Product
         $featuredProducts = FeaturedProduct::with('product')
             ->orderBy('serial','asc')->take(20)->get();
         // Best Selling Product
-        $orderProducts = OrderProduct::latest()->distinct()->take(20)->get();
+        $orderProducts = OrderProduct::latest()->take(20)
+            ->get()->unique('product_id');
         $bestSellingProducts = Product::whereIn('id',$orderProducts->pluck('product_id'))
             ->get();
         // New Arrivals
@@ -57,7 +59,7 @@ class HomePageController extends Controller
         $popularProducts = Review::with('product')
             ->orderBy('rating','desc')
             ->inRandomOrder()
-            ->distinct()->take(5)->get();
+            ->take(5)->get()->unique('product_id');
         $frontCategories = FrontCategory::with('category')
             ->inRandomOrder()->take(3)->get();
         $products = Product::take(20)->get();
@@ -106,22 +108,6 @@ class HomePageController extends Controller
         return $products;
     }
 
-
-
-    // public function index(){
-    //     $data = Product::query();
-    //     $promotion = Promotion::where('status',1)->get();
-    //     $promotion_products = PromotionProduct::whereIn('promotion_id',$promotion->pluck('id'));
-    //     $data->whereNotIn('id',$promotion_products->pluck('product_id'));
-    //     $data->orderBy('updated_at','DESC');
-    //     $data->whereNotNull('discount_price');
-    //     $featuredProducts = $data->take(20)->get();
-    //     //return $featuredProducts;
-    //     $categories = Category::all();
-    //     $offers = SpecialOffer::with('product')->get();
-    //     return view('welcome',compact('featuredProducts','categories','offers'));
-    // }
-
     public function voucherProducts(){
         $ids = VoucherProduct::select('product_id')->get();
         $products = Product::whereIn('id',$ids->pluck('product_id'))
@@ -137,6 +123,16 @@ class HomePageController extends Controller
             ->paginate(20);
         $title = 'Featured Products';
         $pageTitle = 'Featured Products';
+        return view('pages.vendor_products',compact('products','title','pageTitle'));
+    }
+
+    public function bestSellingProducts(){
+        $ids = OrderProduct::latest()->take(20)->get()
+            ->unique('product_id');
+        $products = Product::whereIn('id',$ids->pluck('product_id'))
+            ->paginate(20);    
+        $title = 'Best Selling Products';
+        $pageTitle = 'Best Selling Products';
         return view('pages.vendor_products',compact('products','title','pageTitle'));
     }
 
@@ -361,12 +357,16 @@ class HomePageController extends Controller
 
     protected function checkUserUsedTime($coupon_code){
         $coupon = Coupon::where('coupon_code',$coupon_code)->first();
-        $user_used = CouponUserUsed::where('coupon_code',$coupon_code)
-            ->where('user_id',Auth::id())->count();
-        if($user_used < $coupon->used_limit){
-            return true;
+        $used = CouponUserUsed::where('coupon_code',$coupon_code)
+        ->where('user_id',Auth::id())->first();
+        if(isset($used)){
+            if($used->user_used < $coupon->used_limit){
+                return true;
+            } else{
+                return false;
+            }
         } else{
-            return false;
+            return true;
         }
     }
 
@@ -474,7 +474,7 @@ class HomePageController extends Controller
                 ];
 
                 OrderPrice::updateOrInsert($identify,$data);
-
+                $order_price = OrderPrice::where($identify)->first();
                 // Apply Coupon
                 $coupon_code = request()->get('coupon_code');
                 if(isset($coupon_code)){
@@ -485,9 +485,8 @@ class HomePageController extends Controller
                     } else{
                         Session::forget('coupon_message');
                     }
-
                 }
-                $order_price = OrderPrice::where($identify)->first();
+                
                 return view('pages.checkout', compact('carts','order_price'));
             } else{
                 Alert::error('Your Cart Is Empty');
@@ -589,6 +588,24 @@ class HomePageController extends Controller
                 $cart->delete();
             }
 
+            // Save coupon user used
+            if($order_price->coupon_code != null){
+                $coupon_user = CouponUserUsed::where('coupon_code',$order_price->coupon_code)
+                    ->where('user_id',Auth::id())->first();
+                if(isset($coupon_user)){
+                    $coupon_user->update(['user_used'=>$coupon_user->user_used + 1]);
+                } else{
+                    $new = new CouponUserUsed();
+                    $new->order_id = $order_info->id;
+                    $new->user_id = Auth::id();
+                    $new->coupon_code = $order_price->coupon_code;
+                    $new->user_used = 1;
+                    $new->save();
+                }
+            }
+
+            // Delete Order Price
+            $order_price->delete();
             Alert::success('Your Order Placed Successfully');
             return redirect(route('user.dashboard'));
 

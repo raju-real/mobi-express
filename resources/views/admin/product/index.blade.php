@@ -119,6 +119,9 @@
                                 <a href="{{ route('admin.product.edit',$product->slug) }}" class="badge badge-primary">
                                     <i class="fa fa-edit"></i>
                                 </a>
+                                <button class="badge badge-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
                             </td>
                         </tr>
                         @endforeach

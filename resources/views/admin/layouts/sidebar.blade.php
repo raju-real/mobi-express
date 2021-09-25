@@ -33,10 +33,10 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.received-orders') }}">
+                        <a href="{{ route('admin.processing-orders') }}">
                             <i class="fa fa-circle-o"></i>
-                            Received Order
-                            <span class="badge badge-primary" style="float: right;">
+                            Processing Order
+                            <span class="badge badge-info" style="float: right;">
                                 {{ 
                                 App\Model\Order::where('order_status',1)->count() 
                                 }}
@@ -44,12 +44,23 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.processing-orders') }}">
+                        <a href="{{ route('admin.picked-orders') }}">
                             <i class="fa fa-circle-o"></i>
-                            Processing Order
-                            <span class="badge badge-info" style="float: right;">
+                            Picked Order
+                            <span class="badge badge-primary" style="float: right;">
                                 {{ 
                                 App\Model\Order::where('order_status',2)->count() 
+                                }}
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.shipped-orders') }}">
+                            <i class="fa fa-circle-o"></i>
+                            Shipped Order
+                            <span class="badge badge-primary" style="float: right;">
+                                {{ 
+                                App\Model\Order::where('order_status',3)->count() 
                                 }}
                             </span>
                         </a>
@@ -60,7 +71,7 @@
                             Delivered Order
                             <span class="badge badge-success" style="float: right;">
                             {{ 
-                                App\Model\Order::where('order_status',3)->count() 
+                                App\Model\Order::where('order_status',4)->count() 
                             }}
                             </span>
                         </a>
@@ -71,7 +82,18 @@
                             Cancled Order
                             <span class="badge badge-danger" style="float: right;">
                             {{ 
-                                App\Model\Order::where('order_status',4)->count() 
+                                App\Model\Order::where('order_status',5)->count() 
+                            }}
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.returned-orders') }}">
+                            <i class="fa fa-circle-o"></i>
+                            Returned Order
+                            <span class="badge badge-warning" style="float: right;">
+                            {{ 
+                                App\Model\Order::where('order_status',6)->count() 
                             }}
                             </span>
                         </a>

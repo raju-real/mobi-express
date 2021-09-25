@@ -100,13 +100,11 @@ class PromotionController extends Controller
         return view('admin.promotion.create_promotion_products',compact('promotion','products'));
     }
 
-    public function storePromotionProduct(Request $request)
-    {
+    public function storePromotionProduct(Request $request){
         $this->validate($request,
             [
                 'promotion_id' => 'required',
                 'product_id' => 'required',
-                'discount_type' => 'required',
                 'discount' => 'required',
                 'status' => 'required'
             ]);
@@ -128,59 +126,56 @@ class PromotionController extends Controller
             $findProduct = Product::findOrFail($request->product_id);
             $product->unit_price = $findProduct->unit_price;
 
-            if($request->discount_type === 'amount'){
-                $result = (($findProduct->unit_price - $request->discount)*100) /
-                $findProduct->unit_price;
-                $product->percentage = round($result);
-                $product->discount_price = $request->discount;
-                // Change price to product
-                $findProduct->discount_price = $request->discount;
-                $findProduct->percentage = round($result);
-                $findProduct->save();
-            } elseif($request->discount_type === 'percentage'){
-                $discount = (($findProduct->unit_price * $request->discount)/100);
-                $discount_price = $findProduct->unit_price - $discount;
-                $product->percentage = $request->discount;
-                $product->discount_price = $discount_price;
-                // Change price to product
-                $findProduct->discount_price = $discount_price;
-                $findProduct->percentage = $request->discount;
-                $findProduct->save();
-            }    
+            $result = (($findProduct->unit_price - $request->discount)*100) /
+            $findProduct->unit_price;
+            $product->percentage = round($result);
+            $product->discount_price = $request->discount;
+            // Change price to product
+            $findProduct->discount_price = $request->discount;
+            $findProduct->percentage = round($result);
+            $findProduct->save();    
             $product->save();
             toast('Product Successfully Added','success');
             return redirect()->back();
         }
     }
 
-        public function promotionProductUpdate(Request $request,$id){
-            $this->validate($request,[
-                'promotion_id'=>'required',
-                'product_id'=>'required',
-                'offer_price'=>'required',
-                'status'=>'required'
-            ]);
+    public function editPromotionProduct($id){
+        $promotion = Promotion::find($id);
+        $products = Product::where('discount_price','==',0)
+            ->select('id','name','unit_price')
+            ->get();
+        return view('admin.promotion.create_promotion_products',compact('promotion','products'));
+    }
 
-            $product = Promotionproduct::find($id);
-            $product->promotion_id = $request->promotion_id;
-            $product->product_id = $request->product_id;
-            $product->offer_price = $request->offer_price;
-            $findProduct = Product::findOrFail($request->product_id);
-            $result = (($findProduct->unit_price - $request->offer_price)*100)
-                /$findProduct->unit_price;
-//            $result = ($findProduct->unit_price * $request->offer_price) /100;
-            $product->percentage = round($result).'%';
-            $product->status = $request->status;
-            $product->save();
-            Toastr::success('Product Successfully Updated');
-            return redirect()->back();
-        }
+    public function promotionProductUpdate(Request $request,$id){
+        $this->validate($request,[
+            'promotion_id'=>'required',
+            'product_id'=>'required',
+            'offer_price'=>'required',
+            'status'=>'required'
+        ]);
 
-        public function promotionProductDestroy($id){
-            $product = Promotionproduct::find($id);
-            $product->delete();
-            Toastr::error('Product Successfully Removed');
-            return redirect()->back();
-        }
+        $product = Promotionproduct::find($id);
+        $product->promotion_id = $request->promotion_id;
+        $product->product_id = $request->product_id;
+        $product->offer_price = $request->offer_price;
+        $findProduct = Product::findOrFail($request->product_id);
+        $result = (($findProduct->unit_price - $request->offer_price)*100)
+            /$findProduct->unit_price;
+//      $result = ($findProduct->unit_price * $request->offer_price) /100;
+        $product->percentage = round($result).'%';
+        $product->status = $request->status;
+        $product->save();
+        Toastr::success('Product Successfully Updated');
+        return redirect()->back();
+    }
+
+    public function promotionProductDestroy($id){
+        $product = Promotionproduct::find($id);
+        $product->delete();
+        Toastr::error('Product Successfully Removed');
+        return redirect()->back();
+    }
 
 }

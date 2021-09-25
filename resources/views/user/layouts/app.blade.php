@@ -290,6 +290,9 @@
 
     <!--footer area start-->
     <footer class="footer_widgets">
+        @php
+            $contact = App\Model\ContactUs::first();
+        @endphp
         <!--newsletter area start-->
         <div class="newsletter_area">
             <div class="container">
@@ -323,25 +326,9 @@
         <div class="footer_top">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-5 col-sm-7">
-                        <div class="widgets_container contact_us">
-                            <h3>GET THE APP</h3>
-                            <div class="aff_content">
-                                <p><strong>Mobi Express</strong></p>
-                            </div>
-                            <div class="app_img">
-                                {{-- <figure class="app_img">
-                                    <a href="#"><img src="{{ asset('assets/user/img/icon/icon-appstore.png') }}" alt=""></a>
-                                </figure> --}}
-                                <figure class="app_img">
-                                    <a href="#"><img src="{{ asset('assets/user/img/icon/icon-googleplay.png') }}" alt=""></a>
-                                </figure>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-5">
+                    <div class="col-md-3">
                         <div class="widgets_container widget_menu">
-                            <h3>Rules</h3>
+                            <h3>Customer Service</h3>
                             <div class="footer_menu">
                                 <ul>
                                     <li>
@@ -363,7 +350,31 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-4 col-sm-6">
+                    <div class="col-md-3">
+                        <div class="widgets_container widget_menu">
+                            <h3>About Us</h3>
+                            <div class="footer_menu">
+                                <ul>
+                                    <li>
+                                        <a href="{{ route('about-us') }}">
+                                            About Us
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('contact-us') }}">
+                                            Contact Us
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('delivery-information') }}">
+                                            Delivery Informaiton
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
                         <div class="widgets_container widget_menu">
                             <h3>My Account</h3>
                             <div class="footer_menu">
@@ -387,46 +398,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-5 col-sm-6">
-                        <div class="widgets_container widget_menu">
-                            <h3>Information</h3>
-                            <div class="footer_menu">
-                                <ul>
-                                    <li>
-                                        <a href="{{ route('about-us') }}">
-                                            About Us
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('contact-us') }}">
-                                            Contact Us
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('delivery-information') }}">
-                                            Delivery Informaiton
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer_bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-3">
+                        <div class="copyright_area">
+                            <p>&copy; 2021 <a href="{{ route('home') }}" class="text-uppercase">{{ $contact->company_name }}</a></p>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-7 col-sm-12">
-                        <div class="widgets_container">
-                            <h3>CONTACT INFO</h3>
-                            <div class="footer_contact">
-                                <div class="footer_contact_inner">
-                                    <div class="contact_icone">
-                                        <img src="assets/img/icon/icon-phone.png" alt="">
-                                    </div>
-                                    <div class="contact_text">
-                                        <p>Hotline Free 24/24: <br> <strong>0123456789</strong></p>
-                                    </div>
-                                </div>
-                                <p>Your address goes here. <br> demo@example.com</p>
-                            </div>
-
-                            <div class="footer_social">
+                    <div class="col-lg-3 col-md-3">
+                        <div class="footer_social">
                                 <ul>
                                     <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
                                     <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
@@ -435,22 +419,10 @@
                                     <li><a class="rss" href="#"><i class="fa fa-rss"></i></a></li>
                                 </ul>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer_bottom">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="copyright_area">
-                            <p>&copy; 2021 <a href="index.html" class="text-uppercase">ANTOMI</a>. Made with <i class="fa fa-heart"></i> by <a target="_blank" href="https://www.hasthemes.com/">HasThemes</a></p>
-                        </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="footer_payment text-right">
-                            <img src="assets/img/icon/payment.png" alt="">
+                            <img src="{{ asset('assets/user/img/icon/payment.png') }}" alt="">
                         </div>
                     </div>
                 </div>

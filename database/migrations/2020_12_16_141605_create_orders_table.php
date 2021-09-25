@@ -23,7 +23,7 @@ class CreateOrdersTable extends Migration
             $table->double('tax', 8, 2)->default(0);
             $table->double('total_price', 8, 2);
             $table->double('product_discount_price', 8, 2)->default(0);
-            $table->string('order_status')->default('0');
+            $table->string('order_status')->default(0);
             $table->integer('payment_method')->default(1);
             $table->string('voucher_code')->nullable();
             $table->string('voucher_mobile')->nullable();

@@ -51,12 +51,8 @@
                     <div class=" niceselect_option">
                         <form class="select_option" action="#">
                             <select name="orderby" id="short">
-                                <option selected value="1">Sort by average rating</option>
-                                <option value="2">Sort by popularity</option>
-                                <option value="3">Sort by newness</option>
                                 <option value="4">Sort by price: low to high</option>
                                 <option value="5">Sort by price: high to low</option>
-                                <option value="6">Product Name: Z</option>
                             </select>
                         </form>
                     </div>
@@ -106,13 +102,17 @@
                                         </div>
                                         <div class="price_box">
                                         	@if($product->discount_price > 0)
-                                            <span class="old_price">
-                                            	{{ $product->discount_price }}
+                                                <span class="old_price">
+                                                	{{ $product->unit_price }}
+                                                </span>
+                                                <span class="current_price">
+                                                {{ $product->discount_price }} BDT
+                                            </span>
+                                            @else
+                                            <span class="current_price">
+                                                {{ $product->unit_price }} BDT
                                             </span>
                                             @endif
-                                            <span class="current_price">
-                                            	{{ $product->unit_price }} BDT
-                                            </span>
                                         </div>
                                     </div>
                                     <div class="add_to_cart">

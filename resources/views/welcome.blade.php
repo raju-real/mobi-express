@@ -94,13 +94,10 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="product_header row">
-                                    <div class="section_title col-xl-auto col-12">
+                                    <div class="section_title">
                                         <h2>Featured Products</h2>
+                                        <a href="{{ route('featured-products') }}" class="btn btn-warning btn-sm" style="float: right;">View All</a>
                                     </div>
-                                    <div class="section_title col-xl-auto col-12">
-                                        <a href="{{ route('featured-products') }}" class="btn btn-sm btn-warning">View All</a>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
@@ -119,8 +116,9 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="product_header row">
-                                    <div class="section_title col-xl-auto col-12">
+                                    <div class="section_title">
                                         <h2>Best Selling Products</h2>
+                                        <a href="{{ route('best-selling-products') }}" class="btn btn-warning btn-sm" style="float: right;">View All</a>
                                     </div>
                                 </div>
                             </div>

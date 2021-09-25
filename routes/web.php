@@ -16,7 +16,9 @@ Route::get('search-product','HomePageController@searchProduct')
 Route::any('product-details/{slug}','HomePageController@productDetails')
     ->name('product-details');
 Route::get('featured-products','HomePageController@featuredProducts')   
-    ->name('featured-products'); 
+    ->name('featured-products');
+Route::get('best-selling-products','HomePageController@bestSellingProducts')   
+    ->name('best-selling-products');     
 Route::get('voucher-products','HomePageController@voucherProducts')   
     ->name('voucher-products');       
 Route::get('products/category/{slug}','HomePageController@categoryProducts')    

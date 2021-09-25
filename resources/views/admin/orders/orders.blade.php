@@ -31,8 +31,8 @@
                 <div class="ibox-title">
                     {{ $title }}
                 </div>
-                {{-- <div class="ibox-title">
-                    <form class="sort-form" action="#">
+                <div class="ibox-title">
+                    {{-- <form class="sort-form" action="#">
                         <div class="selector">
                             <select class="form-control" onchange="top.location.href = this.options[this.selectedIndex].value">
                                @for($i=15;$i <= 100;$i+=10)
@@ -42,8 +42,8 @@
                                 @endfor
                             </select>
                         </div>
-                    </form>
-                </div> --}}
+                    </form> --}}
+                </div>
             </div>
             
             <div class="ibox-body">
@@ -109,27 +109,29 @@
                                             </thead>
                                             <tbody>
                                                 @foreach($order->products as $o_p)
-                                                <tr>
-                                                    <td>
-                                                        <img 
-                                                        src="{{ asset($o_p->product->image) }}"
-                                                        class="img-responsive"
-                                                        style="height: 80px;width: 80px;">
-                                                    </td>
-                                                    <td>
-                                                        {{ $o_p->product->name }}
-                                                    </td>
-                                                   
-                                                    <td>
-                                                        {{ $o_p->order_price }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $o_p->quantity }}
-                                                    </td>
-                                                    <td>
-                                                        {{ $o_p->total_price }}
-                                                    </td>
-                                                </tr>
+                                                    @if($o_p->product)
+                                                        <tr>
+                                                            <td>
+                                                                <img 
+                                                                src="{{ asset($o_p->product->image) }}"
+                                                                class="img-responsive"
+                                                                style="height: 80px;width: 80px;">
+                                                            </td>
+                                                            <td>
+                                                                {{ $o_p->product->name }}
+                                                            </td>
+                                                           
+                                                            <td>
+                                                                {{ $o_p->order_price }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $o_p->quantity }}
+                                                            </td>
+                                                            <td>
+                                                                {{ $o_p->total_price }}
+                                                            </td>
+                                                        </tr>
+                                                    @endif
                                                 @endforeach
                                             </tbody>
                                         </table>
@@ -161,9 +163,9 @@
     $(function() {
         $('#order-table').DataTable({
             pageLength: 10,
-            paging: true,
-            searching: true,
-            info: true
+            paging: false,
+            searching: false,
+            info: false
            
         });
     })

@@ -31,31 +31,33 @@
                     </thead>
                     <tbody>
                     	@foreach($f_products as $f_p)
-                        <tr>
-                            <td>{{ $loop->index + 1 }}</td>
-                            <td>
-                            	<img src="{{ asset($f_p->product->image) }}" class="img-responsive" style="height: 50px;width:50px;">
-                            </td>
-                            <td class="text-left">{{ $f_p->product->name }}</td>
-                            <td>{{ $f_p->serial }}</td>
-                            <td>
-                            	{{ $f_p->status == 1 ? 'Active' : 'In Active' }}
-                            </td>
-                            <td>
-                            	<a href="{{ route('admin.edit-product-front-cat',$f_p->id) }}" 
-                            		class="btn btn-primary">
-								  <i class="fa fa-edit"></i>
-								</a>
-								{{-- Delete Activity --}}
-								<button class="btn btn-danger pointer" type="button" onclick="deleteproduct({{ $f_p->id }})">
-			                        <i class="fa fa-trash"></i>
-			                    </button>
-			                    <form id="delete-f_p-{{ $f_p->id }}" action="{{ route('admin.delete-product-front-cat',$f_p->id) }}" method="POST" style="display: none;">
-			                        @csrf
-			                        @method('DELETE')
-			                    </form>
-                            </td>
-                        </tr>
+                            @if($f_p->product)
+                                <tr>
+                                    <td>{{ $loop->index + 1 }}</td>
+                                    <td>
+                                        <img src="{{ asset($f_p->product->image) }}" class="img-responsive" style="height: 50px;width:50px;">
+                                    </td>
+                                    <td class="text-left">{{ $f_p->product->name }}</td>
+                                    <td>{{ $f_p->serial }}</td>
+                                    <td>
+                                        {{ $f_p->status == 1 ? 'Active' : 'In Active' }}
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.edit-product-front-cat',$f_p->id) }}" 
+                                            class="btn btn-primary">
+                                          <i class="fa fa-edit"></i>
+                                        </a>
+                                        {{-- Delete Activity --}}
+                                        <button class="btn btn-danger pointer" type="button" onclick="deleteproduct({{ $f_p->id }})">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        <form id="delete-f_p-{{ $f_p->id }}" action="{{ route('admin.delete-product-front-cat',$f_p->id) }}" method="POST" style="display: none;">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

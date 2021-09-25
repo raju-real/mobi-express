@@ -63,10 +63,19 @@
                                                 <span>Pending</span>
                                             @elseif($order->order_status == 1)
                                                 <span>Processing</span>
+                                            @elseif($order->order_status == 2)
+                                                <span>Picked</span>
                                             @elseif($order->order_status == 3)
-                                                <span>Delivered</span> 
+                                                <span>Shipped</span>
                                             @elseif($order->order_status == 4)
-                                                <span>Cancled</span>       
+                                                <span>Delivered</span>
+
+                                            @elseif($order->order_status == 5)
+                                                <span>Cancled</span> 
+                                            @elseif($order->order_status == 6)
+                                                <span>Returned</span>   
+                                            @else 
+                                                <span>Un known</span>
                                             @endif
                                         </td>
                                         <td>
