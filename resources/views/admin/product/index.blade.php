@@ -73,15 +73,15 @@
             
             <div class="ibox-body">
                 <div class="col-md-12 table-responsive">
-                    <table class="table text-nowrap table-striped table-bordered table-hover table-responsive"  width="100%">
+                    <table class="table table-striped table-bordered table-hover table-responsive"  width="100%">
                     <thead>
                         <tr>
-                            <th>Sl.no</th>
+                            <th class="text-nowrap">Sl.no</th>
                             <th>Image</th>
                             <th>Name</th>
                             <th>Category</th>
-                            <th>Unit Price</th>
-                            <th>Discount Price</th>
+                            <th class="text-nowrap">Unit Price</th>
+                            <th class="text-nowrap">Discount Price</th>
                             <th>Stock</th>
                             <th>Quantity</th>
                             <th>View</th>
@@ -90,12 +90,12 @@
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Sl.no</th>
+                            <th class="text-nowrap">Sl.no</th>
                             <th>Image</th>
                             <th>Name</th>
                             <th>Category</th>
-                            <th>Unit Price</th>
-                            <th>Discount Price</th>
+                            <th class="text-nowrap">Unit Price</th>
+                            <th class="text-nowrap">Discount Price</th>
                             <th>Stock</th>
                             <th>Quantity</th>
                             <th>View</th>
@@ -110,7 +110,7 @@
                                 <img src="{{ asset($product->image) }}" class="img-responsive" style="height: 50px;width:50px;">
                             </td>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $product->category->name }}</td>
+                            <td class="text-nowrap">{{ $product->category->name ?? '' }}</td>
                             <td>{{ $product->unit_price }}</td>
                             <td>
                                 {{ $product->discount_price }}
@@ -119,7 +119,7 @@
                             <td>{{ $product->stock_status }}</td>
                             <td>{{ $product->quantity }}</td>
                             <td>{{ $product->view_count }}</td>
-                            <td>
+                            <td class="text-nowrap">
                                 <a href="{{ route('admin.product.show',$product->slug) }}" class="badge badge-info">
                                     <i class="fa fa-eye"></i>
                                 </a>
