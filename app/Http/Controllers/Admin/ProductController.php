@@ -75,6 +75,8 @@ class ProductController extends Controller
             $product->discount_price = $request->discount_price;
             $result = (($request->unit_price - $request->discount_price)*100)/$request->unit_price;
             $product->percentage = round($result);
+        } else{
+            $product->discount_price = 0;
         }
         $product->stock_status = $request->stock_status;
         $product->quantity = $request->quantity;
@@ -148,6 +150,8 @@ class ProductController extends Controller
             $product->discount_price = $request->discount_price;
             $result = (($request->unit_price - $request->discount_price)*100)/$request->unit_price;
             $product->percentage = round($result);
+        } else{
+            $product->discount_price = 0;
         }
         $product->stock_status = $request->stock_status;
         $product->quantity = $request->quantity;

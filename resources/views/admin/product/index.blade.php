@@ -114,7 +114,9 @@
                             <td>{{ $product->unit_price }}</td>
                             <td>
                                 {{ $product->discount_price }}
+                                @if($product->discount_price > 0)
                                 <span class="badge badge-success">{{ $product->percentage }} Off</span>
+                                @endif
                             </td>
                             <td>{{ $product->stock_status }}</td>
                             <td>{{ $product->quantity }}</td>
