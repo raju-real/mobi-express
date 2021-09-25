@@ -137,8 +137,8 @@
                                         <div class="form-group col-3">
                                             <label>Color</label>
                                             <select name="color_id" id="color_id" class="form-control form-select-sm">
+                                                <option value="">Select Color</option>
                                                 @foreach($product->colors as $color)
-                                                    <option value="">Select Color</option>
                                                     <option value="{{ $color->id }}">
                                                         {{ $color->name }}
                                                     </option>
@@ -150,8 +150,8 @@
                                         <div class="form-group col-3">
                                             <label>Size</label>
                                             <select name="size_id" id="size_id" class="form-control form-select-sm">
+                                                <option value="">Select Size</option>
                                                 @foreach($product->sizes as $size)
-                                                    <option value="">Select Size</option>
                                                     <option value="{{ $size->id }}">
                                                         {{ $size->name }}
                                                     </option>

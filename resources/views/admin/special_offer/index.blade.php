@@ -23,16 +23,17 @@
             </div>
             
             <div class="ibox-body">
-                <table class="table table-responsive text-nowrap table-striped table-bordered table-hover" id="offer-table" cellspacing="0" width="100%">
+                <div class="col-md-12 table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="offer-table" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>Sl.no</th>
                             <th>Image</th>
                             <th>Product</th>
-                            <th>Unit Price</th>
-                            <th>Discount Price</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
+                            <th class="text-nowrap">Unit Price</th>
+                            <th class="text-nowrap">Discount Price</th>
+                            <th class="text-nowrap">Start Date</th>
+                            <th class="text-nowrap">End Date</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -42,16 +43,16 @@
                             <th>Sl.no</th>
                             <th>Image</th>
                             <th>Product</th>
-                            <th>Unit Price</th>
-                            <th>Discount Price</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
+                            <th class="text-nowrap">Unit Price</th>
+                            <th class="text-nowrap">Discount Price</th>
+                            <th class="text-nowrap">Start Date</th>
+                            <th class="text-nowrap">End Date</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                    	@foreach($offers as $offer)
+                        @foreach($offers as $offer)
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
                             <td>
@@ -92,6 +93,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
 	</div>
@@ -105,7 +107,8 @@
             pageLength: 10,
             paging: true,
             searching: false,
-            info: true
+            info: true,
+            responsive: true
            
         });
     })
