@@ -61,6 +61,7 @@ return array(
     'App\\Model\\FeaturedProduct' => $baseDir . '/app/Model/FeaturedProduct.php',
     'App\\Model\\FrontCategory' => $baseDir . '/app/Model/FrontCategory.php',
     'App\\Model\\FrontCategoryProduct' => $baseDir . '/app/Model/FrontCategoryProduct.php',
+    'App\\Model\\MobileOtp' => $baseDir . '/app/Model/MobileOtp.php',
     'App\\Model\\NewArrivals' => $baseDir . '/app/Model/NewArrivals.php',
     'App\\Model\\Order' => $baseDir . '/app/Model/Order.php',
     'App\\Model\\OrderPrice' => $baseDir . '/app/Model/OrderPrice.php',

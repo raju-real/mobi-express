@@ -202,6 +202,16 @@
                     <span class="nav-label">Coupon</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('admin.users.index') }}"><i class="sidebar-item-icon fa fa-users"></i>
+                    <span class="nav-label">
+                        Our Users
+                        <span class="badge badge-success" style="float: right;">
+                            {{ App\Model\User::count()}}
+                        </span>
+                    </span>
+                </a>
+            </li>
             
             <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-globe"></i>

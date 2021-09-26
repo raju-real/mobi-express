@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Str;
 use App\Model\Category;
-use App\Model\SubCategory;
 use App\Model\Product;
+use App\Model\SubCategory;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 Use Alert;
 
 class CategoryController extends Controller
@@ -73,13 +74,18 @@ class CategoryController extends Controller
     public function destroy($id){
         $category = Category::find($id);
         if(SubCategory::where('category_id',$id)->exists()){
-            alert()->error('ErrorAlert','This category added on subcategory,update or delete first');
+            return redirect()->route('admin.category.index')
+                ->with('message','This category added on subcategory,update or delete first');
         } elseif(Product::where('category_id',$id)->exists()){
-            alert()->error('ErrorAlert','This category added on product,update or delete first');
-        } else{
+            return redirect()->route('admin.category.index')
+                ->with('message','This category added on product,update or delete first');
+        } else {
+            if(file_exists($category->image) AND !empty($category->image)){
+                unlink($category->image);
+            }
             $category->delete();
+            Toastr::warning('Category Successfully Delete','success');
         }
-        toast('Category Successfully Delete','warning');
         return redirect()->route('admin.category.index');
     }
 }

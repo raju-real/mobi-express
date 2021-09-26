@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Str;
 use App\Model\Category;
-use App\Model\SubCategory;
 use App\Model\Product;
+use App\Model\SubCategory;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 Use Alert;
 
 class SubCategoryController extends Controller
@@ -73,12 +74,15 @@ class SubCategoryController extends Controller
    
     public function destroy($id){
         $subcategory = SubCategory::find($id);
-     	if(Product::where('category_id',$id)->exists()){
-            alert()->error('ErrorAlert','This subcategory added on product,update or delete first');
+     	if(Product::where('subcategory_id',$id)->exists()){
+            return redirect()->route('admin.subcategory.index')->with('message','This subcategory added on product,update or delete first');
         } else{
+            if(file_exists($subcategory->image) AND !empty($subcategory->image)){
+                unlink($subcategory->image);
+            }
             $subcategory->delete();
+            Toastr::warning('Category Successfully Delete','success');
         }
-        toast('Category Successfully Delete','warning');
         return redirect()->route('admin.subcategory.index');
     }
 }

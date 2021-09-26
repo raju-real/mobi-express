@@ -8,6 +8,17 @@
 
        <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <style type="text/css">
+            p{
+                font-weight: 600;
+            }
+            h4{
+                font-weight: bold;
+            }
+            .right{
+                text-align: right;
+            }
+        </style>
     </head>
     <body>
        <div class="container-fluid mt-3">
@@ -16,24 +27,29 @@
                    <img src="{{ asset('assets/common/images/logo1.png') }}">
                </div>
                <div class="col-xs-6">
-                   <h4>Invoice : #MX254875</h4>
+                   <h4>Invoice : #{{ $order->invoice }}</h4>
                </div>
            </div>
            <hr>
            <div class="row">
                <div class="col-xs-4">
-                   <h2>From</h2>
-                   <p>Mobi Xpress</p>
-                   <p>12514651561</p>
-                   <p>mobi@mail.com</p>
-                   <p>Mohammadpur,Shomoly,Basabo-1203, Dhaka</p>
+                   <h4><u>From</u></h4>
+                   <p>
+                        {{ $contact->company_name }} <br>
+                        {{ $contact->mobile }} <br>
+                        {{ $contact->email }} <br>
+                        {{ $contact->address }}
+                    </p>   
                </div>
                <div class="col-xs-4">
-                   <h2>To</h2>
-                   <p>Mobi Xpress</p>
-                   <p>12514651561</p>
-                   <p>mobi@mail.com</p>
-                   <p>Mohammadpur,Shomoly,Basabo-1203, Dhaka</p>
+                   <h4><u>To</u></h4>
+                   <p>
+                        {{ $order->name }} <br>
+                        {{ $order->mobile }} <br>
+                        {{ $order->address }} <br>
+                        {{ $order->city_town }},
+                        {{ $order->district->name ?? '' }}
+                    </p>
                </div>
                <div class="col-xs-4">
                    <img src="{{ asset('assets/common/qr-code/qr.jpg') }}">
@@ -42,7 +58,7 @@
            <hr>
            <div class="row">
                <div class="col-xs-12">
-                   <table class="table table-sm table-bordered" width="100%">
+                   <table class="table table-sm table-bordered text-sm" width="100%">
                        <thead>
                            <tr>
                                <th>#</th>
@@ -65,39 +81,43 @@
                    
                </div>
            </div>
-           <hr>
            <div class="row">
                <div class="col-xs-6">
-                    <table class="table table-bordered" width="100%">
-                            <tr>
-                                <td>Delivery Date:</td>
-                                <td>{{ $order->order_price }} BDT</td>
-                            </tr>
-                            <tr>
-                                <td>User Co:</td>
-                                <td>{{ $order->order_price }} BDT</td>
-                            </tr>
-                    </table>
+                    <p>Delivery Date:</p>
+                    <p>Confirmation:</p>
                </div>
                <div class="col-xs-6">
-                   <table class="table table-bordered">
-                            <tr>
-                                <td>Sub Total:</td>
-                                <td>{{ $order->order_price }} BDT</td>
-                            </tr>
-                            <tr>
-                                <td>Delivery Charge:</td>
-                                <td>{{ $order->delivery_charge }} BDT</td>
-                            </tr>
-                            <tr>
-                                <td>Total Price:</td>
-                                <td>{{ $order->order_price }} BDT</td>
-                            </tr>
+                    <table width="100%">
+                        <tr>
+                            <th>Sub Total</th>
+                            <th>:</th>
+                            <th align="right">{{ $order->order_price }} BDT</th>
+                        </tr>    
+                        <tr>
+                            <th>Delivery Charge</th>
+                            <th>:</th>
+                            <th align="right">{{ $order->delivery_charge }} BDT</th>
+                        </tr>
+                        <tr>
+                            <th>Total Price</th>   
+                            <th>:</th> 
+                            <th align="right">{{ $order->order_price }} BDT</th>
+                        </tr>
+                        <tr>
+                            <th>Paid</th>   
+                            <th>:</th> 
+                            <th align="right">{{ $order->paid_amount }} BDT</th>
+                        </tr>
+                        <tr>
+                            <th>Due</th>   
+                            <th>:</th> 
+                            <th align="right">{{ $order->due_amount }} BDT</th>
+                        </tr>
                     </table>
                </div>
            </div>
        </div>
 
        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZh4w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
 </html>

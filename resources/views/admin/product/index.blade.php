@@ -32,8 +32,8 @@
                             <input type="text" name="name" class="form-control">
                         </div>
                         <div class="col-md-2">
-                            <label>By Most View</label><br>
-                            <input type="checkbox" name="most_view">Most View
+                            <br>
+                            <input type="checkbox" name="most_view" class="mt-3" id="most_view"> <label for="most_view">Most View</label>
                         </div>
                         <div class="col-md-2">
                             <label>Action</label>
@@ -115,7 +115,7 @@
                             <td>
                                 {{ $product->discount_price }}
                                 @if($product->discount_price > 0)
-                                <span class="badge badge-success">{{ $product->percentage }} Off</span>
+                                <span class="badge badge-success">{{ $product->percentage }} % Off</span>
                                 @endif
                             </td>
                             <td>{{ $product->stock_status }}</td>

@@ -66,7 +66,7 @@
                             <td>{{ $offer->product->unit_price }}</td>
                             <td>
                                 {{ $offer->product->discount_price }}
-                                <span class="badge badge-success">{{ $offer->product->percentage }} Off</span>
+                                <span class="badge badge-success">{{ $offer->product->percentage }} % Off</span>
                             </td>
                             <td>{{ date('d-m-y', strtotime($offer->start_date)) }}</td>
                             <td>{{ date('d-m-y', strtotime($offer->end_date)) }}</td>

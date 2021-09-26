@@ -25,6 +25,7 @@ class ProductController extends Controller
         $category_id = request()->get('category_id');
         $subcategory_id = request()->get('subcategory_id');
         $name = request()->get('name');
+        $most_view = request()->get('most_view');
         if(isset($name) && !empty($name)){
             $data->where('name','like',"%{$name}%");
         }
@@ -33,6 +34,9 @@ class ProductController extends Controller
         }
         if(isset($subcategory_id) && !empty($subcategory_id)){
             $data->where('subcategory_id',$subcategory_id);
+        }
+        if(isset($most_view)){
+            $data->orderBy('view_count','DESC');
         }
         $products = $data->paginate($limit);
         $categories = Category::all();

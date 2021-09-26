@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Model\Color as color;
 use Alert;
+use App\Http\Controllers\Controller;
+use App\Model\Color as color;
+use App\Model\ProductColor;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Http\Request;
 
 class ColorController extends Controller
 {
@@ -45,8 +47,9 @@ class ColorController extends Controller
    
     public function destroy($id){
         $color = color::find($id);
+        ProductColor::whereIn('color_id',[$id])->delete();
         $color->delete();
-        toast('color Delete Successfully','warning');
+        Toastr::warning('color Delete Successfully','warning');
         return redirect()->route('admin.color.index');
     }
 }

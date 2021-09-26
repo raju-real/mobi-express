@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('send-otp','Auth\LoginController@sendOtp')->name('send-otp');
+Route::get('check-otp','Auth\LoginController@checkOtp')->name('check-otp');
 Route::get('login','Auth\LoginController@showLoginFrom')->name('login');
 Route::post('register','Auth\LoginController@userRegister')->name('register');
 Route::post('login','Auth\LoginController@userLogin')->name('login');

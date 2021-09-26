@@ -40,6 +40,10 @@
 
     @include('sweetalert::alert')
 
+    {{-- Facebook Plugin --}}
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v12.0&appId=385864235969257&autoLogAppEvents=1" nonce="9S8JOkxD"></script>
+
     <div class="page-wrapper">
         <!-- START HEADER-->
         <header class="header">

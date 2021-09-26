@@ -182,7 +182,7 @@
                             </form>
                             <div class="priduct_social">
                                 <ul>
-                                    <li><a class="facebook" href="https://www.facebook.com/" target="_blank" title="facebook"><i class="fa fa-facebook"></i> Share</a></li>
+                                    <li><iframe src="https://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fmobile-accessories.test%3A81%2Fproduct-details%2Ffresh-moshur-dal-0nWkuKnfiC265AUvS3auDLs7A8QqdZSFuNrRhWVN&width=174&layout=button_count&action=like&size=large&share=true&height=46&appId=385864235969257" width="174" height="46" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe></li>
                                     {{-- <li><a class="twitter" href="#" title="twitter"><i class="fa fa-twitter"></i> tweet</a></li>
                                     <li><a class="pinterest" href="#" title="pinterest"><i class="fa fa-pinterest"></i> save</a></li>
                                     <li><a class="google-plus" href="#" title="google +"><i class="fa fa-google-plus"></i> share</a></li>

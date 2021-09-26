@@ -12,6 +12,11 @@
         <div class="ibox">
             <div class="ibox-head">
                 <div class="ibox-title">All Category</div>
+                @if(Session::has('message'))
+	                <div class="alert alert-danger" role="alert">
+	                	<strong>{{ Session::get('message') }}</strong>
+	                </div>
+                @endif
                 <div class="ibox-title text-right">
                 	<button type="button" class="btn btn-primary pointer" data-toggle="modal" data-target="#add-category">
 					  <i class="fa fa-plus"></i>
@@ -71,7 +76,8 @@
                             <th class="text-center">Category Name</th>
                             <th class="text-center">Category Image</th>
                             <th class="text-center">Serial</th>
-                            <th class="text-center">Product Count</th>
+                            <th class="text-center">Subcategories</th>
+                            <th class="text-center">Product</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -82,12 +88,13 @@
                             <td>{{ $category->name }}</td>
                             <td>
                             	@if($category->image != null)
-                            		<img src="{{ asset($category->image) }}" class="img-fluid img-thumbnail" alt="Category image" style="height: 100px;width: 100px;">
+                            		<img src="{{ asset($category->image) }}" class="img-fluid img-thumbnail" alt="Category image" style="height: 80px;width: 80px;">
                             	@else
                             		{{ 'None' }}
                             	@endif		
                             </td>
                             <td>{{ $category->serial }}</td>
+                            <td>{{ $category->subcategories->count() }}</td>
                             <td>{{ $category->products->count() }}</td>
                             <td>
                             	{{-- Delete Activity --}}
@@ -143,7 +150,7 @@
 								</div>
 
 								{{-- Delete Activity --}}
-								<button class="btn btn-danger pointer" type="button" onclick="deleteItem(event,{{ $category->id }})">
+								<button class="btn btn-danger pointer" type="button" onclick="deleteItem({{ $category->id }})">
 			                        <i class="fa fa-trash"></i>
 			                    </button>
 			                    <form id="delete-category-{{ $category->id }}" action="{{ route('admin.category.destroy',$category->id) }}" method="POST" style="display: none;">
@@ -173,33 +180,36 @@
 		}
 	}
 
-	function deleteItem(event,id){
-		Swal.fire({
-		  title: 'Are you sure?',
-		  text: "You won't be able to revert this!",
-		  icon: 'warning',
-		  showCancelButton: true,
-		  confirmButtonColor: '#3085d6',
-		  cancelButtonColor: '#d33',
-		  confirmButtonText: 'Yes, delete it!'
-		}).then((result) => {
-		  if (result.isConfirmed) {
-		  	event.preventDefault();
-		  	$('#delete-category-'+id).submit();
-		    // Swal.fire(
-		    //   'Deleted!',
-		    //   'Your file has been deleted.',
-		    //   'success'
-		    // )
-		  } else{
-		  		Swal.fire(
+	function deleteItem(id) {
+      swal({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, cancel!',
+          confirmButtonClass: 'btn btn-success',
+          cancelButtonClass: 'btn btn-danger',
+          buttonsStyling: false,
+          reverseButtons: true
+      }).then((result) => {
+          if (result.value) {
+              event.preventDefault();
+              document.getElementById('delete-category-'+id).submit();
+          } else if (
+              // Read more about handling dismissals
+          result.dismiss === swal.DismissReason.cancel
+          ) {
+              swal(
                   'Cancelled',
                   'Your data is safe :)',
                   'error'
-              	)
-		  }
-		})
-	}
+              )
+          }
+      })
+    }
 
 	
 </script>

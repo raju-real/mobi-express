@@ -49,7 +49,11 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('edit-product-front-cat/{id}','FrontCategoryController@editProduct')
         ->name('edit-product-front-cat'); 
     Route::put('update-product-front-cat/{id}','FrontCategoryController@updateProduct')->name('update-product-front-cat'); 
-    Route::delete('delete-product-front-cat/{id}','FrontCategoryController@deleteProduct')->name('delete-product-front-cat');      
+    Route::delete('delete-product-front-cat/{id}','FrontCategoryController@deleteProduct')->name('delete-product-front-cat');
+    Route::get('users','DashboardController@users')->name('users.index');
+    Route::get('user','DashboardController@userDetails')->name('user.show');
+    Route::get('change-user-status','DashboardController@changeUserStatus')
+        ->name('change-user-status');
     // order section
     Route::get('orders/pending','OrderController@pendingOrders')
         ->name('pending-orders');

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Model\Product;
 use App\Model\Brand as brand;
+use App\Model\Product;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Http\Request;
 Use Alert;
 
 class BrandController extends Controller
@@ -47,11 +48,12 @@ class BrandController extends Controller
     public function destroy($id){
         $brand = brand::find($id);
         if(Product::where('brand_id',$id)->exists()){
-            alert()->error('ErrorAlert','This brand added on product,update or delete first');
+            return redirect()->route('admin.brand.index')->with('message','This brand added on product,update or delete first');
         } else{
             $brand->delete();
+            Toastr::warning('Brand Delete Successfully','warning');
         }
-        toast('Brand Delete Successfully','warning');
+        
         return redirect()->route('admin.brand.index');
     }
 }

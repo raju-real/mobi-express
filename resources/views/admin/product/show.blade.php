@@ -28,6 +28,10 @@
 						<th>{{ $product->status == 1 ? 'Active' : 'In Active' }}</th>
 					</tr>
 					<tr>
+						<th>View Count</th>
+						<th>{{ $product->view_count ?? '0' }}</th>
+					</tr>
+					<tr>
 						<th>Stock Status</th>
 						<th>{{ $product->stock_status == 1 ? 'Yes' : 'No' }}</th>
 					</tr>

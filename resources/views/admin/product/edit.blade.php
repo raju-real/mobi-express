@@ -35,8 +35,8 @@
                         <div class="col-sm-3 form-group">
                             <label for="subcategory_id">Sub Category</label>
                             <select name="subcategory_id" id="subcategory_id" class="form-control">
-                            	<option value="{{ $product->subcategory_id != null? $product->subcategory->id : '' }}" >
-                                            {{ $product->subcategory_id != null? $product->subcategory->name : '' }}
+                            	<option value="{{ $product->subcategory_id  }}" >
+                                            {{ $ $product->subcategory->name ??  '' }}
                                         </option>
                             	
                             </select>

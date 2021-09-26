@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Model\Size as size;
 use Alert;
+use App\Http\Controllers\Controller;
+use App\Model\ProductSize;
+use App\Model\Size as size;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Http\Request;
 
 class SizeController extends Controller
 {
@@ -45,8 +47,9 @@ class SizeController extends Controller
    
     public function destroy($id){
         $size = size::find($id);
+        ProductSize::whereIn('size_id',[$id])->delete();
         $size->delete();
-        toast('Size Delete Successfully','warning');
+        Toastr::success('Size Delete Successfully','warning');
         return redirect()->route('admin.size.index');
     }
 }

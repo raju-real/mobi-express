@@ -605,6 +605,7 @@ class ComposerStaticInit861675f6d4a0fdb67d2afd8bc58ef980
         'App\\Model\\FeaturedProduct' => __DIR__ . '/../..' . '/app/Model/FeaturedProduct.php',
         'App\\Model\\FrontCategory' => __DIR__ . '/../..' . '/app/Model/FrontCategory.php',
         'App\\Model\\FrontCategoryProduct' => __DIR__ . '/../..' . '/app/Model/FrontCategoryProduct.php',
+        'App\\Model\\MobileOtp' => __DIR__ . '/../..' . '/app/Model/MobileOtp.php',
         'App\\Model\\NewArrivals' => __DIR__ . '/../..' . '/app/Model/NewArrivals.php',
         'App\\Model\\Order' => __DIR__ . '/../..' . '/app/Model/Order.php',
         'App\\Model\\OrderPrice' => __DIR__ . '/../..' . '/app/Model/OrderPrice.php',

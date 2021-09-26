@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Model\ContactUs;
 use App\Model\Order;
 use App\Model\OrderProduct;
-Use Alert;
+use Illuminate\Http\Request;
 use PDF;
 
 class OrderController extends Controller
@@ -109,8 +109,9 @@ class OrderController extends Controller
     public function downloadInvoice(){
         $invoice = request()->get('invoice');
         $order = Order::where('invoice',$invoice)->first();
-        //return view('admin.orders.m_pdf_invoice',compact('order'));
-        $invoice = PDF::loadView('admin.orders.m_pdf_invoice',compact('order'));
+        $contact = ContactUs::first();
+        return view('admin.orders.m_pdf_invoice',compact('order','contact'));
+        $invoice = PDF::loadView('admin.orders.m_pdf_invoice',compact('order','contact'));
         $invoice->setPaper('A4', 'portrait');
         $invoice_name = $order->invoice;
         //$invoice->save('assets/common/invoice' . '/' . $invoice_name.'.pdf');

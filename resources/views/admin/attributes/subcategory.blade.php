@@ -11,6 +11,11 @@
         <div class="ibox">
             <div class="ibox-head">
                 <div class="ibox-title">All Sub Category</div>
+                @if(Session::has('message'))
+	                <div class="alert alert-danger" role="alert">
+	                	<strong>{{ Session::get('message') }}</strong>
+	                </div>
+                @endif
                 <div class="ibox-title text-right">
                 	<button type="button" class="btn btn-primary pointer" data-toggle="modal" data-target="#add-subcategory">
 					  <i class="fa fa-plus"></i>
@@ -151,7 +156,7 @@
 								</div>
 
 								{{-- Delete Activity --}}
-								<button class="btn btn-danger pointer" type="button" onclick="deleteItem(event,{{ $subcategory->id }})">
+								<button class="btn btn-danger pointer" type="button" onclick="deleteItem({{ $subcategory->id }})">
 			                        <i class="fa fa-trash"></i>
 			                    </button>
 			                    <form id="delete-subcategory-{{ $subcategory->id }}" action="{{ route('admin.subcategory.destroy',$subcategory->id) }}" method="POST" style="display: none;">
@@ -185,32 +190,35 @@
 		}
 	}
 
-	function deleteItem(event,id){
-		Swal.fire({
-		  title: 'Are you sure?',
-		  text: "You won't be able to revert this!",
-		  icon: 'warning',
-		  showCancelButton: true,
-		  confirmButtonColor: '#3085d6',
-		  cancelButtonColor: '#d33',
-		  confirmButtonText: 'Yes, delete it!'
-		}).then((result) => {
-		  if (result.isConfirmed) {
-		  	event.preventDefault();
-		  	$('#delete-subcategory-'+id).submit();
-		    // Swal.fire(
-		    //   'Deleted!',
-		    //   'Your file has been deleted.',
-		    //   'success'
-		    // )
-		  } else{
-		  		Swal.fire(
+	function deleteItem(id) {
+      swal({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, cancel!',
+          confirmButtonClass: 'btn btn-success',
+          cancelButtonClass: 'btn btn-danger',
+          buttonsStyling: false,
+          reverseButtons: true
+      }).then((result) => {
+          if (result.value) {
+              event.preventDefault();
+              document.getElementById('delete-subcategory-'+id).submit();
+          } else if (
+              // Read more about handling dismissals
+          result.dismiss === swal.DismissReason.cancel
+          ) {
+              swal(
                   'Cancelled',
                   'Your data is safe :)',
                   'error'
-              	)
-		  }
-		})
-	}
+              )
+          }
+      })
+    }
 </script>
 @endpush

@@ -101,7 +101,7 @@
 								</div>
 
 								{{-- Delete Activity --}}
-								<button class="btn btn-danger pointer" type="button" onclick="deleteItem(event,{{ $color->id }})">
+								<button class="btn btn-danger pointer" type="button" onclick="deleteItem({{ $color->id }})">
 			                        <i class="fa fa-trash"></i>
 			                    </button>
 			                    <form id="delete-color-{{ $color->id }}" action="{{ route('admin.color.destroy',$color->id) }}" method="POST" style="display: none;">
@@ -131,29 +131,36 @@
 		}
 	}
 
-	function deleteItem(event,id){
-		Swal.fire({
-		  title: 'Are you sure?',
-		  text: "You won't be able to revert this!",
-		  icon: 'warning',
-		  showCancelButton: true,
-		  confirmButtonColor: '#3085d6',
-		  cancelButtonColor: '#d33',
-		  confirmButtonText: 'Yes, delete it!'
-		}).then((result) => {
-		  if (result.isConfirmed) {
-		  	event.preventDefault();
-		  	$('#delete-color-'+id).submit();
-		    
-		  } else{
-		  		Swal.fire(
+	function deleteItem(id) {
+      swal({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, cancel!',
+          confirmButtonClass: 'btn btn-success',
+          cancelButtonClass: 'btn btn-danger',
+          buttonsStyling: false,
+          reverseButtons: true
+      }).then((result) => {
+          if (result.value) {
+              event.preventDefault();
+              document.getElementById('delete-color-'+id).submit();
+          } else if (
+              // Read more about handling dismissals
+          result.dismiss === swal.DismissReason.cancel
+          ) {
+              swal(
                   'Cancelled',
                   'Your data is safe :)',
                   'error'
-              	)
-		  }
-		})
-	}
+              )
+          }
+      })
+    }
 
 	
 </script>

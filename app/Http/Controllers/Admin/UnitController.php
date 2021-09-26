@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Model\Unit as unit;
 use Alert;
+use App\Http\Controllers\Controller;
+use App\Model\ProductUnit;
+use App\Model\Unit as unit;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Http\Request;
 
 class UnitController extends Controller
 {
@@ -45,8 +47,9 @@ class UnitController extends Controller
    
     public function destroy($id){
         $unit = unit::find($id);
+        ProductUnit::whereIn('unit_id',[$id])->delete();
         $unit->delete();
-        toast('Unit Delete Successfully','warning');
+        Toastr::warning('Unit Delete Successfully','warning');
         return redirect()->route('admin.unit.index');
     }
 }

@@ -11,6 +11,11 @@
         <div class="ibox">
             <div class="ibox-head">
                 <div class="ibox-title">All Brand</div>
+                @if(Session::has('message'))
+	                <div class="alert alert-danger" role="alert">
+	                	<strong>{{ Session::get('message') }}</strong>
+	                </div>
+                @endif
                 <div class="ibox-title text-right">
                 	<button type="button" class="btn btn-primary pointer" data-toggle="modal" data-target="#add-brand">
 					  <i class="fa fa-plus"></i>
@@ -103,7 +108,7 @@
 								</div>
 
 								{{-- Delete Activity --}}
-								<button class="btn btn-danger pointer" type="button" onclick="deleteItem(event,{{ $brand->id }})">
+								<button class="btn btn-danger pointer" type="button" onclick="deleteItem({{ $brand->id }})">
 			                        <i class="fa fa-trash"></i>
 			                    </button>
 			                    <form id="delete-brand-{{ $brand->id }}" action="{{ route('admin.brand.destroy',$brand->id) }}" method="POST" style="display: none;">
@@ -133,29 +138,36 @@
 		}
 	}
 
-	function deleteItem(event,id){
-		Swal.fire({
-		  title: 'Are you sure?',
-		  text: "You won't be able to revert this!",
-		  icon: 'warning',
-		  showCancelButton: true,
-		  confirmButtonColor: '#3085d6',
-		  cancelButtonColor: '#d33',
-		  confirmButtonText: 'Yes, delete it!'
-		}).then((result) => {
-		  if (result.isConfirmed) {
-		  	event.preventDefault();
-		  	$('#delete-brand-'+id).submit();
-		    
-		  } else{
-		  		Swal.fire(
+	function deleteItem(id) {
+      swal({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, cancel!',
+          confirmButtonClass: 'btn btn-success',
+          cancelButtonClass: 'btn btn-danger',
+          buttonsStyling: false,
+          reverseButtons: true
+      }).then((result) => {
+          if (result.value) {
+              event.preventDefault();
+              document.getElementById('delete-brand-'+id).submit();
+          } else if (
+              // Read more about handling dismissals
+          result.dismiss === swal.DismissReason.cancel
+          ) {
+              swal(
                   'Cancelled',
                   'Your data is safe :)',
                   'error'
-              	)
-		  }
-		})
-	}
+              )
+          }
+      })
+    }
 
 	
 </script>
