@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Model\Order;
-use Illuminate\Http\Request;
+use Alert;
 use App\Http\Controllers\Controller;
+use App\Model\Order;
+use App\Model\SslCommerzTransaction;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
-use Alert;
 
 class DashboardController extends Controller
 {
@@ -22,7 +23,7 @@ class DashboardController extends Controller
     public function orderHistory(){
         $orders = Order::where('user_id',Auth::id())
             ->latest()
-            ->select('invoice','created_at','order_status','order_price')
+            ->select('invoice','created_at','order_status','order_price','payment_status')
             ->get();
         return view('user.profile.order_history',compact('orders'));
     }
@@ -44,8 +45,24 @@ class DashboardController extends Controller
             return view('user.profile.order_details',compact('order'));
         } else {
             toast('Invalid Invoice Number','error');
-            return redirect()->route('user.dashboard');
+            return redirect()->route('user.order-history');
         }   
+    }
+
+    public function paymentDetails(){
+        try {
+            $invoice = request()->get('invoice');
+            $payment = SslCommerzTransaction::where('user_id',Auth::id())
+                ->where('invoice',$invoice)->first();
+            if(isset($payment)){
+                return $payment;
+            } else{
+                Alert::error('Invalid Invoice Number');
+                return redirect()->route('user.order-history');
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     public function profile(){

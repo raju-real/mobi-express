@@ -1,11 +1,13 @@
 @extends('user.layouts.app')
 @section('title','Checkout')
 @push('css')
-<style type="text/css">
-    .red{
-        color: red;
-    }
+@push('css')
+<style>
+    .error{
+        border: 1px solid red !important;
+    } 
 </style>
+@endpush
 @endpush
 
 @section('content')
@@ -69,16 +71,19 @@
 
                                     <div class="col-lg-12 mb-20">
                                         <label>Full Name <span class="red">*</span></label>
-                                        <input name="name" id="name" type="text">
+                                        <input name="name" id="name" type="text" 
+                                        onkeyup="hideError('name')">
                                     </div>
 
                                     <div class="col-12 mb-20">
                                         <label>Mobile<span class="red">*</span></label>
-                                        <input name="mobile" id="mobile" type="number">
+                                        <input name="mobile" id="mobile" type="number"
+                                        onkeyup="hideError('mobile')">
                                     </div>
                                     <div class="col-12 mb-20">
                                         <label>Email</label>
-                                        <input name="email" id="email" type="text">
+                                        <input name="email" id="email" type="text"
+                                        onkeyup="hideError('email')">
                                     </div>
                                     {{-- <div class="col-12 mb-20">
                                         <label>District<span class="red">*</span></label>
@@ -90,7 +95,7 @@
                                     @endphp
                                     <div class="col-12 mb-20">
                                         <label>District<span class="red">*</span></label>
-                                        <select name="district_id" id="district" class="form-control">
+                                        <select name="district_id" id="district" class="form-control" onchange="hideError('district')">
                                         <option value="">
                                             Select District
                                         </option>
@@ -104,7 +109,7 @@
 
                                     <div class="col-12 mb-20">
                                         <label>City/ Town<span class="red">*</span></label>
-                                        <input name="city_town" id="city_town" type="text">
+                                        <input name="city_town" id="city_town" type="text" onkeyup="hideError('city_town')">
                                     </div>
 
                                     <div class="col-12">
@@ -112,7 +117,7 @@
                                             Address
                                             <span class="red">*</span>
                                         </label>
-                                        <textarea name="address" id="address" class="form-control"></textarea>
+                                        <textarea name="address" id="address" class="form-control" onkeyup="hideError('address')"></textarea>
                                     </div>
                                     <div class="col-12">
                                         <label>Order Note</label>
@@ -211,11 +216,12 @@
                                 </div>
                                 <div class="payment_method">
                                     <div class="panel-default">
-                                        <input id="cash-on-delivery"  name="payment_method" type="radio" value="1" checked />
+                                        <input id="cash-on-delivery"  
+                                        name="payment_method" type="radio" value="1" checked />
                                         <label for="cash-on-delivery">Cash on delivery</label>
                                         @if($order_price->voucher_apply == true)
                                         <br>
-                                        <input id="evaly-voucher" name="payment_method" type="radio" value="2"  />
+                                        <input id="evaly-voucher" name="payment_method" type="radio" value="2" />
                                         <label for="evaly-voucher">
                                             Evaly Voucher
                                         </label>
@@ -226,12 +232,22 @@
                                             Online Payment
                                         </label>
                                     </div>
-                            </form>
+                                    <div class="panel-default" id="agree" style="display: none;">
+                                        <input type="checkbox" name="agree" class="mt-2" id="agree-box">
+                                        <label for="agree">
+                                            I agree with the  
+                                            <a href="{{ route('terms-condition') }}" target="_blank">
+                                                <u style="color: blue;">terms and condition</u>
+                                            </a>
+                                        </label>
+                                    </div>
                                     <div class="order_button">
-                                        <button type="button" onclick="document.getElementById('order-form').submit()">
+                                        <button type="submit" >
                                             Submit Order
                                         </button>
                                     </div>
+                            </form>
+                                    
                                 </div>
 
                                 {{-- Coupon Remove From --}}
@@ -253,6 +269,57 @@
 
 @push('js')
 <script>
+    $('#order-form').submit(function(){
+        var name = $('#name').val();
+        var mobile = $('#mobile').val();
+        var district = $('#district').val();
+        var city_town = $('#city_town').val();
+        var address = $('textarea#address').val();
+        var payment_method = $('input[name=payment_method]:checked').val();
+        if(!name.length > 0 || name.trim()==""){
+            $('#name').addClass("error");
+            return false;
+        } else if(!mobile.length > 0 || mobile.trim()==""){
+            $('#mobile').addClass("error");
+            return false;
+        } else if(!district.length > 0 || district.trim()==""){
+            $('#district').addClass("error");
+            return false;
+        } else if(!city_town.length > 0 || city_town.trim()==""){
+            $('#city_town').addClass("error");
+            return false;
+        } else if(!address.length > 0 || address.trim()==""){
+            $('#address').addClass("error");
+            return false;
+        } else if(!payment_method.length > 0 || payment_method.trim()==""){
+            $("input[name=payment_method]").append('<span id="pass_message" style="color:red"></span>');
+            $('#pass_message').text('Minimum 6 character');
+            return false;
+        } else{
+            return true;
+        }
+    });
+
+    function hideError(attribute){
+        let value = $('#'+attribute).val();
+        if(value.length > 0 && value.trim() != ""){
+            $('#'+attribute).removeClass("error");
+        }
+    }
+</script>
+<script>
+    $("input[name=payment_method]").on('change', function() {
+       let value = $('input[name=payment_method]:checked').val(); 
+       if(value == 3){
+        $('#agree').show();
+        $('#agree-box').attr("required","");
+       } else{
+        $('#agree').hide();
+        $('#agree-box').removeAttr("required","");
+       }
+    });
+
+
 
     function getDistrict() {
         $('#district').find('option').remove().end().append('<option value="">Select District</option>');

@@ -33,6 +33,8 @@ class CreateOrdersTable extends Migration
             $table->double('coupon_discount_amount', 8, 2)->nullable();
             $table->double('total_discount_amount',8,2)->default(0);
             $table->double('order_price',8,2);
+            $table->integer('payment_status')->default(0);
+            $table->string('payment_time')->nullable();
             $table->double('paid_amount', 8, 2)->default(0);
             $table->double('due_amount', 8, 2)->default(0);
             $table->integer('name');

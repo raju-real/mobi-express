@@ -39,6 +39,7 @@
           /*background-color: #e9e9e9;*/
           color: #1a9cb7;
         }
+
    </style>
     @stack('css')
 
@@ -56,17 +57,20 @@
                         <a href="javascript:void(0)"><i class="ion-navicon"></i></a>
                     </div>
                     <div class="Offcanvas_menu_wrapper">
+                        @php
+                            $contact = App\Model\ContactUs::first();
+                        @endphp
                         <div class="canvas_close">
                             <a href="javascript:void(0)"><i class="ion-android-close"></i></a>
                         </div>
                         <div class="antomi_message">
-                            <p>Get free shipping – Free 30 day money back guarantee</p>
+                            <p>Get free shipping – Order amount more than 2000</p>
                         </div>
                         <div class="header_top_settings text-right">
                             <ul>
                                 <li><a href="#">Store Locations</a></li>
                                 <li><a href="#">Track Your Order</a></li>
-                                <li>Hotline: <a href="tel:+0123456789">0123456789 </a></li>
+                                <li>Hotline: {{ $contact->mobile }}</li>
                                 <li>Quality Guarantee Of Products</li>
                             </ul>
                         </div>
@@ -99,14 +103,14 @@
                     <div class="row align-items-center">
                         <div class="col-lg-4 col-md-5">
                             <div class="antomi_message">
-                                <p>Get free shipping – Free 30 day money back guarantee</p>
+                                <p>Get free shipping – Order amount more than 2000</p>
                             </div>
                         </div>
                         <div class="col-lg-8 col-md-7">
                             <div class="header_top_settings text-right">
                                 <ul>
                                     <li><a href="#">Store Locations</a></li>
-                                    <li>Hotline: <a href="tel:+0123456789">0123456789 </a></li>
+                                    <li>Hotline: {{ $contact->mobile }}</li>
                                     <li>Quality Guarantee Of Products</li>
                                 </ul>
                             </div>

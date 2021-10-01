@@ -14,7 +14,9 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'namespace' => 'User', 'middl
     Route::get('order-history', 'DashboardController@orderHistory')
         ->name('order-history');
     Route::get('order-details', 'DashboardController@orderDetails')
-        ->name('order_details');    
+        ->name('order-details');
+    Route::get('payment-details', 'DashboardController@paymentDetails')
+        ->name('payment-details');        
     Route::get('profile', 'DashboardController@profile')
         ->name('profile');
     Route::get('edit-profile','DashboardController@editProfile')
@@ -22,7 +24,24 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'namespace' => 'User', 'middl
     Route::put('update-profile','DashboardController@updateProfile')
         ->name('update-profile');        
     Route::get('change-password', 'DashboardController@passChangeForm')
-        ->name('change-password');    
+        ->name('change-password');      
+});
+
+// SSLCOMMERZ 
+Route::group(['namespace'=>'User'],function(){
+    Route::any('pay-here','SslCommerzPaymentController@payHere')->name('pay-here');
+    Route::post('pay-now','SslCommerzPaymentController@index')->name('pay-now');
+    Route::post('success','SslCommerzPaymentController@success');
+    Route::post('fail','SslCommerzPaymentController@fail');
+
+    Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+    Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+    Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+    // Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+    // Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+    // Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+    // Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 });
 
 Route::get('logout',function(){

@@ -2,7 +2,11 @@
 @section('title','My Acount')
 
 @push('css')
-
+<style type="text/css">
+    .left-text{
+            text-align: left;
+        }
+</style>
 @endpush
 
 @section('content')
@@ -38,27 +42,35 @@
                     <div class="col-sm-12 col-md-9 col-lg-9">
                         <!-- Tab panes -->
                         <h3>Orders</h3>
-                        <div class="table-responsive">
+                        @if(Session::has('message'))
+                        <div class="alert alert-warning" role="alert">
+                            <strong>{{ Session::get('message') }}</strong>
+                        </div>
+                        @endif
+                        <div class="table-responsive" >
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Sl.no</th>
-                                        <th>Invoice</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                        <th>Total</th>
-                                        <th>Actions</th>
+                                        <th style="text-align: left;font-weight: normal;">Sl.no</th>
+                                        <th style="text-align: left;font-weight: normal;">Invoice</th>
+                                        <th style="text-align: left;font-weight: normal;">Date</th>
+                                        <th style="text-align: left;font-weight: normal;">Status</th>
+                                        <th style="text-align: left;font-weight: normal;">Total</th>
+                                        <th style="text-align: left;font-weight: normal;">Payment</th>
+                                        <th style="text-align: left;font-weight: normal;">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($orders as $order)
                                     <tr>
-                                        <td>{{ $loop->index + 1 }}</td>
-                                        <td>{{ $order->invoice }}</td>
-                                        <td>
+                                        <td style="text-align: left;min-width: fit-content;font-weight: normal;">
+                                            {{ $loop->index + 1 }}
+                                        </td>
+                                        <td style="text-align: left;min-width: fit-content;font-weight: normal;">{{ $order->invoice }}</td>
+                                        <td style="text-align: left;min-width: fit-content;font-weight: normal;">
                                             {{ $order->created_at->format('D,M Y') }}
                                         </td>
-                                        <td>
+                                        <td style="text-align: left;min-width: fit-content;font-weight: normal;">
                                             @if($order->order_status == 0)
                                                 <span>Pending</span>
                                             @elseif($order->order_status == 1)
@@ -78,10 +90,23 @@
                                                 <span>Un known</span>
                                             @endif
                                         </td>
-                                        <td>
+                                        <td style="text-align: left;min-width: fit-content;font-weight: normal;">
                                             {{ $order->order_price }} BDT
                                         </td>
-                                        <td><a href="{{ route('user.order_details',['invoice'=>$order->invoice]) }}" class="view">view</a></td>
+                                        <td style="text-align: left;min-width: fit-content;font-weight: normal;">
+                                            @if($order->payment_status == 0)
+                                                <a href="{{ route('pay-here',['invoice'=>$order->invoice]) }}" style="color: blue;">Pay Now</a>
+                                            @elseif($order->payment_status == 1)
+                                                <span>Paid</span>
+                                                <a href="{{ route('user.payment-details',['invoice'=>$order->invoice]) }}" style="color: blue;">
+                                                    Details
+                                                </a>
+                                            @endif    
+                                        </td>
+                                        <td style="text-align: left;font-weight: normal;">
+                                            <a href="{{ route('user.order-details',['invoice'=>$order->invoice]) }}" class="view">view
+                                            </a>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>

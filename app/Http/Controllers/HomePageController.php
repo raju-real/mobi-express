@@ -541,8 +541,15 @@ class HomePageController extends Controller
     }
 
     public function submitOrder(Request $request){
+        $this->validate($request,[
+            'name' => 'required',
+            'mobile' => 'required|min:11',
+            'district_id' => 'required',
+            'city_town' => 'required',
+            'address' => 'required',
+            'payment_method' => 'required'
+        ]);
         if(Auth::check()){
-            //return $request;
             $session_id = Session::get('session_id');
             $identify = [
                     'session_id'=>$session_id,
@@ -554,7 +561,6 @@ class HomePageController extends Controller
 
             // Save order info to order table
             $order_info = new Order();
-            // Order Info
             $order_info->user_id = Auth::id();
             $order_info->order_number = Order::getOrderNumber();
             $order_info->invoice  = Order::getInvoiceNumber();
@@ -562,6 +568,7 @@ class HomePageController extends Controller
             $order_info->vat = $order_price->vat;
             $order_info->tax = $order_price->tax;
             $order_info->total_price = $order_price->total_price;
+            $order_info->payment_method = $request->payment_method;
             $order_info->product_discount_price = $order_price->product_discount_price;
             $order_info->order_price = $order_price->order_price;
             $order_info->due_amount = $order_price->order_price;
@@ -620,8 +627,14 @@ class HomePageController extends Controller
 
             // Delete Order Price
             $order_price->delete();
-            Alert::success('Your Order Placed Successfully');
-            return redirect(route('user.dashboard'));
+            if($request->payment_method == 1){
+                Alert::success('Your Order Placed Successfully');
+                return redirect(route('user.order-history'));
+            } elseif($request->payment_method == 3){
+                Alert::success("Order Placed Successfully, Pay Here");
+                return redirect()->route('pay-here',['invoice'=>$order_info->invoice]);
+            }
+            
 
         } else {
             Session::put('current_url',route('checkout'));

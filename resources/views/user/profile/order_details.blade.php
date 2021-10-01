@@ -46,14 +46,14 @@
                             <table class="table table-bordered text-nowrap">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: left;">Invoice</th>
-                                        <th style="text-align: left;">:</th>
-                                        <th style="text-align: left;">{{ $order->invoice }}</th>
+                                        <th style="text-align: left;font-weight: normal;">Invoice</th>
+                                        <th style="text-align: left;font-weight: normal;">:</th>
+                                        <th style="text-align: left;font-weight: normal;">{{ $order->invoice }}</th>
                                     </tr>
                                     <tr>
-                                        <th style="text-align: left;">Status</th>
-                                        <th style="text-align: left;">:</th>
-                                        <th style="text-align: left;">
+                                        <th style="text-align: left;font-weight: normal;">Status</th>
+                                        <th style="text-align: left;font-weight: normal;">:</th>
+                                        <th style="text-align: left;font-weight: normal;">
                                             @if($order->order_status == 0)
                                                 <span>Pending</span>
                                             @elseif($order->order_status == 1)
@@ -75,30 +75,30 @@
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th style="text-align: left;">Total Price</th>
-                                        <th style="text-align: left;">:</th>
-                                        <th style="text-align: left;">
+                                        <th style="text-align: left;font-weight: normal;">Total Price</th>
+                                        <th style="text-align: left;font-weight: normal;">:</th>
+                                        <th style="text-align: left;font-weight: normal;">
                                             {{ $order->order_price }} BDT
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th style="vertical-align: top;text-align: left;">Products</th>
+                                        <th style="vertical-align: top;text-align: left;font-weight: normal;">Products</th>
                                         <th style="vertical-align: top;">:</th>
                                         <th>
                                             <table class="table table-responsive table-bordered table-striped">
                                                 <thead>
                                                     <tr style="border-bottom: 1px solid grey;">
-                                                        <th style="text-align: left;">
+                                                        <th style="text-align: left;font-weight: normal;">
                                                             Product
                                                         </th>
-                                                        <th style="text-align: left;">
+                                                        <th style="text-align: left;font-weight: normal;">
                                                             Size
                                                         </th>
-                                                        <th style="text-align: left;">
+                                                        <th style="text-align: left;font-weight: normal;">
                                                             Color
                                                         </th>
                                                        
-                                                        <th style="text-align: left;">
+                                                        <th style="text-align: left;font-weight: normal;">
                                                             Price
                                                         </th>
                                                     </tr>
@@ -106,17 +106,17 @@
                                                 <tbody>
                                                     @foreach($order->products as $order_product)
                                                     <tr>
-                                                        <td style="text-align: left;">
+                                                        <td style="text-align: left;font-weight: normal;">
                                                             {{ $order_product->product->name }} x
                                                             {{ $order_product->quantity }}
                                                         </td>
-                                                        <td style="text-align: left;">
+                                                        <td style="text-align: left;font-weight: normal;">
                                                             {{ $order_product->size_id != null ? $order_product->size->name :'None' }}
                                                         </td>
-                                                        <td style="text-align: left;">
+                                                        <td style="text-align: left;font-weight: normal;">
                                                             {{ $order_product->color_id != null ? $order_product->color->name : 'None' }}
                                                         </td>
-                                                        <td style="text-align: left;">
+                                                        <td style="text-align: left;font-weight: normal;">
                                                             {{ $order_product->total_price }} BDT
                                                         </td>
                                                     </tr>
