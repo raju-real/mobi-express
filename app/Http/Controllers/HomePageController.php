@@ -571,6 +571,7 @@ class HomePageController extends Controller
             $order_info->payment_method = $request->payment_method;
             $order_info->product_discount_price = $order_price->product_discount_price;
             $order_info->order_price = $order_price->order_price;
+            $order_info->partial_payment = ($order_price->order_price * 30) / 100;
             $order_info->due_amount = $order_price->order_price;
             if($order_price->coupon_code != null){
                 $order_info->has_coupon = 'yes';

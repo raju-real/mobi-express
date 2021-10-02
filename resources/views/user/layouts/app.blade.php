@@ -64,7 +64,7 @@
                             <a href="javascript:void(0)"><i class="ion-android-close"></i></a>
                         </div>
                         <div class="antomi_message">
-                            <p>Get free shipping – Order amount more than 2000</p>
+                            <p>Get free shipping – Order amount 999</p>
                         </div>
                         <div class="header_top_settings text-right">
                             <ul>
@@ -124,7 +124,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-2 col-md-3 col-4">
                             <div class="logo">
-                                <a href="{{ route('home') }}"><img src="{{ asset('assets/common/images/logo1.png') }}" alt=""></a>
+                                <a href="{{ route('home') }}"><img src="{{ asset('assets/common/images/logo2.png') }}" alt=""></a>
                             </div>
                         </div>
                         <div class="col-lg-7 col-md-12">
@@ -300,17 +300,16 @@
         <!--newsletter area start-->
         <div class="newsletter_area">
             <div class="container">
-                <div class="newsletter_inner">
+                <div class="newsletter_inner" style="padding: 30px 20px;">
                     <div class="row">
                         <div class="col-lg-3 col-md-5">
                             <div class="newsletter_sing_up">
                                 <h3>Newsletter Sign Up</h3>
-                                <p>(Get <span>30% OFF</span> coupon today subscibers)</p>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-7">
                             <div class="subscribe_content">
-                                <p><strong>Join 226.000+ subscribers</strong> and get a new discount coupon on every Monday.</p>
+                                <p><strong>Join to get new offers update</strong>
                             </div>
                         </div>
                         <div class="col-lg-5 col-md-12">

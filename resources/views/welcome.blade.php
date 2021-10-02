@@ -7,7 +7,7 @@
 
 @section('content')
 <!--slider area start-->
-<section class="slider_section slider_s_three mb-60 mt-20">
+<section class="slider_section slider_s_three mb-40 mt-20">
     <div class="slider_area slider3_carousel owl-carousel">
         @foreach($promotions as $promotion)
         <div class="single_slider d-flex align-items-center" data-bgimg="{{ asset($promotion->image) }}">
@@ -32,53 +32,28 @@
 
 
 <!--shipping area start-->
-<div class="shipping_area mb-60">
+<div class="shipping_area mb-10">
     <div class="container">
         <div class="shipping_inner">
             <div class="single_shipping">
-                <div class="shipping_icone">
-                    <img src="assets/img/about/shipping1.png" alt="">
-                </div>
+                {{-- <div class="shipping_icone">
+                    <img src="assets/user/img/about/shipping1.png" alt="">
+                </div> --}}
                 <div class="shipping_content">
-                    <h4>Free Delivery</h4>
-                    <p>For all oders over $120</p>
+                    <img src="{{ asset('assets/user/images/1.jpg') }}" alt="" class="img-responsive">
                 </div>
             </div>
             <div class="single_shipping">
-                <div class="shipping_icone">
-                    <img src="assets/img/about/shipping2.png" alt="">
-                </div>
-                <div class="shipping_content">
-                    <h4>Free Delivery</h4>
-                    <p>For all oders over $120</p>
-                </div>
+                <img src="{{ asset('assets/user/images/2.jpg') }}" alt="" class="img-responsive">
             </div>
             <div class="single_shipping">
-                <div class="shipping_icone">
-                    <img src="assets/img/about/shipping3.png" alt="">
-                </div>
-                <div class="shipping_content">
-                    <h4>Free Delivery</h4>
-                    <p>For all oders over $120</p>
-                </div>
+                <img src="{{ asset('assets/user/images/3.jpg') }}" alt="" class="img-responsive">
             </div>
             <div class="single_shipping">
-                <div class="shipping_icone">
-                    <img src="assets/img/about/shipping4.png" alt="">
-                </div>
-                <div class="shipping_content">
-                    <h4>Free Delivery</h4>
-                    <p>For all oders over $120</p>
-                </div>
+                <img src="{{ asset('assets/user/images/4.jpg') }}" alt="" class="img-responsive">
             </div>
             <div class="single_shipping">
-                <div class="shipping_icone">
-                    <img src="assets/img/about/shipping5.png" alt="">
-                </div>
-                <div class="shipping_content">
-                    <h4>Free Delivery</h4>
-                    <p>For all oders over $120</p>
-                </div>
+                <img src="{{ asset('assets/user/images/5.jpg') }}" alt="" class="img-responsive">
             </div>
         </div>
     </div>
@@ -86,7 +61,7 @@
 <!--shipping area end-->
 
 <!--home section bg area start-->
-    <div class="home_section_bg">
+    <div class="home_section_bg" style="padding: 30px 0 132px;">
         <div class="container">
             <div class="row">
 

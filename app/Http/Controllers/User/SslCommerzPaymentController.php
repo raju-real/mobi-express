@@ -47,6 +47,7 @@ class SslCommerzPaymentController extends Controller
             'name' => 'required',
             'mobile' => 'required|min:11',
             'city_town' => 'required',
+            'payment_type' => 'required'
         ]);
         try{
             $invoice = request()->get('invoice');
@@ -54,7 +55,8 @@ class SslCommerzPaymentController extends Controller
             if(Order::where('invoice',$invoice)->exists()){
                 $contact = ContactUs::first();
                 $post_data = array();
-                $post_data['total_amount'] = $order->order_price;
+                $payment_type = $request->payment_type;
+                $post_data['total_amount'] = Order::getPaymentAmount($invoice,$payment_type);
                 $post_data['currency'] = "BDT";
                 $post_data['tran_id'] = uniqid(); // tran_id must be unique
 

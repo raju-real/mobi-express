@@ -120,11 +120,12 @@
                                     <br>
                                     <input id="partial_payment"  name="payment_type" type="radio" value="2" />
                                     <label for="partial_payment">
-                                        Partial Payment ({{ $order->order_price }} BDT)
+                                        Partial Payment ({{ $order->partial_payment }} BDT)
                                     </label>
+                                    <p id="payment_type_error" style="color: red;display: none;">Select Payment</p>
                                 </div>
                             </div>
-                            <input type="checkbox" name="agree" id="agree" required="" class="mt-2">
+                            <input type="checkbox" name="agree" id="agree" class="mt-2">
                             <label for="agree">
                                 I have read full 
                                 <a href="{{ route('terms-condition') }}" target="_blank">
@@ -168,8 +169,21 @@
         } else if(!address.length > 0 || address.trim()==""){
             $('#address').addClass("error");
             return false;
+        } else if($('input[name="payment_type"]:checked').length == 0){
+            $('#payment_type_error').show();
+            return false;
+        } else if($('input[name="agree"]:checked').length == 0){
+            $('#agree').addClass("error");
+            return false;
         } else{
             return true;
+        }
+    });
+</script>
+<script>
+    $("input[name=payment_type]").change(function(){
+        if($('input[name="payment_type"]:checked').length > 0){
+            $('#payment_type_error').hide();
         }
     });
 </script>

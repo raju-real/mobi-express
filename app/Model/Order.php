@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    protected static function getPaymentAmount($invoice, $payment_type){
+        if($payment_type == 1){
+            return Order::where('invoice',$invoice)->first()->order_price;
+        } elseif($payment_type == 2){
+            return Order::where('invoice',$invoice)->first()->partial_payment;
+        }
+    }
     public function products(){
         return $this->hasMany(OrderProduct::class);
     }
