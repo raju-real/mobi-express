@@ -38,7 +38,7 @@ class LoginController extends Controller
             $o = "Otp";
             $c = 'Code';
             $message='Your https://mobixpress.com.bd'.' '.$o.' '.$c.' is '.$otp;
-            //$this->sendOtpMessage($mobile,$message);
+            $this->sendOtpMessage($mobile,$message);
             $identiry = ['mobile'=>$mobile];
             $data = ['mobile'=>$mobile,'otp_code'=>$otp];
             MobileOtp::updateOrInsert($identiry,$data);
@@ -90,10 +90,10 @@ class LoginController extends Controller
     }
 
     public function userRegister(Request $request){
-        return $request;
+        //return $request;
         $this->validate($request,[
             'name'=>'required',
-            'reg_mobile'=>'required|unique:users',
+            'reg_mobile'=>'required',
             'password'=>'required',
             'confirm_password'=>'required|same:password'
         ]);

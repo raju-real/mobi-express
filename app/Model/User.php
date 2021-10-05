@@ -17,4 +17,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function billing(){
+        return $this->belongsTo(BillingAddress::class);
+    }
 }

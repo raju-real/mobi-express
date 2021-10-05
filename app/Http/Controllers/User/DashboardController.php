@@ -4,8 +4,13 @@ namespace App\Http\Controllers\User;
 
 use Alert;
 use App\Http\Controllers\Controller;
+use App\Model\BillingAddress;
+use App\Model\District;
 use App\Model\Order;
+use App\Model\ShippingAddress;
 use App\Model\SslCommerzTransaction;
+use Brian2694\Toastr\Facades\Toastr;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
@@ -44,7 +49,7 @@ class DashboardController extends Controller
         if(isset($order)){
             return view('user.profile.order_details',compact('order'));
         } else {
-            toast('Invalid Invoice Number','error');
+            Toastr::info('Invalid Invoice Number','error');
             return redirect()->route('user.order-history');
         }   
     }
@@ -97,7 +102,37 @@ class DashboardController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->save();
-        toast('Profile Update Successfully','success');
+        Toastr::info('Profile Update Successfully','success');
         return redirect()->route('user.profile');
+    }
+
+    public function addressBook(){
+        $shipping = ShippingAddress::where('user_id',Auth::id())->first();
+        $blling = BillingAddress::where('user_id',Auth::id())->first();
+        $districts = District::orderBy('name')->get();
+        return view('user.profile.address_book',compact('shipping','bllings','districts'));
+    }
+
+    public function updateBillingAddress(Request $request){
+        $identify = ['user_id'=>Auth::id()];
+        $data = [
+            'user_id' => Auth::id(),
+            'full_name' => $request->full_name,
+            'mobile' => $request->mobile,
+            'email' => $request->email,
+            'district' => $request->district,
+            'city_town' => $request->city_town,
+            'post_code' => $request->post_code,
+            'address' => $request->address,
+            'updated_at' => Carbon::now()
+        ];
+        if(request()->get('type') === 'shipping'){
+            ShippingAddress::updateOrInsert($identify,$data);
+        } elseif(request()->get('type') === 'billing'){
+            BillingAddress::updateOrInsert($identify,$data);
+        }
+        
+        Toastr::info('Shipping Address Update Successfully','success');
+        return redirect()->route('user.address-book');
     }
 }

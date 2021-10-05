@@ -166,7 +166,7 @@
                     $('#mobile-div').hide();
                     $('#otp-div').show();
                     $('#alert').show().removeClass().addClass("alert alert-info");
-                    $('#alert-message').text(response.message + '-' + response.otp_code);
+                    $('#alert-message').text(response.message);
                 } else if(response.status === "exists"){
                     $('input[name=mobile').val('');
                     $('#alert').show().removeClass().addClass("alert alert-danger");

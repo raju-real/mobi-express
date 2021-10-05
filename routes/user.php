@@ -22,7 +22,11 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'namespace' => 'User', 'middl
     Route::get('edit-profile','DashboardController@editProfile')
         ->name('edit-profile');
     Route::put('update-profile','DashboardController@updateProfile')
-        ->name('update-profile');        
+        ->name('update-profile'); 
+    Route::get('address-book','DashboardController@addressBook')
+        ->name('address-book');
+    Route::put('update-address','DashboardController@updateBillingAddress')    
+        ->name('update-address');
     Route::get('change-password', 'DashboardController@passChangeForm')
         ->name('change-password');      
 });
