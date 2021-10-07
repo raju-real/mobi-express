@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Model\SslCommerzTransaction as Transaction;
 use App\Model\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,5 +57,16 @@ class DashboardController extends Controller
         $user->status = $status;
         $user->save();
         return redirect()->back();
+    }
+
+    public function transactionHistory(){
+        $data = Transaction::query();
+        $invoice = request()->get('invoice');
+        $transaction_id = request()->get('transaction_id');
+        $from_date = request()->get('from_date');
+        $to_date = request()->get('to_date');
+        $status = request()->get('status');
+        $transactions = $data->latest()->paginate(100);
+        return view('admin.reports.transaction_history',compact('transactions'));
     }
 }

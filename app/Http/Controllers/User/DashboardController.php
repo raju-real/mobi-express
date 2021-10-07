@@ -107,10 +107,12 @@ class DashboardController extends Controller
     }
 
     public function addressBook(){
-        $shipping = ShippingAddress::where('user_id',Auth::id())->first();
-        $blling = BillingAddress::where('user_id',Auth::id())->first();
-        $districts = District::orderBy('name')->get();
-        return view('user.profile.address_book',compact('shipping','bllings','districts'));
+        $shipping = ShippingAddress::with('district_name')
+            ->where('user_id',Auth::id())->first();
+        $billing = BillingAddress::with('district_name')
+            ->where('user_id',Auth::id())->first();
+        $districts = District::orderBy('name','asc')->get();
+        return view('user.profile.address_book',compact('shipping','billing','districts'));
     }
 
     public function updateBillingAddress(Request $request){
@@ -132,7 +134,7 @@ class DashboardController extends Controller
             BillingAddress::updateOrInsert($identify,$data);
         }
         
-        Toastr::info('Shipping Address Update Successfully','success');
+        Toastr::info('Address Update Successfully');
         return redirect()->route('user.address-book');
     }
 }

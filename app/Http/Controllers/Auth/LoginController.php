@@ -35,9 +35,9 @@ class LoginController extends Controller
             ]); 
         } else{
             $otp = MobileOtp::getOtpCode();
-            $o = "Otp";
-            $c = 'Code';
-            $message='Your https://mobixpress.com.bd'.' '.$o.' '.$c.' is '.$otp;
+            $o = "Account Verification";
+            $c = 'Code Is ';
+            $message='Your https://mobixpress.com.bd'.' '.$o.' '.$c.$otp;
             $this->sendOtpMessage($mobile,$message);
             $identiry = ['mobile'=>$mobile];
             $data = ['mobile'=>$mobile,'otp_code'=>$otp];

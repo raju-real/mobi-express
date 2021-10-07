@@ -47,45 +47,45 @@
                                         <label>Full Name</label>
                                         <input type="text" name="full_name" class="form-control" value="{{ $shipping->full_name ?? Auth::user()->name }}">
                                     </div>
-                                    <div class="form-group mt-2">
+                                    <div class="form-group mt-3">
                                         <label>Mobile</label>
                                         <input type="text" name="mobile" class="form-control" value="{{ $shipping->mobile ?? Auth::user()->mobile }}">
                                     </div>
-                                    <div class="form-group mt-2">
+                                    <div class="form-group mt-3">
                                         <label>Email(Optional)</label>
                                         <input type="text" name="email" class="form-control" id="s_email" value="{{ $shipping->email ?? Auth::user()->email }}">
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <div class="form-group mt-2">
+                                            <div class="form-group mt-3">
                                                 <label>District</label>
-                                                {{-- <select name="district" class="form-control mt-2">
-                                                    <option value="">District</option>
+                                                <select name="district" class="form-control">
+                                                    <option value="{{ $shipping->district ?? '' }}">{{ $shipping->district_name->name }}</option>
                                                     @foreach($districts as $district)
                                                         <option value="{{ $district->id }}">
                                                             {{ $district->name }}
                                                         </option>
                                                     @endforeach
-                                                </select> --}}
-                                                <input type="text" name="district" class="form-control" id="s_district" value="{{ $shipping->district ?? '' }}">
+                                                </select>
+                                                {{-- <input type="text" name="district" class="form-control" id="s_district" value="{{ $shipping->district ?? '' }}"> --}}
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="form-group mt-2">
+                                            <div class="form-group mt-3">
                                                 <label>City/Town</label>
                                                 <input type="text" name="city_town" class="form-control"
                                                 value="{{ $shipping->city_town ?? '' }}">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="form-group mt-2">
+                                            <div class="form-group mt-3">
                                                 <label>Post Code</label>
-                                                <input type="text" name="post_code" class="form-control"
+                                                <input type="number" name="post_code" class="form-control"
                                                 value="{{ $shipping->post_code ?? '' }}">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <div class="form-group mt-2">
+                                            <div class="form-group mt-3">
                                                 <label>Address</label>
                                                 <textarea name="address" class="form-control">{{ $shipping->address ?? '' }}</textarea>
                                             </div>
@@ -106,49 +106,49 @@
                                     @method('PUT')
                                     <div class="form-group">
                                         <label>Full Name</label>
-                                        <input type="text" name="full_name" class="form-control" value="{{ $blling->full_name ?? Auth::user()->name }}">
+                                        <input type="text" name="full_name" class="form-control" value="{{ $billing->full_name ?? Auth::user()->name }}">
                                     </div>
-                                    <div class="form-group mt-2">
+                                    <div class="form-group mt-3">
                                         <label>Mobile</label>
-                                        <input type="text" name="mobile" class="form-control" value="{{ $blling->mobile ?? Auth::user()->mobile }}">
+                                        <input type="text" name="mobile" class="form-control" value="{{ $billing->mobile ?? Auth::user()->mobile }}">
                                     </div>
-                                    <div class="form-group mt-2">
+                                    <div class="form-group mt-3">
                                         <label>Email(Optional)</label>
-                                        <input type="text" name="email" class="form-control" id="s_email" value="{{ $blling->email ?? Auth::user()->email }}">
+                                        <input type="text" name="email" class="form-control" id="s_email" value="{{ $billing->email ?? Auth::user()->email }}">
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <div class="form-group mt-2">
+                                            <div class="form-group mt-3">
                                                 <label>District</label>
-                                                {{-- <select name="district" class="form-control mt-2">
-                                                    <option value="">District</option>
+                                                <select name="district" class="form-control">
+                                                    <option value="{{ $billing->district ?? '' }}">{{ $billing->district_name->name ?? '' }}</option>
                                                     @foreach($districts as $district)
                                                         <option value="{{ $district->id }}">
                                                             {{ $district->name }}
                                                         </option>
                                                     @endforeach
-                                                </select> --}}
-                                                <input type="text" name="district" class="form-control" id="s_district" value="{{ $blling->district ?? '' }}">
+                                                </select>
+                                                {{-- <input type="text" name="district" class="form-control" id="s_district" value="{{ $blling->district ?? '' }}"> --}}
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="form-group mt-2">
+                                            <div class="form-group mt-3">
                                                 <label>City/Town</label>
                                                 <input type="text" name="city_town" class="form-control"
-                                                value="{{ $blling->city_town ?? '' }}">
+                                                value="{{ $billing->city_town ?? '' }}">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="form-group mt-2">
+                                            <div class="form-group mt-3">
                                                 <label>Post Code</label>
-                                                <input type="text" name="post_code" class="form-control"
-                                                value="{{ $blling->post_code ?? '' }}">
+                                                <input type="number" name="post_code" class="form-control"
+                                                value="{{ $billing->post_code ?? '' }}">
                                             </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <div class="form-group mt-2">
+                                            <div class="form-group mt-3">
                                                 <label>Address</label>
-                                                <textarea name="address" class="form-control">{{ $blling->address ?? '' }}</textarea>
+                                                <textarea name="address" class="form-control">{{ $billing->address ?? '' }}</textarea>
                                             </div>
                                         </div>
                                         <div class="form-group mt-3">

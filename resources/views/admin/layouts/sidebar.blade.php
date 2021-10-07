@@ -102,6 +102,25 @@
                 </ul>
             </li>
             <li>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-bar-chart"></i>
+                    <span class="nav-label">Reports</span><i class="fa fa-angle-left arrow"></i></a>
+                <ul class="nav-2-level collapse">
+                    <li>
+                        <a href="{{ route('admin.pending-orders') }}">
+                            <i class="fa fa-circle-o"></i>
+                            Sales Report
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.transaction-history') }}">
+                            <i class="fa fa-circle-o"></i>
+                            Transaction Report
+                        </a>
+                    </li>
+                    
+                </ul>
+            </li>
+            <li>
                 <a href="{{ route('admin.product.index') }}"><i class="sidebar-item-icon fa fa-product-hunt"></i>
                     <span class="nav-label">Products</span>
                 </a>

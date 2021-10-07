@@ -59,7 +59,7 @@
                                     <div class="form-group">
                                         <label for="name" class="col-sm-2 col-form-label">Name</label>
                                         <div class="col-sm-10">
-                                          <input name="name" type="name" class="form-control" id="name" value="{{ $order->name }}">
+                                          <input name="name" type="name" class="form-control" id="name" value="{{ $billing->full_name ?? Auth::user()->name }}">
                                         </div>
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@
                                     <div class="form-group">
                                         <label for="mobile" class="col-sm-2 col-form-label">Mobile</label>
                                         <div class="col-sm-10">
-                                          <input name="mobile" type="mobile" class="form-control" id="mobile" value="{{ $order->mobile }}">
+                                          <input name="mobile" type="mobile" class="form-control" id="mobile" value="{{ $billing->mobile ?? Auth::user()->mobile }}">
                                         </div>
                                     </div>
                                 </div>
@@ -78,7 +78,7 @@
                                     <div class="form-group">
                                         <label for="email" class="col-sm-2 col-form-label">Email</label>
                                         <div class="col-sm-10">
-                                          <input name="email" type="email" class="form-control" id="email" value="{{ $order->email }}">
+                                          <input name="email" type="email" class="form-control" id="email" value="{{ $billing->email ?? Auth::user()->email }}">
                                         </div>
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@
                                     <div class="form-group">
                                         <label for="city_town" class="col-sm-2 col-form-label">City</label>
                                         <div class="col-sm-10">
-                                          <input name="city_town" type="city_town" class="form-control" id="city_town" value="{{ $order->city_town }}">
+                                          <input name="city_town" type="city_town" class="form-control" id="city_town" value="{{ $billing->city_town ?? '' }}">
                                         </div>
                                     </div>
                                 </div>
@@ -96,7 +96,7 @@
                                     <div class="form-group">
                                         <label for="post_code" class="col-sm-2 col-form-label">Post Code</label>
                                         <div class="col-sm-10">
-                                          <input name="post_code" type="post_code" class="form-control" id="post_code">
+                                          <input name="post_code" type="number" class="form-control" id="post_code" value="{{ $billing->post_code ?? '' }}">
                                         </div>
                                     </div>
                                 </div>
@@ -125,13 +125,13 @@
                                     <p id="payment_type_error" style="color: red;display: none;">Select Payment</p>
                                 </div>
                             </div>
-                            <input type="checkbox" name="agree" id="agree" class="mt-2">
+                            {{-- <input type="checkbox" name="agree" id="agree" class="mt-2">
                             <label for="agree">
                                 I have read full 
                                 <a href="{{ route('terms-condition') }}" target="_blank">
                                     <u style="color: blue;">terms and condition</u>
                                 </a>
-                            </label>
+                            </label> --}}
                           <br>
                           <button type="submit" class="btn btn-info mt-2">
                               Pay Now
@@ -171,9 +171,6 @@
             return false;
         } else if($('input[name="payment_type"]:checked').length == 0){
             $('#payment_type_error').show();
-            return false;
-        } else if($('input[name="agree"]:checked').length == 0){
-            $('#agree').addClass("error");
             return false;
         } else{
             return true;

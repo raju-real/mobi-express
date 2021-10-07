@@ -79,6 +79,10 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         ->name('change-status');
     //Route::get('invoice','OrderController@invoice')->name('invoice');
     Route::get('invoice','OrderController@downloadInvoice')->name('invoice');
+
+    // Transaction Section
+    Route::get('transaction-history','DashboardController@transactionHistory')
+        ->name('transaction-history');
 });
 
 

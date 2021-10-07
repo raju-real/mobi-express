@@ -20,6 +20,7 @@ use App\Model\Promotion;
 use App\Model\PromotionProduct;
 use App\Model\Review;
 use App\Model\ReviewImage;
+use App\Model\ShippingAddress;
 use App\Model\SpecialOffer;
 use App\Model\SubCategory;
 use App\Model\Subscriber;
@@ -139,7 +140,7 @@ class HomePageController extends Controller
             ->unique('product_id');
         $products = Product::whereIn('id',$ids->pluck('product_id'))
             ->published()
-            ->paginate(20);    
+            ->paginate(20)->unique('product_id');    
         $title = 'Best Selling Products';
         $pageTitle = 'Best Selling Products';
         return view('pages.vendor_products',compact('products','title','pageTitle'));
@@ -500,8 +501,9 @@ class HomePageController extends Controller
                         Session::forget('coupon_message');
                     }
                 }
-                
-                return view('pages.checkout', compact('carts','order_price'));
+                $shipping = ShippingAddress::with('district_name')
+                    ->where('user_id',Auth::id())->first();
+                return view('pages.checkout', compact('carts','order_price','shipping'));
             } else{
                 Alert::error('Your Cart Is Empty');
                 return redirect()->route('carts');

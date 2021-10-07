@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Library\SslCommerz\SslCommerzNotification;
+use App\Model\BillingAddress;
 use App\Model\ContactUs;
 use App\Model\Order;
 use App\Model\SslCommerzTransaction as Transaction;
@@ -28,13 +29,18 @@ class SslCommerzPaymentController extends Controller
 
     public function payHere(){
         try {
-            $invoice = request()->get('invoice');
-            $order = Order::where('invoice',$invoice)->first();
-            if (isset($order)) {
-                return view('user.profile.select_payment',compact('order'));
+            if(Auth::check()){
+                $invoice = request()->get('invoice');
+                $order = Order::where('invoice',$invoice)->first();
+                $billing = BillingAddress::with('district_name')->where('user_id',Auth::id())->first();
+                if (isset($order)) {
+                    return view('user.profile.select_payment',compact('order','billing'));
+                } else{
+                    Alert::error('Invalid Invoice');
+                    return redirect()->route('user.order-history');
+                }
             } else{
-                Alert::error('Invalid Invoice');
-                return redirect()->route('user.order-history');
+                return redirect()->route('login');
             }
         } catch (\Exception $e) {
             return $e->getMessage();
@@ -183,7 +189,7 @@ class SslCommerzPaymentController extends Controller
                 */
                 Transaction::where('transaction_id', $tran_id)
                     ->update([
-                        'status' => 'Processing',
+                        'status' => 'Complete',
                         'val_id' => $request->input('val_id'),
                         'card_type' => $request->input('card_type'),
                         'store_amount' => $request->input('store_amount'),

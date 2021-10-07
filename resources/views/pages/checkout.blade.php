@@ -66,24 +66,26 @@
                         <div class="checkout_form_left">
                             <form action="{{ route('submit-order') }}" method="POST" id="order-form">
                                 @csrf
-                                <h3>Billing Details</h3>
+                                <h3>Shipping Details</h3>
                                 <div class="row">
 
                                     <div class="col-lg-12 mb-20">
                                         <label>Full Name <span class="red">*</span></label>
                                         <input name="name" id="name" type="text" 
-                                        onkeyup="hideError('name')">
+                                        onkeyup="hideError('name')" value="{{ $shipping->full_name ?? Auth::user()->name }}">
                                     </div>
 
                                     <div class="col-12 mb-20">
                                         <label>Mobile<span class="red">*</span></label>
                                         <input name="mobile" id="mobile" type="number"
-                                        onkeyup="hideError('mobile')">
+                                        onkeyup="hideError('mobile')"
+                                        value="{{ $shipping->mobile ?? Auth::user()->mobile }}">
                                     </div>
                                     <div class="col-12 mb-20">
                                         <label>Email</label>
                                         <input name="email" id="email" type="text"
-                                        onkeyup="hideError('email')">
+                                        onkeyup="hideError('email')"
+                                        value="{{ $shipping->email ?? Auth::user()->email }}">
                                     </div>
                                     {{-- <div class="col-12 mb-20">
                                         <label>District<span class="red">*</span></label>
@@ -96,8 +98,8 @@
                                     <div class="col-12 mb-20">
                                         <label>District<span class="red">*</span></label>
                                         <select name="district_id" id="district" class="form-control" onchange="hideError('district')">
-                                        <option value="">
-                                            Select District
+                                        <option value="{{ $shipping->district ?? '' }}">
+                                            {{ $shipping->district_name->name ?? "Select District" }}
                                         </option>
                                         @foreach($districts as $district)
                                         <option value="{{ $district->id }}">
@@ -109,7 +111,8 @@
 
                                     <div class="col-12 mb-20">
                                         <label>City/ Town<span class="red">*</span></label>
-                                        <input name="city_town" id="city_town" type="text" onkeyup="hideError('city_town')">
+                                        <input name="city_town" id="city_town" type="text" onkeyup="hideError('city_town')" 
+                                        value="{{ $shipping->city_town ?? '' }}">
                                     </div>
 
                                     <div class="col-12">
@@ -117,9 +120,10 @@
                                             Address
                                             <span class="red">*</span>
                                         </label>
-                                        <textarea name="address" id="address" class="form-control" onkeyup="hideError('address')"></textarea>
+                                        <textarea name="address" id="address" class="form-control" onkeyup="hideError('address')">{{ $shipping->address ?? '' }}</textarea>
                                     </div>
-                                    <div class="col-12">
+                                    <br>
+                                    <div class="col-12 mt-3">
                                         <label>Order Note</label>
                                         <textarea name="note" id="note" class="form-control"></textarea>
                                     </div>

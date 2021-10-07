@@ -98,13 +98,13 @@
                                                 <a href="{{ route('pay-here',['invoice'=>$order->invoice]) }}" style="color: blue;">Pay Now</a>
                                             @elseif($order->payment_status == 1)
                                                 <span>Paid</span>
-                                                <a href="{{ route('user.payment-details',['invoice'=>$order->invoice]) }}" style="color: blue;">
+                                                <a href="{{ route('user.payment-details',['invoice'=>$order->invoice]) }}" style="color: green;">
                                                     Details
                                                 </a>
                                             @endif    
                                         </td>
                                         <td style="text-align: left;font-weight: normal;">
-                                            <a href="{{ route('user.order-details',['invoice'=>$order->invoice]) }}" class="view">view
+                                            <a href="{{ route('user.order-details',['invoice'=>$order->invoice]) }}" class="">Details
                                             </a>
                                         </td>
                                     </tr>

@@ -425,6 +425,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="footer_payment text-right">
+                            <span>Pay With</span>
                             <img src="{{ asset('assets/user/img/icon/payment.png') }}" alt="">
                         </div>
                     </div>
