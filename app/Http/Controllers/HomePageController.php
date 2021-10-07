@@ -140,7 +140,7 @@ class HomePageController extends Controller
             ->unique('product_id');
         $products = Product::whereIn('id',$ids->pluck('product_id'))
             ->published()
-            ->paginate(20)->unique('product_id');    
+            ->paginate(20);    
         $title = 'Best Selling Products';
         $pageTitle = 'Best Selling Products';
         return view('pages.vendor_products',compact('products','title','pageTitle'));
