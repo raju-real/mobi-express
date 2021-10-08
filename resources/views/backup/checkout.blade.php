@@ -6,9 +6,6 @@
     .error{
         border: 1px solid red !important;
     } 
-    .width{
-        width: 30%;
-    }
 </style>
 @endpush
 @endpush
@@ -73,62 +70,60 @@
                                 <div class="row">
 
                                     <div class="col-lg-12 mb-20">
-                                        <table class="table table-responsive table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th class="width">Full Name</th>
-                                                    <th id="ship_name">
-                                                        {{ $shipping->full_name ?? '' }}
-                                                    </th>
-                                                </tr>
-                                                <tr>
-                                                    <th class="width">Mobile</th>
-                                                    <th id="ship_mobile">
-                                                        {{ $shipping->mobile ?? '' }}
-                                                    </th>
-                                                </tr>
-                                                <tr>
-                                                    <th class="width">Email</th>
-                                                    <th>{{ $shipping->email ?? '' }}</th>
-                                                </tr>
-                                                <tr>
-                                                    <th class="width">District</th>
-                                                    <th id="ship_district">
-                                                        {{ $shipping->district_name->name ?? '' }}
-                                                    </th>
-                                                </tr>
-                                                <tr>
-                                                    <th class="width">City/Town</th>
-                                                    <th id="ship_city_town">
-                                                        {{ $shipping->city_town ?? '' }}
-                                                    </th>
-                                                </tr>
-                                                <tr>
-                                                    <th class="width">Post Code</th>
-                                                    <th id="ship_post_code">
-                                                        {{ $shipping->post_code ?? '' }}
-                                                    </th>
-                                                </tr>
-                                                <tr>
-                                                    <th class="width">Address</th>
-                                                    <th id="ship_address">
-                                                        {{ $shipping->address ?? '' }}
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                        <a href="#" 
-                                        class="btn btn-info btn-sm pull-right" 
-                                        data-tippy-placement="top" 
-                                        data-tippy-arrow="true" 
-                                        data-tippy-inertia="true"  
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#ship-add-update" 
-                                        >
-                                            Update Shipping Address
-                                        </a>
+                                        <label>Full Name <span class="red">*</span></label>
+                                        <input name="name" id="name" type="text" 
+                                        onkeyup="hideError('name')" value="{{ $shipping->full_name ?? Auth::user()->name }}">
                                     </div>
+
+                                    <div class="col-12 mb-20">
+                                        <label>Mobile<span class="red">*</span></label>
+                                        <input name="mobile" id="mobile" type="number"
+                                        onkeyup="hideError('mobile')"
+                                        value="{{ $shipping->mobile ?? Auth::user()->mobile }}">
+                                    </div>
+                                    <div class="col-12 mb-20">
+                                        <label>Email</label>
+                                        <input name="email" id="email" type="text"
+                                        onkeyup="hideError('email')"
+                                        value="{{ $shipping->email ?? Auth::user()->email }}">
+                                    </div>
+                                    {{-- <div class="col-12 mb-20">
+                                        <label>District<span class="red">*</span></label>
+                                        <input name="district" id="district" type="text">
+                                    </div> --}}
+                                    @php
+                                        $districts = DB::table('districts')
+                                            ->get();
+                                    @endphp
+                                    <div class="col-12 mb-20">
+                                        <label>District<span class="red">*</span></label>
+                                        <select name="district_id" id="district" class="form-control" onchange="hideError('district')">
+                                        <option value="{{ $shipping->district ?? '' }}">
+                                            {{ $shipping->district_name->name ?? "Select District" }}
+                                        </option>
+                                        @foreach($districts as $district)
+                                        <option value="{{ $district->id }}">
+                                            {{ $district->name }}
+                                        </option>
+                                        @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="col-12 mb-20">
+                                        <label>City/ Town<span class="red">*</span></label>
+                                        <input name="city_town" id="city_town" type="text" onkeyup="hideError('city_town')" 
+                                        value="{{ $shipping->city_town ?? '' }}">
+                                    </div>
+
                                     <div class="col-12">
+                                        <label>
+                                            Address
+                                            <span class="red">*</span>
+                                        </label>
+                                        <textarea name="address" id="address" class="form-control" onkeyup="hideError('address')">{{ $shipping->address ?? '' }}</textarea>
+                                    </div>
+                                    <br>
+                                    <div class="col-12 mt-3">
                                         <label>Order Note</label>
                                         <textarea name="note" id="note" class="form-control"></textarea>
                                     </div>
@@ -223,10 +218,6 @@
                                         </tfoot>
                                     </table>
                                 </div>
-                                <h5 style="color: green;font-weight: bold;">
-                                    Delivery Charge: Inside Dhaka 60 <i class="fb-taka"></i>
-                                    Outside Dhaka 90 <i class="fb-taka"></i>
-                                </h5>
                                 <div class="payment_method">
                                     <div class="panel-default">
                                         <input id="cash-on-delivery"  
@@ -269,90 +260,6 @@
                                     @method('DELETE')
                                     <input type="hidden" name="coupon_code" value="{{ $order_price->coupon_code }}">
                                 </form>
-
-                                {{-- Shipping Address Update --}}
-                                <!-- Modal -->
-                                <!-- modal area start-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- Shipping Address Update Modal --}}
-<div class="modal fade" id="ship-add-update" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            @php
-                $districts = App\Model\District::orderBy('name','asc')->get();
-            @endphp
-            <div class="modal_body">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <form action="{{ route('user.update-address',['type'=>'shipping']) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="checkout" value="yes">
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" name="full_name" class="form-control" value="{{ $shipping->full_name ?? Auth::user()->name }}">
-                        </div>
-                        <div class="form-group mt-3">
-                            <label>Mobile</label>
-                            <input type="text" name="mobile" class="form-control" value="{{ $shipping->mobile ?? Auth::user()->mobile }}">
-                        </div>
-                        <div class="form-group mt-3">
-                            <label>Email(Optional)</label>
-                            <input type="text" name="email" class="form-control" id="s_email" value="{{ $shipping->email ?? Auth::user()->email }}">
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group mt-3">
-                                    <label>District</label>
-                                    <select name="district" class="form-control">
-                                        <option value="{{ $shipping->district_name->id ?? '' }}">{{ $shipping->district_name->name ?? 'Select District' }}</option>
-                                        @foreach($districts as $district)
-                                            <option value="{{ $district->id }}">
-                                                {{ $district->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    {{-- <input type="text" name="district" class="form-control" id="s_district" value="{{ $shipping->district ?? '' }}"> --}}
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group mt-3">
-                                    <label>City/Town</label>
-                                    <input type="text" name="city_town" class="form-control"
-                                    value="{{ $shipping->city_town ?? '' }}">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group mt-3">
-                                    <label>Post Code</label>
-                                    <input type="number" name="post_code" class="form-control"
-                                    value="{{ $shipping->post_code ?? '' }}">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group mt-3">
-                                    <label>Address</label>
-                                    <textarea name="address" class="form-control">{{ $shipping->address ?? '' }}</textarea>
-                                </div>
-                            </div>
-                            <div class="form-group mt-3">
-                                <button type="submit" class="btn btn-success pull-right">
-                                    Update
-                                </button>
-                            </div>
-                        </div>
-                    </form>
                         </div>
                     </div>
                 </div>
@@ -367,26 +274,26 @@
 @push('js')
 <script>
     $('#order-form').submit(function(){
-        var name = $('#ship_name').text();
-        var mobile = $('#ship_mobile').text();
-        var district = $('#ship_district').text();
-        var city_town = $('#ship_city_town').text();
-        var address = $('#ship_address').text();
-        //var payment_method = $('input[name=payment_method]:checked').val();
+        var name = $('#name').val();
+        var mobile = $('#mobile').val();
+        var district = $('#district').val();
+        var city_town = $('#city_town').val();
+        var address = $('textarea#address').val();
+        var payment_method = $('input[name=payment_method]:checked').val();
         if(!name.length > 0 || name.trim()==""){
-            $('#ship_name').text("Set Your Name").css("color","red");
+            $('#name').addClass("error");
             return false;
         } else if(!mobile.length > 0 || mobile.trim()==""){
-            $('#ship_mobile').text("Set Your Mobile").css("color","red");
+            $('#mobile').addClass("error");
             return false;
         } else if(!district.length > 0 || district.trim()==""){
-            $('#ship_district').text("Set Your District").css("color","red");
+            $('#district').addClass("error");
             return false;
         } else if(!city_town.length > 0 || city_town.trim()==""){
-            $('#ship_city_town').text("Set Your City/Town").css("color","red");
+            $('#city_town').addClass("error");
             return false;
         } else if(!address.length > 0 || address.trim()==""){
-            $('#ship_address').text("Set Your Address").css("color","red");
+            $('#address').addClass("error");
             return false;
         } else if(!payment_method.length > 0 || payment_method.trim()==""){
             $("input[name=payment_method]").append('<span id="pass_message" style="color:red"></span>');

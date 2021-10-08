@@ -74,14 +74,14 @@ class ProductController extends Controller
         $product->product_details = $request->product_details;
         $product->specification = $request->specification;
         $product->unit_price = $request->unit_price;
-        $product->discount_price = $request->discount_price;
-        if($request->discount_price){
-            $product->discount_price = $request->discount_price;
-            $result = (($request->unit_price - $request->discount_price)*100)/$request->unit_price;
-            $product->percentage = round($result);
-        } else{
-            $product->discount_price = 0;
-        }
+        $product->discount_price = $request->discount_price ?? 0;
+        // if($request->discount_price){
+        //     $product->discount_price = $request->discount_price;
+        //     $result = (($request->unit_price - $request->discount_price)*100)/$request->unit_price;
+        //     $product->percentage = round($result);
+        // } else{
+        //     $product->discount_price = 0;
+        // }
         $product->stock_status = $request->stock_status;
         $product->quantity = $request->quantity;
         $product->special_note = $request->special_note;
@@ -149,14 +149,15 @@ class ProductController extends Controller
         $product->product_details = $request->product_details;
         $product->specification = $request->specification;
         $product->unit_price = $request->unit_price;
-        $product->discount_price = $request->discount_price;
-        if($request->discount_price){
-            $product->discount_price = $request->discount_price;
-            $result = (($request->unit_price - $request->discount_price)*100)/$request->unit_price;
-            $product->percentage = round($result);
-        } else{
-            $product->discount_price = 0;
-        }
+        $product->discount_price = $request->discount_price ?? 0;
+        // $product->discount_price = $request->discount_price;
+        // if($request->discount_price){
+        //     $product->discount_price = $request->discount_price;
+        //     $result = (($request->unit_price - $request->discount_price)*100)/$request->unit_price;
+        //     $product->percentage = round($result);
+        // } else{
+        //     $product->discount_price = 0;
+        // }
         $product->stock_status = $request->stock_status;
         $product->quantity = $request->quantity;
         $product->special_note = $request->special_note;

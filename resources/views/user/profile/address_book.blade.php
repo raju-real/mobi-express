@@ -60,7 +60,7 @@
                                             <div class="form-group mt-3">
                                                 <label>District</label>
                                                 <select name="district" class="form-control">
-                                                    <option value="{{ $shipping->district ?? '' }}">{{ $shipping->district_name->name }}</option>
+                                                    <option value="{{ $shipping->district ?? '' }}">{{ $shipping->district_name->name ?? '' }}</option>
                                                     @foreach($districts as $district)
                                                         <option value="{{ $district->id }}">
                                                             {{ $district->name }}

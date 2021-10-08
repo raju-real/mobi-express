@@ -12,7 +12,7 @@ class Product extends Model
     protected $guarded = [];
 
     // Append Extra Filed To Return
-    protected $appends = array('image','rating');
+    protected $appends = array('image','rating','percentage');
 
     public function getImageAttribute()
     {
@@ -24,6 +24,19 @@ class Product extends Model
 
     public function getRatingAttribute(){
         return Review::where('product_id',$this->id)->max('rating');
+    }
+
+    public function getPercentageAttribute(){
+        $product = Product::select('unit_price','discount_price')->findOrFail($this->id);
+        $percentage = 0;
+        if($product->discount_price == 0){
+            $percentage = 0;
+        } else{
+            $result = (($product->unit_price - $product->discount_price)*100)/$product->unit_price;
+            $percentage = round($result);
+        }
+        
+        return $percentage;
     }
 
     public static function getProducts(){

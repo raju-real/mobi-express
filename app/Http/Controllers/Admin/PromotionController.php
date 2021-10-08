@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
+use App\Model\Product;
 use App\Model\Promotion;
 use App\Model\PromotionProduct;
-use App\Model\Product;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 Use Alert;
 
 class PromotionController extends Controller
@@ -43,7 +44,7 @@ class PromotionController extends Controller
         $promotion->serial = $request->serial;
         $promotion->status = $request->status;
         $promotion->save();
-        toast('Promotion Added Successfully','success');
+        Toastr::info('Promotion Added Successfully','success');
         return redirect()->route('admin.promotion.index');
     }
 
@@ -70,7 +71,7 @@ class PromotionController extends Controller
         $promotion->serial = $request->serial;
         $promotion->status = $request->status;
         $promotion->save();
-        toast('Promotion Updated Successfully','info');
+        Toastr::info('Promotion Updated Successfully','info');
         return redirect()->route('admin.promotion.index');
     }
 
@@ -82,7 +83,7 @@ class PromotionController extends Controller
         }
         PromotionProduct::whereIn('promotion_id',[$promotion->id])->delete();
         $promotion->delete();
-        toast('Promotion Successfully Deleted','error');
+        Toastr::info('Promotion Successfully Deleted','error');
         return redirect()->route('admin.promotion.index');
     }
 
@@ -114,7 +115,7 @@ class PromotionController extends Controller
         ];
             
         if (sizeof(PromotionProduct::where($where)->get()) > 0) {
-            toast('Product Already Added On This Promotion','error');
+            Toastr::info('Product Already Added On This Promotion','error');
             return redirect()->back();
 
         } else {
@@ -123,21 +124,25 @@ class PromotionController extends Controller
             $product->product_id = $request->product_id;
             $product->status = $request->status;
             $findProduct = Product::findOrFail($request->product_id);
-            $product->unit_price = $findProduct->unit_price;
-            if($request->discount > $product->unit_price){
-                toast('Invalid Price','error');
-                return redirect()->back();
-            }
-            $result = (($findProduct->unit_price - $request->discount)*100) /
-            $findProduct->unit_price;
-            $product->percentage = round($result);
-            $product->discount_price = $request->discount;
-            // Change price to product
-            $findProduct->discount_price = $request->discount;
-            $findProduct->percentage = round($result);
-            $findProduct->save();    
+            if($request->status == 0){
+                $findProduct->update(['discount_price'=>0]);
+            } else{
+                $product->unit_price = $findProduct->unit_price;
+                if($request->discount > $product->unit_price){
+                    Toastr::info('Invalid Price','error');
+                    return redirect()->back();
+                }
+                $result = (($findProduct->unit_price - $request->discount)*100) /
+                $findProduct->unit_price;
+                $product->percentage = round($result);
+                $product->discount_price = $request->discount;
+                // Change price to product
+                $findProduct->discount_price = $request->discount;
+                $findProduct->percentage = round($result);
+                $findProduct->save();
+            }                
             $product->save();
-            toast('Product Successfully Added','success');
+            Toastr::info('Product Successfully Added','success');
             return redirect()->back();
         }
     }
@@ -166,13 +171,13 @@ class PromotionController extends Controller
         $result = (($findProduct->unit_price - $request->offer_price)*100)
             /$findProduct->unit_price;
         if($request->offer_price > $product->unit_price){
-                toast('Invalid Price','error');
+                Toastr::info('Invalid Price','error');
                 return redirect()->back();
         }
         $product->percentage = round($result).'%';
         $product->status = $request->status;
         $product->save();
-        Toastr::success('Product Successfully Updated');
+        Toastr::info('Product Successfully Updated');
         return redirect()->back();
     }
 

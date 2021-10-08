@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Alert;
 use App\Http\Controllers\Controller;
 use App\Model\Product;
 use App\Model\SpecialOffer;
-use Illuminate\Http\Request;
-use Alert;
+use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class OfferController extends Controller
 {
@@ -32,11 +33,11 @@ class OfferController extends Controller
         ]);
         $offer = new SpecialOffer();
         $offer->product_id = $request->product_id;
-        $offer->discount_price = $request->discount_price;
+        $offer->discount_price = $request->discount_price ?? 0;
         $startDate = Carbon::parse($request->start_date)->startOfDay();
         $endDate = Carbon::parse($request->end_date)->endOfDay();
         if($startDate > $endDate){
-            toast('Invalid Date Range','error');
+            Toastr::info('Invalid Date Range','error');
             return redirect()->back();
         }
         $offer->start_date = $startDate;
@@ -44,16 +45,17 @@ class OfferController extends Controller
         $offer->status = $request->status;
         // Save at product
         $product = Product::findOrFail($request->product_id);
-        if($request->discount_price > $product->unit_price){
-            toast('Invalid Discount Price','error');
-            return redirect()->back();
+        if($request->status == 1){
+            if($request->discount_price > $product->unit_price){
+                Toastr::info('Invalid Discount Price','error');
+                return redirect()->back();
+            }
+            $product->update(['discount_price'=>$request->discount_price]);
+        } elseif($request->status == 0){
+            $product->update(['discount_price'=>0]);
         }
-        $product->discount_price = $request->discount_price;
-        $result = (($product->unit_price - $request->discount_price)*100)/$product->unit_price;
-        $product->percentage = round($result);
-        $product->save();
         $offer->save();
-        toast('Offer Product Aadded Successfully','success');
+        Toastr::info('Offer Product Aadded Successfully','success');
         return redirect()->route('admin.offer.create');
     }
 
@@ -78,7 +80,7 @@ class OfferController extends Controller
         $startDate = Carbon::parse($request->start_date)->startOfDay();
         $endDate = Carbon::parse($request->end_date)->endOfDay();
         if($startDate > $endDate){
-            toast('Invalid Date Range','error');
+            Toastr::info('Invalid Date Range','error');
             return redirect()->back();
         }
         $offer->start_date = $startDate;
@@ -86,22 +88,23 @@ class OfferController extends Controller
         $offer->status = $request->status;
         // Save at product
         $product = Product::findOrFail($request->product_id);
-        if($request->discount_price > $product->unit_price){
-            toast('Invalid Discount Price','error');
-            return redirect()->back();
+        if($request->status == 1){
+            if($request->discount_price > $product->unit_price){
+                Toastr::info('Invalid Discount Price','error');
+                return redirect()->back();
+            }
+            $product->update(['discount_price'=>$request->discount_price]);
+        } elseif($request->status == 0){
+            $product->update(['discount_price'=>0]);
         }
-        $product->discount_price = $request->discount_price;
-        $result = (($product->unit_price - $request->discount_price)*100)/$product->unit_price;
-        $product->percentage = round($result);
-        $product->save();
         $offer->save();
-        toast('Offer Product Updated Successfully','info');
+        Toastr::info('Offer Product Updated Successfully','info');
         return redirect()->route('admin.offer.index');
     }
 
     public function destroy($id){
         SpecialOffer::find($id)->delete();
-        toast('Offer Product Delete Successfully','error');
+        Toastr::info('Offer Product Delete Successfully','error');
         return redirect()->route('admin.offer.index');
     }
 }

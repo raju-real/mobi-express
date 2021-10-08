@@ -465,15 +465,6 @@ class HomePageController extends Controller
             }])->where('session_id',$session_id)->get();
 
             if(sizeof($carts)>0){
-                //Find Shipping & Delivery Charge
-                $shipping = ShippingAddress::with('district_name')
-                    ->where('user_id',Auth::id())->first();
-                if(isset($shipping)){
-                    $delivery_charge = $shipping->delivery_charge ?? 0;
-                } else{
-                    ShippingAddress::insert(['user_id'=>Auth::id()]);
-                    $delivery_charge = 0;
-                }
                 // Set Order Price
                 $identify = [
                     'session_id'=>$session_id,
@@ -493,9 +484,8 @@ class HomePageController extends Controller
                     'session_id' => $session_id,
                     'user_id' => Auth::id(),
                     'total_price' => $totalPrice,
-                    'order_price'=> $orderPrice + $delivery_charge,
-                    'product_discount_price' => $productDiscountPrice,
-                    'delivery_charge' => $delivery_charge
+                    'order_price'=> $orderPrice,
+                    'product_discount_price' => $productDiscountPrice
                 ];
 
                 OrderPrice::updateOrInsert($identify,$data);
@@ -511,7 +501,8 @@ class HomePageController extends Controller
                         Session::forget('coupon_message');
                     }
                 }
-                
+                $shipping = ShippingAddress::with('district_name')
+                    ->where('user_id',Auth::id())->first();
                 return view('pages.checkout', compact('carts','order_price','shipping'));
             } else{
                 Alert::error('Your Cart Is Empty');
@@ -552,7 +543,14 @@ class HomePageController extends Controller
     }
 
     public function submitOrder(Request $request){
-        $this->validate($request,['payment_method' => 'required']);
+        $this->validate($request,[
+            'name' => 'required',
+            'mobile' => 'required|min:11',
+            'district_id' => 'required',
+            'city_town' => 'required',
+            'address' => 'required',
+            'payment_method' => 'required'
+        ]);
         if(Auth::check()){
             $session_id = Session::get('session_id');
             $identify = [
@@ -588,42 +586,12 @@ class HomePageController extends Controller
             }
 
             // Basic Info
-            $shipping = ShippingAddress::with('district_name')->where('user_id',Auth::id())->first();
-            if(empty($shipping)){
-                ShippingAddress::insert(['user_id'=>Auth::id()]);
-            } else{
-                if($shipping->full_name != null){
-                    $order_info->name = $shipping->full_name;
-                } else{
-                    $this->validate($request,['name' => 'required']);
-                }
-                if($shipping->mobile != null){
-                    $order_info->mobile = $shipping->mobile;
-                } else{
-                    $this->validate($request,['mobile' => 'required']);
-                }
-                if($shipping->email != null){
-                    $order_info->email = $shipping->email;
-                } else{
-                    $order_info->email = null;
-                }
-                if($shipping->district != null){
-                    $order_info->district_id = $shipping->district;
-                } else{
-                    $this->validate($request,['district' => 'required']);
-                }
-                if($shipping->city_town != null){
-                    $order_info->city_town = $shipping->city_town;
-                } else{
-                    $this->validate($request,['city_town' => 'required']);
-                }
-                if($shipping->address != null){
-                    $order_info->address = $shipping->address;
-                } else{
-                    $this->validate($request,['address' => 'required']);
-                }
-            }
-            
+            $order_info->name = $request->name;
+            $order_info->mobile = $request->mobile;
+            $order_info->email = $request->email;
+            $order_info->district_id = $request->district_id;
+            $order_info->city_town = $request->city_town;
+            $order_info->address = $request->address;
             $order_info->note = $request->note;
             $order_info->save();
 

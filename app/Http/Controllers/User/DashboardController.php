@@ -109,6 +109,9 @@ class DashboardController extends Controller
     public function addressBook(){
         $shipping = ShippingAddress::with('district_name')
             ->where('user_id',Auth::id())->first();
+        if(empty($shipping)){
+            ShippingAddress::insert(['user_id'=>Auth::id()]);
+        }
         $billing = BillingAddress::with('district_name')
             ->where('user_id',Auth::id())->first();
         $districts = District::orderBy('name','asc')->get();
@@ -129,12 +132,20 @@ class DashboardController extends Controller
             'updated_at' => Carbon::now()
         ];
         if(request()->get('type') === 'shipping'){
+            if($request->district == 2){
+                $data['delivery_charge'] = 60;
+            } else{
+                $data['delivery_charge'] = 90;
+            }
             ShippingAddress::updateOrInsert($identify,$data);
         } elseif(request()->get('type') === 'billing'){
             BillingAddress::updateOrInsert($identify,$data);
         }
         
         Toastr::info('Address Update Successfully');
+        if(!empty(request()->get('checkout')) AND request()->get('checkout') === "yes"){
+            return redirect()->route('checkout');
+        }
         return redirect()->route('user.address-book');
     }
 }

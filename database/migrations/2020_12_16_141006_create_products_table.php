@@ -26,7 +26,6 @@ class CreateProductsTable extends Migration
             $table->text('specification')->nullable();
             $table->double('unit_price', 8, 2);
             $table->double('discount_price', 8, 2)->default(0);
-            $table->string('percentage')->nullable();
             $table->integer('stock_status')->default(1);
             $table->integer('quantity')->nullable()->default('0');
             $table->string('special_note')->nullable();
