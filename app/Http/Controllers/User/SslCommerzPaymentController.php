@@ -130,7 +130,7 @@ class SslCommerzPaymentController extends Controller
                         'mobile' => $mobile,
                         'city_town' => $city_town,
                         'post_code' => $post_code,
-                        'address' => $request->address,
+                        'address' => $address,
                         'currency' => $post_data['currency']
                     ];
                     Transaction::updateOrInsert($identify,$data);
@@ -155,7 +155,7 @@ class SslCommerzPaymentController extends Controller
 
     public function success(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
         $message = "";
         $message = "";
 
@@ -214,7 +214,8 @@ class SslCommerzPaymentController extends Controller
                     $order->payment_method = 2;
                     $order->payment_time   = $request->input('tran_date');
                     $order->paid_amount    = $amount;
-                    $order->due_amount    =  $order->order_price - $amount;
+                    $order->due_amount     =  $order->order_price - $amount;
+                    $order->order_status   = 1;
                     $order->save();
                 $message = "Transaction Successfully Completed";
                 $type = "danger";

@@ -44,6 +44,7 @@ class CreateOrdersTable extends Migration
             $table->string('district')->nullable();
             $table->string('city_town')->nullable();
             $table->text('address');
+            $table->integer('post_code')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
         });

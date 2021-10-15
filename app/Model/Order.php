@@ -26,6 +26,10 @@ class Order extends Model
     public function district(){
         return $this->belongsTo(District::class,'district_id','id');
     }
+
+    public function online_payment(){
+        return $this->belongsTo(SslCommerzTransaction::class,'invoice','invoice');
+    }
     
     public static function getOrderNumber()
     {

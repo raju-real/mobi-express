@@ -40,7 +40,7 @@ class HomePageController extends Controller
         // Promotions
         $promotions = Promotion::orderBy('serial','asc')->where('status',1)
         ->get();
-        $categories = Category::inRandomOrder()->take(5)->get();
+        $categories = Category::OrderBy('serial','asc')->take(5)->get();
         $offers = SpecialOffer::with('product')
             ->where('start_date','<=',Carbon::today())
             ->where('end_date','>=',Carbon::today())
@@ -626,7 +626,7 @@ class HomePageController extends Controller
                     return redirect()->back()->with('ship_address','Set Your Address');
                 }
             }
-            
+            $order_info->post_code = $shipping->post_code ?? null;
             $order_info->note = $request->note;
             $order_info->save();
 

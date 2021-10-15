@@ -106,15 +106,15 @@
                                             {{ $order->order_price }} BDT
                                         </td>
                                         <td style="text-align: left;min-width: fit-content;font-weight: normal;">
-                                            @if($order->payment_status == 0)
+                                            {{-- @if($order->payment_status == 0)
                                                 <a href="{{ route('pay-here',['invoice'=>$order->invoice]) }}" style="color: blue;">Pay Now</a>
                                             @elseif($order->payment_status == 1)
                                                 <span>Paid</span>
                                                 <a href="{{ route('user.payment-details',['invoice'=>$order->invoice]) }}" style="color: green;">
                                                     Details
                                                 </a>
-                                            @endif   
-                                            {{-- @if($order->payment_method == 1) 
+                                            @endif  --}}  
+                                            @if($order->payment_method == 1) 
                                             <span class="cash">
                                                     {{ 'Cash On Delivery' }}
                                                 </span>
@@ -122,7 +122,7 @@
                                                 <span class="online">
                                                     {{ 'Online Payment' }}
                                                 </span>   
-                                            @endif --}}
+                                            @endif
                                         </td>
                                         <td style="text-align: left;min-width: fit-content;font-weight: normal;">{{ $order->paid_amount }} BDT</td>
                                         <td style="text-align: left;min-width: fit-content;font-weight: normal;">{{ $order->due_amount }} BDT</td>

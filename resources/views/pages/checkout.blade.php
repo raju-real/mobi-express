@@ -296,7 +296,7 @@
                                         </p>
                                     </div>
                                     <div class="order_button">
-                                        <button type="click" id="submit-order-button">
+                                        <button type="button" id="submit-order-button">
                                             Submit Order
                                         </button>
                                     </div>
@@ -421,7 +421,6 @@
                 var city_town = shipping.city_town;
                 var address = shipping.address;
                 let payment_method = $('input[name=payment_method]:checked').val();
-                
                 if(name == null){
                     $('#ship_name').text("Set Your Name").css("color","red");
                     return false;
@@ -437,10 +436,10 @@
                 } else if(address == null){
                     $('#ship_address').text("Set Your Address").css("color","red");
                     return false;
-                } else if(payment_method == 3){
+                } else if(payment_method == 3 && $('#agree-box').prop("checked") == false){
                     $('#agree-message').show();
-                    return false;
-                }else{
+                    return false;                 
+                } else{
                     $('#order-form').submit();
                 }
 

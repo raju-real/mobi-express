@@ -16,6 +16,17 @@
         border-radius: 10px;
         padding: 2px 10px;
     }
+    .card {
+        background-color: white;
+        border: none;
+        box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.2), 
+        0px 1px 1px 2px rgba(0, 0, 0, 0.14), 
+        0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+    }    
+        
+    .card-body {
+        font-weight: 300px;
+    }
 </style>
 @endpush
 
@@ -52,31 +63,72 @@
                     <div class="col-sm-12 col-md-9 col-lg-9">
                         <!-- Tab panes -->
                         <h3>Order Details</h3>
+                        <hr>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <h4>Shipping Details</h4>
-                                <hr>
-
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p>
+                                            {{ $order->name ?? '' }} <br>
+                                            {{ $order->mobile ?? '' }}<br>
+                                            {{ $order->district->name ?? '' }},
+                                            {{ $order->city_town ?? '' }} <br>
+                                            {{ $order->address ?? '' }},
+                                            {{ $order->post_code ?? '' }}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <h4>Payment Details</h4>
-                                <hr>
-                                @if($order->payment_method == 1)
-                                    <p>
-                                        Payment Method : 
-                                        <span class="cash">
-                                            {{ 'Cash On Delivery' }}
-                                        </span>
-                                    </p>
-                                @elseif($order->payment_method == 2)
-                                    <p>
-                                        Payment Method : 
-                                        <span class="online">
-                                            {{ 'Online Payment' }}
-                                        </span>
-                                    </p>
-                                @endif
+                                <div class="card">
+                                    <div class="card-body">
+                                        @if($order->payment_method == 1)
+                                            <p>
+                                                Payment Method : 
+                                                <span class="cash">
+                                                    {{ 'Cash On Delivery' }}
+                                                </span>
+                                            </p>
+                                        @elseif($order->payment_method == 2)
+                                            {{-- <p>
+                                                Payment Method : 
+                                                <span class="online">
+                                                    {{ 'Online Payment' }}
+                                                </span>
+                                            </p> --}}
+                                            <p>
+                                                Payment Method: 
+                                                {{ $order->online_payment->card_issuer ?? '' }} <br>
+                                                Transaction Id: 
+                                                {{ $order->online_payment->transaction_id ?? '' }} <br>
+                                                Amount:
+                                                    {{ $order->online_payment->transaction_amount ?? '' }} 
+                                                    {{ $order->online_payment->currency ?? '' }} <br>
+                                                Status:
+                                                {{ $order->online_payment->status ?? '' }}    
+                                            </p>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
+                            @if($order->payment_method == 2)
+                                <div class="col-md-4">
+                                    <h4>Billing Details</h4>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <p>
+                                                {{ $order->online_payment->name ?? '' }} <br>
+                                                {{ $order->online_payment->mobile ?? '' }}<br>
+                                                {{ $order->online_payment->city_town ?? '' }} <br>
+                                                {{ $order->online_payment->address ?? '' }},
+                                                {{ $order->online_payment->post_code ?? '' }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                         <hr>
                         <div class="table-responsive" >
@@ -97,7 +149,7 @@
                                             {{ $loop->index + 1 }}
                                         </td>
                                         <td style="text-align: left;font-weight: normal;">
-                                            {{ $order_product->product->name }} X
+                                            {{ $order_product->product->name }}  X
                                             {{ $order_product->quantity }}
                                         </td>
                                         <td style="text-align: left;font-weight: normal;">

@@ -38,18 +38,28 @@ class DashboardController extends Controller
 
     public function orderDetails(){
         $invoice = request()->get('invoice');
-        $order = Order::with(['products'=>function($query){
-                $query->select('id','product_id','order_id','order_price','quantity','total_price','size_id','color_id');
-                $query->with(['product'=>function($query){
+        $order = Order::with(
+            [
+                'products'=>function($query){
+                    $query->select('id','product_id','order_id','order_price','quantity','total_price','size_id','color_id');
+                    $query->with(['product'=>function($query){
+                        $query->select('id','name');
+                    }]);
+                },
+                'online_payment' => function($query){
+                    $query->select('invoice','transaction_id','transaction_time','transaction_amount','currency','status','card_issuer','card_brand','name','mobile','city_town','post_code','address');
+                },
+                'district' => function($query){
                     $query->select('id','name');
-                }]);
-            }])
+                }
+            ])
             ->where('user_id',Auth::id())
             ->where('invoice',$invoice)
             ->latest()
-            ->select('id','invoice','created_at','order_status','order_price','payment_method')
+            ->select('id','invoice','created_at','order_status','order_price','payment_method','name','mobile','city_town','post_code','address','district_id')
             ->first();
         if(isset($order)){
+            //return $order;
             return view('user.profile.order_details',compact('order'));
         } else {
             Toastr::info('Invalid Invoice Number','error');
@@ -130,7 +140,7 @@ class DashboardController extends Controller
             'updated_at' => Carbon::now()
         ];
         if(request()->get('type') === 'shipping'){
-            if($request->district == 2){
+            if($request->district == 1){
                 $data['delivery_charge'] = 60;
                 $data['delivery_time'] = 5;
             } else{
