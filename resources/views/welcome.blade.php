@@ -136,7 +136,7 @@
                     {{-- New Arrivals Ajax load --}}
 
                     <!--banner area start-->
-                    <div class="banner_area mb-55">
+                    {{-- <div class="banner_area mb-55">
                         <div class="row">
                             <div class="col-lg-6 col-md-6">
                                 <figure class="single_banner">
@@ -153,7 +153,7 @@
                                 </figure>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <!--banner area end-->
                 </div>
 

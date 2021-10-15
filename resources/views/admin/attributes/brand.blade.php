@@ -54,13 +54,13 @@
                 </div>
             </div>
             <div class="ibox-body">
-                <table class="table table-bordered table-striped text-nowrap text-sm text-center ">
+                <table class="table table-bordered table-striped text-nowrap text-sm text-left ">
                     <thead >
                         <tr>
-                            <th class="text-center">Sl.no</th>
-                            <th class="text-center">Brand Name</th>
-                            <th class="text-center">Product Count</th>
-                            <th class="text-center">Action</th>
+                            <th class="text-left">Sl.no</th>
+                            <th class="text-left">Brand Name</th>
+                            <th class="text-left">Product Count</th>
+                            <th class="text-left">Action</th>
                         </tr>
                     </thead>
                     <tbody>

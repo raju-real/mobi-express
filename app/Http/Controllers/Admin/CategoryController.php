@@ -15,7 +15,7 @@ Use Alert;
 class CategoryController extends Controller
 {
     public function index(){
-        $categories = Category::with('products')->get();
+        $categories = Category::with('products')->orderBy('serial','asc')->get();
         return view('admin.attributes.category',compact('categories'));
     }
 

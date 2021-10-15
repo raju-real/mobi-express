@@ -49,12 +49,12 @@
                 </div>
             </div>
             <div class="ibox-body">
-                <table class="table table-bordered table-striped text-nowrap text-sm text-center ">
+                <table class="table table-bordered table-striped text-nowrap text-sm text-left ">
                     <thead >
                         <tr>
-                            <th class="text-center">Sl.no</th>
-                            <th class="text-center">Color Name</th>
-                            <th class="text-center">Action</th>
+                            <th class="text-left">Sl.no</th>
+                            <th class="text-left">Color Name</th>
+                            <th class="text-left">Action</th>
                         </tr>
                     </thead>
                     <tbody>
