@@ -72,13 +72,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name" class="col-form-label">Name</label>
-                                          <input name="name" type="name" class="form-control" id="name" value="{{ $billing->full_name ?? $order->name }}">
+                                          <input name="name" type="name" class="form-control" id="name" value="{{ $billing->full_name ?? Auth::user()->name }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="mobile" class="col-form-label">Mobile</label>
-                                          <input name="mobile" type="mobile" class="form-control" id="mobile" value="{{ $billing->mobile ?? $order->mobile }}">
+                                          <input name="mobile" type="mobile" class="form-control" id="mobile" value="{{ $billing->mobile ?? Auth::user()->mobile }}">
                                     </div>
                                 </div>
                             </div>
@@ -87,13 +87,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="city_town" class="col-form-label">City</label>
-                                          <input name="city_town" type="city_town" class="form-control" id="city_town" value="{{ $billing->city_town ?? $order->city_town }}">
+                                          <input name="city_town" type="city_town" class="form-control" id="city_town" value="{{ $billing->city_town ?? '' }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="post_code" class="col-form-label">Post Code</label>
-                                          <input name="post_code" type="number" class="form-control" id="post_code" value="{{ $billing->post_code ?? $order->post_code ??$shipping->post_code }}">
+                                          <input name="post_code" type="number" class="form-control" id="post_code" value="{{ $billing->post_code ?? '' }}">
                                     </div>
                                 </div>
                             </div>
@@ -101,14 +101,14 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="email" class="col-form-label">Email (Optional)</label>
-                                          <input name="email" type="email" class="form-control" id="email" value="{{ $billing->email ?? $shipping->email }}">
+                                        <label for="email" class="col-form-label">Email</label>
+                                          <input name="email" type="email" class="form-control" id="email" value="{{ $billing->email ?? Auth::user()->email }}">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="address" class="col-form-label">Address</label>
-                                          <input name="address" type="address" class="form-control" id="address" value="{{ $billing->address ?? $order->address }}">
+                                          <input name="address" type="address" class="form-control" id="address" value="{{ $order->address }}">
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +155,6 @@
                                     {{ $shipping->address ?? '' }},
                                     {{ $shipping->post_code ?? '' }}
                                 </p>
-                                
                                 <h5 style="font-weight: bold;">Order Details</h5>
                                 <hr>
                                 <table class="table table-sm table-bordered table-striped">

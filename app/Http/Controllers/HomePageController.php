@@ -468,11 +468,13 @@ class HomePageController extends Controller
                 //Find Shipping & Delivery Charge
                 $shipping = ShippingAddress::with('district_name')
                     ->where('user_id',Auth::id())->first();
+                $delivery_charge = 0;    
                 if(isset($shipping)){
                     $delivery_charge = $shipping->delivery_charge ?? 0;
                 } else{
                     ShippingAddress::insert(['user_id'=>Auth::id()]);
-                    $delivery_charge = 0;
+                    $shipping = ShippingAddress::with('district_name')
+                    ->where('user_id',Auth::id())->first();
                 }
                 // Set Order Price
                 $identify = [
@@ -492,8 +494,8 @@ class HomePageController extends Controller
                 $data = [
                     'session_id' => $session_id,
                     'user_id' => Auth::id(),
-                    'total_price' => $totalPrice,
-                    'order_price'=> $orderPrice + $delivery_charge,
+                    'total_price' => round($totalPrice),
+                    'order_price'=> round($orderPrice + $delivery_charge),
                     'product_discount_price' => $productDiscountPrice,
                     'delivery_charge' => $delivery_charge
                 ];
@@ -572,10 +574,11 @@ class HomePageController extends Controller
             $order_info->vat = $order_price->vat;
             $order_info->tax = $order_price->tax;
             $order_info->total_price = $order_price->total_price;
-            $order_info->payment_method = $request->payment_method;
+            //$order_info->payment_method = $request->payment_method;
+            $order_info->payment_method = 1;
             $order_info->product_discount_price = $order_price->product_discount_price;
             $order_info->order_price = $order_price->order_price;
-            $order_info->partial_payment = ($order_price->order_price * 30) / 100;
+            $order_info->partial_payment = round(($order_price->order_price * 30) / 100);
             $order_info->due_amount = $order_price->order_price;
             if($order_price->coupon_code != null){
                 $order_info->has_coupon = 'yes';
@@ -595,12 +598,12 @@ class HomePageController extends Controller
                 if($shipping->full_name != null){
                     $order_info->name = $shipping->full_name;
                 } else{
-                    $this->validate($request,['name' => 'required']);
+                    return redirect()->back()->with('ship_name','Set Your Name');
                 }
                 if($shipping->mobile != null){
                     $order_info->mobile = $shipping->mobile;
                 } else{
-                    $this->validate($request,['mobile' => 'required']);
+                    return redirect()->back()->with('ship_mobile','Set Your Mobile');
                 }
                 if($shipping->email != null){
                     $order_info->email = $shipping->email;
@@ -610,17 +613,17 @@ class HomePageController extends Controller
                 if($shipping->district != null){
                     $order_info->district_id = $shipping->district;
                 } else{
-                    $this->validate($request,['district' => 'required']);
+                    return redirect()->back()->with('ship_district','Set Your District');
                 }
                 if($shipping->city_town != null){
                     $order_info->city_town = $shipping->city_town;
                 } else{
-                    $this->validate($request,['city_town' => 'required']);
+                    return redirect()->back()->with('ship_city_town','Set Your City/Town');
                 }
                 if($shipping->address != null){
                     $order_info->address = $shipping->address;
                 } else{
-                    $this->validate($request,['address' => 'required']);
+                    return redirect()->back()->with('ship_address','Set Your Address');
                 }
             }
             

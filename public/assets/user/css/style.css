@@ -5320,6 +5320,11 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .breadcrumbs_area {
   padding: 20px 0;
 }
+@media only screen and (max-width: 767px) {
+  .breadcrumbs_area {
+    padding: 0px 0px;
+  }
+}
 
 .breadcrumb_content ul li {
   display: inline-block;
@@ -8029,11 +8034,11 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 /*  18. my account css here */
 .account_page_bg {
   background: #F5F5F9;
-  padding: 60px 0 133px;
+  padding: 15px 0 133px;
 }
 @media only screen and (max-width: 767px) {
   .account_page_bg {
-    padding: 60px 0 105px;
+    padding: 15px 0 105px;
   }
 }
 

@@ -39,6 +39,9 @@
           /*background-color: #e9e9e9;*/
           color: #1a9cb7;
         }
+        .account_page_bg{
+            background: white;
+        }
 
    </style>
     @stack('css')
@@ -334,11 +337,11 @@
                             <h3>Customer Service</h3>
                             <div class="footer_menu">
                                 <ul>
-                                    <li>
+                                    {{-- <li>
                                         <a href="{{ route('terms-condition') }}">
                                             Terms & Condition
                                         </a>
-                                    </li>
+                                    </li> --}}
                                     <li>
                                         <a href="{{ route('privacy-policy') }}">
                                             Privacy Policy
@@ -347,6 +350,11 @@
                                     <li>
                                         <a href="{{ route('return-policy') }}">
                                             Return Policy
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('refund-policy') }}">
+                                            Refund Policy
                                         </a>
                                     </li>
                                 </ul>

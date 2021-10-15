@@ -48,6 +48,10 @@ class CreateSslCommerzTransactionsTable extends Migration
             $table->text('base_fair')->nullable();
             $table->string('risk_level')->nullable();
             $table->string('risk_title')->nullable();
+            $table->string('name')->nullable();
+            $table->string('mobile')->nullable();
+            $table->string('city_town')->nullable();
+            $table->string('post_code')->nullable();
             $table->text('address')->nullable();
             $table->timestamps();
         });

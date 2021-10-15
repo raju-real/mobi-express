@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 02, 2021 at 06:18 PM
+-- Generation Time: Oct 15, 2021 at 04:41 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -20,26 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `mobile-accessories`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `billing_addresses`
---
-
-CREATE TABLE `billing_addresses` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `full_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mobile` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `district` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `city_town` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci,
-  `post_code` int(11) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -83,30 +63,24 @@ CREATE TABLE `orders` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `user_id`, `order_number`, `invoice`, `delivery_charge`, `vat`, `tax`, `total_price`, `product_discount_price`, `order_status`, `payment_method`, `voucher_code`, `voucher_mobile`, `voucher_amount`, `has_coupon`, `coupon_code`, `coupon_discount_amount`, `total_discount_amount`, `order_price`, `partial_payment`, `payment_status`, `payment_time`, `paid_amount`, `due_amount`, `name`, `mobile`, `email`, `district_id`, `city_town`, `address`, `note`, `created_at`, `updated_at`) VALUES
-(1, 1, '000001', 'MX-90993574', 0.00, 0.00, 0.00, 200.00, 0.00, '0', 1, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 200.00, 60.00, 0, NULL, 0.00, 200.00, 'Raju Real', '01889967514', 'raju@mail.com', '3', 'Kaunia', 'Shibu(lichu bagan), Baruahat', NULL, '2021-10-02 16:09:27', '2021-10-02 16:09:27'),
-(2, 1, '000002', 'MX-15359665', 0.00, 0.00, 0.00, 100.00, 0.00, '0', 3, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 100.00, 30.00, 0, NULL, 0.00, 100.00, 'Raju', '01889967514', 'raju@mail.com', '2', 'Kaunia', 'dhaka', NULL, '2021-10-02 17:11:16', '2021-10-02 17:11:16');
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `shipping_addresses`
+-- Table structure for table `order_prices`
 --
 
-CREATE TABLE `shipping_addresses` (
+CREATE TABLE `order_prices` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `session_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` int(11) NOT NULL,
-  `full_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mobile` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `district` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `city_town` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci,
-  `post_code` int(11) DEFAULT NULL,
+  `total_price` double(8,2) NOT NULL,
+  `product_discount_price` double(8,2) NOT NULL DEFAULT '0.00',
+  `order_price` double(8,2) NOT NULL DEFAULT '0.00',
+  `delivery_charge` double(8,2) NOT NULL DEFAULT '0.00',
+  `vat` double(8,2) NOT NULL DEFAULT '0.00',
+  `tax` double(8,2) NOT NULL DEFAULT '0.00',
+  `coupon_code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `coupon_discount` double(8,2) NOT NULL DEFAULT '0.00',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -152,27 +126,18 @@ CREATE TABLE `ssl_commerz_transactions` (
   `base_fair` text COLLATE utf8mb4_unicode_ci,
   `risk_level` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `risk_title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mobile` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `city_town` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `post_code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `ssl_commerz_transactions`
---
-
-INSERT INTO `ssl_commerz_transactions` (`id`, `user_id`, `order_id`, `order_number`, `invoice`, `transaction_id`, `transaction_time`, `transaction_ip`, `transaction_amount`, `vat`, `store_amount`, `currency`, `currency_type`, `currency_amount`, `currency_rate`, `status`, `val_id`, `card_type`, `card_no`, `bank_tran_id`, `transaction_date`, `error`, `card_issuer`, `card_brand`, `card_sub_brand`, `card_issuer_country`, `card_issuer_country_code`, `store_id`, `verify_sign`, `verify_key`, `verify_sign_sha2`, `base_fair`, `risk_level`, `risk_title`, `address`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '000001', 'MX-90993574', '61589043ca30c', '2021-10-02 23:00:51', '125896', 200.00, NULL, NULL, 'BDT', NULL, NULL, NULL, 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Shibu(lichu bagan), Baruahat', NULL, NULL);
-
---
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `billing_addresses`
---
-ALTER TABLE `billing_addresses`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `orders`
@@ -183,9 +148,9 @@ ALTER TABLE `orders`
   ADD UNIQUE KEY `orders_invoice_unique` (`invoice`);
 
 --
--- Indexes for table `shipping_addresses`
+-- Indexes for table `order_prices`
 --
-ALTER TABLE `shipping_addresses`
+ALTER TABLE `order_prices`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -199,28 +164,22 @@ ALTER TABLE `ssl_commerz_transactions`
 --
 
 --
--- AUTO_INCREMENT for table `billing_addresses`
---
-ALTER TABLE `billing_addresses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `shipping_addresses`
+-- AUTO_INCREMENT for table `order_prices`
 --
-ALTER TABLE `shipping_addresses`
+ALTER TABLE `order_prices`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ssl_commerz_transactions`
 --
 ALTER TABLE `ssl_commerz_transactions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -70,6 +70,26 @@
     <div class="col-md-6">
         <div class="ibox">
             <div class="ibox-head">
+                <div class="ibox-title">Refund Policy</div>
+                <div class="ibox-tools">
+                    <a href="{{ route('admin.policy-edit',['policy'=>'refund_policy']) }}" class="badge badge-default">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
+                    <a class="fullscreen-link"><i class="fa fa-expand"></i></a>
+                </div>
+            </div>
+            <div class="ibox-body">
+                <div class="scroller" data-height="200px">
+                    {!! $policy->refund_policy !!}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="ibox">
+            <div class="ibox-head">
                 <div class="ibox-title">Delivery Information</div>
                 <div class="ibox-tools">
                 	<a href="{{ route('admin.policy-edit',['policy'=>'delivery_information']) }}" class="badge badge-default">

@@ -6,14 +6,18 @@ use Alert;
 use App\Http\Controllers\Controller;
 use App\Model\BillingAddress;
 use App\Model\District;
+use App\Model\MobileOtp;
 use App\Model\Order;
 use App\Model\ShippingAddress;
 use App\Model\SslCommerzTransaction;
+use App\Model\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
+use URL;
 
 class DashboardController extends Controller
 {
@@ -28,8 +32,7 @@ class DashboardController extends Controller
     public function orderHistory(){
         $orders = Order::where('user_id',Auth::id())
             ->latest()
-            ->select('invoice','created_at','order_status','order_price','payment_status')
-            ->get();
+            ->paginate(10);
         return view('user.profile.order_history',compact('orders'));
     }
 
@@ -44,7 +47,7 @@ class DashboardController extends Controller
             ->where('user_id',Auth::id())
             ->where('invoice',$invoice)
             ->latest()
-            ->select('id','invoice','created_at','order_status','order_price')
+            ->select('id','invoice','created_at','order_status','order_price','payment_method')
             ->first();
         if(isset($order)){
             return view('user.profile.order_details',compact('order'));
@@ -73,11 +76,6 @@ class DashboardController extends Controller
     public function profile(){
         $user = Auth::user();
         return view('user.profile.profile',compact('user'));
-    }
-
-    public function passChangeForm(){
-        $user = Auth::user();
-        return view('user.profile.change_password',compact('user'));
     }
 
     public function editProfile(){
@@ -134,8 +132,10 @@ class DashboardController extends Controller
         if(request()->get('type') === 'shipping'){
             if($request->district == 2){
                 $data['delivery_charge'] = 60;
+                $data['delivery_time'] = 5;
             } else{
                 $data['delivery_charge'] = 90;
+                $data['delivery_time'] = 10;
             }
             ShippingAddress::updateOrInsert($identify,$data);
         } elseif(request()->get('type') === 'billing'){
@@ -145,7 +145,110 @@ class DashboardController extends Controller
         Toastr::info('Address Update Successfully');
         if(!empty(request()->get('checkout')) AND request()->get('checkout') === "yes"){
             return redirect()->route('checkout');
+        } elseif(!empty(request()->get('pay-here')) AND request()->get('pay-here') === "yes"){
+            $invoice = request()->get('invoice');
+            return redirect()->route('pay-here',['invoice'=>$invoice]);
         }
         return redirect()->route('user.address-book');
+    }
+
+    public function accountSetting(){
+        $user = Auth::user();
+        return view('user.profile.account_setting',compact('user'));
+    }
+
+    public function changePassword(Request $request){
+        $this->validate($request,[
+            'old_password' => 'required',
+            'new_password' => 'required:min:6',
+            'confirm_password' => 'required|same:new_password'
+        ]);
+        $old_password = $request->old_password;
+        $new_password = $request->new_password;
+        $confirm_password = $request->confirm_password;
+        $current_password = Auth::user()->password;
+        if(Hash::check($old_password, $current_password)){
+            Auth::user()->update(['password'=>Hash::make($new_password)]);
+            Toastr::success('Password Successfully Changed');
+            Auth::logout();
+            return redirect()->route('login');
+        } else{
+            Toastr::error('Current Password Not Matched');
+            return redirect()->back();
+        }
+    }
+
+    public function shipping(){
+        $shipping = ShippingAddress::with('district_name')
+            ->where('user_id',Auth::id())->first();
+        return $shipping;    
+    }
+
+    // Change Mobile Number
+    public function sendOtp(){
+        $mobile = request()->get('mobile');
+        if(User::where('mobile',$mobile)->exists()){
+            return response()->json([
+                'status' => 'exists',
+                'message' => 'Mobile Already Used'
+            ]); 
+        } else{
+            $otp = MobileOtp::getOtpCode();
+            $o = "Your Verification";
+            $c = 'Code Is ';
+            $message='Your https://mobixpress.com.bd'.' '.$o.' '.$c.$otp;
+            $this->sendOtpMessage($mobile,$message);
+            $identify = ['mobile'=>$mobile];
+            $data = ['mobile'=>$mobile,'otp_code'=>$otp];
+            MobileOtp::updateOrInsert($identify,$data);
+            return response()->json([
+                'status' => 'success',
+                'mobile' => $mobile,
+                //'otp_code' => $otp,
+                'message' => 'Otp Code Sent To Your Mobile'
+            ]);
+        }
+        
+    }
+
+    public function checkOtp(){
+        $mobile = request()->get('mobile');
+        $otp_code = request()->get('otp_code');
+        if(MobileOtp::where(['mobile'=>$mobile,'otp_code'=>$otp_code])->exists()){
+            $user = Auth::user();
+            $user->mobile = $mobile;
+            $user->save();
+            Auth::logout();
+            return response()->json([
+                'status' => 'success',
+                'mobile' => $mobile,
+                'message' => 'Mobile Number Changed Successfully'
+            ]);
+        } else{
+            return response()->json([
+                'status' => 'failed',
+                'mobile' => $mobile,
+                'message' => 'Invalid Otp Code Or Mobile'
+            ]);
+        }
+    }
+
+    protected function sendOtpMessage($mobile_number,$message){
+        $url = "http://66.45.237.70/api.php";
+        $data= array(
+            'username'=>"egrocery",
+            'password'=>"49FT2DWZ",
+            'number'=>$mobile_number,
+            'message'=>$message
+        );
+
+        $ch = curl_init(); // Initialize cURL
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $smsresult = curl_exec($ch);
+        $p = explode("|",$smsresult);
+        $sendstatus = $p[0];
+
     }
 }

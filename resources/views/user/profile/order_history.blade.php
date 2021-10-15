@@ -1,11 +1,21 @@
 @extends('user.layouts.app')
-@section('title','My Acount')
+@section('title','Order History')
 
 @push('css')
 <style type="text/css">
     .left-text{
-            text-align: left;
-        }
+        text-align: left;
+    }
+    .online{
+        border: 1.5px solid green;
+        border-radius: 10px;
+        padding: 2px 10px;
+    }
+    .cash{
+        border: 1.5px solid blue;
+        border-radius: 10px;
+        padding: 2px 10px;
+    }
 </style>
 @endpush
 
@@ -48,7 +58,7 @@
                         </div>
                         @endif
                         <div class="table-responsive" >
-                            <table class="table">
+                            <table class="table text-nowrap">
                                 <thead>
                                     <tr>
                                         <th style="text-align: left;font-weight: normal;">Sl.no</th>
@@ -56,8 +66,10 @@
                                         <th style="text-align: left;font-weight: normal;">Date</th>
                                         <th style="text-align: left;font-weight: normal;">Status</th>
                                         <th style="text-align: left;font-weight: normal;">Total</th>
-                                        <th style="text-align: left;font-weight: normal;">Payment</th>
-                                        <th style="text-align: left;font-weight: normal;">Actions</th>
+                                        <th style="text-align: left;font-weight: normal;">Payment Method</th>
+                                        <th style="text-align: left;font-weight: normal;">Paid</th>
+                                        <th style="text-align: left;font-weight: normal;">Due</th>
+                                        <th style="text-align: left;font-weight: normal;">Order Details</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -101,8 +113,19 @@
                                                 <a href="{{ route('user.payment-details',['invoice'=>$order->invoice]) }}" style="color: green;">
                                                     Details
                                                 </a>
-                                            @endif    
+                                            @endif   
+                                            {{-- @if($order->payment_method == 1) 
+                                            <span class="cash">
+                                                    {{ 'Cash On Delivery' }}
+                                                </span>
+                                            @elseif($order->payment_method == 2) 
+                                                <span class="online">
+                                                    {{ 'Online Payment' }}
+                                                </span>   
+                                            @endif --}}
                                         </td>
+                                        <td style="text-align: left;min-width: fit-content;font-weight: normal;">{{ $order->paid_amount }} BDT</td>
+                                        <td style="text-align: left;min-width: fit-content;font-weight: normal;">{{ $order->due_amount }} BDT</td>
                                         <td style="text-align: left;font-weight: normal;">
                                             <a href="{{ route('user.order-details',['invoice'=>$order->invoice]) }}" class="">Details
                                             </a>
@@ -111,6 +134,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{ $orders->links() }}
                         </div>
                     </div>
                 </div>

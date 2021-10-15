@@ -79,12 +79,18 @@
                                                     <th class="width">Full Name</th>
                                                     <th id="ship_name">
                                                         {{ $shipping->full_name ?? '' }}
+                                                        <span style="color: red">
+                                                            {{ Session::get('ship_name') ?? '' }}
+                                                        </span>
                                                     </th>
                                                 </tr>
                                                 <tr>
                                                     <th class="width">Mobile</th>
                                                     <th id="ship_mobile">
                                                         {{ $shipping->mobile ?? '' }}
+                                                        <span style="color: red">
+                                                            {{ Session::get('ship_mobile') ?? '' }}
+                                                        </span>
                                                     </th>
                                                 </tr>
                                                 <tr>
@@ -95,12 +101,18 @@
                                                     <th class="width">District</th>
                                                     <th id="ship_district">
                                                         {{ $shipping->district_name->name ?? '' }}
+                                                        <span style="color: red">
+                                                            {{ Session::get('ship_district') ?? '' }}
+                                                        </span>
                                                     </th>
                                                 </tr>
                                                 <tr>
                                                     <th class="width">City/Town</th>
                                                     <th id="ship_city_town">
                                                         {{ $shipping->city_town ?? '' }}
+                                                        <span style="color: red">
+                                                            {{ Session::get('ship_city_town') ?? '' }}
+                                                        </span>
                                                     </th>
                                                 </tr>
                                                 <tr>
@@ -113,6 +125,9 @@
                                                     <th class="width">Address</th>
                                                     <th id="ship_address">
                                                         {{ $shipping->address ?? '' }}
+                                                        <span style="color: red">
+                                                            {{ Session::get('ship_address') ?? '' }}
+                                                        </span>
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -220,6 +235,20 @@
                                                     <i class="fb-taka"></i>
                                                 </strong></td>
                                             </tr>
+                                            <tr class="order_total">
+                                                <th style="text-align: left;">
+                                                    Probable Delivery
+                                                </th>
+                                                <td>
+                                                @if($shipping->delivery_time > 0)
+                                                <strong>
+                                                    {{ \Carbon\Carbon::today()->addDays($shipping->delivery_time)->format('d-m-y') }}
+                                                </strong>
+                                                @else
+                                                    {{ 'Set Shipping District First' }}
+                                                @endif    
+                                                </td>
+                                            </tr>
                                         </tfoot>
                                     </table>
                                 </div>
@@ -247,15 +276,27 @@
                                     </div>
                                     <div class="panel-default" id="agree" style="display: none;">
                                         <input type="checkbox" name="agree" class="mt-2" id="agree-box">
-                                        <label for="agree">
+                                        <label for="agree-box">
                                             I agree with the  
                                             <a href="{{ route('terms-condition') }}" target="_blank">
                                                 <u style="color: blue;">terms and condition</u>
                                             </a>
+                                            <span>,</span>
+                                            <a href="{{ route('refund-policy') }}" target="_blank">
+                                                <u style="color: blue;">refund policy</u>
+                                            </a>
+                                            <span>and</span>
+                                            <a href="{{ route('privacy-policy') }}" target="_blank">
+                                                <u style="color: blue;">privacy policy</u>
+                                            </a>
                                         </label>
+                                        <p id="agree-message" style="display: none;color: red;">
+                                            Please check to agree with our condition before place order
+                                            <br>
+                                        </p>
                                     </div>
                                     <div class="order_button">
-                                        <button type="submit" >
+                                        <button type="click" id="submit-order-button">
                                             Submit Order
                                         </button>
                                     </div>
@@ -366,36 +407,77 @@
 
 @push('js')
 <script>
-    $('#order-form').submit(function(){
-        var name = $('#ship_name').text();
-        var mobile = $('#ship_mobile').text();
-        var district = $('#ship_district').text();
-        var city_town = $('#ship_city_town').text();
-        var address = $('#ship_address').text();
-        //var payment_method = $('input[name=payment_method]:checked').val();
-        if(!name.length > 0 || name.trim()==""){
-            $('#ship_name').text("Set Your Name").css("color","red");
-            return false;
-        } else if(!mobile.length > 0 || mobile.trim()==""){
-            $('#ship_mobile').text("Set Your Mobile").css("color","red");
-            return false;
-        } else if(!district.length > 0 || district.trim()==""){
-            $('#ship_district').text("Set Your District").css("color","red");
-            return false;
-        } else if(!city_town.length > 0 || city_town.trim()==""){
-            $('#ship_city_town').text("Set Your City/Town").css("color","red");
-            return false;
-        } else if(!address.length > 0 || address.trim()==""){
-            $('#ship_address').text("Set Your Address").css("color","red");
-            return false;
-        } else if(!payment_method.length > 0 || payment_method.trim()==""){
-            $("input[name=payment_method]").append('<span id="pass_message" style="color:red"></span>');
-            $('#pass_message').text('Minimum 6 character');
-            return false;
-        } else{
-            return true;
-        }
+    
+
+    $('#submit-order-button').click(function(){
+        $.ajax({
+            method: 'GET',
+            url : "{{ route('user.shipping') }}",
+            success: function(response){
+                let shipping = response;
+                var name = shipping.full_name;
+                var mobile = shipping.mobile;
+                var district = shipping.district;
+                var city_town = shipping.city_town;
+                var address = shipping.address;
+                let payment_method = $('input[name=payment_method]:checked').val();
+                
+                if(name == null){
+                    $('#ship_name').text("Set Your Name").css("color","red");
+                    return false;
+                } else if(mobile == null){
+                    $('#ship_mobile').text("Set Your Mobile").css("color","red");
+                    return false;
+                } else if(district == null){
+                    $('#ship_district').text("Set Your District").css("color","red");
+                    return false;
+                } else if(city_town == null){
+                    $('#ship_city_town').text("Set Your City/Town").css("color","red");
+                    return false;
+                } else if(address == null){
+                    $('#ship_address').text("Set Your Address").css("color","red");
+                    return false;
+                } else if(payment_method == 3){
+                    $('#agree-message').show();
+                    return false;
+                }else{
+                    $('#order-form').submit();
+                }
+
+            }
+        });
     });
+
+    // $('#order-form').submit(function(){
+    //     var name = $('#ship_name').text();
+    //     var mobile = $('#ship_mobile').text();
+    //     var district = $('#ship_district').text();
+    //     var city_town = $('#ship_city_town').text();
+    //     var address = $('#ship_address').text();
+    //     //var payment_method = $('input[name=payment_method]:checked').val();
+    //     if(!name.length > 0 || name.trim()==""){
+    //         $('#ship_name').text("Set Your Name").css("color","red");
+    //         return false;
+    //     } else if(!mobile.length > 0 || mobile.trim()==""){
+    //         $('#ship_mobile').text("Set Your Mobile").css("color","red");
+    //         return false;
+    //     } else if(!district.length > 0 || district.trim()==""){
+    //         $('#ship_district').text("Set Your District").css("color","red");
+    //         return false;
+    //     } else if(!city_town.length > 0 || city_town.trim()==""){
+    //         $('#ship_city_town').text("Set Your City/Town").css("color","red");
+    //         return false;
+    //     } else if(!address.length > 0 || address.trim()==""){
+    //         $('#ship_address').text("Set Your Address").css("color","red");
+    //         return false;
+    //     } else if(!payment_method.length > 0 || payment_method.trim()==""){
+    //         $("input[name=payment_method]").append('<span id="pass_message" style="color:red"></span>');
+    //         $('#pass_message').text('Minimum 6 character');
+    //         return false;
+    //     } else{
+    //         return true;
+    //     }
+    // });
 
     function hideError(attribute){
         let value = $('#'+attribute).val();
@@ -403,8 +485,7 @@
             $('#'+attribute).removeClass("error");
         }
     }
-</script>
-<script>
+
     $("input[name=payment_method]").on('change', function() {
        let value = $('input[name=payment_method]:checked').val(); 
        if(value == 3){

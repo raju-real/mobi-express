@@ -156,24 +156,31 @@
 	<script>
         function sendOtp(){
             var mobile = $('#mobile').val();
-            $.ajax({
-            method : 'GET',
-            url : "{{ route('send-otp') }}",
-            data : {mobile: mobile},
-           // dataType : 'JSON',
-            success : function(response){
-                if(response.status === "success"){
-                    $('#mobile-div').hide();
-                    $('#otp-div').show();
-                    $('#alert').show().removeClass().addClass("alert alert-info");
-                    $('#alert-message').text(response.message + '-' + response.otp_code);
-                } else if(response.status === "exists"){
-                    $('input[name=mobile').val('');
-                    $('#alert').show().removeClass().addClass("alert alert-danger");
-                    $('#alert-message').text(response.message);
-                }
+            if(!mobile.length > 0 || mobile.trim() == ""){
+                $('#alert').show().removeClass().addClass("alert alert-danger");
+                $('#alert-message').text('Invalid Mobile Number');
+            } else{
+                $.ajax({
+                    method : 'GET',
+                    url : "{{ route('send-otp') }}",
+                    data : {mobile: mobile},
+                   // dataType : 'JSON',
+                    success : function(response){
+                        if(response.status === "success"){
+                            $('#mobile-div').hide();
+                            $('#otp-div').show();
+                            $('#alert').show().removeClass().addClass("alert alert-info");
+                            // $('#alert-message').text(response.message + '-' + response.otp_code);
+                            $('#alert-message').text(response.message);
+                        } else if(response.status === "exists"){
+                            $('input[name=mobile').val('');
+                            $('#alert').show().removeClass().addClass("alert alert-danger");
+                            $('#alert-message').text(response.message);
+                        }
+                    }
+                });
             }
-            });
+            
         }
 
         function checkOtp(){

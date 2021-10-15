@@ -11,6 +11,8 @@ class Order extends Model
             return Order::where('invoice',$invoice)->first()->order_price;
         } elseif($payment_type == 2){
             return Order::where('invoice',$invoice)->first()->partial_payment;
+        } else {
+            return Order::where('invoice',$invoice)->first()->order_price;
         }
     }
     public function products(){

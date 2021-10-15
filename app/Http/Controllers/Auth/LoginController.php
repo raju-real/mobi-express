@@ -39,13 +39,13 @@ class LoginController extends Controller
             $c = 'Code Is ';
             $message='Your https://mobixpress.com.bd'.' '.$o.' '.$c.$otp;
             $this->sendOtpMessage($mobile,$message);
-            $identiry = ['mobile'=>$mobile];
+            $identify = ['mobile'=>$mobile];
             $data = ['mobile'=>$mobile,'otp_code'=>$otp];
-            MobileOtp::updateOrInsert($identiry,$data);
+            MobileOtp::updateOrInsert($identify,$data);
             return response()->json([
                 'status' => 'success',
                 'mobile' => $mobile,
-                'otp_code' => $otp,
+                //'otp_code' => $otp,
                 'message' => 'Otp Code Sent To Your Mobile'
             ]);
         }
@@ -75,7 +75,7 @@ class LoginController extends Controller
         $data= array(
             'username'=>"egrocery",
             'password'=>"49FT2DWZ",
-            'number'=>$mobile_number,
+            'number'=>'+88'.$mobile_number,
             'message'=>$message
         );
 

@@ -1,10 +1,20 @@
 @extends('user.layouts.app')
-@section('title','Order Details -'.$order->invoice)
+@section('title',$order->invoice)
 
 @push('css')
-<style>
-    .left{
+<style type="text/css">
+    .left-text{
         text-align: left;
+    }
+    .online{
+        border: 1.5px solid green;
+        border-radius: 10px;
+        padding: 2px 10px;
+    }
+    .cash{
+        border: 1.5px solid blue;
+        border-radius: 10px;
+        padding: 2px 10px;
     }
 </style>
 @endpush
@@ -18,7 +28,7 @@
                 <div class="breadcrumb_content">
                     <ul>
                         <li><a href="{{ route('home') }}">home</a></li>
-                        <li>Order Details</li>
+                        <li>Order History</li>
                     </ul>
                 </div>
             </div>
@@ -41,91 +51,67 @@
                     </div>
                     <div class="col-sm-12 col-md-9 col-lg-9">
                         <!-- Tab panes -->
-                        <h3>Orders</h3>
-                        <div class="table-responsive">
-                            <table class="table table-bordered text-nowrap">
+                        <h3>Order Details</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4>Shipping Details</h4>
+                                <hr>
+
+                            </div>
+                            <div class="col-md-6">
+                                <h4>Payment Details</h4>
+                                <hr>
+                                @if($order->payment_method == 1)
+                                    <p>
+                                        Payment Method : 
+                                        <span class="cash">
+                                            {{ 'Cash On Delivery' }}
+                                        </span>
+                                    </p>
+                                @elseif($order->payment_method == 2)
+                                    <p>
+                                        Payment Method : 
+                                        <span class="online">
+                                            {{ 'Online Payment' }}
+                                        </span>
+                                    </p>
+                                @endif
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="table-responsive" >
+                            <table class="table">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: left;font-weight: normal;">Invoice</th>
-                                        <th style="text-align: left;font-weight: normal;">:</th>
-                                        <th style="text-align: left;font-weight: normal;">{{ $order->invoice }}</th>
-                                    </tr>
-                                    <tr>
-                                        <th style="text-align: left;font-weight: normal;">Status</th>
-                                        <th style="text-align: left;font-weight: normal;">:</th>
-                                        <th style="text-align: left;font-weight: normal;">
-                                            @if($order->order_status == 0)
-                                                <span>Pending</span>
-                                            @elseif($order->order_status == 1)
-                                                <span>Processing</span>
-                                            @elseif($order->order_status == 2)
-                                                <span>Picked</span>
-                                            @elseif($order->order_status == 3)
-                                                <span>Shipped</span>
-                                            @elseif($order->order_status == 4)
-                                                <span>Delivered</span>
-
-                                            @elseif($order->order_status == 5)
-                                                <span>Cancled</span> 
-                                            @elseif($order->order_status == 6)
-                                                <span>Returned</span>   
-                                            @else 
-                                                <span>Un known</span>
-                                            @endif
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th style="text-align: left;font-weight: normal;">Total Price</th>
-                                        <th style="text-align: left;font-weight: normal;">:</th>
-                                        <th style="text-align: left;font-weight: normal;">
-                                            {{ $order->order_price }} BDT
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th style="vertical-align: top;text-align: left;font-weight: normal;">Products</th>
-                                        <th style="vertical-align: top;">:</th>
-                                        <th>
-                                            <table class="table table-responsive table-bordered table-striped">
-                                                <thead>
-                                                    <tr style="border-bottom: 1px solid grey;">
-                                                        <th style="text-align: left;font-weight: normal;">
-                                                            Product
-                                                        </th>
-                                                        <th style="text-align: left;font-weight: normal;">
-                                                            Size
-                                                        </th>
-                                                        <th style="text-align: left;font-weight: normal;">
-                                                            Color
-                                                        </th>
-                                                       
-                                                        <th style="text-align: left;font-weight: normal;">
-                                                            Price
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($order->products as $order_product)
-                                                    <tr>
-                                                        <td style="text-align: left;font-weight: normal;">
-                                                            {{ $order_product->product->name }} x
-                                                            {{ $order_product->quantity }}
-                                                        </td>
-                                                        <td style="text-align: left;font-weight: normal;">
-                                                            {{ $order_product->size_id != null ? $order_product->size->name :'None' }}
-                                                        </td>
-                                                        <td style="text-align: left;font-weight: normal;">
-                                                            {{ $order_product->color_id != null ? $order_product->color->name : 'None' }}
-                                                        </td>
-                                                        <td style="text-align: left;font-weight: normal;">
-                                                            {{ $order_product->total_price }} BDT
-                                                        </td>
-                                                    </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </th>
+                                        <th style="text-align: left;font-weight: normal;">Sl.no</th>
+                                        <th style="text-align: left;font-weight: normal;">Product</th>
+                                        <th style="text-align: left;font-weight: normal;">Size</th>
+                                        <th style="text-align: left;font-weight: normal;">Color</th>
+                                        <th style="text-align: left;font-weight: normal;">Price</th>
                                     </tr>
                                 </thead>
+                                <tbody>
+                                    @foreach($order->products as $order_product)
+                                    <tr>
+                                        <td style="text-align: left;font-weight: normal;">
+                                            {{ $loop->index + 1 }}
+                                        </td>
+                                        <td style="text-align: left;font-weight: normal;">
+                                            {{ $order_product->product->name }} X
+                                            {{ $order_product->quantity }}
+                                        </td>
+                                        <td style="text-align: left;font-weight: normal;">
+                                            {{ $order_product->size_id != null ? $order_product->size->name :'None' }}
+                                        </td>
+                                        <td style="text-align: left;font-weight: normal;">
+                                            {{ $order_product->color_id != null ? $order_product->color->name : 'None' }}
+                                        </td>
+                                        <td style="text-align: left;font-weight: normal;">
+                                            {{ $order_product->total_price }} BDT
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
                             </table>
                         </div>
                     </div>

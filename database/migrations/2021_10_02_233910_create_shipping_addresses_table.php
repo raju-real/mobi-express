@@ -24,6 +24,7 @@ class CreateShippingAddressesTable extends Migration
             $table->text('address')->nullable();
             $table->integer('post_code')->nullable();
             $table->double('delivery_charge',8,2)->default(0);
+            $table->integer('delivery_time')->default(0);
             $table->timestamps();
         });
     }

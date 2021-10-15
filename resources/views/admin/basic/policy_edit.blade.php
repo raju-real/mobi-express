@@ -61,6 +61,21 @@
                         </div>
                     @endif
 
+                    @if($policy_type === 'refund_policy')
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <label for="refund_policy">
+                                    Refund Policy
+                                </label>
+                                <textarea name="refund_policy" class="form-control"
+                                          id="refund_policy">{{ $policy->refund_policy }}</textarea>
+                                <script>
+                                    CKEDITOR.replace('refund_policy')
+                                </script>
+                            </div>
+                        </div>
+                    @endif
+
                     @if($policy_type === 'delivery_information')
                         <div class="row">
                             <div class="col-sm-12 form-group">

@@ -75,18 +75,19 @@
                     <thead>
                         <tr>
                             <th>Total Transaction</th>
-                            <th>:</th>
-                            <th>{{ $transactions->sum('transaction_amount') }} BDT</th>
-                        </tr>
-                        <tr>
                             <th>Store Amount</th>
-                            <th>:</th>
-                            <th>{{ $transactions->sum('store_amount') }} BDT</th>
                         </tr>
                     </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ $transactions->sum('transaction_amount') }} BDT</td>
+                            <td>{{ $transactions->sum('store_amount') }} BDT</td>
+                        </tr>
+                    </tbody>
                 </table>
                 <hr>
-                <table class="table table-responsive text-nowrap table-striped table-bordered table-hover text-left" id="transaction-table" cellspacing="0" width="100%">
+                <div class="table-responsive">
+                <table class="table text-nowrap table-striped table-bordered table-hover text-left" id="transaction-table" width="100%">
                     <thead>
                         <tr>
                             <th class="text-left">Sl.no</th>
@@ -123,7 +124,7 @@
                             <td>{{ $transaction->store_amount }}</td>
                             <td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($transaction->transaction_time))->format('d-m-y h:m') }}</td>
                             <td>
-                                {{ $transaction->card_brand }} - 
+                                {{-- {{ $transaction->card_brand }} -  --}}
                                 {{ $transaction->card_issuer }}
                             </td>
                             <td>{{ $transaction->status }}</td>
@@ -131,11 +132,15 @@
                             	<a href="" class="badge badge-info">
                             		<i class="fa fa-eye"></i>
                             	</a>
+                                <a href="" class="badge badge-info">
+                                    Refund
+                                </a>
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+                </div>
                 {{ $transactions->links() }}
             </div>
         </div>

@@ -7,6 +7,7 @@ use App\Library\SslCommerz\SslCommerzNotification;
 use App\Model\BillingAddress;
 use App\Model\ContactUs;
 use App\Model\Order;
+use App\Model\ShippingAddress;
 use App\Model\SslCommerzTransaction as Transaction;
 use Carbon\Carbon;
 use DB;
@@ -32,9 +33,15 @@ class SslCommerzPaymentController extends Controller
             if(Auth::check()){
                 $invoice = request()->get('invoice');
                 $order = Order::where('invoice',$invoice)->first();
+                $shipping = ShippingAddress::with('district_name')
+                    ->where('user_id',Auth::id())->first();
                 $billing = BillingAddress::with('district_name')->where('user_id',Auth::id())->first();
+                if(!isset($billing)){
+                    BillingAddress::insert(['user_id'=>Auth::id()]);
+                    $billing = BillingAddress::with('district_name')->where('user_id',Auth::id())->first();
+                } 
                 if (isset($order)) {
-                    return view('user.profile.select_payment',compact('order','billing'));
+                    return view('user.profile.select_payment',compact('order','shipping','billing'));
                 } else{
                     Alert::error('Invalid Invoice');
                     return redirect()->route('user.order-history');
@@ -49,12 +56,7 @@ class SslCommerzPaymentController extends Controller
 
     public function index(Request $request)
     {
-        $this->validate($request,[
-            'name' => 'required',
-            'mobile' => 'required|min:11',
-            'city_town' => 'required',
-            'payment_type' => 'required'
-        ]);
+        $this->validate($request,['payment_type' => 'required']);
         try{
             $invoice = request()->get('invoice');
             $order = Order::where('invoice',$invoice)->first();
@@ -66,26 +68,35 @@ class SslCommerzPaymentController extends Controller
                 $post_data['currency'] = "BDT";
                 $post_data['tran_id'] = uniqid(); // tran_id must be unique
 
+                # Set Address
+                $name = $request->name ?? $order->name;
+                $mobile = $request->mobile ?? $order->mobile;
+                $email = $request->email ??'customer@mail.com';
+                $city_town = $request->city_town ?? $order->city_town;
+                $post_code = $request->post_code ?? "";
+                $address = $request->address ?? $order->address;
+
+                
                 # CUSTOMER INFORMATION
-                $post_data['cus_name'] = $request->name ?? 'Customer Name';
-                $post_data['cus_email'] = $request->email ??'customer@mail.com';
-                $post_data['cus_add1'] = $request->address ?? $contact->address;
-                $post_data['cus_add2'] = $request->address ?? $contact->address;;
-                $post_data['cus_city'] = $request->city_town ?? 'Dhaka';
-                $post_data['cus_state'] = $request->city_town ?? 'Dhaka';
-                $post_data['cus_postcode'] = "";
+                $post_data['cus_name'] = $name;
+                $post_data['cus_email'] = $email;
+                $post_data['cus_add1'] = $address;
+                $post_data['cus_add2'] = $address;
+                $post_data['cus_city'] = $city_town;
+                $post_data['cus_state'] = $city_town;
+                $post_data['cus_postcode'] = $post_code;
                 $post_data['cus_country'] = "Bangladesh";
-                $post_data['cus_phone'] = $request->mobile ?? $contact->mobile;
+                $post_data['cus_phone'] = $mobile;
                 $post_data['cus_fax'] = "";
 
                 # SHIPMENT INFORMATION
-                $post_data['ship_name'] = "Store Test";
-                $post_data['ship_add1'] = "Dhaka";
-                $post_data['ship_add2'] = "Dhaka";
-                $post_data['ship_city'] = "Dhaka";
-                $post_data['ship_state'] = "Dhaka";
-                $post_data['ship_postcode'] = "1000";
-                $post_data['ship_phone'] = "";
+                $post_data['ship_name'] = $order->name;
+                $post_data['ship_add1'] = $order->address;
+                $post_data['ship_add2'] = $order->address;
+                $post_data['ship_city'] = $order->city_town;
+                $post_data['ship_state'] = $order->city_town;
+                $post_data['ship_postcode'] = $request->post_code ?? "";
+                $post_data['ship_phone'] = $order->mobile ?? Auth::user()->mobile;
                 $post_data['ship_country'] = "Bangladesh";
 
                 $post_data['shipping_method'] = "NO";
@@ -94,37 +105,13 @@ class SslCommerzPaymentController extends Controller
                 $post_data['product_profile'] = "physical-goods";
 
                 # OPTIONAL PARAMETERS
-                $post_data['value_a'] = "ref001";
+                $post_data['value_a'] = $order->invoice;
                 $post_data['value_b'] = "ref002";
                 $post_data['value_c'] = "ref003";
                 $post_data['value_d'] = "ref004";
+                $post_data['value_e'] = "ref004";
 
                 #Before  going to initiate the payment order status need to insert or update as Pending.
-                // if(Transaction::where('invoice',$order->invoice)->where('status','!=','Pending')->exists()){
-                //     return redirect()->route('pay-here',['invoice'=>$order->invoice])
-                //     ->with('message','One order support one transaction');
-                // } else {
-                //     $identify = [
-                //         'invoice' => $order->invoice,
-                //         'transaction_id' => $post_data['tran_id'],
-                //         'user_id' => Auth::id()
-                //     ];
-                //     $data = [
-                //         'user_id' => Auth::id(),
-                //         'order_id' => $order->id,
-                //         'order_number' => $order->order_number,
-                //         'invoice' => $order->invoice,
-                //         'transaction_id' => $post_data['tran_id'],
-                //         'transaction_time' => Carbon::now(),
-                //         'transaction_ip' => '125896',
-                //         'transaction_amount' => $post_data['total_amount'],
-                //         'status' => 'Pending',
-                //         'address' => $request->address,
-                //         'currency' => $post_data['currency']
-                //     ];
-                //     Transaction::updateOrInsert($identify,$data);
-                // }
-
                 $identify = [
                         'invoice' => $order->invoice,
                         'user_id' => Auth::id()
@@ -139,6 +126,10 @@ class SslCommerzPaymentController extends Controller
                         'transaction_ip' => '125896',
                         'transaction_amount' => $post_data['total_amount'],
                         'status' => 'Pending',
+                        'name' => $name,
+                        'mobile' => $mobile,
+                        'city_town' => $city_town,
+                        'post_code' => $post_code,
                         'address' => $request->address,
                         'currency' => $post_data['currency']
                     ];
@@ -164,7 +155,7 @@ class SslCommerzPaymentController extends Controller
 
     public function success(Request $request)
     {
-        //dd($request->all());
+        dd($request->all());
         $message = "";
         $message = "";
 

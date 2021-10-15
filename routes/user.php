@@ -27,8 +27,15 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'namespace' => 'User', 'middl
         ->name('address-book');
     Route::put('update-address','DashboardController@updateBillingAddress')    
         ->name('update-address');
-    Route::get('change-password', 'DashboardController@passChangeForm')
-        ->name('change-password');      
+    Route::get('account-setting','DashboardController@accountSetting')
+        ->name('account-setting');
+    Route::post('change-password','DashboardController@changePassword')          
+        ->name('change-password');
+    // Change Mobile Number
+    Route::get('send-otp','DashboardController@sendOtp')->name('send-otp');
+    Route::get('check-otp','DashboardController@checkOtp')->name('check-otp');
+    // For frontend
+    Route::get('shipping','DashboardController@shipping')->name('shipping');
 });
 
 // SSLCOMMERZ 

@@ -28,6 +28,8 @@ class PolicyController extends Controller
             $policy->terms_condition = $request->terms_condition;
         } elseif(isset($request->return_policy)){
             $policy->return_policy = $request->return_policy;
+        } elseif(isset($request->refund_policy)){
+            $policy->refund_policy = $request->refund_policy;
         } elseif(isset($request->delivery_information)){
             $policy->delivery_information = $request->delivery_information;
         }        
