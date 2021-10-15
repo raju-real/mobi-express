@@ -72,15 +72,15 @@
                 </div>
             </div>
             <div class="ibox-body">
-                <table class="table table-bordered table-striped text-nowrap text-sm text-center ">
+                <table class="table table-bordered table-striped text-nowrap text-sm text-left ">
                     <thead >
                         <tr>
-                            <th class="text-center">Serial</th>
-                            <th class="text-center">Image</th>
-                            <th class="text-center">Name</th>
-                            <th class="text-center">Product</th>
-                            <th class="text-center">Status</th>
-                            <th class="text-center">Action</th>
+                            <th class="text-left">Serial</th>
+                            <th class="text-left">Image</th>
+                            <th class="text-left">Name</th>
+                            <th class="text-left">Product</th>
+                            <th class="text-left">Status</th>
+                            <th class="text-left">Action</th>
                         </tr>
                     </thead>
                     <tbody>

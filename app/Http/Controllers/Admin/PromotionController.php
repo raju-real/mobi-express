@@ -14,8 +14,7 @@ Use Alert;
 class PromotionController extends Controller
 {
     public function index(){
-        $promotions = Promotion::latest()
-            ->orderBy('serial','ASC')
+        $promotions = Promotion::orderBy('serial','asc')
             ->paginate(20);
         return view('admin.promotion.index',compact('promotions'));
     }
