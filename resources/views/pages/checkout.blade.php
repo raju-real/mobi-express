@@ -275,7 +275,7 @@
                                         </label>
                                     </div>
                                     <div class="panel-default" id="agree" style="display: none;">
-                                        <input type="checkbox" name="agree" class="mt-2" id="agree-box">
+                                        <input type="checkbox" name="agree" class="mt-2" id="agree-box" checked>
                                         <label for="agree-box">
                                             I agree with the  
                                             <a href="{{ route('terms-condition') }}" target="_blank">
@@ -437,6 +437,7 @@
                     $('#ship_address').text("Set Your Address").css("color","red");
                     return false;
                 } else if(payment_method == 3 && $('#agree-box').prop("checked") == false){
+                    $('#agree-box').attr("required","");
                     $('#agree-message').show();
                     return false;                 
                 } else{
@@ -447,35 +448,43 @@
         });
     });
 
-    // $('#order-form').submit(function(){
-    //     var name = $('#ship_name').text();
-    //     var mobile = $('#ship_mobile').text();
-    //     var district = $('#ship_district').text();
-    //     var city_town = $('#ship_city_town').text();
-    //     var address = $('#ship_address').text();
-    //     //var payment_method = $('input[name=payment_method]:checked').val();
-    //     if(!name.length > 0 || name.trim()==""){
-    //         $('#ship_name').text("Set Your Name").css("color","red");
-    //         return false;
-    //     } else if(!mobile.length > 0 || mobile.trim()==""){
-    //         $('#ship_mobile').text("Set Your Mobile").css("color","red");
-    //         return false;
-    //     } else if(!district.length > 0 || district.trim()==""){
-    //         $('#ship_district').text("Set Your District").css("color","red");
-    //         return false;
-    //     } else if(!city_town.length > 0 || city_town.trim()==""){
-    //         $('#ship_city_town').text("Set Your City/Town").css("color","red");
-    //         return false;
-    //     } else if(!address.length > 0 || address.trim()==""){
-    //         $('#ship_address').text("Set Your Address").css("color","red");
-    //         return false;
-    //     } else if(!payment_method.length > 0 || payment_method.trim()==""){
-    //         $("input[name=payment_method]").append('<span id="pass_message" style="color:red"></span>');
-    //         $('#pass_message').text('Minimum 6 character');
-    //         return false;
-    //     } else{
-    //         return true;
-    //     }
+    // $('#order-form').submit(function(e){
+    //     e.preventDefault();
+    //     $.ajax({
+    //         method: 'GET',
+    //         url : "{{ route('user.shipping') }}",
+    //         success: function(response){
+    //             let shipping = response;
+    //             var name = shipping.full_name;
+    //             var mobile = shipping.mobile;
+    //             var district = shipping.district;
+    //             var city_town = shipping.city_town;
+    //             var address = shipping.address;
+    //             let payment_method = $('input[name=payment_method]:checked').val();
+    //             if(name == null){
+    //                 $('#ship_name').text("Set Your Name").css("color","red");
+    //                 return false;
+    //             } else if(mobile == null){
+    //                 $('#ship_mobile').text("Set Your Mobile").css("color","red");
+    //                 return false;
+    //             } else if(district == null){
+    //                 $('#ship_district').text("Set Your District").css("color","red");
+    //                 return false;
+    //             } else if(city_town == null){
+    //                 $('#ship_city_town').text("Set Your City/Town").css("color","red");
+    //                 return false;
+    //             } else if(address == null){
+    //                 $('#ship_address').text("Set Your Address").css("color","red");
+    //                 return false;
+    //             } else if(payment_method == 3 && $('#agree-box').prop("checked") == false){
+    //                 $('#agree-message').show();
+    //                 return false;                 
+    //             } else{
+    //                 location.replace('submit-order',{payment_method:payment_method});
+    //             }
+
+    //         }
+    //     });
     // });
 
     function hideError(attribute){

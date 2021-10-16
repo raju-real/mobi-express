@@ -554,6 +554,7 @@ class HomePageController extends Controller
     }
 
     public function submitOrder(Request $request){
+        //return $request;
         $this->validate($request,['payment_method' => 'required']);
         if(Auth::check()){
             $session_id = Session::get('session_id');
