@@ -8,6 +8,21 @@
           max-width: fit-content; /* New width for default modal */
         }
     }
+    .online{
+        border: 1.5px solid green;
+        border-radius: 10px;
+        padding: 2px 10px;
+    }
+    .cash{
+        border: 1.5px solid blue;
+        border-radius: 10px;
+        padding: 2px 10px;
+    }
+    .fail{
+        border: 1.5px solid red;
+        border-radius: 10px;
+        padding: 2px 10px;
+    }
 </style>
 @endpush
 
@@ -47,27 +62,29 @@
             </div>
             
             <div class="ibox-body">
-                <table class="table table-responsive text-nowrap table-striped table-bordered table-hover text-center" id="order-table" cellspacing="0" width="100%">
+                <table class="table table-responsive text-nowrap table-striped table-bordered table-hover text-left" id="order-table" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th class="text-center">Sl.no</th>
-                            <th class="text-center">Order Date</th>
-                            <th class="text-center">Invoice</th>
-                            <th class="text-center">Mobile</th>
-                            <th class="text-center">Products</th>
-                            <th class="text-center">Order Price</th>
+                            <th class="text-left">Sl.no</th>
+                            <th class="text-left">Order Date</th>
+                            <th class="text-left">Invoice</th>
+                            <th class="text-left">Payment</th>
+                            <th class="text-left">Mobile</th>
+                            <th class="text-left">Products</th>
+                            <th class="text-left">Order Price</th>
                             {{-- <th>Order Status</th> --}}
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Sl.no</th>
-                            <th>Order Date</th>
-                            <th>Invoice</th>
-                            <th>Mobile</th>
-                            <th>Products</th>
-                            <th>Order Price</th>
+                            <th class="text-left">Sl.no</th>
+                            <th class="text-left">Order Date</th>
+                            <th class="text-left">Invoice</th>
+                            <th class="text-left">Payment</th>
+                            <th class="text-left">Mobile</th>
+                            <th class="text-left">Products</th>
+                            <th class="text-left">Order Price</th>
                             {{-- <th>Order Status</th> --}}
                             <th>Action</th>
                         </tr>
@@ -78,6 +95,24 @@
                             <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $order->updated_at->format('D, M y') }}</td>
                             <td>{{ $order->invoice }}</td>
+                            <td>
+                                @if($order->payment_method == 1) 
+                                    <span class="cash">
+                                            {{ 'Cash On Delivery' }}
+                                        </span>
+                                    @elseif($order->payment_method == 3) 
+                                        @if($order->payment_status == 1)
+                                        <span class="online">
+                                            {{ 'Online Payment' }}
+                                        </span>
+                                        @elseif($order->payment_status == 2)
+                                        <span class="fail">Payment Failed</span>    
+                                        <a href="#" style="color: blue;">
+                                            Action
+                                        </a>
+                                        @endif                  
+                                @endif
+                            </td>
                             <td>{{ $order->mobile }}</td>
                             <td>
                                 {{ $order->products->count() }}
