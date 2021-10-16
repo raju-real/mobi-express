@@ -1,6 +1,24 @@
 @extends('admin.layouts.app')
 @section('title',$order->invoice)
-
+@push('css')
+<style>
+	.online{
+        border: 1.5px solid green;
+        border-radius: 10px;
+        padding: 2px 10px;
+    }
+    .cash{
+        border: 1.5px solid blue;
+        border-radius: 10px;
+        padding: 2px 10px;
+    }
+    .fail{
+        border: 1.5px solid red;
+        border-radius: 10px;
+        padding: 2px 10px;
+    }
+</style>
+@endpush    
 @section('content')
 <div class="row">
 	<div class="col-xl-12">
@@ -15,6 +33,27 @@
             	<div class="col-md-12 table-responsive">
             		<table class="table table-bordered table-striped" width="100%">
 					<thead>
+						<tr>
+							<th>Payment</th>
+							<th>
+								@if($order->payment_method == 1) 
+                                    <span class="cash">
+                                            {{ 'Cash On Delivery' }}
+                                        </span>
+                                    @elseif($order->payment_method == 3) 
+                                        @if($order->payment_status == 1)
+                                        <span class="online">
+                                            {{ 'Online Payment' }}
+                                        </span>
+                                        @elseif($order->payment_status == 2)
+                                        <span class="fail">Payment Failed</span>    
+                                        <a href="#" style="color: blue;">
+                                            Action
+                                        </a>
+                                        @endif                  
+                                @endif
+							</th>
+						</tr>
 						<tr>
 							<th>Invoice</th>
 							<th>
@@ -192,32 +231,7 @@
 								</div>
 							</th>
 						</tr>
-						<tr>
-							<th>Payment</th>
-							<th>
-								@if($order->payment_method === 1)
-									{{ 'Cash On Delivery' }}
-								@else
-								{{-- <table class="table table-striped table-bordered table-sm table-responsive text-nowrap text-center">
-									<tr class="table-warning">
-										<th class="text-center">
-											Payment Method
-										</th>
-										<th class="text-center">
-											Transaction Id
-										</th>
-										<th class="text-center">
-											Paid Amount
-										</th>
-										<th class="text-center">Due Amount</th>
-									</tr>
-									<tr>
-										
-									</tr>
-								</table> --}}
-								@endif
-							</th>
-						</tr>
+						
 					</thead>
 				</table>
             	</div>
