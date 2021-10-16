@@ -580,8 +580,8 @@ class HomePageController extends Controller
             $order_info->vat = $order_price->vat;
             $order_info->tax = $order_price->tax;
             $order_info->total_price = $order_price->total_price;
-            //$order_info->payment_method = $request->payment_method;
-            $order_info->payment_method = 1;
+            $order_info->payment_method = $request->payment_method;
+            //$order_info->payment_method = 1;
             $order_info->product_discount_price = $order_price->product_discount_price;
             $order_info->order_price = $order_price->order_price;
             $order_info->partial_payment = round(($order_price->order_price * 30) / 100);

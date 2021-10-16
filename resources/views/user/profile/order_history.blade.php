@@ -16,6 +16,11 @@
         border-radius: 10px;
         padding: 2px 10px;
     }
+    .fail{
+        border: 1.5px solid red;
+        border-radius: 10px;
+        padding: 2px 10px;
+    }
 </style>
 @endpush
 
@@ -118,10 +123,15 @@
                                             <span class="cash">
                                                     {{ 'Cash On Delivery' }}
                                                 </span>
-                                            @elseif($order->payment_method == 2) 
+                                            @elseif($order->payment_method == 3) 
+                                                @if($order->payment_status == 1)
                                                 <span class="online">
                                                     {{ 'Online Payment' }}
-                                                </span>   
+                                                </span>
+                                                @elseif($order->payment_status == 2)
+                                                <span class="fail">Payment Failed</span>    
+                                                <a href="{{ route('pay-here',['invoice'=>$order->invoice]) }}" style="color: blue;">Pay Now</a>
+                                                @endif                  
                                             @endif
                                         </td>
                                         <td style="text-align: left;min-width: fit-content;font-weight: normal;">{{ $order->paid_amount }} BDT</td>

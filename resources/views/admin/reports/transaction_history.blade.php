@@ -9,7 +9,7 @@
     <div class="col-md-12 pb-3">
         <div class="ibox">
             <div class="ibox-body">
-                <form action="{{ route('admin.search-order') }}">
+                <form action="{{ route('admin.transaction-history') }}">
                     <div class="row">
                         <div class="col-md-2">
                             <div class="form-group">

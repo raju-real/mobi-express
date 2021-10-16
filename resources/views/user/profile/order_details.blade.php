@@ -91,7 +91,9 @@
                                                     {{ 'Cash On Delivery' }}
                                                 </span>
                                             </p>
-                                        @elseif($order->payment_method == 2)
+                                        @elseif($order->payment_method == 2)    
+                                            {{ 'Voucher Payment' }}
+                                        @elseif($order->payment_method == 3)
                                             {{-- <p>
                                                 Payment Method : 
                                                 <span class="online">
@@ -113,7 +115,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @if($order->payment_method == 2)
+                            @if($order->payment_method == 3)
                                 <div class="col-md-4">
                                     <h4>Billing Details</h4>
                                     <div class="card">

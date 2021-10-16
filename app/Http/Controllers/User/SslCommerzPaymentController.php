@@ -211,7 +211,7 @@ class SslCommerzPaymentController extends Controller
                         ->select('invoice')->first();
                     $order = Order::where('invoice', $find->invoice)->first();
                     $order->payment_status = 1;
-                    $order->payment_method = 2;
+                    //$order->payment_method = 3;
                     $order->payment_time   = $request->input('tran_date');
                     $order->paid_amount    = $amount;
                     $order->due_amount     =  $order->order_price - $amount;
@@ -251,6 +251,8 @@ class SslCommerzPaymentController extends Controller
     public function fail(Request $request)
     {
         $tran_id = $request->input('tran_id');
+        $invoice = $request->input('value_a');
+
         $message = "Invalid Transaction";
         $transaction = Transaction::where('transaction_id', $tran_id)
             ->select('transaction_id', 'status', 'currency', 'transaction_amount')->first();
@@ -259,6 +261,7 @@ class SslCommerzPaymentController extends Controller
             Transaction::where('transaction_id', $tran_id)
                 ->update(['status' => 'Failed']);
             $message = "Transaction Failed";
+            Order::where('invoice',$invoice)->update(['payment_status'=>2]);
             Alert::error('Transaction Failed');
             return redirect()->route('user.order-history')
                     ->with('message',$message);
