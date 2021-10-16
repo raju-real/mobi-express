@@ -12,7 +12,7 @@ class SpecialOffer extends Model
 
     public function getCountDownEndDateAttribute(){
         $date = SpecialOffer::find($this->id);
-        $newDate =Carbon::parse($date->start_date)->addDays(2);
+        $newDate =Carbon::parse($date->end_date)->format("Y/m/d");
         return $newDate;
     }
     public function product(){

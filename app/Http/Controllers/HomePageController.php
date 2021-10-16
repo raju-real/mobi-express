@@ -45,6 +45,7 @@ class HomePageController extends Controller
             ->where('start_date','<=',Carbon::today())
             ->where('end_date','>=',Carbon::today())
             ->where('status',1)->get();
+            //return $offers;
         // Featured Product
         $featuredProducts = FeaturedProduct::with(['product'=>function($query){
             $query->published();
@@ -144,6 +145,10 @@ class HomePageController extends Controller
         $title = 'Best Selling Products';
         $pageTitle = 'Best Selling Products';
         return view('pages.vendor_products',compact('products','title','pageTitle'));
+    }
+
+    public function filterProducts(){
+        
     }
 
     public function productDetails($slug){

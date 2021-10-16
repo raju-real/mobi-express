@@ -93,11 +93,9 @@
                                         </a></h4>
                                         <div class="product_rating">
                                             <ul>
-                                                <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
+                                                @for($i=1;$i<=$product->rating;$i++)
+                                                <li><i class="ion-android-star" style="font-size: 20px;color: orange;"></i></li>
+                                                @endfor
                                             </ul>
                                         </div>
                                         <div class="price_box">
