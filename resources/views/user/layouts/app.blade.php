@@ -264,16 +264,17 @@
                                     <div class="search_box"
                                         style="position: relative;
                                             display: inline-block;">
-                                        <input id="product_name" name="product" autocomplete="off" placeholder="Search product..." type="text" onkeyup="searchProduct()">
+                                        <input id="product_name" name="product_name" autocomplete="off" placeholder="Search product..." type="text" onkeyup="searchProduct()">
                                         {{-- <button type="submit">Search</button> --}}
                                         <div id="searchResult" style="display: none;position: absolute;width: 100%;">
-                                        <ul class="dropdown-menu" style="display:block; position:relative;">
-                                            <li class="autocomplete-item">
+                                            <ul class="dropdown-menu" style="display:block; position:relative;">
+                                                <li class="autocomplete-item">
 
-                                            </li>
+                                                </li>
 
-                                        </ul>
-                                    </div>
+                                            </ul>
+                                        </div>
+                                        <button type="submit">Search</button>
                                     </div>
 
                                 </form>
