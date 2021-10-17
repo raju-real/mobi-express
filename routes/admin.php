@@ -30,12 +30,17 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('voucher-product','VoucherProductController');
     Route::resource('promotion','PromotionController');
     Route::resource('coupon','CouponController');
-    Route::get('promotion/products/{id}','PromotionController@promotionProducts')
+    Route::get('promotion/products/{slug}','PromotionController@promotionProducts')
         ->name('promotion-products');
-    Route::get('promotion/product/create/{promotion_id}','PromotionController@createPromotionProduct')
+    Route::get('promotion/product/create/{slug}','PromotionController@createPromotionProduct')
         ->name('promotion-product.create');
     Route::post('promotion-product','PromotionController@storePromotionProduct')
-        ->name('promotion-product.store'); 
+        ->name('promotion-product.store');    
+    Route::get('promotion/product/edit/{id}','PromotionController@editPromotionProduct')
+        ->name('promotion-product.edit');
+    Route::put('promotion/product/update/{id}','PromotionController@promotionProductUpdate')->name('promotion-product.update');    
+    Route::delete('promotion/product/delete/{id}','PromotionController@promotionProductDestroy')
+    ->name('promotion-product.delete');    
     Route::resource('slider','SliderController');  
     Route::resource('featured-products','FeaturedProductController');  
     Route::resource('new-arrivals','NewArrivalsController');  
@@ -79,6 +84,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         ->name('change-status');
     //Route::get('invoice','OrderController@invoice')->name('invoice');
     Route::get('invoice','OrderController@downloadInvoice')->name('invoice');
+    //Commonly Control
+    Route::get('orders','OrderController@orders')->name('orders');
 
     // Transaction Section
     Route::get('transaction-history','DashboardController@transactionHistory')

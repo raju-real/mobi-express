@@ -73,31 +73,35 @@ class HomePageController extends Controller
         return view('welcome',compact('featuredProducts','bestSellingProducts','categories','offers','popularProducts','frontCategories','newArrivals','promotions','products'));
     }
 
-    public function searchProduct(){
+    public function searchProduct(Request $request){
         $output="";
         $category_id = request()->get('category_id');
         $product_name = request()->get('product_name');
+        $data = Product::query();
+        $data->published();
         if(isset($category_id)){
-            $products = Product::where('category_id',$category_id)
-            ->published()
-            ->where('name','LIKE',"$product_name%")
-            ->get();
+            $data->where('category_id',$category_id)
+            ->where('name','LIKE',"%{$product_name}%");
         } else{
-            $products = Product::where('name','LIKE',"{$product_name}%")
-                ->published()
-                ->get();
+            $data->where('name','LIKE',"%{$product_name}%");
         }
+        $products = $data->get();
+        if($request->ajax()){
+            $output = '';
+            foreach($products as $product){
+                $name = "'".$product->name."'";
+                $url =  route('product-details',$product->slug);
+                $output.='<a'.' href='.'"'.$url .'"'
+                .'>'
+                .$product->name
+                .'</a>';
+            }
 
-        $output = '';
-        foreach($products as $product){
-            $name = "'".$product->name."'";
-            $url =  route('product-details',$product->slug);
-            $output.='<a'.' href='.'"'.$url .'"'
-            .'>'
-            .$product->name
-            .'</a>';
-        }
-        return response()->json(['data'=>$output]);
+            return response()->json(['data'=>$output]);
+        } 
+        return $products;
+
+        
         //return Response($output);
     }
 

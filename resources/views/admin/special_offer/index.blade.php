@@ -30,8 +30,9 @@
                             <th>Sl.no</th>
                             <th>Image</th>
                             <th>Product</th>
-                            <th class="text-nowrap">Unit Price</th>
-                            <th class="text-nowrap">Discount Price</th>
+                            <th class="text-nowrap">Current Price</th>
+                            <th class="text-nowrap">Offer Price</th>
+                            <th>Discount</th>
                             <th class="text-nowrap">Start Date</th>
                             <th class="text-nowrap">End Date</th>
                             <th>Status</th>
@@ -43,8 +44,9 @@
                             <th>Sl.no</th>
                             <th>Image</th>
                             <th>Product</th>
-                            <th class="text-nowrap">Unit Price</th>
-                            <th class="text-nowrap">Discount Price</th>
+                            <th class="text-nowrap">Current Price</th>
+                            <th class="text-nowrap">Offer Price</th>
+                            <th>Discount</th>
                             <th class="text-nowrap">Start Date</th>
                             <th class="text-nowrap">End Date</th>
                             <th>Status</th>
@@ -63,9 +65,17 @@
                                 @endif
                             </td>
                             <td>{{ $offer->product->name }}</td>
-                            <td>{{ $offer->product->unit_price }}</td>
+                            <td class="text-nowrap">
+                                <span style="border-bottom: 1px solid black">
+                                    Unit Price - {{ $offer->product->unit_price }}
+                                </span>
+                                <br>
+                                Discount Price - {{ $offer->product->discount_price }}
+                            </td>
                             <td>
-                                {{ $offer->product->discount_price }}
+                                {{ $offer->discount_price }}
+                            </td>
+                            <td>
                                 <span class="badge badge-success">{{ $offer->product->percentage }} % Off</span>
                             </td>
                             <td>{{ date('d-m-y', strtotime($offer->start_date)) }}</td>

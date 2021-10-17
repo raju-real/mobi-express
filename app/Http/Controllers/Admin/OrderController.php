@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\ContactUs;
+use App\Model\District;
 use App\Model\Order;
 use App\Model\OrderProduct;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -68,6 +70,64 @@ class OrderController extends Controller
         $title = 'Search Result'; 
         return view('admin.orders.orders',compact('orders','title'));
 
+    }
+
+    // Commonly Controll Order
+    public function orders(){
+        $districtIds = Order::distinct()->pluck('district_id');
+        $districts = District::whereIn('id',$districtIds)->orderBy('name','asc')->get();
+        $data = Order::query();
+        $title = 'Order List';
+        $search = request()->get('search');
+        if(isset($search)){
+            $invoice = request()->get('invoice'); 
+            $from_date = request()->get('from_date');
+            $to_date = request()->get('to_date');
+            $from  = date('Y-m-d', strtotime($from_date));
+            $to  = date('Y-m-d', strtotime($to_date));
+            $payment_method = request()->get('payment_method');
+            $payment_status = request()->get('payment_status');
+            $order_status = request()->get('order_status');
+            $mobile = request()->get('mobile');
+            $district = request()->get('district');
+            $city_town = request()->get('city_town');
+
+            if(isset($invoice)){
+                $data->where('invoice',$invoice);
+            }
+            if (isset($from_date) && !isset($to_date)) {
+                $data->whereDate('created_at',date($from));
+            }
+            if (isset($to_date) && !isset($from_date)) {
+                $data->whereDate('created_at','<=',date($to));
+            }
+            if (isset($from_date) AND isset($to_date)) {
+                $data->whereBetween('created_at', [$from, $to]);
+            }
+            if(isset($payment_method)){
+                $data->where('payment_method',$payment_method);
+            }
+            if(isset($payment_status)){
+                $data->where('payment_status',$payment_status);
+            }
+            if(isset($order_status)){
+                $data->where('order_status',$order_status);
+            }
+            if(isset($mobile)){
+                $data->where('mobile',$mobile);
+            }
+            if(isset($district)){
+                $data->where('district_id',$district);
+            }
+            if(isset($city_town)){
+                $data->where('city_town',"LIKE","%$city_town%");
+            }
+        } else{
+            $today = Carbon::today()->toDateString();
+            $data->whereDate('created_at',$today)->get();
+        }
+        $orders = $data->get();
+        return view('admin.orders.order_list',compact('orders','title','districts'));
     }
 
     public function orderDetails(){

@@ -237,7 +237,7 @@
                                             </tr>
                                             <tr class="order_total">
                                                 <th style="text-align: left;">
-                                                    Probable Delivery
+                                                    Delivery Within
                                                 </th>
                                                 <td>
                                                 @if($shipping->delivery_time > 0)

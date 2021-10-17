@@ -93,7 +93,7 @@
                             <td>{{ $promotion->name }}</td>
                             <td>
                             	{{ $promotion->products->count() }}
-                            	<a class="badge badge-info" href="{{ route('admin.promotion-products',$promotion->id) }}">
+                            	<a class="badge badge-info" href="{{ route('admin.promotion-products',$promotion->slug) }}">
                             		Products
                             	</a>
                             </td>

@@ -21,6 +21,14 @@
         border-radius: 10px;
         padding: 2px 10px;
     }
+    .pay{
+        border: 1.5px solid white;
+        border-radius: 10px;
+        padding: 2px 10px;
+        box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.2), 
+        0px 1px 1px 2px rgba(0, 0, 0, 0.14), 
+        0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+    }
 </style>
 @endpush
 
@@ -130,7 +138,7 @@
                                                 </span>
                                                 @elseif($order->payment_status == 2)
                                                 <span class="fail">Payment Failed</span>    
-                                                <a href="{{ route('pay-here',['invoice'=>$order->invoice]) }}" style="color: blue;">Pay Now</a>
+                                                <a class="pay" href="{{ route('pay-here',['invoice'=>$order->invoice]) }}">Pay Now</a>
                                                 @endif                  
                                             @endif
                                         </td>

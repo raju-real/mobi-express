@@ -103,7 +103,9 @@ class OfferController extends Controller
     }
 
     public function destroy($id){
-        SpecialOffer::find($id)->delete();
+        $offer = SpecialOffer::find($id);
+        Product::find($offer->product_id)->update(['discount_price'=>0]);
+        $offer->delete();
         Toastr::info('Offer Product Delete Successfully','error');
         return redirect()->route('admin.offer.index');
     }

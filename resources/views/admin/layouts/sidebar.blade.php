@@ -16,8 +16,21 @@
                     <span class="nav-label">Dashboard</span>
                 </a>
             </li>
-            
             <li>
+                <a href="{{ route('admin.orders') }}"><i class="sidebar-item-icon fa fa-first-order"></i>
+                    <span class="nav-label">
+                        Orders
+                        <span class="badge badge-warning" style="float: right;">
+                        {{ 
+                        App\Model\Order::where('order_status',0)->count() 
+                        }}
+                    </span>
+                    </span>
+
+                </a>
+            </li>
+            
+            {{-- <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-first-order"></i>
                     <span class="nav-label">Order List</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
@@ -100,7 +113,7 @@
                     </li>
                     
                 </ul>
-            </li>
+            </li> --}}
             <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-bar-chart"></i>
                     <span class="nav-label">Reports</span><i class="fa fa-angle-left arrow"></i></a>

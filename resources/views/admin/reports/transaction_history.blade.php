@@ -68,6 +68,11 @@
                 <div class="ibox-title">
                     {{ 'Transaction History' }}
                 </div>
+                <div class="ibox-title">
+                    <a href="{{ route('admin.transaction-history') }}" class="badge badge-danger pull-right">
+                        <i class="fa fa-refresh"></i>
+                    </a>
+                </div>
             </div>
             
             <div class="ibox-body">
