@@ -85,8 +85,9 @@ class HomePageController extends Controller
         } else{
             $data->where('name','LIKE',"%{$product_name}%");
         }
-        $products = $data->get();
+        
         if($request->ajax()){
+            $products = $data->get();
             $output = '';
             foreach($products as $product){
                 $name = "'".$product->name."'";
@@ -98,8 +99,12 @@ class HomePageController extends Controller
             }
 
             return response()->json(['data'=>$output]);
-        } 
-        return $products;
+        } else{
+            $products = $data->paginate(30);
+            $title = 'Search Result';
+            $pageTitle = 'Search Result';
+            return view('pages.vendor_products',compact('products','title','pageTitle'));
+        }
 
         
         //return Response($output);

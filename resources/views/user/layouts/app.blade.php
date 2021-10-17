@@ -249,9 +249,9 @@
                                 @php
                                     $categories = DB::table('categories')->orderBy('name','asc')->get();
                                 @endphp
-                                <form action="#">
+                                <form action="{{ route('search-product') }}" method="GET">
                                     <div class="hover_category">
-                                        <select class="select_option" name="select" id="category_id">
+                                        <select class="select_option" name="category" id="category_id">
                                             <option selected value="">All Categories</option>
                                             @foreach($categories as $category)
                                             <option value="{{ $category->id }}">
@@ -264,7 +264,7 @@
                                     <div class="search_box"
                                         style="position: relative;
                                             display: inline-block;">
-                                        <input id="product_name" autocomplete="off" placeholder="Search product..." type="text" onkeyup="searchProduct()">
+                                        <input id="product_name" name="product" autocomplete="off" placeholder="Search product..." type="text" onkeyup="searchProduct()">
                                         {{-- <button type="submit">Search</button> --}}
                                         <div id="searchResult" style="display: none;position: absolute;width: 100%;">
                                         <ul class="dropdown-menu" style="display:block; position:relative;">
