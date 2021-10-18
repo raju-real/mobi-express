@@ -666,6 +666,7 @@
           });
         }
     </script>
+    
     @stack('js')
 </body>
 

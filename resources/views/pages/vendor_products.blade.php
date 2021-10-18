@@ -51,8 +51,8 @@
                     <div class=" niceselect_option">
                         <form class="select_option" action="#">
                             <select name="orderby" id="short">
-                                <option value="4">Sort by price: low to high</option>
-                                <option value="5">Sort by price: high to low</option>
+                                <option value="1">Sort by price: low to high</option>
+                                <option value="2">Sort by price: high to low</option>
                             </select>
                         </form>
                     </div>
@@ -207,7 +207,7 @@
                         </ul>
                     </div>
                     
-                    <div class="widget_list tags_widget">
+                    {{-- <div class="widget_list tags_widget">
                         <h3>Product tags</h3>
                         <div class="tag_cloud">
                             <a href="#">blouse</a>
@@ -216,7 +216,7 @@
                             <a href="#">handbag</a>
                             <a href="#">laptop</a>
                         </div>
-                    </div>
+                    </div> --}}
                 </aside>
                 <!--sidebar widget end-->
             </div>
@@ -227,5 +227,10 @@
 @endsection
 
 @push('js')
+<script>
+    $('#short').change(function () {
+        alert('ol');
+    })
 
+</script>
 @endpush
