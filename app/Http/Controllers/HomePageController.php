@@ -85,6 +85,14 @@ class HomePageController extends Controller
         } else{
             $data->where('name',"LIKE","%$product_name%");
         }
+        $filter = request()->get('filter');
+        if(isset($filter)){
+            if($filter == "high-to-low"){
+                $data->orderBy('unit_price','desc');
+            } elseif($filter == "low-to-high"){
+                $data->orderBy('unit_price','asc');
+            }
+        } 
         $products = $data->paginate(30);
         if($request->ajax()){
             $output = '';
@@ -126,36 +134,58 @@ class HomePageController extends Controller
 
     public function voucherProducts(){
         $ids = VoucherProduct::select('product_id')->get();
-        $products = Product::whereIn('id',$ids->pluck('product_id'))
-            ->paginate(20);
+        $data = Product::whereIn('id',$ids->pluck('product_id'));
+        $filter = request()->get('filter');
+        if(isset($filter)){
+            if($filter == "high-to-low"){
+                $data->orderBy('unit_price','desc');
+            } elseif($filter == "low-to-high"){
+                $data->orderBy('unit_price','asc');
+            }
+        } 
+        $products = $data->paginate(20);
         $title = 'Voucher Products';
         $pageTitle = 'Voucher Products';
         return view('pages.vendor_products',compact('products','title','pageTitle'));
     }
 
     public function featuredProducts(){
+
         $ids = FeaturedProduct::select('product_id')->get();
-        $products = Product::whereIn('id',$ids->pluck('product_id'))
-            ->published()
-            ->paginate(20);
+        $filter = request()->get('filter');
+        $data = Product::whereIn('id',$ids->pluck('product_id'))
+            ->published();
+        if(isset($filter)){
+            if($filter == "high-to-low"){
+                $data->orderBy('unit_price','desc');
+            } elseif($filter == "low-to-high"){
+                $data->orderBy('unit_price','asc');
+            }
+        }
+        $products = $data->paginate(20);
         $title = 'Featured Products';
         $pageTitle = 'Featured Products';
-        return view('pages.vendor_products',compact('products','title','pageTitle'));
+        $url = URL::current();
+        return view('pages.vendor_products',compact('products','title','pageTitle','url'));
     }
 
     public function bestSellingProducts(){
         $ids = OrderProduct::latest()->take(20)->get()
             ->unique('product_id');
-        $products = Product::whereIn('id',$ids->pluck('product_id'))
-            ->published()
-            ->paginate(20);    
+        $data = Product::whereIn('id',$ids->pluck('product_id'))
+            ->published();
+        $filter = request()->get('filter');
+        if(isset($filter)){
+            if($filter == "high-to-low"){
+                $data->orderBy('unit_price','desc');
+            } elseif($filter == "low-to-high"){
+                $data->orderBy('unit_price','asc');
+            }
+        }    
+        $products = $data->paginate(20);    
         $title = 'Best Selling Products';
         $pageTitle = 'Best Selling Products';
         return view('pages.vendor_products',compact('products','title','pageTitle'));
-    }
-
-    public function filterProducts(){
-        
     }
 
     public function productDetails($slug){
@@ -174,12 +204,17 @@ class HomePageController extends Controller
 
     public function categoryProducts($slug){
         $category = Category::where('slug',$slug)->first();
-        // $promotionProducts = $this->promotionProducts();
-        // $products = Product::whereNotIn('id',$promotionProducts->pluck('product_id'))
-        //     ->where('category_id',$category->id)
-        //     ->paginate(20);
-        $products = Product::where('category_id',$category->id)
-            ->paginate(20);
+        
+        $data = Product::where('category_id',$category->id);
+        $filter = request()->get('filter');
+        if(isset($filter)){
+            if($filter == "high-to-low"){
+                $data->orderBy('unit_price','desc');
+            } elseif($filter == "low-to-high"){
+                $data->orderBy('unit_price','asc');
+            }
+        } 
+        $products = $data->paginate(20);
         $title = $category->name;
         $pageTitle = 'Category/'.$category->name;
         $image = $category->image;
@@ -195,8 +230,16 @@ class HomePageController extends Controller
     public function promotionProducts($slug){
         $promotion = Promotion::where('slug',$slug)->first();
         $promotionProducts = PromotionProduct::where('promotion_id',$promotion->id)->get();
-        $products = Product::whereIn('id',$promotionProducts->pluck('product_id'))
-            ->paginate(20);
+        $data = Product::whereIn('id',$promotionProducts->pluck('product_id'));
+        $filter = request()->get('filter');
+        if(isset($filter)){
+            if($filter == "high-to-low"){
+                $data->orderBy('unit_price','desc');
+            } elseif($filter == "low-to-high"){
+                $data->orderBy('unit_price','asc');
+            }
+        } 
+        $products = $data->paginate(20);
         $title = $promotion->name;
         $pageTitle = 'Promotion/'.$promotion->name;
         $image = $promotion->image;
@@ -207,8 +250,16 @@ class HomePageController extends Controller
     public function subcategoryProducts($slug){
         $subcategory = SubCategory::where('slug',$slug)->first();
         //$promotionProducts = $this->promotionProducts();
-        $products = Product::where('subcategory_id',$subcategory->id)
-            ->paginate(20);
+        $data = Product::where('subcategory_id',$subcategory->id);
+        $filter = request()->get('filter');
+        if(isset($filter)){
+            if($filter == "high-to-low"){
+                $data->orderBy('unit_price','desc');
+            } elseif($filter == "low-to-high"){
+                $data->orderBy('unit_price','asc');
+            }
+        } 
+        $products = $data->paginate(20);
         $title = $subcategory->name;
         $pageTitle = 'Subcategory/'.$subcategory->name;
         $image = $subcategory->image;
@@ -218,8 +269,16 @@ class HomePageController extends Controller
 
     public function brandProducts($slug){
         $brand = Brand::where('slug',$slug)->first();
-        $products = Product::where('brand_id',$brand->id)
-            ->paginate(20);
+        $data = Product::where('brand_id',$brand->id);
+        $filter = request()->get('filter');
+        if(isset($filter)){
+            if($filter == "high-to-low"){
+                $data->orderBy('unit_price','desc');
+            } elseif($filter == "low-to-high"){
+                $data->orderBy('unit_price','asc');
+            }
+        } 
+        $products = $data->paginate(20);
         $title = $brand->name;
         $pageTitle = 'Brand/'.$brand->name;
         $image = $brand->image;
