@@ -57,7 +57,7 @@ return [
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         Brian2694\Toastr\ToastrServiceProvider::class,
         Cohensive\Embed\EmbedServiceProvider::class,
-        Barryvdh\DomPDF\ServiceProvider::class,
+        niklasravnsborg\LaravelPdf\PdfServiceProvider::class
 
     ],
 
@@ -104,7 +104,7 @@ return [
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
         'Embed' => Cohensive\Embed\Facades\Embed::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class
 
     ],
 
