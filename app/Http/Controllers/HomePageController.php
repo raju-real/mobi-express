@@ -150,6 +150,25 @@ class HomePageController extends Controller
         return view('pages.vendor_products',compact('products','title','pageTitle'));
     }
 
+    public function offerProducts(){
+        $ids = SpecialOffer::where('start_date','<=',Carbon::today())
+            ->where('end_date','>=',Carbon::today())
+            ->where('status',1)->select('product_id')->get();
+        $data = Product::whereIn('id',$ids->pluck('product_id'));
+        $filter = request()->get('filter');
+        if(isset($filter)){
+            if($filter == "high-to-low"){
+                $data->orderBy('unit_price','desc');
+            } elseif($filter == "low-to-high"){
+                $data->orderBy('unit_price','asc');
+            }
+        } 
+        $products = $data->paginate(20);
+        $title = 'Offer Products';
+        $pageTitle = 'Offer Products';
+        return view('pages.vendor_products',compact('products','title','pageTitle'));
+    }
+
     public function featuredProducts(){
 
         $ids = FeaturedProduct::select('product_id')->get();

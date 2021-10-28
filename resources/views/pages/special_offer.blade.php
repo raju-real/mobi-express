@@ -1,5 +1,8 @@
 <div class="widget_list widget_products">
-    <h3>Special Offer</h3>
+    <h3>Special Offer
+        <a href="{{ route('offer-products') }}" class="btn btn-warning btn-sm" style="float: right;">View All</a>
+    </h3>
+
     <div class="product_carousel product_style product_sidebar_slider owl-carousel">
         @foreach($offers as $offer)
         <article class="single_product">

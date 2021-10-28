@@ -17,10 +17,12 @@ Route::any('product-details/{slug}','HomePageController@productDetails')
     ->name('product-details');
 Route::get('featured-products','HomePageController@featuredProducts')   
     ->name('featured-products');
-Route::get('best-selling-products','HomePageController@bestSellingProducts')   
+Route::get('best-selling-products','HomePageController@bestSellingProducts')
     ->name('best-selling-products');     
 Route::get('voucher-products','HomePageController@voucherProducts')   
-    ->name('voucher-products');       
+    ->name('voucher-products');
+Route::get('offer-products','HomePageController@offerProducts')   
+    ->name('offer-products');           
 Route::get('products/category/{slug}','HomePageController@categoryProducts')    
     ->name('category-products');
 Route::get('products/subcategory/{slug}','HomePageController@subcategoryProducts')->name('subcategory-products'); 
