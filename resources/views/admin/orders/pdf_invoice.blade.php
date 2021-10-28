@@ -189,9 +189,9 @@
                             <span>{{ $order->address ?? '' }}</span> <br>
                         </p>
                     </th>
-                    <th style="background: white;text-align: right;">
+                    {{-- <th style="background: white;text-align: right;">
                         <img src="{{ asset('assets/common/qr-code/qr.jpg') }}" >
-                    </th>
+                    </th> --}}
                 </tr>
                 
             </thead>
@@ -216,28 +216,33 @@
             <tbody>
                 @foreach($order->products as $order_product)
                 <tr>
-                    <td class="desc" style="font-weight: bold;border-right: 1px solid white;background: ghostwhite;white-space: nowrap;">
+                    <td class="desc" style="font-weight: bold;border-right: 1px solid whitesmoke;background: white;white-space: nowrap;">
                         {{ $loop->index + 1 }} 
                     </td>
-                    <td class="desc" style="font-weight: bold;border-right: 1px solid white;background: ghostwhite;white-space: nowrap;">
+                    <td class="desc" style="font-weight: bold;border-right: 1px solid whitesmoke;background: white;white-space: nowrap;">
                         {{ $order_product->product->name }} 
                     </td>
-                    <td class="desc" style="font-weight: bold;border-right: 1px solid white;background: ghostwhite;white-space: nowrap;">
+                    <td class="desc" style="font-weight: bold;border-right: 1px solid whitesmoke;background: white;white-space: nowrap;">
                         {{ $order_product->quantity }} 
                     </td>
-                    <td class="desc" style="font-weight: bold;border-right: 1px solid white;background: ghostwhite;white-space: nowrap;">
+                    <td class="desc" style="font-weight: bold;border-right: 1px solid whitesmoke;background: white;white-space: nowrap;">
                         {{ $order_product->total_price }} BDT
                     </td>
+
                 </tr>
                 @endforeach
+                {{-- <tr>
+                    <td colspan="3" align="right" width="30%">Sub Total</td>
+                    <td align="left" style="background: white;">{{ $order->total_price - 45 }} BDT</td>
+                </tr> --}}
             </tbody>
         </table>
         
-        <table border="0" cellspacing="0" cellpadding="0" style="border-bottom: 1px solid #AAAAAA;width: 40%;float: right;">
+        <table border="0" cellspacing="0" cellpadding="0" style="border-bottom: 1px solid #AAAAAA;width: 40%;" align="right">
             <tr>
                 <th class="unit">Sub Total</th>
                 <th class="desc">
-                    {{ $order->total_price - 45 }} BDT
+                    {{ $order->total_price }} BDT
                 </th>
             </tr>
             <tr>
@@ -249,7 +254,7 @@
             <tr>
                 <th class="unit">Total Price</th>
                 <th class="desc">
-                    {{ $order->total_price }} BDT
+                    {{ $order->order_price }} BDT
                 </th>
             </tr>
             <tr>

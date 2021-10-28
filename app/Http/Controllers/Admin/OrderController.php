@@ -125,7 +125,8 @@ class OrderController extends Controller
             }
         } else{
             $today = Carbon::today()->toDateString();
-            $data->whereDate('created_at',$today)->get();
+            //$data->whereDate('created_at',$today)->get();
+            $data->where('order_status',0)->get();
         }
         $orders = $data->get();
         return view('admin.orders.order_list',compact('orders','title','districts'));
