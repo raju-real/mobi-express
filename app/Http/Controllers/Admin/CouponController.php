@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Model\Coupon;
-use Illuminate\Http\Request;
+use App\Model\CouponValidUser;
+use App\Model\Order;
+use App\Model\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class CouponController extends Controller
 {
@@ -16,10 +19,12 @@ class CouponController extends Controller
     }
 
     public function store(Request $request){
+        //return $request->valid_for;
         $this->validate($request,[
             'coupon_code' => 'required',
             'valid_for' => 'required',
             'discount_type' => 'required',
+            'minimum_cost' => "required_if:discount_type,==,1",
             'discount' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
@@ -28,7 +33,6 @@ class CouponController extends Controller
 
         $coupon = new Coupon();
         $coupon->coupon_code = $request->coupon_code;
-        $coupon->valid_for = $request->valid_for;
         $coupon->discount_type = $request->discount_type;
         $coupon->discount = $request->discount;
         $coupon->minimum_cost = $request->minimum_cost ? $request->minimum_cost : 0;
@@ -44,6 +48,15 @@ class CouponController extends Controller
         $coupon->start_date = $startDate;
         $coupon->end_date = $endDate;
         $coupon->status = $request->status;
+        $coupon->valid_for = $request->valid_for;
+        if($request->valid_for == 2){
+            $users = User::whereNotIn('id',Order::pluck('user_id'))->select('id')->get();
+            foreach($users as $user){
+                $identify = ['user_id'=>$user->id,'coupon_code'=>$request->coupon_code];
+                $data = ['user_id'=>$user->id,'coupon_code'=>$request->coupon_code];
+                CouponValidUser::updateOrInsert($identify,$data);
+            }
+        }
         $coupon->save();
         Toastr::success('New Coupon Added Successfully');
         return redirect(route('admin.coupon.index'));
@@ -62,7 +75,6 @@ class CouponController extends Controller
          
         $coupon = Coupon::findOrFail($id);
         $coupon->coupon_code = $request->coupon_code;
-        $coupon->valid_for = $request->valid_for;
         $coupon->discount_type = $request->discount_type;
         $coupon->discount = $request->discount;
         $coupon->minimum_cost = $request->minimum_cost ? $request->minimum_cost : 0;
@@ -76,6 +88,15 @@ class CouponController extends Controller
         $coupon->start_date = $startDate;
         $coupon->end_date = $endDate;
         $coupon->status = $request->status;
+        $coupon->valid_for = $request->valid_for;
+        if($request->valid_for == 2){
+            $users = User::whereNotIn('id',Order::pluck('user_id'))->select('id')->get();
+            foreach($users as $user){
+                $identify = ['user_id'=>$user->id,'coupon_code'=>$request->coupon_code];
+                $data = ['user_id'=>$user->id,'coupon_code'=>$request->coupon_code];
+                CouponValidUser::updateOrInsert($identify,$data);
+            }
+        }
         $coupon->save();
         Toastr::info('Coupon Update Successfully');
         return redirect(route('admin.coupon.index'));

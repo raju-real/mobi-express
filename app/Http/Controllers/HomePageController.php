@@ -7,6 +7,7 @@ use App\Model\Cart;
 use App\Model\Category;
 use App\Model\Coupon;
 use App\Model\CouponUserUsed;
+use App\Model\CouponValidUser;
 use App\Model\Division;
 use App\Model\Favorite;
 use App\Model\FeaturedProduct;
@@ -435,7 +436,11 @@ class HomePageController extends Controller
         if($coupon->valid_for == 1){
             return true;
         } elseif($coupon->valid_for == 2){
-            return true;
+            if(CouponValidUser::where(['coupon_code'=>$coupon->coupon_code,'user_id'=>Auth::id()])->exists()){
+                return true;
+            } else {
+                return false;
+            }
         } else{
             return false;
         }
@@ -572,7 +577,7 @@ class HomePageController extends Controller
                 ];
 
                 OrderPrice::updateOrInsert($identify,$data);
-                $order_price = OrderPrice::where($identify)->first();
+                
                 // Apply Coupon
                 $coupon_code = request()->get('coupon_code');
                 if(isset($coupon_code)){
@@ -584,7 +589,7 @@ class HomePageController extends Controller
                         Session::forget('coupon_message');
                     }
                 }
-                
+                $order_price = OrderPrice::where($identify)->first();
                 return view('pages.checkout', compact('carts','order_price','shipping'));
             } else{
                 Alert::error('Your Cart Is Empty');

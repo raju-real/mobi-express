@@ -60,6 +60,7 @@ return array(
     'App\\Model\\ContactUs' => $baseDir . '/app/Model/ContactUs.php',
     'App\\Model\\Coupon' => $baseDir . '/app/Model/Coupon.php',
     'App\\Model\\CouponUserUsed' => $baseDir . '/app/Model/CouponUserUsed.php',
+    'App\\Model\\CouponValidUser' => $baseDir . '/app/Model/CouponValidUser.php',
     'App\\Model\\District' => $baseDir . '/app/Model/District.php',
     'App\\Model\\Favorite' => $baseDir . '/app/Model/Favorite.php',
     'App\\Model\\FeaturedProduct' => $baseDir . '/app/Model/FeaturedProduct.php',

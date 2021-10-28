@@ -598,6 +598,7 @@ class ComposerStaticInit861675f6d4a0fdb67d2afd8bc58ef980
         'App\\Model\\ContactUs' => __DIR__ . '/../..' . '/app/Model/ContactUs.php',
         'App\\Model\\Coupon' => __DIR__ . '/../..' . '/app/Model/Coupon.php',
         'App\\Model\\CouponUserUsed' => __DIR__ . '/../..' . '/app/Model/CouponUserUsed.php',
+        'App\\Model\\CouponValidUser' => __DIR__ . '/../..' . '/app/Model/CouponValidUser.php',
         'App\\Model\\District' => __DIR__ . '/../..' . '/app/Model/District.php',
         'App\\Model\\Favorite' => __DIR__ . '/../..' . '/app/Model/Favorite.php',
         'App\\Model\\FeaturedProduct' => __DIR__ . '/../..' . '/app/Model/FeaturedProduct.php',
