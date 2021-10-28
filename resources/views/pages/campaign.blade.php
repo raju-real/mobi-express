@@ -37,7 +37,7 @@
 							                <div class="col-lg-6 col-md-6">
 							                    <figure class="single_banner">
 							                        <div class="banner_thumb">
-							                            <a href="{{ route('campaign-products',$campaign->slug) }}"><img src="{{ $campaign->image }}" alt="" style="height: 300px;width: 95%"></a>
+							                            <a href="{{ route('campaign-products',$campaign->slug) }}"><img src="{{ $campaign->image }}" alt="" style="height: 300px;"></a>
 							                        </div>
 							                    </figure>
 							                </div>

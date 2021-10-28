@@ -33,7 +33,7 @@ class PromotionController extends Controller
             $image = $request->file('image');
             $imageName = time().$image->getClientOriginalName();
             $image_resize = Image::make($image->getRealPath());
-            $image_resize->resize(353.72, 191.19);
+            //$image_resize->resize(353.72, 191.19);
             $image_resize->save('images/promotion/' .$imageName);
         }
 
@@ -57,7 +57,7 @@ class PromotionController extends Controller
             $image = $request->file('image');
             $imageName = time().$image->getClientOriginalName();
             $image_resize = Image::make($image->getRealPath());
-            $image_resize->resize(353.72, 191.19);
+            //$image_resize->resize(353.72, 191.19);
             $image_resize->save('images/promotion/' .$imageName);
             $imageName = 'images/promotion/' .$imageName;
         } else{
@@ -114,7 +114,7 @@ class PromotionController extends Controller
             'promotion_id'=>$request->promotion_id,
             'product_id'=>$request->product_id
         ];
-            
+
         if (sizeof(PromotionProduct::where($where)->get()) > 0) {
             Toastr::info('Product Already Added On This Promotion','error');
             return redirect()->back();
@@ -133,12 +133,12 @@ class PromotionController extends Controller
                     Toastr::info('Invalid Price','error');
                     return redirect()->back();
                 }
-                
+
                 $product->discount_price = $request->discount;
                 // Change price to product
                 $findProduct->discount_price = $request->discount;
                 $findProduct->save();
-            }       
+            }
             $product->save();
             Toastr::info('Product Successfully Added','success');
             return redirect()->back();
@@ -179,9 +179,9 @@ class PromotionController extends Controller
             $product->update(['discount_price'=>0]);
         } else{
             $product->update(['discount_price'=>$request->discount]);
-        }  
+        }
         $promotionProduct->save();
-        
+
         Toastr::info('Product Successfully Updated');
         return redirect()->route('admin.promotion-products',$promotion->slug);
     }

@@ -261,7 +261,7 @@
                                         <input id="cash-on-delivery"  
                                         name="payment_method" type="radio" value="1" checked />
                                         <label for="cash-on-delivery">Cash on delivery</label>
-                                        @if($order_price->voucher_apply == true)
+                                        {{-- @if($order_price->voucher_apply == true)
                                         <br>
                                         <input id="evaly-voucher" name="payment_method" type="radio" value="2" />
                                         <label for="evaly-voucher">
@@ -272,7 +272,7 @@
                                         <input id="online-payment" name="payment_method" type="radio" value="3"  />
                                         <label for="online-payment">
                                             Online Payment
-                                        </label>
+                                        </label> --}}
                                     </div>
                                     <div class="panel-default" id="agree" style="display: none;">
                                         <input type="checkbox" name="agree" class="mt-2" id="agree-box" checked>
