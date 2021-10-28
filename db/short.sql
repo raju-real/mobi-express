@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.7
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 15, 2021 at 11:44 PM
--- Server version: 10.3.31-MariaDB
--- PHP Version: 7.3.30
+-- Generation Time: Oct 28, 2021 at 05:31 PM
+-- Server version: 5.7.24
+-- PHP Version: 7.2.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,104 +18,39 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `mobixp_database`
+-- Database: `mobile-accessories`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `districts`
+-- Table structure for table `coupon_valid_users`
 --
 
-CREATE TABLE `districts` (
+CREATE TABLE `coupon_valid_users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `coupon_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `districts`
+-- Dumping data for table `coupon_valid_users`
 --
 
-INSERT INTO `districts` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Dhaka', '2021-09-20 10:59:49', '2021-09-20 10:59:49'),
-(2, 'Sirajgonj', '2021-09-20 11:00:05', '2021-09-20 11:00:05'),
-(3, 'Feni', '2021-09-20 11:00:23', '2021-09-20 11:00:23'),
-(4, 'Rajshahi', '2021-09-20 11:00:35', '2021-09-20 11:00:35'),
-(5, 'Sylhet', '2021-09-20 11:01:50', '2021-09-20 11:01:50'),
-(6, 'Chottagram', '2021-09-25 07:34:59', '2021-09-25 07:34:59'),
-(7, 'Cumilla', '2021-09-25 07:35:18', '2021-09-25 07:35:18'),
-(8, 'Rajshahi', '2021-09-25 07:35:30', '2021-09-25 07:35:30'),
-(9, 'Barguna', '2021-09-25 07:41:13', '2021-09-25 07:41:13'),
-(10, 'Barisal', '2021-09-25 07:41:23', '2021-09-25 07:41:23'),
-(11, 'Bhola', '2021-09-25 07:41:31', '2021-09-25 07:41:31'),
-(12, 'Jhalokati', '2021-09-25 07:41:40', '2021-09-25 07:41:40'),
-(13, 'Patuakhali', '2021-09-25 07:41:47', '2021-09-25 07:41:47'),
-(14, 'Pirojpur', '2021-09-25 07:41:54', '2021-09-25 07:41:54'),
-(15, 'Bandarban', '2021-09-25 07:42:00', '2021-09-25 07:42:00'),
-(16, 'Brahmanbaria', '2021-09-25 07:42:06', '2021-09-25 07:42:06'),
-(17, 'Chandpur', '2021-09-25 07:42:14', '2021-09-25 07:42:14'),
-(18, 'chattogram', '2021-09-25 07:42:42', '2021-09-25 07:42:42'),
-(19, 'Cox\'s Bazar', '2021-09-25 07:42:53', '2021-09-25 07:42:53'),
-(20, 'Khagrachhari', '2021-09-25 07:43:07', '2021-09-25 07:43:07'),
-(21, 'Lakshmipur', '2021-09-25 07:43:13', '2021-09-25 07:43:13'),
-(22, 'Noakhali', '2021-09-25 07:43:19', '2021-09-25 07:43:19'),
-(23, 'Rangamati', '2021-09-25 07:43:26', '2021-09-25 07:43:26'),
-(24, 'Dhaka', '2021-09-25 07:43:32', '2021-09-25 07:43:32'),
-(25, 'Faridpur', '2021-09-25 07:43:37', '2021-09-25 07:43:37'),
-(26, 'Gazipur', '2021-09-25 07:43:43', '2021-09-25 07:43:43'),
-(27, 'Kishoreganj', '2021-09-25 07:45:59', '2021-09-25 07:45:59'),
-(28, 'Madaripur', '2021-09-25 07:46:05', '2021-09-25 07:46:05'),
-(29, 'Manikganj', '2021-09-25 07:46:33', '2021-09-25 07:46:33'),
-(30, 'Munshiganj', '2021-09-25 07:46:40', '2021-09-25 07:46:40'),
-(31, 'Narayanganj', '2021-09-25 07:46:46', '2021-09-25 07:46:46'),
-(32, 'Narsingdi', '2021-09-25 07:46:52', '2021-09-25 07:46:52'),
-(33, 'Rajbari', '2021-09-25 07:46:58', '2021-09-25 07:46:58'),
-(34, 'Shariatpur', '2021-09-25 07:47:04', '2021-09-25 07:47:04'),
-(35, 'Tangail', '2021-09-25 07:47:14', '2021-09-25 07:47:14'),
-(36, 'Bagerhat', '2021-09-25 07:47:22', '2021-09-25 07:47:22'),
-(37, 'Chuadanga', '2021-09-25 07:47:30', '2021-09-25 07:47:30'),
-(38, 'Jessore', '2021-09-25 07:47:38', '2021-09-25 07:47:38'),
-(39, 'Jhenaidah', '2021-09-25 07:50:06', '2021-09-25 07:50:06'),
-(40, 'Khulna', '2021-09-25 07:50:11', '2021-09-25 07:50:11'),
-(41, 'Kushtia', '2021-09-25 07:50:18', '2021-09-25 07:50:18'),
-(42, 'Magura', '2021-09-25 07:50:25', '2021-09-25 07:50:25'),
-(43, 'Meherpur', '2021-09-25 07:50:31', '2021-09-25 07:50:31'),
-(44, 'Narail', '2021-09-25 07:50:39', '2021-09-25 07:50:39'),
-(45, 'Satkhira', '2021-09-25 07:50:50', '2021-09-25 07:50:50'),
-(46, 'Jamalpur', '2021-09-25 07:50:56', '2021-09-25 07:50:56'),
-(47, 'Mymensingh', '2021-09-25 07:51:03', '2021-09-25 07:51:03'),
-(48, 'Netrokona', '2021-09-25 07:51:09', '2021-09-25 07:51:09'),
-(49, 'Sherpur', '2021-09-25 07:51:15', '2021-09-25 07:51:15'),
-(50, 'Bogra', '2021-09-25 07:51:22', '2021-09-25 07:51:22'),
-(51, 'Joypurhat', '2021-09-25 07:51:28', '2021-09-25 07:51:28'),
-(52, 'Naogaon', '2021-09-25 07:51:34', '2021-09-25 07:51:34'),
-(53, 'Natore', '2021-09-25 07:51:41', '2021-09-25 07:51:41'),
-(54, 'Chapainawabganj', '2021-09-25 07:51:46', '2021-09-25 07:51:46'),
-(55, 'Pabna', '2021-09-25 07:51:54', '2021-09-25 07:51:54'),
-(56, 'Dinajpur', '2021-09-25 07:56:19', '2021-09-25 07:56:19'),
-(57, 'Rajshahi', '2021-09-25 07:56:36', '2021-09-25 07:56:36'),
-(58, 'Gaibandha', '2021-09-25 07:56:47', '2021-09-25 07:56:47'),
-(59, 'Kurigram', '2021-09-25 07:56:54', '2021-09-25 07:56:54'),
-(60, 'Lalmonirhat', '2021-09-25 07:57:01', '2021-09-25 07:57:01'),
-(61, 'Nilphamari', '2021-09-25 07:57:08', '2021-09-25 07:57:08'),
-(62, 'Panchagarh', '2021-09-25 07:57:14', '2021-09-25 07:57:14'),
-(63, 'Rangpur', '2021-09-25 07:57:20', '2021-09-25 07:57:20'),
-(64, 'Thakurgaon', '2021-09-25 07:57:27', '2021-09-25 07:57:27'),
-(65, 'Habiganj', '2021-09-25 07:57:34', '2021-09-25 07:57:34'),
-(66, 'Moulvibazar', '2021-09-25 07:57:42', '2021-09-25 07:57:42'),
-(67, 'Sunamganj', '2021-09-25 07:57:51', '2021-09-25 07:57:51'),
-(68, 'Sylhet', '2021-09-25 07:57:57', '2021-09-25 07:57:57');
+INSERT INTO `coupon_valid_users` (`id`, `user_id`, `coupon_code`, `created_at`, `updated_at`) VALUES
+(1, 4, 'ME-1234', NULL, NULL),
+(2, 4, 'ME-1235', NULL, NULL);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `districts`
+-- Indexes for table `coupon_valid_users`
 --
-ALTER TABLE `districts`
+ALTER TABLE `coupon_valid_users`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -124,10 +58,10 @@ ALTER TABLE `districts`
 --
 
 --
--- AUTO_INCREMENT for table `districts`
+-- AUTO_INCREMENT for table `coupon_valid_users`
 --
-ALTER TABLE `districts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+ALTER TABLE `coupon_valid_users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
