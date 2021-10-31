@@ -214,14 +214,15 @@
 	                                                style="height: 50px;width: 50px;">
 	                                            </td>
 	                                            <td>
+	                                                {{ $o_p->product->name }}
+	                                            </td>
+	                                            <td>
 	                                            	{{ $o_p->size_id != null ? $o_p->size->name : 'None' }}
 	                                            </td>
 	                                            <td>
 	                                            	{{ $o_p->color_id != null ? $o_p->color->name : 'None' }}
 	                                            </td>
-	                                            <td>
-	                                                {{ $o_p->product->name }}
-	                                            </td>
+	                                            
 	                                           
 	                                            <td>
 	                                                {{ $o_p->order_price }}
