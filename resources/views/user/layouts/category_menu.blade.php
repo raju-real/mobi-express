@@ -3,8 +3,8 @@
         $categories = App\Model\Category::with('subcategories')->orderBy('serial','asc')->get();
     @endphp
     <ul>
-        @foreach($categories as $category)
         <li><a href="{{ route('campaign') }}">Campaigns</a></li>
+        @foreach($categories as $category)
         <li class="menu_item_children">
             <a href="{{ route('category-products',$category->slug) }}">
                 {{ $category->name }} 
@@ -25,7 +25,7 @@
             </ul>
             @endif
         </li>
-        <li><a href="{{ route('voucher-products') }}">Gift Voucher</a></li>
         @endforeach
+        <li><a href="{{ route('voucher-products') }}">Gift Voucher</a></li>
     </ul>
 </div>
