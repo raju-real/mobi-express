@@ -249,7 +249,8 @@ class HomePageController extends Controller
 
     public function promotionProducts($slug){
         $promotion = Promotion::where('slug',$slug)->first();
-        $promotionProducts = PromotionProduct::where('promotion_id',$promotion->id)->get();
+        $promotionProducts = PromotionProduct::where('promotion_id',$promotion->id)
+        ->where('status',1)->get();
         $data = Product::whereIn('id',$promotionProducts->pluck('product_id'));
         $filter = request()->get('filter');
         if(isset($filter)){
