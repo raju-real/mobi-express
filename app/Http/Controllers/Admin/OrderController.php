@@ -135,9 +135,9 @@ class OrderController extends Controller
     public function orderDetails(){
         $invoice = request()->get('invoice');
         $order = Order::with(['products'=>function($query){
-            $query->select('id','order_id','product_id','order_price','quantity','total_price');
+            $query->select('id','order_id','product_id','order_price','quantity','total_price','size_id','color_id');
             $query->with(['product'=>function($query){
-                $query->select('id','name','unit_price','discount_price','size_id','color_id');
+                $query->select('id','name','unit_price','discount_price');
             }]);
         }])
             ->where('invoice',$invoice)->first();
