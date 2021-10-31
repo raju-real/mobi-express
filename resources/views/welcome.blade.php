@@ -15,7 +15,7 @@
                 <div class="row">
                     <div class="col-lg-8 col-12">
                         <div class="slider_content slider_c_three color_white">
-                            <h1>{{ $promotion->name }}</h1>
+                            <h1 style="color: red;font-weight: bold;">{{ $promotion->name }}</h1>
                             @if(sizeof($promotion->products) > 0)
                                 <a class="button" 
                                 href="{{ route('campaign-products',$promotion->slug) }}">Shop Now</a>
