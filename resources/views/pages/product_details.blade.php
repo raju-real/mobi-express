@@ -244,7 +244,7 @@
                                         @foreach($product->reviews as $review)
                                         <div class="reviews_comment_box">
                                             <div class="comment_thmb">
-                                                @if($review->user->image != null)
+                                                @if(isset($review->user) && $review->user->image != null)
                                                     <img src="{{ asset($review->user->image) }}" alt="" class="rounded-circle">
                                                 @else
                                                 <img src="{{ asset('assets/user/img/blog/comment2.jpg') }}" alt="">
@@ -253,7 +253,7 @@
                                             <div class="comment_text">
                                                 <div class="reviews_meta">
 
-                                                    <p><strong>{{ $review->user->name }} </strong>- {{ $review->updated_at->format('D, M y') }}</p>
+                                                    <p><strong>{{ $review->user->name ?? '' }} </strong>- {{ $review->updated_at->format('D, M y') }}</p>
                                                         <ul>
                                                             <li>
                                                                 @for($i=1;$i<=$review->rating;$i++)
