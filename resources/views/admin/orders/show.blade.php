@@ -198,6 +198,8 @@
 									<tr class="table-warning">
 										<th class="text-left">Image</th>
 										<th class="text-left">Name</th>
+										<th class="text-left">Size</th>
+										<th class="text-left">Color</th>
 										<th class="text-left text-nowrap">Order Price</th>
 										<th class="text-left">Quantity</th>
 										<th class="text-left text-nowrap">Total Price</th>
@@ -210,6 +212,12 @@
 	                                                src="{{ asset($o_p->product->image) }}"
 	                                                class="img-responsive"
 	                                                style="height: 50px;width: 50px;">
+	                                            </td>
+	                                            <td>
+	                                            	{{ $o_p->size_id != null ? $o_p->size->name : 'None' }}
+	                                            </td>
+	                                            <td>
+	                                            	{{ $o_p->color_id != null ? $o_p->color->name : 'None' }}
 	                                            </td>
 	                                            <td>
 	                                                {{ $o_p->product->name }}
