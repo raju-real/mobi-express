@@ -133,13 +133,12 @@ class PromotionController extends Controller
                     Toastr::info('Invalid Price','error');
                     return redirect()->back();
                 }
-
-                $product->discount_price = $request->discount;
                 // Change price to product
                 $findProduct->discount_price = $request->discount;
                 $findProduct->save();
             }
             $product->unit_price = $findProduct->unit_price;
+            $product->discount_price = $request->discount;
             $product->save();
             Toastr::info('Product Successfully Added','success');
             return redirect()->back();
