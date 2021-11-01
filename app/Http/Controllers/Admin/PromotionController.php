@@ -139,6 +139,7 @@ class PromotionController extends Controller
                 $findProduct->discount_price = $request->discount;
                 $findProduct->save();
             }
+            $product->unit_price = $findProduct->unit_price;
             $product->save();
             Toastr::info('Product Successfully Added','success');
             return redirect()->back();

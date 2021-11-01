@@ -204,7 +204,7 @@ class DashboardController extends Controller
             ]); 
         } else{
             $otp = MobileOtp::getOtpCode();
-            $o = "Your Verification";
+            $o = "Verification";
             $c = 'Code Is ';
             $message='Your https://mobixpress.com.bd'.' '.$o.' '.$c.$otp;
             $this->sendOtpMessage($mobile,$message);
