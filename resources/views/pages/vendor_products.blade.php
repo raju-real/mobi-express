@@ -86,6 +86,13 @@
                                         <img src="{{ asset('assets/common/images/product.png') }}" alt="">
                                         @endif
                                     </a>
+                                    @if(isset($showPercentage))
+                                    <div class="label_product">
+                                        <span class="label_sale" style="background: #C43016">
+                                            {{ $product->percentage }}% Off
+                                        </span>
+                                    </div>
+                                    @endif
                                 </div>
 
                                 <div class="product_content grid_content">

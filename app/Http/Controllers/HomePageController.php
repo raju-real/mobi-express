@@ -264,8 +264,9 @@ class HomePageController extends Controller
         $title = $promotion->name;
         $pageTitle = 'Promotion/'.$promotion->name;
         $image = $promotion->image;
+        $showPercentage = true;
         //return $products;
-        return view('pages.vendor_products',compact('products','title','pageTitle','image'));
+        return view('pages.vendor_products',compact('products','title','pageTitle','image','showPercentage'));
     }
 
     public function subcategoryProducts($slug){
