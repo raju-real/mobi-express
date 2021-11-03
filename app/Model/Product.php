@@ -16,10 +16,12 @@ class Product extends Model
 
     public function getImageAttribute()
     {
-        $image = ProductImage::where('product_id',$this->id)
-        ->whereNotNull('image')->first()->image;
-        return $image;
-        //return $this->SetAttributes['image'] == $image;
+        $productImage = asset('assets/common/images/product.png');
+        $image = ProductImage::where('product_id',$this->id)->first();
+        if(isset($image)){
+            $productImage = $image->image;
+        }
+        return $productImage;
     }
 
     public function getRatingAttribute(){

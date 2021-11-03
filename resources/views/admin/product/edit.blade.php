@@ -183,9 +183,9 @@
                     </div>
 
                     <div class="row" id="h_i">
+                        @if(sizeof($product->images) > 0)
                         @foreach($product->images as $image)
                             <div class="col-md-3">
-                                {{-- {{ route('admin.hotel-image-remove',$image->id) }} --}}
                                 <span style="vertical-align: top;">
                                     <button type="button" class="badge badge-danger text-right" onclick="beSure({{ $image->id }})" style="float: right;">
                                     <i class="fa fa-times-circle"></i>
@@ -197,6 +197,7 @@
                                 
                             </div>
                         @endforeach
+                        @endif
                   </div>
                   <br>
                     <div class="row">

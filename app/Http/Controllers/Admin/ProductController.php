@@ -24,6 +24,7 @@ class ProductController extends Controller
         $data = Product::query();
         $category_id = request()->get('category_id');
         $subcategory_id = request()->get('subcategory_id');
+        $stock_status = request()->get('stock_status');
         $name = request()->get('name');
         $most_view = request()->get('most_view');
         if(isset($name) && !empty($name)){
@@ -34,6 +35,9 @@ class ProductController extends Controller
         }
         if(isset($subcategory_id) && !empty($subcategory_id)){
             $data->where('subcategory_id',$subcategory_id);
+        }
+        if(isset($stock_status)){
+            $data->where('stock_status',$stock_status);
         }
         if(isset($most_view)){
             $data->orderBy('view_count','DESC');

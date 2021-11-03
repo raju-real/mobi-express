@@ -123,7 +123,7 @@
                         <form action="{{ route('login') }}" method="POST" onsubmit="return loginValidate()">
                             @csrf
                             <p>
-                                <label>Username or email <span style="color: red;">*</span></label>
+                                <label>Mobile <span style="color: red;">*</span></label>
                                 <input type="text" name="mobile" id="log_mobile">
                             </p>
                             <p>

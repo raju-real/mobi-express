@@ -43,6 +43,24 @@
             background: white;
         }
 
+        .disabled {
+            background: #C40316;
+            color: white;
+            pointer-events: none;
+            cursor: default; 
+            border: 2px solid #ebebeb;
+            height: 45px;
+            line-height: 41px;
+            display: inline-block;
+            font-size: 15px;
+            font-weight: 500;
+            text-transform: uppercase;
+            border-radius: 4px;
+            max-width: 220px;
+            width: 100%;
+        }
+
+
    </style>
     @stack('css')
 

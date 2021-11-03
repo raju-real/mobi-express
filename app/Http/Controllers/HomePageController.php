@@ -315,6 +315,12 @@ class HomePageController extends Controller
         $session_id       = Session::get('session_id');
         $product_id       = request()->get('product_id');
         $product          = Product::find($product_id);
+        if($product->stock_status != 1){
+            return response()->json([
+                'message' => 'Sorry, Product Out Of Stock',
+                'type' => 'danger'
+            ]);
+        }
         if(Cart::where('session_id',$session_id)->where('product_id',$product_id)->exists()){
             return response()->json([
                 'message' => 'Product Already Added To Cart',

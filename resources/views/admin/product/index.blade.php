@@ -7,7 +7,7 @@
 
 @section('content')
 <div class="row">
-    <div class="col-xl-12">
+    <div class="col-xl-12 col-md-12">
         <div class="ibox">
             <div class="ibox-body">
                 <form action="{{ route('admin.product.index') }}">
@@ -31,12 +31,20 @@
                             <label>Product Name</label>
                             <input type="text" name="name" class="form-control">
                         </div>
+                        <div class="col-md-2 form-group">
+                            <label>Stock Status</label>
+                            <select name="stock_status" class="form-control">
+                                <option value="">Stock Status</option>
+                                <option value="1">In Stock</option>
+                                <option value="0">Out Of Stock</option>
+                            </select>
+                        </div>
                         <div class="col-md-2">
                             <br>
                             <input type="checkbox" name="most_view" class="mt-3" id="most_view"> <label for="most_view">Most View</label>
                         </div>
                         <div class="col-md-2">
-                            <label>Action</label>
+                            {{-- <label>Action</label> --}}
                             <button type="submit" class="btn btn-info pointer">Search Product</button>
                         </div>
                     </div>
@@ -49,6 +57,11 @@
             <div class="ibox-head">
                 <div class="ibox-title">
                     Product List
+                </div>
+                <div class="ibox-title">
+                    <a href="{{ route('admin.product.index') }}" class="badge badge-danger pull-right">
+                        <i class="fa fa-refresh"></i>
+                    </a>
                 </div>
                 <div class="ibox-title">
                     <form class="sort-form" action="#">
@@ -107,7 +120,11 @@
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
                             <td>
+                                @if($product->image != null)
                                 <img src="{{ asset($product->image) }}" class="img-responsive" style="height: 50px;width:50px;">
+                                @else
+                                <img src="{{ asset('assets/common/images/product.png') }}" alt=""  style="height: 50px;width:50px;">
+                                @endif
                             </td>
                             <td>{{ $product->name }}</td>
                             <td class="text-nowrap">{{ $product->category->name ?? '' }}</td>
@@ -118,7 +135,11 @@
                                 <span class="badge badge-success">{{ $product->percentage }} % Off</span>
                                 @endif
                             </td>
-                            <td>{{ $product->stock_status }}</td>
+                            <td>
+                                <span class="{{ $product->stock_status == 1 ? 'badge badge-info' : 'badge badge-warning' }}">
+                                    {{ $product->stock_status == 1 ? 'In Stock' : 'Out Of Stock' }}
+                                </span>
+                            </td>
                             <td>{{ $product->quantity }}</td>
                             <td>{{ $product->view_count }}</td>
                             <td class="text-nowrap">

@@ -123,7 +123,11 @@
                                         </div>
                                     </div>
                                     <div class="add_to_cart">
+                                        @if($product->stock_status == 1)
                                         <a href="javascript:void(0)" onclick="addToCartSingle({{ $product->id }})" title="Add to cart">Add to cart</a>
+                                        @else
+                                        <a href="javascript:void(0)" class="disabled" title="Add to cart">Out Of Stock</a>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="product_content list_content">
