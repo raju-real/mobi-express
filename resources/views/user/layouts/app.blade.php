@@ -355,14 +355,14 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="widgets_container widget_menu">
-                            <h3>Customer Service</h3>
+                            <h3>Policies</h3>
                             <div class="footer_menu">
                                 <ul>
-                                    {{-- <li>
+                                    <li>
                                         <a href="{{ route('terms-condition') }}">
                                             Terms & Condition
                                         </a>
-                                    </li> --}}
+                                    </li>
                                     <li>
                                         <a href="{{ route('privacy-policy') }}">
                                             Privacy Policy
