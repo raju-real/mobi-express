@@ -22,6 +22,8 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/topuhit/Font-Bangla@1.0.3/1.0.0/font-bangla.css">
    <script src="{{ asset('assets/user/js/plugins.js') }}"></script>
+
+   <meta name="csrf-token" content="{{ csrf_token() }}" />
    
    <style type="text/css">
        .autocomplete-item{

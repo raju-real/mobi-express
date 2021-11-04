@@ -8,6 +8,11 @@ Route::get('login','Auth\LoginController@showLoginFrom')->name('login');
 Route::post('register','Auth\LoginController@userRegister')->name('register');
 Route::post('login','Auth\LoginController@userLogin')->name('login');
 
+Route::get('reset-password','Auth\ResetPasswordController@resetPasswordForm')
+    ->name('reset-password');
+Route::get('reset-password-otp','Auth\ResetPasswordController@sendOtp')->name('reset-password-otp');
+Route::post('reset-password','Auth\ResetPasswordController@resetPassword')->name('reset-password');
+
 Route::group(['as' => 'user.', 'prefix' => 'user', 'namespace' => 'User', 'middleware' => 'auth'], function () {
     Route::get('dashboard','DashboardController@index')
         ->name('dashboard');

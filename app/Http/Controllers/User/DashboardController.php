@@ -207,7 +207,8 @@ class DashboardController extends Controller
             $o = "Verification";
             $c = 'Code Is ';
             $message='Your https://mobixpress.com.bd'.' '.$o.' '.$c.$otp;
-            $this->sendOtpMessage($mobile,$message);
+            //$this->sendOtpMessage($mobile,$message);
+            MobileOtp::sendOtp($mobile,$message);
             $identify = ['mobile'=>$mobile];
             $data = ['mobile'=>$mobile,'otp_code'=>$otp];
             MobileOtp::updateOrInsert($identify,$data);

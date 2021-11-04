@@ -93,7 +93,7 @@
                                         </td>
                                         <td style="text-align: left;min-width: fit-content;font-weight: normal;">{{ $order->invoice }}</td>
                                         <td style="text-align: left;min-width: fit-content;font-weight: normal;">
-                                            {{ $order->created_at->format('D,M Y') }}
+                                            {{ $order->created_at->format('d-m-Y') }}
                                         </td>
                                         <td style="text-align: left;min-width: fit-content;font-weight: normal;">
                                             @if($order->order_status == 0)

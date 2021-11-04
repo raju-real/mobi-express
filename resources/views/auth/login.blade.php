@@ -131,7 +131,7 @@
                                 <input type="password" name="password" id="log_password">
                             </p>
                             <div class="login_submit">
-                                <a href="#">Lost your password?</a>
+                                <a href="{{ route('reset-password') }}">Lost your password?</a>
                                 <label for="remember">
                                     <input id="remember" type="checkbox">
                                     Remember me

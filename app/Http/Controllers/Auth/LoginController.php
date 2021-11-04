@@ -38,7 +38,8 @@ class LoginController extends Controller
             $o = "Account Verification";
             $c = 'Code Is ';
             $message='Your https://mobixpress.com.bd'.' '.$o.' '.$c.$otp;
-            $this->sendOtpMessage($mobile,$message);
+            //$this->sendOtpMessage($mobile,$message);
+            MobileOtp::sendOtp($mobile,$message);
             $identify = ['mobile'=>$mobile];
             $data = ['mobile'=>$mobile,'otp_code'=>$otp];
             MobileOtp::updateOrInsert($identify,$data);
@@ -68,25 +69,6 @@ class LoginController extends Controller
                 'message' => 'Invalid Otp Code Or Mobile'
             ]);
         }
-    }
-
-    protected function sendOtpMessage($mobile_number,$message){
-        $url = "http://66.45.237.70/api.php";
-        $data= array(
-            'username'=>"egrocery",
-            'password'=>"49FT2DWZ",
-            'number'=>'+88'.$mobile_number,
-            'message'=>$message
-        );
-
-        $ch = curl_init(); // Initialize cURL
-        curl_setopt($ch, CURLOPT_URL,$url);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $smsresult = curl_exec($ch);
-        $p = explode("|",$smsresult);
-        $sendstatus = $p[0];
-
     }
 
     public function userRegister(Request $request){
@@ -150,6 +132,25 @@ class LoginController extends Controller
         // }
 
         // return $this->createNewToken($token);
+    }
+
+    protected function sendOtpMessage($mobile_number,$message){
+        $url = "http://66.45.237.70/api.php";
+        $data= array(
+            'username'=>"egrocery",
+            'password'=>"49FT2DWZ",
+            'number'=>'+88'.$mobile_number,
+            'message'=>$message
+        );
+
+        $ch = curl_init(); // Initialize cURL
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $smsresult = curl_exec($ch);
+        $p = explode("|",$smsresult);
+        $sendstatus = $p[0];
+
     }
 
     public function __construct()

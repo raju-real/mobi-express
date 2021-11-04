@@ -791,6 +791,11 @@ class HomePageController extends Controller
 
             // Delete Order Price
             $order_price->delete();
+            // Send Order Message To User
+            $mobile = Auth::user()->mobile;
+            $message = 'Your order '.$order_info->invoice. ' has been placed on mobixpress.com.bd' ;
+            Order::sendMessage($mobile,$message);
+            // Redirect After Submit Order
             if($request->payment_method == 1){
                 Alert::success('Your Order Placed Successfully');
                 return redirect(route('user.order-history'));

@@ -274,12 +274,16 @@
                                             Online Payment
                                         </label> --}}
                                     </div>
-                                    <div class="panel-default" id="agree" style="display: none;">
+                                    <div class="panel-default" id="agree">
                                         <input type="checkbox" name="agree" class="mt-2" id="agree-box" checked>
                                         <label for="agree-box">
                                             I agree with the  
                                             <a href="{{ route('terms-condition') }}" target="_blank">
                                                 <u style="color: blue;">terms and condition</u>
+                                            </a>
+                                            <span>,</span>
+                                            <a href="{{ route('return-policy') }}" target="_blank">
+                                                <u style="color: blue;">return policy</u>
                                             </a>
                                             <span>,</span>
                                             <a href="{{ route('refund-policy') }}" target="_blank">
@@ -436,6 +440,10 @@
                 } else if(address == null){
                     $('#ship_address').text("Set Your Address").css("color","red");
                     return false;
+                } else if($('#agree-box').prop("checked") == false){
+                    $('#agree-box').attr("required","");
+                    $('#agree-message').show();
+                    return false;  
                 } else if(payment_method == 3 && $('#agree-box').prop("checked") == false){
                     $('#agree-box').attr("required","");
                     $('#agree-message').show();
