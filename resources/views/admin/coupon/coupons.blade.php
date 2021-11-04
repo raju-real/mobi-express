@@ -10,9 +10,13 @@
             <div class="ibox-head">
                 <div class="ibox-title">All Coupons</div>
                 <div class="ibox-title text-right">
-                	<button type="button" class="btn btn-primary pointer" data-toggle="modal" data-target="#add-coupon">
+                	<a href="{{ route('admin.coupon.create') }}" class="btn btn-primary pointer">
+                		<i class="fa fa-plus"></i>
+                	</a>
+                	{{-- Modal Add --}}
+                	{{-- <button type="button" class="btn btn-primary pointer" data-toggle="modal" data-target="#add-coupon">
 					  <i class="fa fa-plus"></i>
-					</button>
+					</button> --}}
 
 					<!-- Modal -->
 					<div class="modal fade" id="add-coupon" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -118,18 +122,18 @@
                 </div>
             </div>
             <div class="ibox-body">
-                <table class="table table-bordered table-striped text-nowrap text-sm text-center table-responsive">
+                <table class="table table-bordered table-striped text-nowrap text-sm text-left table-responsive">
                     <thead >
                         <tr>
-                            <th class="text-center">Sl.no</th>
-                            <th class="text-center">Code</th>
-                            <th class="text-center">For</th>
-                            <th class="text-center">Discount</th>
-                            <th class="text-center">Limit</th>
-                            <th class="text-center">Min Cost</th>
-                            <th class="text-center">Date</th>
-                            <th class="text-center">Status</th>
-                            <th class="text-center">Action</th>
+                            <th class="text-left">Sl.no</th>
+                            <th class="text-left">Code</th>
+                            <th class="text-left">Valid For</th>
+                            <th class="text-left">Discount</th>
+                            <th class="text-left">Limit</th>
+                            <th class="text-left">Min Cost</th>
+                            <th class="text-left">Date</th>
+                            <th class="text-left">Status</th>
+                            <th class="text-left">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -142,6 +146,8 @@
                             		{{ 'All User' }}
                             	@elseif($coupon->valid_for == 2)
                             		{{ 'New User' }}
+                            	@elseif($coupon->valid_for == 3)	
+                            		{{ $coupon->group->name ?? '' }}
                             	@else
                             		{{ 'Invalid' }}
                             	@endif

@@ -243,7 +243,7 @@ class HomePageController extends Controller
     }
 
     public function campaign(){
-        $campaigns = Promotion::where('status',1)->latest()->get();
+        $campaigns = Promotion::whereHas('products')->where('status',1)->latest()->get();
         return view('pages.campaign',compact('campaigns'));
     }
 
@@ -339,6 +339,12 @@ class HomePageController extends Controller
         } else{
             $quantity = 1;
         }
+        if($quantity > 5){
+            return response()->json([
+                'message' => 'Max Quantity 5',
+                'type' => 'danger'
+            ]);
+        }
         $cart->quantity   = $quantity;
         $cart->order_price = $order_price;
         $cart->total_price = $order_price * $quantity;
@@ -370,6 +376,12 @@ class HomePageController extends Controller
             $quantity = $cart->quantity + 1;
             $totalPrice = $cart->order_price * $quantity;
             $cart->quantity = $quantity;
+            if($quantity > 5){
+                return response()->json([
+                    'message' => 'Max Quantity 5',
+                    'type' => 'max'
+                ]);
+            }
             $cart->total_price = $totalPrice;
             if($cart->total_discount_price > 0){
                 $cart->total_discount_price = ($cart->unit_price - $cart->order_price) * $quantity;
@@ -462,7 +474,7 @@ class HomePageController extends Controller
         $coupon = Coupon::where('coupon_code',$coupon_code)->first();
         if($coupon->valid_for == 1){
             return true;
-        } elseif($coupon->valid_for == 2){
+        } elseif($coupon->valid_for == 2 || 3){
             if(CouponValidUser::where(['coupon_code'=>$coupon->coupon_code,'user_id'=>Auth::id()])->exists()){
                 return true;
             } else {
@@ -490,8 +502,9 @@ class HomePageController extends Controller
 
     protected function getDiscountAmount($coupon_code){
         $coupon = Coupon::where('coupon_code',$coupon_code)->first();
+        $discount_amount = 0;
         if($coupon->discount_type == 1){
-            return $coupon->discount;
+            $discount_amount = $coupon->discount;
         } elseif($coupon->discount_type == 2){
             $session_id = Session::get('session_id');
             $identify = [
@@ -500,10 +513,19 @@ class HomePageController extends Controller
             ];
             $order_price = OrderPrice::where($identify)->first();
             $discount_amount = ($order_price->order_price * $coupon->discount)/100;
-            return (int) $discount_amount ;
-        } else {
-            return "invalid";
+            
+        } 
+        $discountAmount = 0;
+        if($coupon->up_to > 0){
+            if($discount_amount >= $coupon->up_to){
+                $discountAmount = $coupon->up_to;
+            } else{
+                $discountAmount = $discount_amount;
+            }
+        } else{
+            $discountAmount = $discount_amount;
         }
+        return (int) $discountAmount ;
     }
 
 

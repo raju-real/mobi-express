@@ -142,9 +142,17 @@ function getId(){
     url : "{{ url('increment-cart-product') }}"+'/'+ id,
     success : function(response){
         if(response.type == 'success'){
-        $(".shopping_cart_area").load(location.href + " .shopping_cart_area");
+            $(".shopping_cart_area").load(location.href + " .shopping_cart_area");
         } else if(response.type == 'danger') {
-        $(".shopping_cart_area").load(location.href + " .shopping_cart_area");
+            $(".shopping_cart_area").load(location.href + " .shopping_cart_area");
+        } else if(response.type == 'max') {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'info',
+              text: response.message,
+              showConfirmButton: true,
+              timer: 5000
+            })
         }
     }
     });

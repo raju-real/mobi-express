@@ -229,10 +229,25 @@
                     <span class="nav-label">Voucher Product</span>
                 </a>
             </li>
+            
             <li>
-                <a href="{{ route('admin.coupon.index') }}"><i class="sidebar-item-icon fa fa-gift"></i>
-                    <span class="nav-label">Coupon</span>
-                </a>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-gift"></i>
+                    <span class="nav-label">Coupon</span><i class="fa fa-angle-left arrow"></i></a>
+                <ul class="nav-2-level collapse">
+                    <li>
+                        <a href="{{ route('admin.coupon.index') }}">
+                            <i class="fa fa-circle-o"></i>
+                            Coupon Lists
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.coupon-group.index') }}">
+                            <i class="fa fa-circle-o"></i>
+                            Coupon Groups
+                        </a>
+                    </li>
+                    
+                </ul>
             </li>
             <li>
                 <a href="{{ route('admin.users.index') }}"><i class="sidebar-item-icon fa fa-users"></i>

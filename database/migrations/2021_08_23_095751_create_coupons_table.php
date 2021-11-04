@@ -16,11 +16,13 @@ class CreateCouponsTable extends Migration
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
             $table->string('valid_for');
+            $table->integer('user_group')->nullable();
             $table->string('coupon_code')->unique();
             $table->string('discount_type');
             $table->integer('discount');
             $table->integer('used_limit')->default(1);
             $table->integer('minimum_cost')->default(0);
+            $table->integer('up_to')->default(0);
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->integer('status')->default(1);

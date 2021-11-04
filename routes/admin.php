@@ -30,6 +30,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('voucher-product','VoucherProductController');
     Route::resource('promotion','PromotionController');
     Route::resource('coupon','CouponController');
+    Route::resource('coupon-group','CouponGroupController');
+    Route::post('add-group-user','CouponGroupController@addGroupUser')->name('add-group-user');
     Route::get('promotion/products/{slug}','PromotionController@promotionProducts')
         ->name('promotion-products');
     Route::get('promotion/product/create/{slug}','PromotionController@createPromotionProduct')

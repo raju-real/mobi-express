@@ -31,7 +31,17 @@
 
     <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 
-
+<style type="text/css">
+    .displayNone{
+        display: none;
+    }
+    .error{
+        color: white;
+        background: red;
+        padding: -3px;
+        border-radius: 2px;
+    }
+</style>
     @stack('css')
     <!-- PAGE LEVEL STYLES-->
 </head>
