@@ -70,18 +70,18 @@
 									Process
 								</a>
 								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>2]) }}" 
-									class="badge badge-info {{ ($order->order_status == 0 || $order->order_status == 2 || $order->order_status == 3 || $order->order_status == 4) ? 'btn disabled' : '' }}">
+									class="badge badge-info {{ ($order->order_status == 0 || $order->order_status == 2 || $order->order_status == 3 || $order->order_status == 4 || $order->order_status == 5 || $order->order_status == 6) ? 'btn disabled' : '' }}">
 									Picked
 								</a>
 								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>3]) }}" 
-									class="badge badge-info {{ ($order->order_status == 0  || $order->order_status == 3 || $order->order_status == 4) ? 'btn disabled' : '' }}">
+									class="badge badge-info {{ ($order->order_status == 0  || $order->order_status == 3 || $order->order_status == 4 || $order->order_status == 5 || $order->order_status == 6) ? 'btn disabled' : '' }}">
 									Shipped
 								</a>
 								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>4]) }}" 
-									class="badge badge-success {{ ($order->order_status == 0 || $order->order_status == 1  || $order->order_status == 4) ? 'btn disabled' : '' }}">
+									class="badge badge-success {{ ($order->order_status == 0 || $order->order_status == 1  || $order->order_status == 4 || $order->order_status == 5 || $order->order_status == 6) ? 'btn disabled' : '' }}">
 									Deliver
 								</a>
-								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>5]) }}" class="badge badge-danger {{ $order->order_status == 4 ? 'btn disabled' : '' }}">
+								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>5]) }}" class="badge badge-danger {{ $order->order_status == 4 || $order->order_status == 5 || $order->order_status == 6 ? 'btn disabled' : '' }}">
 									Cancle
 								</a>
 								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>6]) }}" class="badge badge-warning {{ $order->order_status == 3 ? 'btn disabled' : '' }}">
