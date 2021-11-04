@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Model\Order;
 use App\Model\SslCommerzTransaction as Transaction;
 use App\Model\User;
 use Carbon\Carbon;
@@ -12,7 +13,8 @@ use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller
 {
     public function index(){
-        return view('admin.dashboard');
+        $todayOrders = Order::whereDate('created_at',Carbon::today())->get();
+        return view('admin.dashboard',compact('todayOrders'));
     }
 
     public function users(){
