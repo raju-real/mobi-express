@@ -69,9 +69,9 @@
                             	{{ $coupon->status == 1 ? 'Active' : 'In Active' }}
                             </td>
                             <td>
-								{{-- <a href="{{ route('admin.coupon.edit',$coupon->id) }}" class="btn btn-sm btn-info">
+								<a href="{{ route('admin.coupon.edit',$coupon->id) }}" class="btn btn-sm btn-info">
 									<i class="fa fa-edit"></i>
-								</a> --}}                            	
+								</a>                            	
 								{{-- Delete Activity --}}
 								<button class="btn btn-danger btn-sm pointer" type="button" onclick="deletecoupon({{ $coupon->id }})">
 			                        <i class="fa fa-trash"></i>
