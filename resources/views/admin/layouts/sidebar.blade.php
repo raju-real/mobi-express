@@ -1,4 +1,4 @@
-<nav class="page-sidebar" id="sidebar" style="position: fixed;">
+<nav class="page-sidebar" id="sidebar" style="position: absolute;">
     <div id="sidebar-collapse">
         <div class="admin-block d-flex">
             
