@@ -187,7 +187,7 @@
                     	@foreach($orders as $order)
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
-                            <td>{{ $order->updated_at->format('d-m-y') }}</td>
+                            <td>{{ $order->created_at->format('d-m-y') }}</td>
                             <td>{{ $order->invoice }}</td>
                             <td>
                                 @if($order->order_status == 0)
