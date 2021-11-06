@@ -36,6 +36,7 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'namespace' => 'User', 'middl
         ->name('account-setting');
     Route::post('change-password','DashboardController@changePassword')          
         ->name('change-password');
+    Route::get('my-reviews','DashboardController@myReviews')->name('my-reviews');
     // Change Mobile Number
     Route::get('send-otp','DashboardController@sendOtp')->name('send-otp');
     Route::get('check-otp','DashboardController@checkOtp')->name('check-otp');

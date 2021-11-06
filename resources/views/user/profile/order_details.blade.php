@@ -27,6 +27,14 @@
     .card-body {
         font-weight: 300px;
     }
+    .review{
+        border: 1.5px solid white;
+        border-radius: 10px;
+        padding: 2px 10px;
+        box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.2), 
+        0px 1px 1px 2px rgba(0, 0, 0, 0.14), 
+        0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+    }
 </style>
 @endpush
 
@@ -142,6 +150,7 @@
                                         <th style="text-align: left;font-weight: normal;">Size</th>
                                         <th style="text-align: left;font-weight: normal;">Color</th>
                                         <th style="text-align: left;font-weight: normal;">Price</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -162,6 +171,9 @@
                                         </td>
                                         <td style="text-align: left;font-weight: normal;">
                                             {{ $order_product->total_price }} BDT
+                                        </td>
+                                        <td style="text-align: left;font-weight: normal;">
+                                            <a href="{{ route('product-details',$order_product->product->slug) }}" class="review">Submit Review</a>
                                         </td>
                                     </tr>
                                     @endforeach

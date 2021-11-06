@@ -8,6 +8,7 @@ use App\Model\BillingAddress;
 use App\Model\District;
 use App\Model\MobileOtp;
 use App\Model\Order;
+use App\Model\Review;
 use App\Model\ShippingAddress;
 use App\Model\SslCommerzTransaction;
 use App\Model\User;
@@ -43,7 +44,7 @@ class DashboardController extends Controller
                 'products'=>function($query){
                     $query->select('id','product_id','order_id','order_price','quantity','total_price','size_id','color_id');
                     $query->with(['product'=>function($query){
-                        $query->select('id','name');
+                        $query->select('id','name','slug');
                     }]);
                 },
                 'online_payment' => function($query){
@@ -160,6 +161,11 @@ class DashboardController extends Controller
             return redirect()->route('pay-here',['invoice'=>$invoice]);
         }
         return redirect()->route('user.address-book');
+    }
+
+    public function myReviews(){
+        return $reviews = Review::where('user_id',Auth::id())->latest()->get();
+        return view('user.profile.reviews',compact('reviews'));
     }
 
     public function accountSetting(){

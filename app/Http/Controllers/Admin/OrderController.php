@@ -174,7 +174,7 @@ class OrderController extends Controller
         $contact = ContactUs::first();
         //return view('admin.orders.pdf_invoice',compact('order','contact'));
         $file = PDF::loadView('admin.orders.pdf_invoice',compact('order','contact'));
-         return $file->stream('admin.orders.pdf_invoice',compact('order','contact'));
+         //return $file->stream('admin.orders.pdf_invoice',compact('order','contact'));
         return $file->download($invoice . '.pdf');
     }
 }

@@ -5,5 +5,6 @@
     <li><a href="{{ route('user.edit-profile') }}"  class="nav-link {{ Request::is('user/edit-profile')? 'active': '' }}">Edit Profile</a></li>
     <li><a href="{{ route('user.address-book') }}"  class="nav-link {{ Request::is('user/address-book')? 'active': '' }}">Address Book</a></li>
     <li><a href="{{ route('user.account-setting') }}"  class="nav-link {{ Request::is('user/account-setting')? 'active': '' }}">Account Setting</a></li>
+    {{-- <li><a href="{{ route('user.my-reviews') }}"  class="nav-link {{ Request::is('user/my-reviews')? 'active': '' }}">My Reviews</a></li> --}}
     <li><a href="{{ route('logout') }}" class="nav-link">logout</a></li>
 </ul>
