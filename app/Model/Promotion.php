@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Promotion extends Model
 {
     public function products(){
-        return $this->hasMany(PromotionProduct::class);
+        return $this->hasMany(PromotionProduct::class)->where('status',1);
     }
 }
