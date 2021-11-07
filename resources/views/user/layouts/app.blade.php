@@ -23,6 +23,8 @@
    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/topuhit/Font-Bangla@1.0.3/1.0.0/font-bangla.css">
    <script src="{{ asset('assets/user/js/plugins.js') }}"></script>
 
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+
    <meta name="csrf-token" content="{{ csrf_token() }}" />
    
    <style type="text/css">

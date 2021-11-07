@@ -253,7 +253,7 @@
                                             <div class="comment_text">
                                                 <div class="reviews_meta">
 
-                                                    <p><strong>{{ $review->user->name ?? '' }} </strong>- {{ $review->updated_at->format('D, M y') }}</p>
+                                                    <p><strong>{{ $review->user->name ?? '' }} </strong>- {{ $review->created_at->format('D, M y') }}</p>
                                                         <ul>
                                                             <li>
                                                                 @for($i=1;$i<=$review->rating;$i++)

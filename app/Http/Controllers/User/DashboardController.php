@@ -9,6 +9,7 @@ use App\Model\District;
 use App\Model\MobileOtp;
 use App\Model\Order;
 use App\Model\Review;
+use App\Model\ReviewImage;
 use App\Model\ShippingAddress;
 use App\Model\SslCommerzTransaction;
 use App\Model\User;
@@ -164,8 +165,67 @@ class DashboardController extends Controller
     }
 
     public function myReviews(){
-        return $reviews = Review::where('user_id',Auth::id())->latest()->get();
+        $reviews = Review::with(['product'=>function($q){
+            $q->select('id','name','slug');
+        }])
+            ->where('user_id',Auth::id())->latest()->paginate(15);
         return view('user.profile.reviews',compact('reviews'));
+    }
+
+    public function editReview($id){
+        $review = Review::with('images')->findOrFail($id);
+        return view('user.profile.edit_review',compact('review'));
+    }
+
+    public function removeReviewImage($id){
+        $image = ReviewImage::find($id);
+        if(file_exists($image->image) AND !empty($image->image)){
+            unlink($image->image);
+        }
+        $image->delete();
+        return response()->json(['status'=>'success']);
+    }
+
+    public function updateReview(Request $request,$id){
+        $this->validate($request,[
+            //'rating'=>'required',
+            'review'=>'required'
+        ]);
+        $review = Review::findOrFail($id);
+        $review->rating = $request->rating ?? $review->rating;
+        $review->review = $request->review ?? $review->rating;
+        $review->save();
+        if($request->hasfile('images')){
+            foreach($request->file('images') as $image){
+                $imageName = time().$image->getClientOriginalName();
+                $image_resize = Image::make($image->getRealPath());
+                $image_resize->resize(300, 250);
+                $image_resize->filesize(100);
+                $image_resize->save('images/review/' .$imageName);
+                $data[] = $imageName;
+                $image = new ReviewImage();
+                $image->review_id = $review->id;
+                $image->image = 'images/review/'.$imageName;
+                $image->save();
+            }
+        }
+
+        Alert::success('Review Update Successfully');
+        return redirect()->route('user.my-reviews');
+    }
+
+    public function deleteReview($id){
+        $review = Review::findOrFail($id);
+        $images = ReviewImage::where('review_id',$id)->get();
+        foreach($images as $image){
+            if(file_exists($image->image) AND !empty($image->image)){
+                unlink($image->image);
+            }
+            $image->delete();
+        }
+        $review->delete();
+        Alert::success('Review Deleted Successfully');
+        return redirect()->route('user.my-reviews');
     }
 
     public function accountSetting(){

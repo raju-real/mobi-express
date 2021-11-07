@@ -37,6 +37,10 @@ Route::group(['as' => 'user.', 'prefix' => 'user', 'namespace' => 'User', 'middl
     Route::post('change-password','DashboardController@changePassword')          
         ->name('change-password');
     Route::get('my-reviews','DashboardController@myReviews')->name('my-reviews');
+    Route::get('edit-review/{id}','DashboardController@editReview')->name('edit-review');
+    Route::delete('remove-review-image/{id}','DashboardController@removeReviewImage');
+    Route::put('update-review/{id}','DashboardController@updateReview')->name('update-review');
+    Route::delete('delete-review/{id}','DashboardController@deleteReview')->name('review.destroy');
     // Change Mobile Number
     Route::get('send-otp','DashboardController@sendOtp')->name('send-otp');
     Route::get('check-otp','DashboardController@checkOtp')->name('check-otp');

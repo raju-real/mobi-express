@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-sm-12 col-md-9 col-lg-9">
                         <!-- Tab panes -->
-                        <h3>reviews</h3>
+                        <h3>My Reviews</h3>
                         @if(Session::has('message'))
                         <div class="alert alert-warning" role="alert">
                             <strong>{{ Session::get('message') }}</strong>
@@ -52,78 +52,50 @@
                                 <thead>
                                     <tr>
                                         <th style="text-align: left;font-weight: normal;">Sl.no</th>
-                                        <th style="text-align: left;font-weight: normal;">Invoice</th>
-                                        <th style="text-align: left;font-weight: normal;">Date</th>
-                                        <th style="text-align: left;font-weight: normal;">Status</th>
-                                        <th style="text-align: left;font-weight: normal;">Total</th>
-                                        <th style="text-align: left;font-weight: normal;">Payment Method</th>
-                                        <th style="text-align: left;font-weight: normal;">Paid</th>
-                                        <th style="text-align: left;font-weight: normal;">Due</th>
-                                        <th style="text-align: left;font-weight: normal;">Order Details</th>
+                                        <th style="text-align: left;font-weight: normal;">Image</th>
+                                        <th style="text-align: left;font-weight: normal;">Product</th>
+                                        <th style="text-align: left;font-weight: normal;">Rating</th>
+                                        <th style="text-align: left;font-weight: normal;">Review</th>
+                                        <th style="text-align: left;font-weight: normal;">
+                                            Action
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($reviews as $order)
+                                    @foreach($reviews as $review)
                                     <tr>
                                         <td style="text-align: left;min-width: fit-content;font-weight: normal;">
                                             {{ $loop->index + 1 }}
                                         </td>
-                                        <td style="text-align: left;min-width: fit-content;font-weight: normal;">{{ $order->invoice }}</td>
                                         <td style="text-align: left;min-width: fit-content;font-weight: normal;">
-                                            {{ $order->created_at->format('d-m-Y') }}
+                                            <img src="{{ asset($review->product->image) }}" style="height: 80px;width: 80px;">
                                         </td>
                                         <td style="text-align: left;min-width: fit-content;font-weight: normal;">
-                                            @if($order->order_status == 0)
-                                                <span>Pending</span>
-                                            @elseif($order->order_status == 1)
-                                                <span>Processing</span>
-                                            @elseif($order->order_status == 2)
-                                                <span>Picked</span>
-                                            @elseif($order->order_status == 3)
-                                                <span>Shipped</span>
-                                            @elseif($order->order_status == 4)
-                                                <span>Delivered</span>
-
-                                            @elseif($order->order_status == 5)
-                                                <span>Cancled</span> 
-                                            @elseif($order->order_status == 6)
-                                                <span>Returned</span>   
-                                            @else 
-                                                <span>Un known</span>
-                                            @endif
+                                            {{ $review->product->name }}
                                         </td>
                                         <td style="text-align: left;min-width: fit-content;font-weight: normal;">
-                                            {{ $order->order_price }} BDT
+                                            @for($i=1;$i<=$review->rating;$i++)
+                                            <i class="ion-android-star" style="font-size: 20px;color: orange;"></i>
+                                            @endfor
                                         </td>
                                         <td style="text-align: left;min-width: fit-content;font-weight: normal;">
-                                            {{-- @if($order->payment_status == 0)
-                                                <a href="{{ route('pay-here',['invoice'=>$order->invoice]) }}" style="color: blue;">Pay Now</a>
-                                            @elseif($order->payment_status == 1)
-                                                <span>Paid</span>
-                                                <a href="{{ route('user.payment-details',['invoice'=>$order->invoice]) }}" style="color: green;">
-                                                    Details
-                                                </a>
-                                            @endif  --}}  
-                                            @if($order->payment_method == 1) 
-                                            <span class="cash">
-                                                    {{ 'Cash On Delivery' }}
-                                                </span>
-                                            @elseif($order->payment_method == 3) 
-                                                @if($order->payment_status == 1)
-                                                <span class="online">
-                                                    {{ 'Online Payment' }}
-                                                </span>
-                                                @elseif($order->payment_status == 2)
-                                                <span class="fail">Payment Failed</span>    
-                                                <a class="pay" href="{{ route('pay-here',['invoice'=>$order->invoice]) }}">Pay Now</a>
-                                                @endif                  
-                                            @endif
+                                            {{ $review->review }}
                                         </td>
-                                        <td style="text-align: left;min-width: fit-content;font-weight: normal;">{{ $order->paid_amount }} BDT</td>
-                                        <td style="text-align: left;min-width: fit-content;font-weight: normal;">{{ $order->due_amount }} BDT</td>
+                                       
                                         <td style="text-align: left;font-weight: normal;">
-                                            <a href="{{ route('user.order-details',['invoice'=>$order->invoice]) }}" class="">Details
+                                            <a href="{{ route('product-details',['slug'=>$review->product->slug]) }}" class="btn btn-info btn-sm">
+                                                <i class="fa fa-eye" style="color: white;"></i>
                                             </a>
+                                            <a href="{{ route("user.edit-review",$review->id) }}" class="btn btn-primary btn-sm">
+                                                <i class="fa fa-edit" style="color: white;"></i>
+                                            </a>
+                                            <button class="btn btn-danger btn-sm pointer" type="button" onclick="deleteItem({{ $review->id }})">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                            <form id="delete-review-{{ $review->id }}" action="{{ route('user.review.destroy',$review->id) }}" method="POST" style="display: none;">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -141,5 +113,24 @@
 @endsection
 
 @push('js')
+<script>
+    function deleteItem(id){
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                event.preventDefault();
+                document.getElementById('delete-review-'+id).submit();
+            } 
+        })
 
+    }
+    
+</script>
 @endpush
