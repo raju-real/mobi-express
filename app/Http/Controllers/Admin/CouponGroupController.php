@@ -37,6 +37,10 @@ class CouponGroupController extends Controller
         return view('admin.coupon.group_users',compact('members','group'));
     }
 
+    public function getCoupons(){
+        return Coupon::where('status',1)->where('valid_for',3)->latest()->get();
+    }
+
     public function addGroupUser(Request $request){
         $this->validate($request,['coupon_group_id'=>'required','mobile'=>'required']);
         $user = User::where('mobile',$request->mobile)->first();
@@ -76,6 +80,12 @@ class CouponGroupController extends Controller
         
     }
 
+    public function deleteGroupUser($id){
+        CouponGroupUser::findOrFail($id)->delete();
+        Toastr::success('User Deleted Successfully');
+        return redirect()->back();
+    }
+
     public function update(Request $request, $id){
         $request->validate(['name' => 'required']);
         $group = CouponGroup::find($id);
@@ -89,8 +99,11 @@ class CouponGroupController extends Controller
 
    
     public function destroy($id){
-        CouponGroupUser::findOrFail($id)->delete();
-        Toastr::success('User Deleted Successfully');
-        return redirect()->back();
+        $group = CouponGroup::findOrFail($id);
+        CouponGroupUser::whereIn('coupon_group_id',[$group->id])->delete();
+        $group->delete();
+        Toastr::error('Group Deleted Successfully');
+        return redirect()->route('admin.coupon-group.index');
+
     }
 }

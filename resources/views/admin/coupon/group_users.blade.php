@@ -53,7 +53,9 @@
 						        		<label for="group">
 						        			Coupon Code
 						        		</label>
-						        		<input type="text" name="coupon_code" class="form-control" id="coupon_code" placeholder="Coupon Code">
+						        		<select name="coupon_code" id="coupon_code" class="form-control select2">
+						        			<option value="">Select Coupon</option>
+						        		</select>
 						        	</div>
 						      	</div>
 						      	
@@ -93,10 +95,10 @@
                             <td>{{ $member->user->mobile ?? '' }}</td>
                             <td>
 								{{-- Delete Activity --}}
-								<button class="btn btn-danger pointer" type="button" onclick="deleteItem({{ $group->id }})">
+								<button class="btn btn-danger pointer" type="button" onclick="deleteItem({{ $member->id }})">
 			                        <i class="fa fa-trash"></i>
 			                    </button>
-			                    <form id="delete-group-{{ $group->id }}" action="{{ route('admin.coupon-group.destroy',$group->id) }}" method="POST" style="display: none;">
+			                    <form id="delete-member-{{ $member->id }}" action="{{ route('admin.delete-group-user',$member->id) }}" method="POST" style="display: none;">
 			                        @csrf
 			                        @method('DELETE')
 			                    </form>
@@ -116,11 +118,29 @@
 	$("input[name=bind_coupon]").on('change', function() {
        let value = $('input[name=bind_coupon]:checked').val(); 
        if(value == "Yes"){
-        $('#coupon_code_box').show();
-        $('#coupon_code').attr("required","");
+       		$('#coupon_code_box').show();
+        	$('#coupon_code').attr("required","");
+        	$('.select2').select2();
+        	$.ajax({
+        		method: 'GET',
+        		url: "{{ route('admin.get-coupons') }}",
+        		success: function(response){
+        			$('#coupon_code') .find('option') .remove() .end() .append('<option value="">Select Coupon</option>');
+        			var list = response;
+		            var select = document.getElementById("coupon_code");
+		            for(i = 0; i < list.length ;i ++){
+		                var el = document.createElement("option");
+		                var coupons = list[i];
+		                var coupon_code = coupons.coupon_code;
+		                el.textContent = coupon_code;
+		                el.value = coupon_code;
+		                select.appendChild(el);
+		            }
+        		}
+        	});
        } else{
-        $('#coupon_code_box').hide();
-        $('#coupon_code').removeAttr("required","");
+        	$('#coupon_code_box').hide();
+        	$('#coupon_code').removeAttr("required","");
        }
     });
 
@@ -151,7 +171,7 @@
       }).then((result) => {
           if (result.value) {
               event.preventDefault();
-              document.getElementById('delete-group-'+id).submit();
+              document.getElementById('delete-member-'+id).submit();
           } else if (
               // Read more about handling dismissals
           result.dismiss === swal.DismissReason.cancel

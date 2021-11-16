@@ -28,10 +28,19 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::put('update-contact','AboutContactController@updateContactUs')
         ->name('update-contact');
     Route::resource('voucher-product','VoucherProductController');
-    Route::resource('promotion','PromotionController');
+    
+    // Coupon Part
     Route::resource('coupon','CouponController');
     Route::resource('coupon-group','CouponGroupController');
-    Route::post('add-group-user','CouponGroupController@addGroupUser')->name('add-group-user');
+    Route::post('add-group-user','CouponGroupController@addGroupUser')
+        ->name('add-group-user');
+    Route::get('get-coupons','CouponGroupController@getCoupons')    
+        ->name('get-coupons');
+    Route::delete('delete-group-user/{id}','CouponGroupController@deleteGroupUser')
+        ->name('delete-group-user');
+
+    // Promotion Part    
+    Route::resource('promotion','PromotionController');
     Route::get('promotion/products/{slug}','PromotionController@promotionProducts')
         ->name('promotion-products');
     Route::get('promotion/product/create/{slug}','PromotionController@createPromotionProduct')
