@@ -30,6 +30,9 @@
  <script src="https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
 
     <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+    <!-- toggle -->
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
 
 <style type="text/css">
     .displayNone{
@@ -147,6 +150,7 @@
     <script src="{{ asset('assets/admin/vendors/DataTables/datatables.min.js') }}" type="text/javascript"></script>
     <!-- Select 2 -->
     <script src="{{ asset('assets/admin/vendors/select2/dist/js/select2.full.min.js') }}" type="text/javascript"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     
     {{-- <script src="{{ asset('assets/admin/js/scripts/dashboard_1_demo.js') }}" type="text/javascript"></script> --}}
 

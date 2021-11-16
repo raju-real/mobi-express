@@ -147,6 +147,10 @@
             font-weight: bold;
         }
 
+        .bg-white{
+            background: white;
+        }
+
     </style>
   </head>
   <body>
@@ -285,6 +289,58 @@
             @endif
             
         </table>    
+        <table>
+            <tr>
+                <td style="background: white;">Dear Sir / Madam,</td>
+            </tr>
+            <tr>
+                <td style="background: white;text-align: justify;">
+                    We would like to thank you for choosing Mobi Xpress as your shopping partner, we are very glad to have you as our
+                    customer and very happy to serve you. We always try our best to enhance your online Shopping experience. 
+                </td>
+            </tr>
+            <tr>
+                <td style="background: white;text-align: justify;">
+                    Hope we satisfied you by our service. It will be much apricate if you share your valuable feedback with us here
+                    https://www.facebook.com/groups/217295359843719/
+                </td>
+            </tr>
+            <tr>
+                <td style="background: white;text-align: justify;">
+                    Hope to see you soon.
+                </td>
+            </tr>
+            <tr>
+                <td style="background: white;text-align: justify;">
+                    Regards <br>
+                    Team Mobi Xpress <br>
+                    Mobile: 01601133517 <br>
+                    Web: mobixpress.com.bd <br>
+                    FB: https://www.facebook.com/mblxpress
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td style="background: white;text-align: justify;">
+                    Conditions for Returns
+                </td>
+            </tr>
+            <tr>
+                <td style="background: white;text-align: justify;">
+                    1. The product must be unused, unworn, unwashed and without any flaws. Fashion products can be tried on to see if they fit and will still be considered unworn
+                    <br>
+                    <br>
+                    
+                    2. The product must include the original tags, user manual, warranty cards, freebies and accessories
+                    <br>
+                    <br>
+                    3. The product must be returned in the original and undamaged manufacturer packaging / box. If the product was delivered
+                    in a second layer of Mobi Xpress packaging, it must be returned in the same condition with return shipping label attached.
+                    Do not put tape or stickers on the manufacturers box.
+                </td>
+            </tr>
+        </table>
     </main>
 
   </body>

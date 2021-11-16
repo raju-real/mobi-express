@@ -58,9 +58,27 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::put('update-product-front-cat/{id}','FrontCategoryController@updateProduct')->name('update-product-front-cat'); 
     Route::delete('delete-product-front-cat/{id}','FrontCategoryController@deleteProduct')->name('delete-product-front-cat');
     Route::get('users','DashboardController@users')->name('users.index');
-    Route::get('user','DashboardController@userDetails')->name('user.show');
+
+    // Admin Part
+    Route::get('admins','DashboardController@admins')
+        ->name('admins.index');
+    Route::get('admins/create','DashboardController@createAdmin')
+        ->name('admins.create');
+    Route::post('admins/store','DashboardController@storeAdmin')
+        ->name('admins.store');
+    Route::get('admins/edit','DashboardController@editAdmin')
+        ->name('admin.edit');
+    Route::put('admins/update/{id}','DashboardController@updateAdmin')
+        ->name('admin.update');
+    Route::get('change-admin-status','DashboardController@changeAdminStatus')
+        ->name('change-admin-status');
+    Route::get('admins/show','DashboardController@shwoAdmin')
+        ->name('admin.show');
+    Route::get('user','DashboardController@userDetails')
+        ->name('user.show');
     Route::get('change-user-status','DashboardController@changeUserStatus')
         ->name('change-user-status');
+
     // order section
     Route::get('orders/pending','OrderController@pendingOrders')
         ->name('pending-orders');
@@ -97,7 +115,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
 
 // login section
 Route::post('admin-login',function(Request $request){
-    if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+    if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password,'status'=>1], $request->remember)) {
         return redirect()->intended(route('admin.dashboard'));
 
     } else {

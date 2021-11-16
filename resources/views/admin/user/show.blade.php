@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title','Edit Product - '.$user->name)
+@section('title','User Details - '.$user->name)
 
 @push('css')
 
