@@ -7,6 +7,7 @@ use App\Http\Requests\CouponRequest;
 use App\Model\Coupon;
 use App\Model\CouponGroup;
 use App\Model\CouponGroupUser;
+use App\Model\CouponUserUsed;
 use App\Model\CouponValidUser;
 use App\Model\Order;
 use App\Model\User;
@@ -66,6 +67,17 @@ class CouponController extends Controller
         $coupon->save();
         Toastr::success('New Coupon Added Successfully');
         return redirect(route('admin.coupon.index'));
+    }
+
+    public function show($coupon_code){
+        $coupon = Coupon::where('coupon_code',$coupon_code)->first();
+        if (isset($coupon)) {
+            $results = CouponUserUsed::with('user')->where('coupon_code',$coupon->coupon_code)->get();
+            return view('admin.coupon.coupon_used_users',compact('results','coupon'));
+        } else{
+            Toastr::error('Invalid Coupon Code');
+            return redirect()->back();
+        }
     }
 
     public function edit($id){

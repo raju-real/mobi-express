@@ -28,6 +28,7 @@
                             <th class="text-left">Min Cost</th>
                             <th class="text-left">Up To</th>
                             <th class="text-left">Date</th>
+                            <th class="text-left">Used</th>
                             <th class="text-left">Status</th>
                             <th class="text-left">Action</th>
                         </tr>
@@ -64,6 +65,16 @@
                             <td>
                             	{{ date('d-m-y', strtotime($coupon->start_date)) }} -
                             	{{ date('d-m-y', strtotime($coupon->end_date)) }}
+                            </td>
+                            <td>
+                                <span class="badge badge-warning">
+                                    {{ $coupon->total_used }}
+                                </span>
+                                <span>
+                                    <a class="badge badge-primary" href="{{ route('admin.coupon.show',$coupon->coupon_code) }}">
+                                        Users
+                                    </a>
+                                </span>
                             </td>
                             <td>
                             	{{ $coupon->status == 1 ? 'Active' : 'In Active' }}

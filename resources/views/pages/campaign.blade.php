@@ -36,9 +36,9 @@
 							                <div class="col-lg-6 col-md-6 pb-10">
                                                 <h4>
                                                     {{ $campaign->name }}
-                                                    <span class="pull-right" style="color: #C40316;">
+                                                    {{-- <span class="pull-right" style="color: #C40316;">
                                                         {{ $campaign->products->count() }} Products
-                                                    </span>
+                                                    </span> --}}
                                                 </h4>
 							                    <a href="{{ route('campaign-products',$campaign->slug) }}"><img src="{{ $campaign->image }}" alt="" style="height: 300px;border-radius: 5px;padding-bottom: 40px;"></a>
 							                </div>
