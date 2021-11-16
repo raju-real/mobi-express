@@ -252,6 +252,11 @@ class HomePageController extends Controller
         $promotionProducts = PromotionProduct::where('promotion_id',$promotion->id)
         ->where('status',1)->get();
         $data = Product::whereIn('id',$promotionProducts->pluck('product_id'));
+        // Find categories by promotion products
+        $categoryIds = $data->get()->unique('category_id')->pluck('category_id');
+        $categories = Category::whereIn('id',$categoryIds)->orderBy('serial','asc')->get();
+
+        // Filter Product
         $filter = request()->get('filter');
         $category = request()->get('category');
         if(isset($filter)){
@@ -274,7 +279,6 @@ class HomePageController extends Controller
         $showPercentage = true;
         $categoryFilter = true;
 
-        $categories = Category::orderBy('serial','asc')->get();
 
         //return $products;
         return view('pages.vendor_products',compact('products','title','pageTitle','image','showPercentage','categoryFilter','categories'));
