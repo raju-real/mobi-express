@@ -53,7 +53,7 @@
 						        		<label for="group">
 						        			Coupon Code
 						        		</label>
-						        		<select name="coupon_code" id="coupon_code" class="form-control select2">
+						        		<select name="coupon_code" id="coupon_code" class="form-control couponSelect">
 						        			<option value="">Select Coupon</option>
 						        		</select>
 						        	</div>
@@ -120,7 +120,7 @@
        if(value == "Yes"){
        		$('#coupon_code_box').show();
         	$('#coupon_code').attr("required","");
-        	$('.select2').select2();
+        	//$('.couponSelect').select2();
         	$.ajax({
         		method: 'GET',
         		url: "{{ route('admin.get-coupons') }}",
