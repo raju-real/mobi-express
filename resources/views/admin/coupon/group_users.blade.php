@@ -41,9 +41,22 @@
 						        		<label for="group">
 						        			User Mobile
 						        		</label>
-						        		<input type="text" name="mobile" class="form-control" id="group" placeholder="User Mobile">
+						        		<input type="text" name="mobile" class="form-control" id="group" placeholder="User Mobile" value="{{ old('mobile') }}">
+						        	</div>
+						        	<div class="form-group text-left">
+							      		 <input type="checkbox" name="bind_coupon" class="mt-2" id="bind_coupon" value="Yes"> 
+							      		 <label for="bind_coupon">
+							      		 	Also bind with coupon ?
+							      		 </label>
+							      	</div>
+							      	<div class="form-group text-left" id="coupon_code_box" style="display: none;">
+						        		<label for="group">
+						        			Coupon Code
+						        		</label>
+						        		<input type="text" name="coupon_code" class="form-control" id="coupon_code" placeholder="Coupon Code">
 						        	</div>
 						      	</div>
+						      	
 							    <div class="modal-footer">
 							      	<button type="submit" class="btn btn-primary pointer">Add</button>
 							        <button type="button" class="btn btn-danger pointer" data-dismiss="modal">Close</button>
@@ -100,6 +113,17 @@
 
 @push('js')
 <script>
+	$("input[name=bind_coupon]").on('change', function() {
+       let value = $('input[name=bind_coupon]:checked').val(); 
+       if(value == "Yes"){
+        $('#coupon_code_box').show();
+        $('#coupon_code').attr("required","");
+       } else{
+        $('#coupon_code_box').hide();
+        $('#coupon_code').removeAttr("required","");
+       }
+    });
+
 	function validate(){
 		let group = $('#group').val();
 		if(!group.length){
