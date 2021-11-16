@@ -253,6 +253,7 @@ class HomePageController extends Controller
         ->where('status',1)->get();
         $data = Product::whereIn('id',$promotionProducts->pluck('product_id'));
         $filter = request()->get('filter');
+        $category = request()->get('category');
         if(isset($filter)){
             if($filter == "high-to-low"){
                 $data->orderBy('unit_price','desc');
@@ -260,13 +261,23 @@ class HomePageController extends Controller
                 $data->orderBy('unit_price','asc');
             }
         } 
+        if(isset($category)){
+            $category = Category::where('slug',$category)->first()->id;
+            $data->where('category_id',$category);
+        }
+        // $categoryIds = $data->get()->unique('category_id')->pluck('category_id');
+        // $categories = Category::whereIn('id',$categoryIds)->orderBy('serial','asc')->get();
         $products = $data->paginate(20);
         $title = $promotion->name;
         $pageTitle = 'Promotion/'.$promotion->name;
         $image = $promotion->image;
         $showPercentage = true;
+        $categoryFilter = true;
+
+        $categories = Category::orderBy('serial','asc')->get();
+
         //return $products;
-        return view('pages.vendor_products',compact('products','title','pageTitle','image','showPercentage'));
+        return view('pages.vendor_products',compact('products','title','pageTitle','image','showPercentage','categoryFilter','categories'));
     }
 
     public function subcategoryProducts($slug){

@@ -28,7 +28,7 @@
         <div class="row">
             <!--product part-->
             <div class="col-lg-9 col-md-12">
-                @if(sizeof($products) > 0)
+                
                 <!--shop banner area start-->
                 @if(isset($image))
                 <div class="shop_banner_area mb-30">
@@ -48,6 +48,20 @@
                             <button data-role="grid_4" type="button" class=" active btn-grid-4" data-toggle="tooltip" title="4"></button>
                             <button data-role="grid_list" type="button" class="btn-list" data-toggle="tooltip" title="List"></button>
                         </div>
+                    @if(isset($categoryFilter))
+                    <div class="">
+                        <form>
+                            <select class="form-control" id="cat_short">
+                                <option value="">Short By Category</option>
+                                @foreach($categories as $category)
+                                <option value="{{ $category->slug }}">
+                                    {{ $category->name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </form>
+                    </div>
+                    @endif
                     <div class="">
                         <form>
                             <select class="form-control" id="short">
@@ -65,6 +79,7 @@
                 <!--shop toolbar end-->
 
                 <!--shop wrapper start-->
+                @if(sizeof($products) > 0)
                 <div class="row no-gutters shop_wrapper">
                     @foreach($products as $product)
                     <div class="col-lg-3 col-md-4 col-12 ">
@@ -251,6 +266,19 @@ if (!!elmSelect) {
 
         let url = new URL(window.location.href);
         url.searchParams.set('filter', choice);
+        // console.log(url);
+        window.location.href = url; // reloads the page
+    });
+}
+
+let catShort = document.getElementById('cat_short');
+if (!!catShort) {
+    catShort.addEventListener('change', e => {
+        let choice = e.target.value;
+        if (!choice) return;
+
+        let url = new URL(window.location.href);
+        url.searchParams.set('category', choice);
         // console.log(url);
         window.location.href = url; // reloads the page
     });
