@@ -37,11 +37,10 @@
     /*---slider activation---*/
     $('.slider3_carousel').owlCarousel({
         animateOut: 'fadeOut',
-        autoplay: true,
 		loop: true,
         nav: false,
-        autoplay: false,
-        autoplayTimeout: 8000,
+        autoplay: true,
+        autoplayTimeout: 4000,
         items: 1,
         dots: true,
     });
