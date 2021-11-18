@@ -90,7 +90,7 @@ class PromotionController extends Controller
 
     public function promotionProducts($slug){
         $promotion = Promotion::where('slug',$slug)->first();
-        $promotionProducts = PromotionProduct::with('product')->where('promotion_id',$promotion->id)->paginate(20);
+        $promotionProducts = PromotionProduct::with('product')->where('promotion_id',$promotion->id)->get();
         return view('admin.promotion.promotion_products',compact('promotionProducts','promotion'));
     }
 
@@ -184,6 +184,29 @@ class PromotionController extends Controller
 
         Toastr::info('Product Successfully Updated');
         return redirect()->route('admin.promotion-products',$promotion->slug);
+    }
+
+    public function changePromotionProductStatus(){
+        $promotionProductId = request()->get('id');
+        $promotion_slug = request()->get('slug');
+        promotionProduct::findOrFail($promotionProductId)->update(['status'=>request()->get('status')]);
+        Toastr::info('Status Changed Successfully');
+        return redirect()->route('admin.promotion-products',$promotion_slug);
+        return response()->json(['status'=>'success']);
+    }
+
+    public function updatePromotionProductStatus(){
+        $promotion_id = request()->get('promotion_id');
+        $promotion_slug = Promotion::findOrFail($promotion_id)->slug;
+        $action = request()->get('action');
+        if($action === 'active-all'){
+            promotionProduct::whereIn('promotion_id',[$promotion_id])->update(['status'=>1]);
+        } elseif($action === 'in-active-all'){
+             promotionProduct::whereIn('promotion_id',[$promotion_id])->update(['status'=>0]);
+        }
+
+        Toastr::info('Status Update Successfully');
+        return redirect()->route('admin.promotion-products',$promotion_slug);
     }
 
     public function promotionProductDestroy($id){

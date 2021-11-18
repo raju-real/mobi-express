@@ -51,7 +51,14 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         ->name('promotion-product.edit');
     Route::put('promotion/product/update/{id}','PromotionController@promotionProductUpdate')->name('promotion-product.update');    
     Route::delete('promotion/product/delete/{id}','PromotionController@promotionProductDestroy')
-    ->name('promotion-product.delete');    
+    ->name('promotion-product.delete');  
+    Route::get('promotion/product/change-status','PromotionController@changePromotionProductStatus')
+    ->name('promotion-product.change-status');
+
+    Route::get('promotion/product/update-status','PromotionController@updatePromotionProductStatus')
+    ->name('promotion-product.update-status');
+
+    // Slider  
     Route::resource('slider','SliderController');  
     Route::resource('featured-products','FeaturedProductController');  
     Route::resource('new-arrivals','NewArrivalsController');  

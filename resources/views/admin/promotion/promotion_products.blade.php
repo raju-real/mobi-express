@@ -17,8 +17,25 @@
                 <div class="ibox-title text-right">
                 	<a href="{{ route('admin.promotion-product.create',$promotion->slug) }}" class="badge badge-primary">
                 		<i class="fa fa-plus-circle"></i>
-                	Add New
-                </a>
+                	   Add New
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-head">
+                <div class="ibox-title">
+                    Short Action
+                </div>
+                
+                <div class="ibox-title text-right">
+                    <a href="{{ route('admin.promotion-product.update-status',['promotion_id'=>$promotion->id,'action'=>'active-all']) }}" class="badge badge-primary">
+                       Active All
+                    </a>
+                    <a href="{{ route('admin.promotion-product.update-status',['promotion_id'=>$promotion->id,'action'=>'in-active-all']) }}" class="badge badge-danger">
+                       In Active All
+                    </a>
+                    {{-- <a href="{{ route('admin.promotion-product.update-status',['promotion_id'=>$promotion->id,'action'=>'in-active-all']) }}" class="badge badge-info">
+                       Active All In Active Product
+                    </a> --}}
                 </div>
             </div>
             
@@ -48,15 +65,15 @@
                             <th>Action</th>
                         </tr>
                     </tfoot>
-                    <tbody>
+                    <tbody id="load">
                     	@foreach($promotionProducts as $p_p)
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
                             <td>
-                                @if($p_p->product->image != null)
-                                    <img src="{{ asset($p_p->product->image) }}" class="img-fluid img-thumbnail" alt="Category image" style="height: 50px;width: 50px;">
+                                @if($p_p->product->image != null AND file_exists($p_p->product->image))
+                                    <img src="{{ asset($p_p->product->image) }}" class="img-fluid img-thumbnail" alt="Image" style="height: 50px;width: 50px;">
                                 @else
-                                    {{ 'None' }}
+                                    <img src="{{ asset('assets/common/images/product.png') }}" class="img-fluid img-thumbnail" alt="Image" style="height: 50px;width: 50px;">
                                 @endif
                             </td>
                             <td>{{ $p_p->product->name }}</td>
@@ -75,8 +92,20 @@
                             <td>
                                 @if($p_p->status == 1)
                                 <span class="badge badge-info">Active</span>
-                                @else
+                                <a class="badge badge-danger" href="{{ route('admin.promotion-product.change-status',['status'=>0,'id'=>$p_p->id,'slug'=>$promotion->slug]) }}">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                                {{-- <button type="button" class="badge badge-danger" onclick="changeStatus({{ $p_p->id }},0)">
+                                    <i class="fa fa-times"></i>
+                                </button> --}}
+                                @elseif($p_p->status == 0)
                                 <span class="badge badge-danger">In Active</span>
+                                <a class="badge badge-primary" href="{{ route('admin.promotion-product.change-status',['status'=>1,'id'=>$p_p->id,'slug'=>$promotion->slug]) }}">
+                                    <i class="fa fa-check"></i>
+                                </a>
+                                {{-- <button type="button" class="badge badge-primary" onclick="changeStatus({{ $p_p->id }},1)">
+                                    <i class="fa fa-check"></i>
+                                </button> --}}
                                 @endif
                             </td>
                             <td>
@@ -95,7 +124,6 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $promotionProducts->links() }}
             </div>
         </div>
 	</div>
@@ -106,13 +134,27 @@
 <script type="text/javascript">
     $(function() {
         $('#promotion-product-table').DataTable({
-            pageLength: 10,
+            pageLength: 100,
             paging: true,
-            searching: false,
+            searching: true,
             info: false
            
         });
     })
+
+    function changeStatus(id,status){
+        $.ajax({
+            method: 'GET',
+            url: "{{ route('admin.promotion-product.change-status') }}",
+            data: {id:id,status:status},
+            success: function(response){
+                $("#promotion-product-table").load(location.href + " #promotion-product-table");
+                var table=('#promotion-product-table').Datatable();
+                table.draw();
+
+            }
+        });
+    }
 
     function deleteProduct(id) {
         Swal({
