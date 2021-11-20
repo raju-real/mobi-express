@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Middleware;
-
-use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class AdminMiddleware
+use Closure;
+
+class AuthorMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check() AND Auth::user()->role_id == 1 AND Auth::user()->status == 1 ){
+        if(Auth::check() AND Auth::user()->status == 1 AND Auth::user()->admin_management == 1){
             return $next($request);
         }
         abort(403);

@@ -2,10 +2,11 @@
 
 namespace App\Http\Middleware;
 
+
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class AdminMiddleware
+class AttributeMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,7 +17,7 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check() AND Auth::user()->role_id == 1 AND Auth::user()->status == 1 ){
+        if(Auth::check() AND Auth::user()->status == 1 AND Auth::user()->product_attribute_management == 1){
             return $next($request);
         }
         abort(403);

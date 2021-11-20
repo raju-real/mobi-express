@@ -3,6 +3,19 @@
 namespace App\Http;
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\AttributeMiddleware;
+use App\Http\Middleware\AuthorMiddleware;
+use App\Http\Middleware\CouponMiddleware;
+use App\Http\Middleware\OfferMiddleware;
+use App\Http\Middleware\OrderMiddleware;
+use App\Http\Middleware\ProductBindingMiddleware;
+use App\Http\Middleware\ProductMiddleware;
+use App\Http\Middleware\PromotionMiddleware;
+use App\Http\Middleware\ReportMiddleware;
+use App\Http\Middleware\UserMiddleware;
+use App\Http\Middleware\VoucherMiddleware;
+use App\Http\Middleware\WebBasicMiddleware;
+use App\Http\Middleware\DisctrictMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -65,5 +78,18 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => AdminMiddleware::class,
+        'order' => OrderMiddleware::class,
+        'report' => ReportMiddleware::class,
+        'product' => ProductMiddleware::class,
+        'attribute' => AttributeMiddleware::class,
+        'binding' => ProductBindingMiddleware::class,
+        'promotion' => PromotionMiddleware::class,
+        'offer' => OfferMiddleware::class,
+        'coupon' => CouponMiddleware::class,
+        'voucher' => VoucherMiddleware::class,
+        'district' => DisctrictMiddleware::class,
+        'user' => UserMiddleware::class,
+        'author' => AuthorMiddleware::class,
+        'basic' => WebBasicMiddleware::class,
     ];
 }

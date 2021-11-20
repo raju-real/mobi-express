@@ -9,123 +9,145 @@ Route::get('admin',function(){
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth:admin'], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-    Route::resource('category','CategoryController');
-    Route::resource('subcategory','SubCategoryController');
-    Route::resource('brand','BrandController');
-    Route::resource('color','ColorController');
-    Route::resource('size','SizeController');
-    Route::resource('unit','UnitController');
-    Route::resource('district','DistrictController');
-    Route::resource('product', 'ProductController');
-    Route::delete('remove-image/{id}','ProductController@removeImage');
-    Route::resource('offer','OfferController');
-    Route::resource('policy','PolicyController');
-    Route::get('policy-edit','PolicyController@edit')->name('policy-edit');
-    Route::get('about-us','AboutContactController@aboutUs')->name('about-us');
+    // Product Attribute Part
+    Route::resource('category','CategoryController')->middleware('attribute');
+    Route::resource('subcategory','SubCategoryController')->middleware('attribute');
+    Route::resource('brand','BrandController')->middleware('attribute');
+    Route::resource('color','ColorController')->middleware('attribute');
+    Route::resource('size','SizeController')->middleware('attribute');
+    Route::resource('unit','UnitController')->middleware('attribute');
+
+    // District
+    Route::resource('district','DistrictController')->middleware('district');
+    // Product
+    Route::resource('product', 'ProductController')->middleware('product');
+    Route::delete('remove-image/{id}','ProductController@removeImage')
+        ->middleware('product');
+    // Offer    
+    Route::resource('offer','OfferController')->middleware('offer');
+
+    // Website Basic
+    Route::resource('policy','PolicyController')->middleware('basic');
+    Route::get('policy-edit','PolicyController@edit')
+        ->name('policy-edit')->middleware('basic');
+    Route::get('about-us','AboutContactController@aboutUs')
+        ->name('about-us')->middleware('basic');
     Route::put('update-about','AboutContactController@updateAboutUs')
-        ->name('update-about');
-    Route::get('contact-us','AboutContactController@contactUs')->name('contact-us');
+        ->name('update-about')->middleware('basic');
+    Route::get('contact-us','AboutContactController@contactUs')
+        ->name('contact-us')->middleware('basic');
     Route::put('update-contact','AboutContactController@updateContactUs')
-        ->name('update-contact');
-    Route::resource('voucher-product','VoucherProductController');
+        ->name('update-contact')->middleware('basic');
+
+    // Voucher Part    
+    Route::resource('voucher-product','VoucherProductController')
+        ->middleware('voucher');
     
     // Coupon Part
-    Route::resource('coupon','CouponController');
-    Route::resource('coupon-group','CouponGroupController');
+    Route::resource('coupon','CouponController')->middleware('coupon');
+    Route::resource('coupon-group','CouponGroupController')->middleware('coupon');
     Route::post('add-group-user','CouponGroupController@addGroupUser')
-        ->name('add-group-user');
+        ->name('add-group-user')->middleware('coupon');
     Route::get('get-coupons','CouponGroupController@getCoupons')    
-        ->name('get-coupons');
+        ->name('get-coupons')->middleware('coupon');
     Route::delete('delete-group-user/{id}','CouponGroupController@deleteGroupUser')
-        ->name('delete-group-user');
+        ->name('delete-group-user')->middleware('coupon');
 
     // Promotion Part    
-    Route::resource('promotion','PromotionController');
+    Route::resource('promotion','PromotionController')->middleware('promotion');
     Route::get('promotion/products/{slug}','PromotionController@promotionProducts')
-        ->name('promotion-products');
+        ->name('promotion-products')->middleware('promotion');
     Route::get('promotion/product/create/{slug}','PromotionController@createPromotionProduct')
-        ->name('promotion-product.create');
+        ->name('promotion-product.create')->middleware('promotion');
     Route::post('promotion-product','PromotionController@storePromotionProduct')
-        ->name('promotion-product.store');    
+        ->name('promotion-product.store')->middleware('promotion');    
     Route::get('promotion/product/edit/{id}','PromotionController@editPromotionProduct')
-        ->name('promotion-product.edit');
-    Route::put('promotion/product/update/{id}','PromotionController@promotionProductUpdate')->name('promotion-product.update');    
+        ->name('promotion-product.edit')->middleware('promotion');
+    Route::put('promotion/product/update/{id}','PromotionController@promotionProductUpdate')
+        ->name('promotion-product.update')->middleware('promotion');    
     Route::delete('promotion/product/delete/{id}','PromotionController@promotionProductDestroy')
-    ->name('promotion-product.delete');  
+        ->name('promotion-product.delete')->middleware('promotion');  
     Route::get('promotion/product/change-status','PromotionController@changePromotionProductStatus')
-    ->name('promotion-product.change-status');
-
+    ->name('promotion-product.change-status')->middleware('promotion');
     Route::get('promotion/product/update-status','PromotionController@updatePromotionProductStatus')
-    ->name('promotion-product.update-status');
+        ->name('promotion-product.update-status')->middleware('promotion');
 
     // Slider  
     Route::resource('slider','SliderController');  
-    Route::resource('featured-products','FeaturedProductController');  
-    Route::resource('new-arrivals','NewArrivalsController');  
-    Route::resource('front-category','FrontCategoryController');
+    // Product Binding Part
+    Route::resource('featured-products','FeaturedProductController')
+        ->middleware('binding');  
+    Route::resource('new-arrivals','NewArrivalsController')->middleware('binding');  
+    Route::resource('front-category','FrontCategoryController')->middleware('binding');
     Route::get('front-category-products','FrontCategoryController@products')
-        ->name('front-category-products');
+        ->name('front-category-products')->middleware('binding');
     Route::get('front-category-add-product','FrontCategoryController@addProductFrom')
-        ->name('front-category-add-product');
+        ->name('front-category-add-product')->middleware('binding');
     Route::post('add-product-front-cat','FrontCategoryController@addProduct')
-        ->name('add-product-front-cat');
+        ->name('add-product-front-cat')->middleware('binding');
     Route::get('edit-product-front-cat/{id}','FrontCategoryController@editProduct')
-        ->name('edit-product-front-cat'); 
-    Route::put('update-product-front-cat/{id}','FrontCategoryController@updateProduct')->name('update-product-front-cat'); 
-    Route::delete('delete-product-front-cat/{id}','FrontCategoryController@deleteProduct')->name('delete-product-front-cat');
-    Route::get('users','DashboardController@users')->name('users.index');
+        ->name('edit-product-front-cat')->middleware('binding'); 
+    Route::put('update-product-front-cat/{id}','FrontCategoryController@updateProduct')->name('update-product-front-cat')->middleware('binding'); 
+    Route::delete('delete-product-front-cat/{id}','FrontCategoryController@deleteProduct')->name('delete-product-front-cat')->middleware('binding');
+
+    // User Part
+    Route::get('users','DashboardController@users')
+        ->name('users.index')->middleware('user');
+    Route::get('user','DashboardController@userDetails')
+        ->name('user.show')->middleware('user');
+    Route::get('change-user-status','DashboardController@changeUserStatus')
+        ->name('change-user-status')->middleware('user');    
 
     // Admin Part
     Route::get('admins','DashboardController@admins')
-        ->name('admins.index');
+        ->name('admins.index')->middleware('author');
     Route::get('admins/create','DashboardController@createAdmin')
-        ->name('admins.create');
+        ->name('admins.create')->middleware('author');
     Route::post('admins/store','DashboardController@storeAdmin')
-        ->name('admins.store');
+        ->name('admins.store')->middleware('author');
     Route::get('admins/edit','DashboardController@editAdmin')
-        ->name('admin.edit');
+        ->name('admin.edit')->middleware('author');
     Route::put('admins/update/{id}','DashboardController@updateAdmin')
-        ->name('admin.update');
+        ->name('admin.update')->middleware('author');
     Route::get('change-admin-status','DashboardController@changeAdminStatus')
-        ->name('change-admin-status');
+        ->name('change-admin-status')->middleware('author');
     Route::get('admins/show','DashboardController@shwoAdmin')
-        ->name('admin.show');
-    Route::get('user','DashboardController@userDetails')
-        ->name('user.show');
-    Route::get('change-user-status','DashboardController@changeUserStatus')
-        ->name('change-user-status');
+        ->name('admin.show')->middleware('author');
+    
 
     // order section
     Route::get('orders/pending','OrderController@pendingOrders')
-        ->name('pending-orders');
+        ->name('pending-orders')->middleware('order');
     Route::get('orders/processing','OrderController@processingOrders')
-        ->name('processing-orders');
+        ->name('processing-orders')->middleware('order');
     Route::get('orders/picked','OrderController@pickedOrders')
-        ->name('picked-orders');
+        ->name('picked-orders')->middleware('order');
     Route::get('orders/shipped','OrderController@shippedOrders')
-        ->name('shipped-orders');        
+        ->name('shipped-orders')->middleware('order');        
     Route::get('orders/delivered','OrderController@deliveredOrders')
-        ->name('delivered-orders');
+        ->name('delivered-orders')->middleware('order');
     Route::get('orders/delivered','OrderController@deliveredOrders')
-        ->name('delivered-orders');    
+        ->name('delivered-orders')->middleware('order');    
     Route::get('orders/cancled','OrderController@cancledOrders')
-        ->name('cancled-orders');
+        ->name('cancled-orders')->middleware('order');
     Route::get('orders/returned','OrderController@returnedOrders')
-        ->name('returned-orders');    
+        ->name('returned-orders')->middleware('order');    
     Route::get('search','OrderController@searchOrder')
-        ->name('search-order');                     
+        ->name('search-order')->middleware('order');                     
     Route::get('order','OrderController@orderDetails')
-        ->name('order.show');  
+        ->name('order.show')->middleware('order');  
     Route::get('change-status','OrderController@changeOrderStatus')         
-        ->name('change-status');
+        ->name('change-status')->middleware('order');
     //Route::get('invoice','OrderController@invoice')->name('invoice');
-    Route::get('invoice','OrderController@downloadInvoice')->name('invoice');
+    Route::get('invoice','OrderController@downloadInvoice')
+        ->name('invoice')->middleware('order');
     //Commonly Control
-    Route::get('orders','OrderController@orders')->name('orders');
+    Route::get('orders','OrderController@orders')
+        ->name('orders')->middleware('order');
 
-    // Transaction Section
+    // Report Section
     Route::get('transaction-history','DashboardController@transactionHistory')
-        ->name('transaction-history');
+        ->name('transaction-history')->middleware('report');
 });
 
 
