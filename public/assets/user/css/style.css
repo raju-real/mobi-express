@@ -1156,6 +1156,8 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   z-index: 99;
   top: 100%;
   text-align: left;
+  height: 80vh;
+  overflow-y: scroll;
 }
 .main_menu nav > ul > li ul.sub_menu li a {
   font-size: 13px;

@@ -127,9 +127,9 @@
                             </ul>
                         </div>
                         <div class="search_container">
-                            <form action="#">
+                            <form action="{{ route('search-product') }}">
                                 <div class="search_box">
-                                    <input placeholder="Search product..." type="text">
+                                    <input name="product_name" placeholder="Search product..." type="text">
                                     <button type="submit">Search</button>
                                 </div>
                             </form>
