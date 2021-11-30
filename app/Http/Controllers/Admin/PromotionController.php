@@ -189,7 +189,7 @@ class PromotionController extends Controller
     public function changePromotionProductStatus(){
         $promotionProductId = request()->get('id');
         $promotion_slug = request()->get('slug');
-        promotionProduct::findOrFail($promotionProductId)->update(['status'=>request()->get('status')]);
+        PromotionProduct::findOrFail($promotionProductId)->update(['status'=>request()->get('status')]);
         Toastr::info('Status Changed Successfully');
         return redirect()->route('admin.promotion-products',$promotion_slug);
         return response()->json(['status'=>'success']);
@@ -200,9 +200,16 @@ class PromotionController extends Controller
         $promotion_slug = Promotion::findOrFail($promotion_id)->slug;
         $action = request()->get('action');
         if($action === 'active-all'){
-            promotionProduct::whereIn('promotion_id',[$promotion_id])->update(['status'=>1]);
+            // PromotionProduct::whereIn('promotion_id',[$promotion_id])->update(['status'=>1]);
+            $promotionProducts = PromotionProduct::whereIn('promotion_id',[$promotion_id])->get();
+            foreach($promotionProducts as $p_p){
+                Product::where('id',$p_p->product_id)->update(['discount_price'=>$p_p->discount_price]);
+                PromotionProduct::where('id',$p_p->id)->update(['status'=>1]);
+            }
         } elseif($action === 'in-active-all'){
-             promotionProduct::whereIn('promotion_id',[$promotion_id])->update(['status'=>0]);
+             PromotionProduct::whereIn('promotion_id',[$promotion_id])->update(['status'=>0]);
+             $products = PromotionProduct::whereIn('promotion_id',[$promotion_id])->pluck('product_id');
+             Product::whereIn('id',$products)->update(['discount_price'=>0]);
         }
 
         Toastr::info('Status Update Successfully');
