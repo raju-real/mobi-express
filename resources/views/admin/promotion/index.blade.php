@@ -92,7 +92,8 @@
                             </td>
                             <td>{{ $promotion->name }}</td>
                             <td>
-                            	{{ $promotion->products->count() }}
+                            	{{-- {{ $promotion->products->count() }} --}}
+                            	{{ App\Model\PromotionProduct::whereIn('promotion_id',[$promotion->id])->count() }}
                             	<a class="badge badge-info" href="{{ route('admin.promotion-products',$promotion->slug) }}">
                             		Products
                             	</a>

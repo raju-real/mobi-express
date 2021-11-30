@@ -69,6 +69,21 @@ class PromotionController extends Controller
         $promotion->slug = $slug;
         $promotion->serial = $request->serial;
         $promotion->status = $request->status;
+
+        if($request->status == 0){
+            $promotionProducts = PromotionProduct::whereIn('promotion_id',[$promotion->id])->get();
+            foreach($promotionProducts as $p_p){
+                Product::where('id',$p_p->product_id)->update(['discount_price'=>0]);
+                PromotionProduct::where('id',$p_p->id)->update(['status'=>0]);
+            }
+        } elseif($request->status == 1){
+            $promotionProducts = PromotionProduct::whereIn('promotion_id',[$promotion->id])->get();
+            foreach($promotionProducts as $p_p){
+                Product::where('id',$p_p->product_id)->update(['discount_price'=>$p_p->discount_price]);
+                PromotionProduct::where('id',$p_p->id)->update(['status'=>1]);
+            }
+        }
+
         $promotion->save();
         Toastr::info('Promotion Updated Successfully','info');
         return redirect()->route('admin.promotion.index');
