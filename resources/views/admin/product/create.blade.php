@@ -3,7 +3,7 @@
 @push('css')
 <style>
     .button {
-      float: right;     
+      float: right;
       padding: 15px 25px;
       font-size: 24px;
       text-align: center;
@@ -56,7 +56,7 @@
                             <label for="subcategory_id">Sub Category</label>
                             <select name="subcategory_id" id="subcategory_id" class="form-control">
                             	<option value="">Select Category</option>
-                            	
+
                             </select>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                             <select name="stock_status" id="stock_status" class="form-control">
                                 <option value="1">In Stock</option>
                                 <option value="0">Out Of Stock</option>
-                            </select>   
+                            </select>
                         </div>
                         <div class="col-sm-2 form-group">
                             <label for="quantity">Quantity</label>
@@ -150,7 +150,7 @@
                                 CKEDITOR.replace('short_description')
                             </script>
                         </div>
-                        
+
                     </div>
 
                     <div class="row">
@@ -178,7 +178,7 @@
                             </script>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                     	<div class="col-sm-4 form-group">
                     		<label for="images">Images(Multiple)</label>
@@ -193,7 +193,7 @@
                     	</div>
                     	<div class="col-sm-4 form-group btn-block">
                             <label></label>
-                    		<button type="submit"  class="button preview"> 
+                    		<button type="submit"  class="button preview">
                                 Add Product
                             </button>
                     	</div>

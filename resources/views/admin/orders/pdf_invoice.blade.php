@@ -210,10 +210,13 @@
                     Product
                 </th>
                 <th class="unit" style="font-weight: bold;border-right: 1px solid white;">
+                    Price
+                </th>
+                <th class="unit" style="font-weight: bold;border-right: 1px solid white;">
                     Quantity
                 </th>
                 <th class="unit" style="font-weight: bold;border-right: 1px solid white;">
-                    Price
+                    Total Price
                 </th>
             </tr>
             </thead>
@@ -225,6 +228,9 @@
                     </td>
                     <td class="desc" style="font-weight: bold;border-right: 1px solid whitesmoke;background: white;white-space: nowrap;">
                         {{ $order_product->product->name }} 
+                    </td>
+                    <td class="desc" style="font-weight: bold;border-right: 1px solid whitesmoke;background: white;white-space: nowrap;">
+                        {{ $order_product->order_price }} 
                     </td>
                     <td class="desc" style="font-weight: bold;border-right: 1px solid whitesmoke;background: white;white-space: nowrap;">
                         {{ $order_product->quantity }} 

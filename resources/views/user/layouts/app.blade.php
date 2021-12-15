@@ -459,19 +459,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer_bottom">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-3 col-md-3">
-                        <div class="copyright_area">
-                            <p>&copy; 2021 <a href="{{ route('home') }}" class="text-uppercase">{{ $contact->company_name }}</a></p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3">
-                        <div class="footer_social">
+                    <div class="col-md-3">
+                        <div class="widgets_container widget_menu">
+                            <h3>Social Media</h3>
+                            <div class="footer_social">
                                 <ul>
                                     <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
                                     <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
@@ -480,11 +471,23 @@
                                     <li><a class="rss" href="#"><i class="fa fa-rss"></i></a></li>
                                 </ul>
                             </div>
+                        </div>
                     </div>
-                    <div class="col-lg-6 col-md-6">
+                </div>
+            </div>
+        </div>
+        <div class="footer_bottom">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-2 col-md-2">
+                        <div class="copyright_area">
+                            <p>&copy; 2021 <a href="{{ route('home') }}" class="text-uppercase">{{ $contact->company_name }}</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-10 col-md-10">
                         <div class="footer_payment text-right">
-                            <span>Pay With</span>
-                            <img src="{{ asset('assets/user/img/icon/payment.png') }}" alt="">
+                            <img src="{{ asset('assets/user/images/sslcommerz/SSLCOMMERZ Pay With logo All Size_Aug 21-05-Dec-14-2021-07-16-27-46-AM.png') }}" alt="">
                         </div>
                     </div>
                 </div>
