@@ -646,13 +646,13 @@ class HomePageController extends Controller
                 $coupon_code = request()->get('coupon_code');
                 if(isset($coupon_code)){
                     $result = $this->applyCoupon($coupon_code);
-                    // $currentOrderPrice = OrderPrice::where($identify)->first();
-                    // if($currentOrderPrice->coupon_code != null){
-                    //     $result = $this->applyCoupon($coupon_code);
-                    //     Session::put('coupon_message',$result);
-                    // } else{
-                    //     Session::forget('coupon_message');
-                    // }
+                    $currentOrderPrice = OrderPrice::where($identify)->first();
+                    if($currentOrderPrice->coupon_code != null){
+                        $result = $this->applyCoupon($coupon_code);
+                        Session::put('coupon_message',$result);
+                    } else{
+                        Session::forget('coupon_message');
+                    }
                 }
                 $order_price = OrderPrice::where($identify)->first();
                 return view('pages.checkout', compact('carts','order_price','shipping'));
@@ -696,6 +696,7 @@ class HomePageController extends Controller
 
     public function submitOrder(Request $request){
         //return $request;
+        return "Some technical fault occured.Please wait a while";
         $this->validate($request,['payment_method' => 'required']);
         if(Auth::check()){
             $session_id = Session::get('session_id');
