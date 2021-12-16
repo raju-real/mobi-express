@@ -115,7 +115,7 @@
                         <div class="canvas_close">
                             <a href="javascript:void(0)"><i class="ion-android-close"></i></a>
                         </div>
-                        <div class="antomi_message">
+                        {{-- <div class="antomi_message">
                             <p>Get free shipping – Order amount 999</p>
                         </div>
                         <div class="header_top_settings text-right">
@@ -125,7 +125,7 @@
                                 <li>Hotline: {{ $contact->mobile }}</li>
                                 <li>Quality Guarantee Of Products</li>
                             </ul>
-                        </div>
+                        </div> --}}
                         <div class="search_container">
                             <form action="{{ route('search-product') }}">
                                 <div class="search_box">
