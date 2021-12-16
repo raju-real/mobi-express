@@ -646,7 +646,7 @@ class HomePageController extends Controller
                 $coupon_code = request()->get('coupon_code');
                 if(isset($coupon_code)){
                     $currentOrderPrice = OrderPrice::where($identify)->first();
-                    if($currentOrderPrice->coupon_code == null){
+                    if($currentOrderPrice->coupon_code != null){
                         $result = $this->applyCoupon($coupon_code);
                         Session::put('coupon_message',$result);
                     } else{
