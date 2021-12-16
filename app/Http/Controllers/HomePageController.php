@@ -645,13 +645,14 @@ class HomePageController extends Controller
                 // Apply Coupon
                 $coupon_code = request()->get('coupon_code');
                 if(isset($coupon_code)){
-                    $currentOrderPrice = OrderPrice::where($identify)->first();
-                    if($currentOrderPrice->coupon_code != null){
-                        $result = $this->applyCoupon($coupon_code);
-                        Session::put('coupon_message',$result);
-                    } else{
-                        Session::forget('coupon_message');
-                    }
+                    $result = $this->applyCoupon($coupon_code);
+                    // $currentOrderPrice = OrderPrice::where($identify)->first();
+                    // if($currentOrderPrice->coupon_code != null){
+                    //     $result = $this->applyCoupon($coupon_code);
+                    //     Session::put('coupon_message',$result);
+                    // } else{
+                    //     Session::forget('coupon_message');
+                    // }
                 }
                 $order_price = OrderPrice::where($identify)->first();
                 return view('pages.checkout', compact('carts','order_price','shipping'));
