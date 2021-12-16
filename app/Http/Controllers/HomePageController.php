@@ -702,7 +702,7 @@ class HomePageController extends Controller
 
     public function submitOrder(Request $request){
         //return $request;
-        return "Some technical issue occured,please wait a while";
+        return "Some technical issue occured,please wait a while.thanks";
         $this->validate($request,['payment_method' => 'required']);
         if(Auth::check()){
             $session_id = Session::get('session_id');
