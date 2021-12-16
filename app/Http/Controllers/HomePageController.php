@@ -624,13 +624,14 @@ class HomePageController extends Controller
                 $totalPrice = $carts->sum('total_price');
                 $productDiscountPrice = $carts->sum('total_discount_price');
                 $checkCurrent = OrderPrice::where($identify)->first();
-                if(isset($checkCurrent) AND $checkCurrent->coupon_code != null){
-                    $orderPrice = $checkCurrent->order_price;
-                } else {
-                    $orderPrice = $totalPrice;
-                    Session::forget('coupon_message');
-                }
-
+                $orderPrice = $totalPrice;
+                // if(isset($checkCurrent) AND $checkCurrent->coupon_code != null){
+                //     $orderPrice = $checkCurrent->order_price;
+                // } else {
+                //     $orderPrice = $totalPrice;
+                //     Session::forget('coupon_message');
+                // }
+                Session::forget('coupon_message');
                 $data = [
                     'session_id' => $session_id,
                     'user_id' => Auth::id(),
@@ -645,9 +646,8 @@ class HomePageController extends Controller
                 // Apply Coupon
                 $coupon_code = request()->get('coupon_code');
                 if(isset($coupon_code)){
-                    $result = $this->applyCoupon($coupon_code);
                     $currentOrderPrice = OrderPrice::where($identify)->first();
-                    if($currentOrderPrice->coupon_code != null){
+                    if($currentOrderPrice->coupon_code == null){
                         $result = $this->applyCoupon($coupon_code);
                         Session::put('coupon_message',$result);
                     } else{
@@ -696,7 +696,7 @@ class HomePageController extends Controller
 
     public function submitOrder(Request $request){
         //return $request;
-        return "Some technical fault occured.Please wait a while";
+        return "Some technical issue occured,please wait a while";
         $this->validate($request,['payment_method' => 'required']);
         if(Auth::check()){
             $session_id = Session::get('session_id');
