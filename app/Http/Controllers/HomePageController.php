@@ -621,6 +621,12 @@ class HomePageController extends Controller
                     'session_id'=>$session_id,
                     'user_id'=>Auth::id()
                 ];
+
+                //If exists order price delete
+                if(OrderPrice::where($identify)->exists()){
+                    OrderPrice::where($identify)->delete();
+                    Session::forget('coupon_message');
+                }
                 $totalPrice = $carts->sum('total_price');
                 $productDiscountPrice = $carts->sum('total_discount_price');
                 $checkCurrent = OrderPrice::where($identify)->first();
@@ -631,7 +637,7 @@ class HomePageController extends Controller
                 //     $orderPrice = $totalPrice;
                 //     Session::forget('coupon_message');
                 // }
-                Session::forget('coupon_message');
+                
                 $data = [
                     'session_id' => $session_id,
                     'user_id' => Auth::id(),
