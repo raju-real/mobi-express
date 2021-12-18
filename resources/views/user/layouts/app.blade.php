@@ -465,12 +465,12 @@
                             <div class="footer_social">
                                 <ul>
                                     <li>
-                                        <a class="facebook" href="https://www.facebook.com/mblxpress">
+                                        <a class="facebook" href="https://www.facebook.com/mblxpress" target="_blank">
                                             <i class="fa fa-facebook"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="" href="https://www.facebook.com/groups/217295359843719/">
+                                        <a class="" href="https://www.facebook.com/groups/217295359843719/" target="_blank">
                                             <img src="{{ asset('assets/user/images/fb-group.jpeg') }}" alt="">
                                         </a>
                                     </li>
