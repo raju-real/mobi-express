@@ -26,7 +26,7 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 
    <meta name="csrf-token" content="{{ csrf_token() }}" />
-   
+
    <style type="text/css">
        .autocomplete-item{
         display: grid;
@@ -51,7 +51,7 @@
             background: #C40316;
             color: white;
             pointer-events: none;
-            cursor: default; 
+            cursor: default;
             border: 2px solid #ebebeb;
             height: 45px;
             line-height: 41px;
@@ -464,11 +464,19 @@
                             <h3>Social Media</h3>
                             <div class="footer_social">
                                 <ul>
-                                    <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li>
+                                        <a class="facebook" href="https://www.facebook.com/mblxpress">
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="" href="https://www.facebook.com/groups/217295359843719/">
+                                            <img src="{{ asset('assets/user/images/fb-group.jpeg') }}" alt="">
+                                        </a>
+                                    </li>
                                     <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
                                     <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
-                                    <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                                    <li><a class="rss" href="#"><i class="fa fa-rss"></i></a></li>
+                                    <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a>
                                 </ul>
                             </div>
                         </div>
@@ -484,7 +492,7 @@
                             <p>&copy; 2021 <a href="{{ route('home') }}" class="text-uppercase">{{ $contact->company_name }}</a></p>
                         </div>
                     </div>
-                    
+
                     <div class="col-lg-10 col-md-10">
                         <div class="footer_payment text-right">
                             <img src="{{ asset('assets/user/images/sslcommerz/SSLCOMMERZ Pay With logo All Size_Aug 21-05-Dec-14-2021-07-16-27-46-AM.png') }}" alt="">
@@ -718,7 +726,7 @@
           });
         }
     </script>
-    
+
     @stack('js')
 </body>
 
