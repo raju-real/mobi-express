@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 08, 2021 at 12:27 PM
+-- Generation Time: Dec 22, 2021 at 05:30 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -56,6 +56,20 @@ CREATE TABLE `admins` (
   `mobile` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `order_management` int(11) DEFAULT '0',
+  `report_management` int(11) DEFAULT '0',
+  `product_management` int(11) NOT NULL DEFAULT '0',
+  `product_attribute_management` int(11) NOT NULL DEFAULT '0',
+  `product_binding_management` int(11) NOT NULL DEFAULT '0',
+  `promotion_management` int(11) NOT NULL DEFAULT '0',
+  `offer_management` int(11) NOT NULL DEFAULT '0',
+  `voucher_management` int(11) NOT NULL DEFAULT '0',
+  `coupon_management` int(11) NOT NULL DEFAULT '0',
+  `web_basic_management` int(11) NOT NULL DEFAULT '0',
+  `district_management` int(11) NOT NULL DEFAULT '0',
+  `user_management` int(11) NOT NULL DEFAULT '0',
+  `admin_management` int(11) NOT NULL DEFAULT '0',
+  `status` int(11) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -64,8 +78,11 @@ CREATE TABLE `admins` (
 -- Dumping data for table `admins`
 --
 
-INSERT INTO `admins` (`id`, `role_id`, `name`, `email`, `mobile`, `password`, `image`, `created_at`, `updated_at`) VALUES
-(1, '1', 'Super Admin', 'admin@admin.com', '01889967514', '$2y$10$hZPVUcwm05IrpZrKS9kSFuJlxwD.fmRjA5nrQOWYOm8Bv.ZOfYqDK', NULL, NULL, NULL);
+INSERT INTO `admins` (`id`, `role_id`, `name`, `email`, `mobile`, `password`, `image`, `order_management`, `report_management`, `product_management`, `product_attribute_management`, `product_binding_management`, `promotion_management`, `offer_management`, `voucher_management`, `coupon_management`, `web_basic_management`, `district_management`, `user_management`, `admin_management`, `status`, `created_at`, `updated_at`) VALUES
+(1, '1', 'Super Admin', 'admin@admin.com', '01889967514', '$2y$10$hZPVUcwm05IrpZrKS9kSFuJlxwD.fmRjA5nrQOWYOm8Bv.ZOfYqDK', NULL, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL),
+(2, '2', 'Admin One', 'admin1@gmail.com', '01889967511', '$2y$10$/WzIosvU6xvdZX2rcZDBWOhslaEgJyV2Im91wlr9imWUj58I2VYsy', NULL, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, '2021-11-14 10:07:02', '2021-11-16 10:10:33'),
+(3, '2', 'Admin Two', 'admin2@gmail.com', '01889967512', '$2y$10$FSO1.8MV8ybkG1p1zdWvV.46te5Jx9bSjB48eetFIRtNtv9OTLNuG', NULL, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, '2021-11-14 11:20:46', '2021-11-20 06:34:25'),
+(4, '2', 'Admin 3', 'admin3@gmail.com', '01889967515', '$2y$10$Uy81/7CKwT1YJN.YgJssHefpmFgi0wSf0iRbt2n6iA9WkEJv5UiH6', NULL, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, '2021-11-24 05:28:01', '2021-11-24 05:28:15');
 
 -- --------------------------------------------------------
 
@@ -113,7 +130,27 @@ CREATE TABLE `brands` (
 --
 
 INSERT INTO `brands` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
-(6, 'Samsung', 'samsung', '2021-06-11 07:53:18', '2021-06-11 07:53:18');
+(6, 'Samsung', 'samsung', '2021-06-11 07:53:18', '2021-06-11 07:53:18'),
+(7, 'Brand 1', 'brand-1', '2021-11-24 05:19:29', '2021-11-24 05:19:29'),
+(8, 'Brand 2', 'brand-2', '2021-11-24 05:19:40', '2021-11-24 05:19:40'),
+(9, 'Brand 3', 'brand-3', '2021-11-24 05:19:47', '2021-11-24 05:19:47'),
+(10, 'Brand 4', 'brand-4', '2021-11-24 05:19:54', '2021-11-24 05:19:54'),
+(11, 'Brand 5', 'brand-5', '2021-11-24 05:20:00', '2021-11-24 05:20:00'),
+(12, 'Brand 6', 'brand-6', '2021-11-24 05:20:08', '2021-11-24 05:20:08'),
+(13, 'Brand 7', 'brand-7', '2021-11-24 05:20:14', '2021-11-24 05:20:14'),
+(14, 'Brand 8', 'brand-8', '2021-11-24 05:20:55', '2021-11-24 05:20:55'),
+(15, 'Brand 9', 'brand-9', '2021-11-24 05:21:03', '2021-11-24 05:21:03'),
+(16, 'Brand 10', 'brand-10', '2021-11-24 05:21:12', '2021-11-24 05:21:12'),
+(17, 'Brand 11', 'brand-11', '2021-11-24 05:21:18', '2021-11-24 05:21:18'),
+(18, 'Brand 12', 'brand-12', '2021-11-24 05:21:32', '2021-11-24 05:21:32'),
+(19, 'Brand 13', 'brand-13', '2021-11-24 05:21:38', '2021-11-24 05:21:38'),
+(20, 'Brand 14', 'brand-14', '2021-11-24 05:21:47', '2021-11-24 05:21:47'),
+(21, 'Brand 15', 'brand-15', '2021-11-24 05:21:53', '2021-11-24 05:21:53'),
+(22, 'Brand 16', 'brand-16', '2021-11-24 05:22:00', '2021-11-24 05:22:00'),
+(23, 'Brand 17', 'brand-17', '2021-11-24 05:22:07', '2021-11-24 05:22:07'),
+(24, 'Brand 18', 'brand-18', '2021-11-24 05:22:18', '2021-11-24 05:22:18'),
+(25, 'Brand 19', 'brand-19', '2021-11-24 05:22:33', '2021-11-24 05:22:33'),
+(26, 'Brand 20', 'brand-20', '2021-11-24 05:22:41', '2021-11-24 05:22:41');
 
 -- --------------------------------------------------------
 
@@ -136,6 +173,14 @@ CREATE TABLE `carts` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `carts`
+--
+
+INSERT INTO `carts` (`id`, `session_id`, `user_id`, `product_id`, `unit_price`, `order_price`, `quantity`, `total_price`, `total_discount_price`, `color_id`, `size_id`, `created_at`, `updated_at`) VALUES
+(6, 'tm8FVgiN4V8Rw304RzBOQxcD8Z6G5bfjN3dSu3Pz', 4, 405, 380.00, 380.00, 1, 380.00, 0.00, NULL, NULL, '2021-12-16 17:51:59', '2021-12-16 17:53:44'),
+(8, 'tm8FVgiN4V8Rw304RzBOQxcD8Z6G5bfjN3dSu3Pz', 4, 71, 45.00, 45.00, 1, 45.00, 0.00, NULL, NULL, '2021-12-16 17:53:23', '2021-12-16 17:53:44');
 
 -- --------------------------------------------------------
 
@@ -175,6 +220,14 @@ CREATE TABLE `colors` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `colors`
+--
+
+INSERT INTO `colors` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+(1, 'Red', 'red', '2021-11-08 15:51:25', '2021-11-08 15:51:25'),
+(2, 'Navy Blue', 'navy-blue', '2021-11-08 15:51:38', '2021-11-08 15:51:38');
 
 -- --------------------------------------------------------
 
@@ -230,9 +283,8 @@ CREATE TABLE `coupons` (
 --
 
 INSERT INTO `coupons` (`id`, `valid_for`, `user_group`, `coupon_code`, `discount_type`, `discount`, `used_limit`, `minimum_cost`, `up_to`, `start_date`, `end_date`, `status`, `created_at`, `updated_at`) VALUES
-(6, '1', NULL, 'ME-1235', '1', 50, 1, 200, 200, '2021-10-28 00:00:00', '2021-12-17 23:59:59', 1, '2021-10-28 15:00:51', '2021-11-03 18:32:43'),
-(7, '3', 2, 'PE-H2010', '1', 100, 1, 200, 0, '2021-11-03 00:00:00', '2021-11-03 23:59:59', 1, '2021-11-03 16:01:48', '2021-11-03 16:01:48'),
-(8, '3', 4, 'DEV-12345', '1', 10, 2, 0, 50, '2021-11-03 00:00:00', '2021-11-04 23:59:59', 1, '2021-11-03 17:22:02', '2021-11-04 06:10:39');
+(6, '1', NULL, 'ME-1235', '1', 50, 2, 200, 200, '2021-10-28 00:00:00', '2021-12-17 23:59:59', 1, '2021-10-28 15:00:51', '2021-12-16 17:32:01'),
+(7, '3', 2, 'PE-H2010', '1', 100, 2, 200, 0, '2021-11-03 00:00:00', '2021-11-26 23:59:59', 1, '2021-11-03 16:01:48', '2021-11-16 17:29:32');
 
 -- --------------------------------------------------------
 
@@ -255,8 +307,7 @@ CREATE TABLE `coupon_groups` (
 INSERT INTO `coupon_groups` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
 (1, 'Gold member', 'gold-member', '2021-11-03 09:58:46', '2021-11-03 10:07:19'),
 (2, 'Silver Member', 'silver-member', '2021-11-03 10:05:17', '2021-11-03 10:05:17'),
-(3, 'Platinum member', 'platinum-member', '2021-11-03 10:05:26', '2021-11-03 10:05:26'),
-(4, 'Developer Group', 'developer-group', '2021-11-03 17:19:28', '2021-11-03 17:19:28');
+(3, 'Platinum member', 'platinum-member', '2021-11-03 10:05:26', '2021-11-03 10:05:26');
 
 -- --------------------------------------------------------
 
@@ -277,10 +328,10 @@ CREATE TABLE `coupon_group_users` (
 --
 
 INSERT INTO `coupon_group_users` (`id`, `coupon_group_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 3, 4, NULL, NULL),
-(2, 2, 4, NULL, NULL),
-(3, 1, 4, NULL, NULL),
-(4, 4, 4, NULL, NULL);
+(9, 3, 5, NULL, NULL),
+(10, 3, 4, NULL, NULL),
+(11, 2, 4, NULL, NULL),
+(12, 2, 6, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -303,7 +354,8 @@ CREATE TABLE `coupon_user_useds` (
 --
 
 INSERT INTO `coupon_user_useds` (`id`, `order_id`, `user_id`, `coupon_code`, `user_used`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'ME-1234', 1, '2021-09-19 12:45:21', '2021-09-19 12:46:11');
+(1, 1, 1, 'ME-1234', 1, '2021-09-19 12:45:21', '2021-09-19 12:46:11'),
+(2, 5, 6, 'PE-H2010', 2, '2021-11-16 17:22:40', '2021-11-16 17:30:11');
 
 -- --------------------------------------------------------
 
@@ -324,9 +376,9 @@ CREATE TABLE `coupon_valid_users` (
 --
 
 INSERT INTO `coupon_valid_users` (`id`, `user_id`, `coupon_code`, `created_at`, `updated_at`) VALUES
-(3, 2, 'PE-H2010', NULL, NULL),
-(4, 4, 'PE-H2010', NULL, NULL),
-(5, 4, 'DEV-12345', NULL, NULL);
+(9, 5, 'PE-H2010', NULL, NULL),
+(10, 4, 'PE-H2010', NULL, NULL),
+(11, 6, 'PE-H2010', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -471,7 +523,6 @@ INSERT INTO `featured_products` (`id`, `product_id`, `serial`, `status`, `create
 (7, 7, 8, 1, '2021-07-10 06:53:42', '2021-07-10 09:48:59'),
 (8, 8, 10, 1, '2021-07-10 06:53:52', '2021-07-10 09:49:28'),
 (9, 9, 20, 1, '2021-07-10 06:54:31', '2021-07-26 04:50:14'),
-(10, 123, 1, 1, '2021-07-10 06:54:40', '2021-07-10 06:54:40'),
 (12, 12, 1, 1, '2021-07-10 06:55:01', '2021-07-10 09:48:46'),
 (13, 437, 10, 0, '2021-07-10 06:55:11', '2021-08-20 03:24:30'),
 (14, 71, 1, 1, '2021-07-10 06:55:19', '2021-07-10 06:55:19'),
@@ -620,10 +671,11 @@ INSERT INTO `mobile_otps` (`id`, `mobile`, `otp_code`, `created_at`, `updated_at
 (3, '01737773393', 507894, NULL, NULL),
 (4, '01773351552', 342078, NULL, NULL),
 (5, '01889967514', 484459, NULL, NULL),
-(6, '01889967515', 376653, NULL, NULL),
+(6, '01889967515', 368702, NULL, NULL),
 (7, '01717772609', 753254, NULL, NULL),
 (8, '3', 447731, NULL, NULL),
-(9, '8801737773393', 284201, NULL, NULL);
+(9, '8801737773393', 284201, NULL, NULL),
+(10, '01889967516', 589396, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -707,7 +759,10 @@ INSERT INTO `orders` (`id`, `user_id`, `order_number`, `invoice`, `delivery_char
 (1, 4, '000001', 'MX-44567258', 60.00, 0.00, 0.00, 2125.00, 0.00, '6', 1, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 2185.00, 656.00, 0, NULL, 0.00, 2185.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '1', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2021-11-04 07:58:05', '2021-11-04 14:53:44'),
 (2, 4, '000002', 'MX-37825986', 60.00, 0.00, 0.00, 110.00, 12.20, '6', 1, NULL, NULL, 0.00, 'no', NULL, 0.00, 12.20, 170.00, 51.00, 0, NULL, 0.00, 170.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '1', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2021-11-04 08:09:22', '2021-11-04 14:55:05'),
 (3, 4, '000003', 'MX-75277734', 60.00, 0.00, 0.00, 110.00, 12.20, '1', 1, NULL, NULL, 0.00, 'no', NULL, 0.00, 12.20, 170.00, 51.00, 0, NULL, 0.00, 170.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '1', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2021-11-04 18:15:21', '2021-11-05 14:03:03'),
-(4, 4, '000004', 'MX-78858987', 90.00, 0.00, 0.00, 450.00, 0.00, '0', 1, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 540.00, 162.00, 0, NULL, 0.00, 540.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2021-11-04 18:19:07', '2021-11-04 18:19:07');
+(4, 4, '000004', 'MX-78858987', 90.00, 0.00, 0.00, 450.00, 0.00, '0', 1, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 540.00, 162.00, 0, NULL, 0.00, 540.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2021-11-04 18:19:07', '2021-11-04 18:19:07'),
+(5, 6, '000005', 'MX-51053520', 90.00, 0.00, 0.00, 225.00, 0.00, '0', 1, NULL, NULL, 0.00, 'yes', 'PE-H2010', 100.00, 100.00, 215.00, 65.00, 0, NULL, 0.00, 215.00, 'Raju 3', '01889967516', 'mkraju.bigm@gmail.com', '63', 'Kaunia', 'Shibu(Lichu bagan), Baruahat', 5440, NULL, '2021-11-16 17:22:40', '2021-11-16 17:22:40'),
+(6, 6, '000006', 'MX-19832554', 90.00, 0.00, 0.00, 380.00, 0.00, '0', 1, NULL, NULL, 0.00, 'yes', 'PE-H2010', 100.00, 100.00, 370.00, 111.00, 0, NULL, 0.00, 370.00, 'Raju 3', '01889967516', 'mkraju.bigm@gmail.com', '63', 'Kaunia', 'Shibu(Lichu bagan), Baruahat', 5440, NULL, '2021-11-16 17:30:11', '2021-11-16 17:30:11'),
+(7, 4, '000007', 'MX-10863984', 90.00, 0.00, 0.00, 760.00, 0.00, '0', 1, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 850.00, 255.00, 0, NULL, 0.00, 850.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2021-12-15 05:48:50', '2021-12-15 05:48:50');
 
 -- --------------------------------------------------------
 
@@ -730,6 +785,13 @@ CREATE TABLE `order_prices` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_prices`
+--
+
+INSERT INTO `order_prices` (`id`, `session_id`, `user_id`, `total_price`, `product_discount_price`, `order_price`, `delivery_charge`, `vat`, `tax`, `coupon_code`, `coupon_discount`, `created_at`, `updated_at`) VALUES
+(8, 'tm8FVgiN4V8Rw304RzBOQxcD8Z6G5bfjN3dSu3Pz', 4, 425.00, 0.00, 465.00, 90.00, 0.00, 0.00, 'ME-1235', 50.00, NULL, '2021-12-16 17:53:44');
 
 -- --------------------------------------------------------
 
@@ -760,7 +822,10 @@ INSERT INTO `order_products` (`id`, `user_id`, `order_id`, `product_id`, `size_i
 (2, 4, 1, 405, NULL, NULL, 380.00, 5, 1900.00, '2021-11-04 07:58:05', '2021-11-04 07:58:05'),
 (3, 4, 2, 12, NULL, NULL, 109.80, 1, 109.80, '2021-11-04 08:09:22', '2021-11-04 08:09:22'),
 (4, 4, 3, 12, NULL, NULL, 109.80, 1, 109.80, '2021-11-04 18:15:21', '2021-11-04 18:15:21'),
-(5, 4, 4, 404, NULL, NULL, 225.00, 2, 450.00, '2021-11-04 18:19:08', '2021-11-04 18:19:08');
+(5, 4, 4, 404, NULL, NULL, 225.00, 2, 450.00, '2021-11-04 18:19:08', '2021-11-04 18:19:08'),
+(6, 6, 5, 404, NULL, NULL, 225.00, 1, 225.00, '2021-11-16 17:22:40', '2021-11-16 17:22:40'),
+(7, 6, 6, 405, NULL, NULL, 380.00, 1, 380.00, '2021-11-16 17:30:11', '2021-11-16 17:30:11'),
+(8, 4, 7, 405, NULL, NULL, 380.00, 2, 760.00, '2021-12-15 05:48:51', '2021-12-15 05:48:51');
 
 -- --------------------------------------------------------
 
@@ -835,7 +900,7 @@ INSERT INTO `products` (`id`, `category_id`, `brand_id`, `subcategory_id`, `prod
 (1, 1, 6, 4, '0004', 'Vim Dishwashing Liquid (500ml)', 'vim-dishwashing-liquid-500ml', '<p>Vim Liquid is created with real lime juice and has superior degreasing abilities leaving dishes sparkling and shiny.</p>\r\n\r\n<p>Take a drop of Vim Liquid on a wet sponge. Squeeze the sponge to work up a rich lather. Apply to utensils. Rinse thoroughly for a sparkling, scratch free clean.</p>\r\n\r\n<p>OR</p>\r\n\r\n<p>Pour a tea spoonful of Vim liquid into a small bowl of water and stir to mix. Take a sponge/scrubber and soak it in that mix and rinse utensils thoroughly for sparkling and scratch free dishes.</p>\r\n\r\n<p>Turbo degreasing lime: Each drop of Vim Liquid contains enough cleaning power to remove tough stains and grease easily.</p>', '<p>Vim Liquid is created</p>\r\n\r\n<p>with real lime juice</p>', '<table border=\"1\" cellpadding=\"1\" cellspacing=\"1\" style=\"width:200px\">\r\n	<tbody>\r\n		<tr>\r\n			<td>Packet</td>\r\n			<td>Plastic</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Others</td>\r\n			<td>Nice</td>\r\n		</tr>\r\n		<tr>\r\n			<td>Brand</td>\r\n			<td>Uniliver</td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<ul>\r\n	<li>Nice Product</li>\r\n	<li>Hello product</li>\r\n</ul>\r\n\r\n<p>&nbsp;</p>', 100.00, 90.00, 1, 100, NULL, NULL, 1, 1, NULL, '2021-09-26 07:29:11'),
 (2, 1, 6, NULL, '0005', 'Mr. cookie butter coconut biscuits', 'mr-cookie-butter-coconut-biscuits', '<p>#mr.cookie, #cookies #Haque</p>', NULL, NULL, 50.00, 35.00, 1, 50, NULL, 'https://www.youtube.com/watch?v=npgp7NWifQU', 2, 1, NULL, '2021-11-06 08:04:12'),
 (3, 1, 6, NULL, '0006', 'Goldmark chocolate cookies', 'goldmark-chocolate-cookies', '<p>#goldmark #cookie #Biscuite</p>', 'cookie #Biscuite', NULL, 65.00, 36.00, 1, 100, NULL, NULL, 2, 1, NULL, '2021-10-31 09:34:42'),
-(4, 1, 6, NULL, '0007', 'Goldmark chocolate chips cookies', 'goldmark-chocolate-chips-cookies-PUco7UO3yePxA6il8o9CixEd94irI4LrWbGTrFya', '<p>Cookies Enriched With Chocolate Chips</p>', NULL, NULL, 50.00, 45.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-06-28 12:10:58'),
+(4, 1, 6, NULL, '0007', 'Goldmark chocolate chips cookies', 'goldmark-chocolate-chips-cookies-PUco7UO3yePxA6il8o9CixEd94irI4LrWbGTrFya', '<p>Cookies Enriched With Chocolate Chips</p>', NULL, NULL, 50.00, 45.00, 1, 100, NULL, NULL, 1, 1, NULL, '2021-12-15 06:33:43'),
 (5, 3, 6, 6, '0008', 'Goldmark coconut cookies', 'goldmark-coconut-cookies', '<p>Flour, Sugar, Vegetable Fat, Butter, Salt, Baking Agent, Coconut Powder, Milk Powder, Coconut Flavor.</p>', NULL, NULL, 30.00, 10.00, 1, 50, NULL, NULL, 0, 1, NULL, '2021-07-26 04:11:43'),
 (6, 1, 6, NULL, '0009', 'Goldmark butter cookies', 'goldmark-butter-cookies-jcdzVUiWgdLxj38YiccdLf5vbahMIdropyy0CpTU', '<p>Flour, Sugar, Vegetable Fat, Butter, Margarine, Edible Oil, Milk Powder, salt, Baking Agent, Permitted Flavor.</p>', NULL, NULL, 50.00, 45.00, 1, 50, NULL, NULL, 0, 1, NULL, '2021-07-26 03:45:48'),
 (7, 1, 6, NULL, '0011', 'Goldmark milk cookies', 'goldmark-milk-cookies', '<p>ingredients: Flour, Sugar, Vegetable Fat, Salt, Baking Agent, Egg, Milk Powder and Permitted Flavor.</p>', NULL, NULL, 50.00, 32.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-09-26 09:35:55'),
@@ -852,25 +917,25 @@ INSERT INTO `products` (`id`, `category_id`, `brand_id`, `subcategory_id`, `prod
 (18, 1, 6, NULL, '0035', 'Miniket rice standard | 5kg', 'miniket-rice-standard-5kg-gCbMJsVzn8MzykH0hXojgYGUvkjRgqUdSJVFJBBS', '<p>***Deshi Miniket Rice standard</p>', NULL, NULL, 260.00, 100.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-10-17 17:07:02'),
 (19, 1, 6, NULL, '38', 'Rashid Premium  Miniket Rice (Packed)', 'rashid-premium-miniket-rice-packed-jXa6yOtPlQkTSLRQBQo4gJcDWG9rCEbtUBy1iQ0D', '<p>***Rashid premium Miniket</p>', NULL, NULL, 1500.00, 1400.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (20, 1, 6, NULL, '0037', 'Mozammel Special Miniket Rice| 10kg', 'mozammel-special-miniket-rice-10kg-OnRP2QBbynXVPCDA2uM6tyG3ImU6UVrrf5QGtdUd', '<ul>\r\n	<li>Mozammel Special Miniket Rice</li>\r\n	<li>weight 10kg</li>\r\n</ul>\r\n\r\n<p>&nbsp;</p>', NULL, NULL, 675.00, 650.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
-(21, 1, 6, NULL, '0038', 'Nazirshail Rice Standard | 5 kg', 'nazirshail-rice-standard-5-kg', '<p>***Nazirshail Rice Standard</p>', NULL, NULL, 270.00, 200.00, 0, 100, NULL, NULL, 0, 1, NULL, '2021-11-03 04:18:15'),
+(21, 1, 6, NULL, '0038', 'Nazirshail Rice Standard | 5 kg', 'nazirshail-rice-standard-5-kg', '<p>***Nazirshail Rice Standard</p>', NULL, NULL, 270.00, 200.00, 0, 100, NULL, NULL, 0, 1, NULL, '2021-11-30 12:32:56'),
 (22, 1, 6, NULL, '0039', 'Nazirshail Rice Primium | 5 kg', 'nazirshail-rice-primium-5-kg-bDjBBb0yuVgltxIRTtdWgmfU7xwPNh5I76SO0dgD', '<p>*** Nazirshail Rice Premium</p>', NULL, NULL, 280.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (23, 1, 6, NULL, '0054', 'ACI Pure Atta - 2kg', 'aci-pure-atta-2kg-NYrRxF0ziSjkLco5PJNhLyFF5XGKw9NFevEgZhm5', '<p>*** Aci pure Atta</p>', NULL, NULL, 70.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-11-07 06:26:04'),
 (24, 1, 6, NULL, '0057', 'SUPERMOM Baby Diaper | Belt Small | 0-8 kg | 28 PCs', 'supermom-baby-diaper-belt-small-0-8-kg-28-pcs-aYwlHQeLIXSsRreDJ1mO2Of7aX5JfCUlXRORJCE4', '<ul>\r\n	<li>Product Type: Diaper</li>\r\n	<li>Brand: Supermom</li>\r\n	<li>Capacity: 28pcs</li>\r\n	<li>For Baby</li>\r\n	<li>The best quality diaper in the market!</li>\r\n	<li>It has 80% more absorbent than other diapers.</li>\r\n	<li>Gives comfort to both babies and parents.</li>\r\n	<li>Ensures zero leakage as it has hydrophobic leg cuff.</li>\r\n	<li>Its cottony top sheet ensures that children can sleep comfortably the whole night.</li>\r\n	<li>It has &ldquo;PU Foam Waistband&rdquo; which fits the waist perfectly.</li>\r\n</ul>', NULL, NULL, 675.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (25, 1, 6, NULL, '0058', 'SUPERMOM Baby Diaper Belt XL | 12-17 kg | 20 PCs', 'supermom-baby-diaper-belt-xl-12-17-kg-20-pcs-MEFSaYgSYhKSuL6dtlcbIOulikdMHwr6gHNuwaMI', '<ul>\r\n	<li>Product Type: Diaper</li>\r\n	<li>Brand: Supermom</li>\r\n	<li>Capacity: 20pcs</li>\r\n	<li>For Baby</li>\r\n	<li>Size: 12 - 17 Kg | XL</li>\r\n	<li>Type: Belt</li>\r\n</ul>', NULL, NULL, 750.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (26, 1, 6, NULL, '0059', 'SUPERMOM Baby Diaper Belt L 9-14 kg | 22 PCs', 'supermom-baby-diaper-belt-l-9-14-kg-22-pcs-FA4pDRCogpT4HRdLmucxZfPVSPSCQVj0m4k1Y2Nt', '<ul>\r\n	<li>Product Type: Diaper<br />\r\n	Brand: Supermom<br />\r\n	Capacity: 22pcs<br />\r\n	For Baby<br />\r\n	Size: 09 - 14 Kg | L<br />\r\n	Type: Belt</li>\r\n</ul>', NULL, NULL, 750.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
-(27, 1, 6, NULL, '0065', 'ACI Aromatic chinigura rice | 5 kg', 'aci-aromatic-chinigura-rice-5-kg-g4piurvQqkUc0D2h33QSxMrIgLC31TNxGrSxgoiV', '<p>*** chinigura rice (polaw)</p>', NULL, NULL, 570.00, 100.00, 1, 100, NULL, NULL, 1, 1, NULL, '2021-11-04 06:20:32'),
+(27, 1, 6, NULL, '0065', 'ACI Aromatic chinigura rice | 5 kg', 'aci-aromatic-chinigura-rice-5-kg-g4piurvQqkUc0D2h33QSxMrIgLC31TNxGrSxgoiV', '<p>*** chinigura rice (polaw)</p>', NULL, NULL, 570.00, 100.00, 1, 100, NULL, NULL, 1, 1, NULL, '2021-11-30 12:32:56'),
 (28, 1, 6, NULL, '0066', 'ACI Bashmati Rice | 1 kg', 'aci-bashmati-rice-1-kg-CIo5BMjc5kkWbOGp0Vf3irjSnulUK6Hei1IFOmyn', '<p>*** Banshmati rice</p>', NULL, NULL, 265.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (29, 1, 6, NULL, '0067', 'ACI Shugondhi Katarivog Rice - 5kg', 'aci-shugondhi-katarivog-rice-5kg-LZEcNUYc4ROJC1UYMaNueo2tr1pObRt6dYr9tt1u', '<p>*** Katarivog rice</p>', NULL, NULL, 525.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (30, 1, 6, NULL, '0068', 'ACI Pure Premium Nazirshail Rice | 5kg', 'aci-pure-premium-nazirshail-rice-5kg-gPuZHK6gy8pN4gwjgv2527tzHLZt9tnBJ3wJD8oR', '<p>*** premium nazirshail rice</p>', NULL, NULL, 420.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (31, 1, 6, NULL, '0069', 'ACI Pure Premium Nazirshail Rice | 10kg', 'aci-pure-premium-nazirshail-rice-10kg-nrkveA0odByPYOLu0SBvkfgUVXXuE3TV0qNM5kiA', '<p>***&nbsp;premium nazirshail rice</p>', NULL, NULL, 780.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
-(32, 1, 6, NULL, '0070', 'Aci Pure Premium Miniket - 10kg', 'aci-pure-premium-miniket-10kg-YccSQyGm4O2taWtPhxv91YWWrO8q8c3TYQpCfUBq', '<p>***&nbsp;&nbsp;premium miniket rice</p>', NULL, NULL, 700.00, 300.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-11-01 09:33:52'),
+(32, 1, 6, NULL, '0070', 'Aci Pure Premium Miniket - 10kg', 'aci-pure-premium-miniket-10kg-YccSQyGm4O2taWtPhxv91YWWrO8q8c3TYQpCfUBq', '<p>***&nbsp;&nbsp;premium miniket rice</p>', NULL, NULL, 700.00, 300.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-11-30 12:32:56'),
 (33, 1, 6, NULL, '0081', 'Fresh Refined Sugar - 1kg', 'fresh-refined-sugar-1kg-sT3GafwfkP6ArRCgMrFnhJuXk6it5qjgX0PNcOxR', '<p>***&nbsp;Fresh refined sugar</p>', NULL, NULL, 65.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (34, 1, 6, NULL, '0089', 'Red cow butter oil', 'red-cow-butter-oil-JgBFayEVXVaccolkDdTLQef532gFzT0Kqmeq5FPK', '<p>Red cow butter oil</p>', NULL, NULL, 500.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (35, 1, 6, NULL, '0092', 'Ruchi mango pickle', 'ruchi-mango-pickle-WpzG1KBjMxTGlD7xsXnzZ2QERrXmfpgIY8ReN8Om', '<p>****&nbsp;Ruchi mango pickle</p>', NULL, NULL, 130.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (36, 1, 6, NULL, '0127', 'Diploma full cream milk powder', 'diploma-full-cream-milk-powder-Cc0njYNqsOe6qOzrIR1RVJeT06oSdYjEYUbgnalu', '<p>Diploma full cream milk powder</p>', NULL, NULL, 320.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (37, 1, 6, NULL, '0140', 'Milk | 100% Pure Milk', 'milk-100-pure-milk-4r0PP4n4GMPWh8p9BSpRoIkb0riDZxUSS0OjRSb1', '<ul>\r\n	<li>\r\n	<p>100% pure and fresh</p>\r\n	</li>\r\n	<li>\r\n	<p>&nbsp;Adulteration Free.</p>\r\n	</li>\r\n	<li>\r\n	<p>&nbsp;Collected from farmers directly</p>\r\n	</li>\r\n	<li>\r\n	<p>Collected and stored with direct supervision.</p>\r\n	</li>\r\n	<li>\r\n	<p>No compromise with quality and service.</p>\r\n	</li>\r\n</ul>', NULL, NULL, 90.00, 80.00, 1, 1000, NULL, NULL, 0, 1, NULL, NULL),
 (38, 1, 6, NULL, '0141', 'পাটালি গুড় | Patali Gur', 'patali-gur-patali-gur-PlM2DHnDrlQRNZepQDbfdlq0tqREFegjdQGiQ5ca', '<ul>\r\n	<li>100% pure and Chemical free</li>\r\n	<li>Direct collected from &quot;Gachi&quot;</li>\r\n	<li>Process &quot;Ros&quot; with care and make Patali</li>\r\n	<li>100% Organic</li>\r\n	<li>Good for health&nbsp;</li>\r\n</ul>', NULL, NULL, 280.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
-(39, 1, 6, NULL, '0142', 'ঝোলা গুড় | Jhola Gur', 'jhola-gur-jhola-gur-w1fvxdQedBKL3UXhU2lO6OqyZj95dqeZa7IbnsS9', '<ul>\r\n	<li>100% pure and Chemical free</li>\r\n	<li>Direct collected from &quot;Gachi&quot;</li>\r\n	<li>Process &quot;Ros&quot; with care and make Patali</li>\r\n	<li>100% Organic</li>\r\n	<li>Good for health&nbsp;</li>\r\n</ul>', NULL, NULL, 280.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
+(39, 1, 6, NULL, '0142', 'ঝোলা গুড় | Jhola Gur', 'jhola-gur-jhola-gur-w1fvxdQedBKL3UXhU2lO6OqyZj95dqeZa7IbnsS9', '<ul>\r\n	<li>100% pure and Chemical free</li>\r\n	<li>Direct collected from &quot;Gachi&quot;</li>\r\n	<li>Process &quot;Ros&quot; with care and make Patali</li>\r\n	<li>100% Organic</li>\r\n	<li>Good for health&nbsp;</li>\r\n</ul>', NULL, NULL, 280.00, 100.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-11-30 12:32:57'),
 (40, 1, 6, NULL, '0143', 'Pure Honey | Sundarban  1 kg', 'pure-honey-sundarban-1-kg-Fg0I5DAukNX6XegCWvj8uMxQ2sqiM5oz0hIe6mYy', '<ul>\r\n	<li>Sundarban Er Pure Honey</li>\r\n	<li>Kholisha Fuler Modhu</li>\r\n	<li>100% Pure and Natural</li>\r\n	<li>No Chamical No Sugar</li>\r\n	<li>100% Organic</li>\r\n</ul>\r\n\r\n<div id=\"gtx-trans\" style=\"position: absolute; left: 12px; top: -8px;\">\r\n<div class=\"gtx-trans-icon\">&nbsp;</div>\r\n</div>', NULL, NULL, 1050.00, 999.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (41, 1, 6, NULL, '0147', 'Supermom baby diaper Extra Large (12-17kg) 20pcs Small | 0-8 kg | 28 PCs', 'supermom-baby-diaper-extra-large-12-17kg-20pcs-small-0-8-kg-28-pcs-kCk9O8z0zlcYMAJ8k9PivVBwylagH7I0JmvE4u7v', '<ul>\r\n	<li>Product Type: Diaper</li>\r\n	<li>Brand: Supermom</li>\r\n	<li>Capacity: 26pcs</li>\r\n	<li>For Baby</li>\r\n</ul>', NULL, NULL, 750.00, 0.00, 1, 50, NULL, NULL, 0, 1, NULL, NULL),
 (42, 1, 6, NULL, '0149', 'Cocola Junipr Cup Noodles', 'cocola-junipr-cup-noodles-JRe6pOhmfZ1UmA9GomCbOIymai3cHL5hd0RdrUob', '<p>Cocola Junior Cup Noodles 40gm</p>', NULL, NULL, 25.00, 0.00, 1, 1, NULL, NULL, 0, 1, NULL, NULL),
@@ -892,7 +957,7 @@ INSERT INTO `products` (`id`, `category_id`, `brand_id`, `subcategory_id`, `prod
 (58, 1, 6, NULL, '0165', 'Surf Excel Matic Liquid Detergent Top Load', 'surf-excel-matic-liquid-detergent-top-load-YBpS9Ps9NChp9YrtbZVtOFoBPgUqoW3Erwkc3Rqi', '<p>Surf Excel Matic Liquid Detergent Top Load</p>', NULL, NULL, 210.00, 0.00, 1, 1000, NULL, NULL, 0, 1, NULL, NULL),
 (59, 1, 6, NULL, '0166', 'Fay air freshener anti tobacco 3 in 1', 'fay-air-freshener-anti-tobacco-3-in-1-KrLyCJmxJama0zJE4lWxEqOip0WbTLTVEUoesKMU', '<p>Fay air freshener anti tobacco 3 in 1</p>', NULL, NULL, 220.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (60, 1, 6, NULL, '0167', 'Fay orchid air freshener 3 in 1', 'fay-orchid-air-freshener-3-in-1-PrITDTkHSOcsgAbDtW6WZ3aHd0zX6tXPWoILP5WP', '<p>Fay orchid air freshener 3 in 1</p>', NULL, NULL, 220.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
-(61, 1, 6, NULL, '0168', 'Fay air Freshener rose', 'fay-air-freshener-rose-nJ7jSZFZqqXdym25A4RF1nBojVXJQLBxpXnnQ8oy', '<p>Fay air Freshener rose</p>', NULL, NULL, 220.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
+(61, 1, 6, NULL, '0168', 'Fay air Freshener rose', 'fay-air-freshener-rose-nJ7jSZFZqqXdym25A4RF1nBojVXJQLBxpXnnQ8oy', '<p>Fay air Freshener rose</p>', NULL, NULL, 220.00, 100.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-11-30 12:32:56'),
 (62, 1, 6, NULL, '0169', 'Fay air Freshener Narcissus 3 in 1', 'fay-air-freshener-narcissus-3-in-1-HMkcto77gNcPgv8dIwUOmx8sSH5GyBvrw9nTrOKE', '<p>Fay air Freshener Narcissus 3 in 1</p>', NULL, NULL, 220.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (63, 1, 6, NULL, '0170', 'Fay lily air Freshener', 'fay-lily-air-freshener-pr5PXCZsgP1dvZcsliTXKEDcGJZRqX1vQQFuXYRo', '<p>Fay lily air Freshener</p>', NULL, NULL, 220.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (64, 1, 6, NULL, '0171', 'Godrej Aer pocket Bundle', 'godrej-aer-pocket-bundle-wX9TFEfTEFfGbDAO3Eg4JQzjnfJEmyXJhAR1W9AR', '<p>Godrej Aer pocket Bundle</p>', NULL, NULL, 180.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
@@ -916,7 +981,7 @@ INSERT INTO `products` (`id`, `category_id`, `brand_id`, `subcategory_id`, `prod
 (82, 1, 6, NULL, '0190', 'Trix Monthly Pack', 'trix-monthly-pack-npPCXaIE56XWDgTIi8kUl1yjUF0xtjHAvceys5TR', '<p>Trix Monthly Pack</p>', NULL, NULL, 179.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (83, 1, 6, NULL, '0191', 'Trix Lemon Dish Washing Liquid Lemon Refill Pack', 'trix-lemon-dish-washing-liquid-lemon-refill-pack-tzCkpTSVRHKvjgtBAM6bJsEbSUIyMpCa0sR06LWx', '<p>Trix Lemon Dish Washing Liquid Lemon Refill Pack</p>', NULL, NULL, 105.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (84, 1, 6, NULL, '0192', 'Rok Lemon Dish Washing Liquid', 'rok-lemon-dish-washing-liquid-WGNFnXiCwVdMa3wMzLjUWkDMIpECyWGKkVfVI6bM', '<p>Rok Lemon Dish Washing Liquid&nbsp;</p>', NULL, NULL, 90.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
-(85, 1, 6, NULL, '0193', 'Harpic Toilet Cleaning Liquid Original', 'harpic-toilet-cleaning-liquid-original-EBBbhf67GArst3Q0m4ByorDbetx8QJl4IdL29L8q', '<p>Harpic Toilet Cleaning Liquid Original</p>', NULL, NULL, 160.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
+(85, 1, 6, NULL, '0193', 'Harpic Toilet Cleaning Liquid Original', 'harpic-toilet-cleaning-liquid-original-EBBbhf67GArst3Q0m4ByorDbetx8QJl4IdL29L8q', '<p>Harpic Toilet Cleaning Liquid Original</p>', NULL, NULL, 160.00, 100.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-11-30 12:32:56'),
 (86, 1, 6, NULL, '0194', 'Harpic Toilet Cleaning Liquid Original', 'harpic-toilet-cleaning-liquid-original-EWgM2EAClLfWMayB55PAgiyFaYYcYGAynLdBnzat', '<p>Harpic Toilet Cleaning Liquid Original</p>', NULL, NULL, 130.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (87, 1, 6, NULL, '0195', 'Harpic Bathroom Cleaning Powder Original', 'harpic-bathroom-cleaning-powder-original-TboQKGbUYsK8y57K5BXiZSDY77VxrZxyZLjdmC92', '<p>Harpic Bathroom Cleaning Powder Original</p>', NULL, NULL, 75.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (88, 1, 6, NULL, '0196', 'Harpic Toilet Cleaning Powder', 'harpic-toilet-cleaning-powder-9MfogRWqXdD2IiZlArEBIXceeSUlyd8P46p3wikk', '<p>Harpic Toilet Cleaning Powder</p>', NULL, NULL, 70.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
@@ -1032,7 +1097,7 @@ INSERT INTO `products` (`id`, `category_id`, `brand_id`, `subcategory_id`, `prod
 (197, 1, 6, NULL, '0305', 'Sunsilk Co Creations Perfect Straight Shampoo', 'sunsilk-co-creations-perfect-straight-shampoo-a3n1Q22Mf2NKTizy5UcrTJEXfxNwEQL0xK6DOIrm', '<p>Sunsilk Co-Creations Perfect Straight Shampoo</p>', NULL, NULL, 380.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (198, 1, 6, NULL, '0306', 'Sunsilk Lively Clean & Fresh Shampoo', 'sunsilk-lively-clean-fresh-shampoo-6IjMsGQJne5RiPjyJTA1ikXS7ZW5ULHl2Iwx6YE8', '<p>Sunsilk Lively Clean &amp; Fresh Shampoo</p>', NULL, NULL, 430.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (199, 1, 6, NULL, '0307', 'Tresemme Conditioner Keratin Smooth', 'tresemme-conditioner-keratin-smooth-1dTM8wOBC03J83EGMbqgRRJ1PcKBhFkRIBzoPBHx', '<p>Tresemme Conditioner Keratin Smooth</p>', NULL, NULL, 280.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
-(200, 2, 6, NULL, '0310', 'Naphthalene Ball', 'naphthalene-ball-HQu5FLtjiDawefRT1zTyEqzYjW2EwqCDTbMXp5tj', '<p>Naphthalene Ball</p>', NULL, NULL, 70.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-07-08 06:24:25'),
+(200, 2, 6, NULL, '0310', 'Naphthalene Ball', 'naphthalene-ball-HQu5FLtjiDawefRT1zTyEqzYjW2EwqCDTbMXp5tj', '<p>Naphthalene Ball</p>', NULL, NULL, 70.00, 50.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-11-30 12:32:56'),
 (201, 2, 6, NULL, '0311', 'Tresemme Hair Fall Defense Shampoo', 'tresemme-hair-fall-defense-shampoo-TxgHBHClUVmZOxYoQd2KhxWDIZ1XPCBUtgCbTnwx', '<p>Tresemme Hair Fall Defense Shampoo&nbsp;</p>', NULL, NULL, 240.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-07-08 06:24:25'),
 (202, 2, 6, NULL, '0312', 'Tresemme Hair Fall Defense Shampoo', 'tresemme-hair-fall-defense-shampoo-2stn0oAf2ttiJn0Ytw8GzPfHDqfs6hjxLzqyUcZ0', '<p>Tresemme Hair Fall Defense Shampoo&nbsp;</p>', NULL, NULL, 630.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-07-08 06:24:25'),
 (203, 2, 6, NULL, '0313', 'Tresemme Shampoo Keratin Smooth', 'tresemme-shampoo-keratin-smooth-yjRE49UCHiyeenxhc5A1irMu42kPpbZVt2cJmMKL', '<p>Tresemme Shampoo Keratin Smooth</p>', NULL, NULL, 630.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-07-08 06:24:25'),
@@ -1144,7 +1209,7 @@ INSERT INTO `products` (`id`, `category_id`, `brand_id`, `subcategory_id`, `prod
 (309, 2, 6, NULL, '0419', 'Savlon Cool Soap', 'savlon-cool-soap-GflKiMuDncwaGjz5DzJYrDUX52mT6WE5yxUswc7U', '<p>Savlon Cool Soap</p>', NULL, NULL, 45.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-07-08 06:24:25'),
 (310, 2, 6, NULL, '0420', 'Lever Ayush Soap Bar Natural Fair Saffron', 'lever-ayush-soap-bar-natural-fair-saffron-6aT41GKCx7QWPyVvoEq3fRynSgqybc8LdIA3s8z6', '<p>Lever Ayush Soap Bar Natural Fair Saffron</p>', NULL, NULL, 38.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-07-08 06:24:25'),
 (311, 2, 6, NULL, '0421', 'Lever Ayush Soap Bar Natural Purifying Turmeric', 'lever-ayush-soap-bar-natural-purifying-turmeric-qPpff2Me7X4DHwywF77P2magHzfazClDk4yA3SH7', '<p>Lever Ayush Soap Bar Natural Purifying Turmeric</p>', NULL, NULL, 38.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-07-08 06:24:25'),
-(312, 2, 6, NULL, '0422', 'Sandalina Sandal & Rose Soap', 'sandalina-sandal-rose-soap-UaeMsM3veRblA6BOHmldmLxPXGYwD7tZ6IOFIngX', '<p>Sandalina Sandal &amp; Rose Soap</p>', NULL, NULL, 36.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-07-08 06:24:25'),
+(312, 2, 6, NULL, '0422', 'Sandalina Sandal & Rose Soap', 'sandalina-sandal-rose-soap-UaeMsM3veRblA6BOHmldmLxPXGYwD7tZ6IOFIngX', '<p>Sandalina Sandal &amp; Rose Soap</p>', NULL, NULL, 36.00, 20.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-11-30 12:32:56'),
 (313, 2, 6, NULL, '0423', 'Nivea Intensive Moisture Body Milk', 'nivea-intensive-moisture-body-milk-XAnVx3eJE3l6eMl53OmGKAcvaSqP5R74AqR7brZY', '<p>Nivea Intensive Moisture Body Milk</p>', NULL, NULL, 600.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-07-08 06:24:25'),
 (314, 2, 6, NULL, '0424', 'Nivea Soft Crème', 'nivea-soft-creme-qMQPvXOX2BFu9DVXSRIe5usBcZ5wScO4fYpTiB8X', '<p>Nivea Soft Cr&egrave;me</p>', NULL, NULL, 175.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-07-08 06:24:25'),
 (315, 2, 6, NULL, '0425', 'Nivea Soft Crème', 'nivea-soft-creme-J4yxTqboSH97ogApsEweoWN1X7M0U2v4rmLHQVno', '<p>Nivea Soft Cr&egrave;me</p>', NULL, NULL, 300.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-07-08 06:24:25'),
@@ -1238,7 +1303,7 @@ INSERT INTO `products` (`id`, `category_id`, `brand_id`, `subcategory_id`, `prod
 (402, 3, 6, NULL, '0513', 'Axe Body Perfume Signature Intense Body Perfume', 'axe-body-perfume-signature-intense-body-perfume-KSa6Vdkj9QowXbZpF4ciOGVqsMUlYusRAirgocTb', '<p>Axe Body Perfume Signature Intense Body Perfume</p>', NULL, NULL, 350.00, 0.00, 1, 100, NULL, NULL, 2, 1, NULL, '2021-10-31 09:48:02'),
 (403, 3, 6, NULL, '0514', 'Axe Body Perfume Signature Suave Body Perfume', 'axe-body-perfume-signature-suave-body-perfume-PaxFQj4qUAv3Hpt98eYb9PQAAmsKYAjAM1rY2aRZ', '<p>Axe Body Perfume Signature Suave Body Perfume</p>', NULL, NULL, 350.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-07-08 06:24:48'),
 (404, 3, 6, NULL, '0515', 'Axe Deodorant Dark Temptation', 'axe-deodorant-dark-temptation-ceRk9CFoDPRXFYx8De7quQRmWcmTKizvvSZIheId', '<p>Axe Deodorant Dark Temptation</p>', NULL, NULL, 225.00, 0.00, 1, 100, NULL, NULL, 3, 1, NULL, '2021-11-07 04:25:00'),
-(405, 3, 6, NULL, '0516', 'Axe Body Perfume Signature Mysterious Body Perfume', 'axe-body-perfume-signature-mysterious-body-perfume-0VqiV0nvuG6NqQem8i7NyjUu75R4LUlBh3wJfh08', '<p>Axe Body Perfume Signature Mysterious Body Perfume</p>', NULL, NULL, 380.00, 0.00, 1, 100, NULL, NULL, 1, 1, NULL, '2021-10-17 17:50:28'),
+(405, 3, 6, NULL, '0516', 'Axe Body Perfume Signature Mysterious Body Perfume', 'axe-body-perfume-signature-mysterious-body-perfume-0VqiV0nvuG6NqQem8i7NyjUu75R4LUlBh3wJfh08', '<p>Axe Body Perfume Signature Mysterious Body Perfume</p>', NULL, NULL, 380.00, 0.00, 1, 100, NULL, NULL, 2, 1, NULL, '2021-12-15 05:49:17'),
 (406, 3, 6, NULL, '0517', 'Set Wet Go Man Pocket Perfume Rockstar', 'set-wet-go-man-pocket-perfume-rockstar-XycSVFh17xqh5M5LfMw6EkRdqf1COABhed9eg6qW', '<p>Set Wet Go Man Pocket Perfume Rockstar</p>', NULL, NULL, 110.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-07-08 06:24:48'),
 (407, 3, 6, NULL, '0518', 'Set Wet Go Man Pocket Perfume Aviator', 'set-wet-go-man-pocket-perfume-aviator-dK7BB3ocQt4YHcLQq9LNqLCbuyY5saUTYW8LjPyM', '<p>Set Wet Go Man Pocket Perfume Aviator</p>', NULL, NULL, 100.00, 0.00, 1, 100, NULL, NULL, 1, 1, NULL, '2021-09-25 10:32:27'),
 (408, 3, 6, NULL, '0519', 'Set Wet Body Spray Deodorant Perfume Cool Avatar', 'set-wet-body-spray-deodorant-perfume-cool-avatar-aTATbKYaN4dIlPEsDJGqNSXWUzd8jV7gpwedegl6', '<p>Set Wet Body Spray Deodorant Perfume Cool Avatar</p>', NULL, NULL, 250.00, 0.00, 1, 100, NULL, NULL, 1, 1, NULL, '2021-10-31 09:44:31'),
@@ -1679,7 +1744,7 @@ INSERT INTO `products` (`id`, `category_id`, `brand_id`, `subcategory_id`, `prod
 (841, 1, 6, NULL, '0955', 'ল্যাংড়া আম | রাজশাহী', 'lzangra-am-rajsahee-mutE83rm9ghuHLdOqTAy4jZteLbC4POfgrhzSzqa', '<ul>\r\n	<li>ফ্রেশ | ১০০% ক্যামিকেল মুক্ত&nbsp;</li>\r\n	<li>ক্ষতিকারক ক্যমিক্যাল, ফরমালিন ও ভেজাল মুক্ত ফ্রেশ আমের নিশ্চয়তা।</li>\r\n	<li>কোন প্রকার ভেজাল যেমন ক্ষতিকারক ক্যমিক্যাল বা ফরমালিন প্রমান করতে পারলেই নগদ টাকা পুরস্কার।</li>\r\n</ul>', NULL, NULL, 0.00, 0.00, 1, 1000, NULL, NULL, 0, 1, NULL, NULL),
 (842, 1, 6, NULL, '0956', 'রাজশাহী বোম্বে লিচু । ১০০ পিস', 'rajsahee-bombe-licu-100-pis-lSdYP5XGF3GlSfpQhs06L0ShTCJMLjFUu92MWWtU', '<ul>\r\n	<li>100% Chemical free Lychee</li>\r\n	<li>Rajshahi Bombe Lychee</li>\r\n</ul>', NULL, NULL, 450.00, 0.00, 1, 10000, NULL, NULL, 0, 1, NULL, NULL),
 (843, 1, 6, NULL, '0960', 'Native Breed White and Gray Cow', 'native-breed-white-and-gray-cow-inutjmOpoRR6Opb9CUqLQ5SzUaae4R64s6LQVazH', '<ul>\r\n	<li>Breed: Native</li>\r\n	<li>Color: White and Gray</li>\r\n	<li>Meat weight (Approx): 90-110 kg</li>\r\n	<li>Live weight (Approx): 190-210 kg</li>\r\n	<li>Teeth: 2</li>\r\n	<li>Age: 24 Months</li>\r\n	<li>Feed: Green Grass, Straw, Bran, Cow Feed</li>\r\n	<li>Height: 46 Inch</li>\r\n</ul>', NULL, NULL, 70500.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
-(844, 1, 6, NULL, '0961', 'Native Breed Black and White Cow', 'native-breed-black-and-white-cow-qVhVxz9HNGRgkOhWk0Aodf8tlAz1pHk9YNKSu0EA', '<ul>\r\n	<li>Breed: Native</li>\r\n	<li>Color: Black and White</li>\r\n	<li>Meat weight (Approx): 120-140 kg</li>\r\n	<li>Live weight (Approx): 180-220 kg</li>\r\n	<li>Teeth: 2</li>\r\n	<li>Age: 30 Months</li>\r\n	<li>Feed: Green Grass, Straw, Bran, Cow Feed</li>\r\n	<li>Height: 45 Inch</li>\r\n</ul>', NULL, NULL, 118200.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
+(844, 1, 6, NULL, '0961', 'Native Breed Black and White Cow', 'native-breed-black-and-white-cow-qVhVxz9HNGRgkOhWk0Aodf8tlAz1pHk9YNKSu0EA', '<ul>\r\n	<li>Breed: Native</li>\r\n	<li>Color: Black and White</li>\r\n	<li>Meat weight (Approx): 120-140 kg</li>\r\n	<li>Live weight (Approx): 180-220 kg</li>\r\n	<li>Teeth: 2</li>\r\n	<li>Age: 30 Months</li>\r\n	<li>Feed: Green Grass, Straw, Bran, Cow Feed</li>\r\n	<li>Height: 45 Inch</li>\r\n</ul>', NULL, NULL, 118200.00, 100.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-11-30 12:32:56'),
 (845, 1, 6, NULL, '0962', 'Native Breed Black Mete Cow', 'native-breed-black-mete-cow-O5orpcnDLZpgy4RY9K3wNgXFVgwgdsmCiDd8KreE', '<ul>\r\n	<li>Breed: Native</li>\r\n	<li>Color: Black Mete</li>\r\n	<li>Meat weight (Approx): 240-260 kg</li>\r\n	<li>Live weight (Approx): 427&nbsp;kg</li>\r\n	<li>Teeth: 6</li>\r\n	<li>Age: 30 Months</li>\r\n	<li>Feed: Green Grass, Straw, Bran, Cow Feed</li>\r\n	<li>Height: 58 Inch</li>\r\n</ul>', NULL, NULL, 185300.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (846, 1, 6, NULL, '0963', 'Native Breed Red Cow', 'native-breed-red-cow-yBPCeMcDJF5g7wDpITot7bRhdKVVhwnYucaAcCQF', '<ul>\r\n	<li>Breed: Native</li>\r\n	<li>Color: Red</li>\r\n	<li>Meat weight (Approx):210-240 kg</li>\r\n	<li>Live weight (Approx): 370-390</li>\r\n	<li>Teeth:2</li>\r\n	<li>Age:22 Months</li>\r\n	<li>Feed: Green Grass, Straw, Bran, Cow Feed</li>\r\n	<li>Height: 42 Inch</li>\r\n</ul>', NULL, NULL, 173100.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (847, 1, 6, NULL, '0964', 'Native Breed Red and Black Cow', 'native-breed-red-and-black-cow-os6xz6k4jZopNz2wnpkYS9zmqP7PTK455o0yiHh5', '<ul>\r\n	<li>Breed: Native</li>\r\n	<li>Color: Red and Black</li>\r\n	<li>Meat weight (Approx): 220-245&nbsp;kg</li>\r\n	<li>Live weight (Approx): 360-370 kg</li>\r\n	<li>Teeth: 4</li>\r\n	<li>Age: 38 Months</li>\r\n	<li>Feed: Green Grass, Straw, Bran, Cow Feed</li>\r\n	<li>Height: 55 Inch</li>\r\n</ul>', NULL, NULL, 159000.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
@@ -1853,10 +1918,10 @@ INSERT INTO `products` (`id`, `category_id`, `brand_id`, `subcategory_id`, `prod
 (1013, 1, 6, NULL, '1132', 'Pasta Hat Macaroni (Medium Shell)', 'pasta-hat-macaroni-medium-shell-oWUYzrz5FGs2gnhZz05TZaHNUI5AEBnrnkUX0e65', '<h1>Pasta Hat Macaroni (Medium Shell)</h1>', NULL, NULL, 130.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (1014, 1, 6, NULL, '1133', 'Pasta Hat Elbow Pasta 500 gm', 'pasta-hat-elbow-pasta-500-gm-2rUHl8JAYzY7ALnmVQUbNhF5USorHsN0jnJRu7Tk', '<p>Pasta Hat Elbow Pasta 500 gm</p>', NULL, NULL, 125.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (1015, 1, 6, NULL, '1134', 'Supermom Mild Baby Wipes | 80 pcs', 'supermom-mild-baby-wipes-80-pcs-URzmvH2bK8wMSSxrXZ4J7M7W7GI2Wde5P6COB17D', '<ul>\r\n	<li>Supermom mild baby wipes offer mildest care for the delicate skins of your baby. It is enriched with baby lotion and pH balanced which ensures required moisture of baby skin. Supermom mild baby wipes is also alcohol, soap and paraben free that prevents baby skin from any sort of side effects.</li>\r\n	<li>Baby lotion, Aqua, Cetylpyridinium chloride, Bronopol, Glycerol, Aloe Barbadensis Leaf Extract, Citric Acid, Propylene Glycol, Fragrance.</li>\r\n</ul>', NULL, NULL, 210.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
-(1016, 1, 6, NULL, '1135', 'Cashew Nut Kaju Badam - 500gm', 'cashew-nut-kaju-badam-500gm-ScVD8dcbOHvmfmMJb9QaQha8JGF3KW5fxrudosDU', '<ul>\r\n	<li>Raw Cashew Nut</li>\r\n	<li>100% Pure and Fresh</li>\r\n	<li>Weight: 500gm</li>\r\n	<li>Premium Quality</li>\r\n	<li>Best Product</li>\r\n	<li>\r\n	<p>Kaju Nuts is best for Keto Dite.Kaju nuts is a very delicious nut. Kaju nuts increase the taste of any food. This nut contains abundant minerals, vitamins, and antioxidants. Kaju nut is rich in magnesium.</p>\r\n	</li>\r\n	<li>\r\n	<p>Kaju helps to strengthen the muscles and nerve function and bone. Kaju contains non-acids that are very beneficial for the heart. Kaju has high sodium and potassium. As a result, blood pressure is in control.</p>\r\n	</li>\r\n</ul>', NULL, NULL, 550.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
+(1016, 1, 6, NULL, '1135', 'Cashew Nut Kaju Badam - 500gm', 'cashew-nut-kaju-badam-500gm-ScVD8dcbOHvmfmMJb9QaQha8JGF3KW5fxrudosDU', '<ul>\r\n	<li>Raw Cashew Nut</li>\r\n	<li>100% Pure and Fresh</li>\r\n	<li>Weight: 500gm</li>\r\n	<li>Premium Quality</li>\r\n	<li>Best Product</li>\r\n	<li>\r\n	<p>Kaju Nuts is best for Keto Dite.Kaju nuts is a very delicious nut. Kaju nuts increase the taste of any food. This nut contains abundant minerals, vitamins, and antioxidants. Kaju nut is rich in magnesium.</p>\r\n	</li>\r\n	<li>\r\n	<p>Kaju helps to strengthen the muscles and nerve function and bone. Kaju contains non-acids that are very beneficial for the heart. Kaju has high sodium and potassium. As a result, blood pressure is in control.</p>\r\n	</li>\r\n</ul>', NULL, NULL, 550.00, 100.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-11-30 12:32:57'),
 (1017, 1, 6, NULL, '1136', 'ALMOND KATH BADAM - 500gm', 'almond-kath-badam-500gm-fKC7hb4laFWyjslzVBFvVggHrR3EbjG9Bj6NMUd1', '<ul>\r\n	<li>Product Type: Almondnut</li>\r\n	<li>Capacity: 1Packet</li>\r\n	<li>Weight: 500Grm</li>\r\n	<li>All thing buy at wholesale price</li>\r\n	<li>100% clients satisfaction</li>\r\n	<li>100% Highest quality guarantee</li>\r\n	<li>Best price from others</li>\r\n</ul>', NULL, NULL, 860.00, 840.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
 (1018, 1, 6, NULL, '1137', 'Pista Badam -250gm', 'pista-badam-250gm-HY177EoI4pBxkIov8adX6kpi4gBP1UGzgajXJXMd', '<ul>\r\n	<li>Product Type:Pista Badam</li>\r\n	<li>Capacity: 250g</li>\r\n	<li>100% Halal</li>\r\n	<li>Good Quality Product</li>\r\n</ul>', NULL, NULL, 650.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
-(1019, 1, 6, NULL, '1138', 'Natural Raw China Badam - 1kg', 'natural-raw-china-badam-1kg-69TArjnQo6hWB12doqgdXOWD5OSubG2iXXVONi25', '<ul>\r\n	<li>Natural Fresh China Badam</li>\r\n	<li>100% Organic</li>\r\n</ul>', NULL, NULL, 150.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
+(1019, 1, 6, NULL, '1138', 'Natural Raw China Badam - 1kg', 'natural-raw-china-badam-1kg-69TArjnQo6hWB12doqgdXOWD5OSubG2iXXVONi25', '<ul>\r\n	<li>Natural Fresh China Badam</li>\r\n	<li>100% Organic</li>\r\n</ul>', NULL, NULL, 150.00, 100.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-11-30 12:32:57'),
 (1020, 1, 6, NULL, '1139', 'Mix Dry Fruits and Roasted Nuts | 500gm', 'mix-dry-fruits-and-roasted-nuts-500gm-9cBS5eNAf1AG8Qjy55hJrsFuXgAxoB4fSrUqL6jn', '<ul>\r\n	<li>Mix Dry Fruits and Roasted Nuts</li>\r\n</ul>\r\n\r\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Ingredients</p>\r\n\r\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; *Roasted Cashew nut (কাজু বাদাম)<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; *Roasted Almond (কাঠ বাদাম)<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; *Roasted peanut (চীনা বাদাম)</p>\r\n\r\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; *Pistachio (পেস্তা বাদাম)<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * Walnut (আখরোট)<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; *Pumpkin seeds ( মিষ্টি কুমড়ার বিচি)<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * Watermelon seeds (তরমুজের বিচি)<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * Black Raisin (কালো কিসমিস)<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * Brown Raisin (বাদামী কিসমিস)<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * White Raisin (সাদা কিসিমিস)<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * Black Date palm (কালো খেজুর)<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * White Date palm (সাদা খেজুর)<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; *Tutifruti (টুটি ফ্রূটি)<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * Apricot (এপ্রিকট)</p>\r\n\r\n<ul>\r\n	<li>Keep in a dry place.</li>\r\n</ul>\r\n\r\n<p>&nbsp;</p>', NULL, NULL, 650.00, 550.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -3994,7 +4059,7 @@ CREATE TABLE `promotions` (
 
 INSERT INTO `promotions` (`id`, `name`, `slug`, `image`, `serial`, `expire_date`, `status`, `created_at`, `updated_at`) VALUES
 (6, 'Promotion Offer', 'Promotion-Offer', 'images/promotion/1635412342slider11.jpg', 1, NULL, 1, '2021-10-28 09:12:23', '2021-10-28 09:12:23'),
-(7, 'Promotion Offer u', 'Promotion-Offer-u', 'images/promotion/1635412498slider10.jpg', 2, NULL, 1, '2021-10-28 09:14:58', '2021-10-28 09:14:58'),
+(7, 'Promotion Offer u', 'Promotion-Offer-u', 'images/promotion/1635412498slider10.jpg', 2, NULL, 1, '2021-10-28 09:14:58', '2021-11-30 12:32:57'),
 (8, 'Promotion Offer', 'Promotion-Offer', 'images/promotion/1635445565slider9.jpg', 3, NULL, 1, '2021-10-28 18:26:05', '2021-10-28 18:26:05'),
 (9, 'Patient Two', 'Patient-Two', 'images/promotion/1635445579slider10.jpg', 4, NULL, 1, '2021-10-28 18:26:19', '2021-10-28 18:26:19');
 
@@ -4020,11 +4085,19 @@ CREATE TABLE `promotion_products` (
 --
 
 INSERT INTO `promotion_products` (`id`, `promotion_id`, `product_id`, `unit_price`, `discount_price`, `status`, `created_at`, `updated_at`) VALUES
-(1, 6, 23, 70.00, 50.00, 0, '2021-10-31 08:36:33', '2021-11-07 06:26:04'),
-(2, 6, 15, 130.00, 100.00, 1, '2021-11-01 04:26:21', '2021-11-07 06:26:24'),
-(3, 7, 21, 270.00, 200.00, 1, '2021-11-01 09:32:49', '2021-11-01 09:33:17'),
-(4, 7, 27, 570.00, 100.00, 1, '2021-11-01 09:32:58', '2021-11-01 09:32:58'),
-(5, 7, 32, 700.00, 300.00, 1, '2021-11-01 09:33:52', '2021-11-01 09:33:52');
+(1, 6, 23, 70.00, 50.00, 1, '2021-10-31 08:36:33', '2021-11-18 06:30:08'),
+(2, 6, 15, 130.00, 100.00, 0, '2021-11-01 04:26:21', '2021-11-18 06:30:05'),
+(3, 7, 21, 270.00, 200.00, 1, '2021-11-01 09:32:49', '2021-11-30 12:32:56'),
+(4, 7, 27, 570.00, 100.00, 1, '2021-11-01 09:32:58', '2021-11-30 12:32:56'),
+(5, 7, 32, 700.00, 300.00, 1, '2021-11-01 09:33:52', '2021-11-30 12:32:56'),
+(6, 7, 844, 118200.00, 100.00, 1, '2021-11-16 17:42:58', '2021-11-30 12:32:56'),
+(7, 7, 200, 70.00, 50.00, 1, '2021-11-16 17:44:20', '2021-11-30 12:32:56'),
+(8, 7, 85, 160.00, 100.00, 1, '2021-11-16 17:45:17', '2021-11-30 12:32:56'),
+(9, 7, 312, 36.00, 20.00, 1, '2021-11-16 17:46:02', '2021-11-30 12:32:56'),
+(10, 7, 61, 220.00, 100.00, 1, '2021-11-18 08:07:03', '2021-11-30 12:32:57'),
+(11, 7, 1019, 150.00, 100.00, 1, '2021-11-18 08:07:17', '2021-11-30 12:32:57'),
+(12, 7, 1016, 550.00, 100.00, 1, '2021-11-18 08:07:24', '2021-11-30 12:32:57'),
+(13, 7, 39, 280.00, 100.00, 1, '2021-11-18 08:07:34', '2021-11-30 12:32:57');
 
 -- --------------------------------------------------------
 
@@ -4058,7 +4131,8 @@ INSERT INTO `reviews` (`id`, `user_id`, `product_id`, `rating`, `review`, `creat
 (9, 1, 71, 5, 'check image', '2021-09-01 03:26:36', '2021-09-01 03:26:36'),
 (10, 1, 71, 5, 'dsfdsfdfsd', '2021-09-01 03:30:19', '2021-09-01 03:30:19'),
 (11, 1, 71, 2, 'serertewrtewt', '2021-09-01 03:36:08', '2021-09-01 03:36:08'),
-(13, 4, 404, 5, 'Just awesome', '2021-11-06 10:17:04', '2021-11-07 05:46:52');
+(13, 4, 404, 5, 'Just awesome', '2021-11-06 10:17:04', '2021-11-07 05:46:52'),
+(14, 4, 405, 5, 'This originally nice product', '2021-12-15 05:49:40', '2021-12-15 05:49:40');
 
 -- --------------------------------------------------------
 
@@ -4114,7 +4188,8 @@ CREATE TABLE `shipping_addresses` (
 --
 
 INSERT INTO `shipping_addresses` (`id`, `user_id`, `full_name`, `mobile`, `email`, `district`, `city_town`, `address`, `post_code`, `delivery_charge`, `delivery_time`, `created_at`, `updated_at`) VALUES
-(2, 4, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, 90.00, 10, NULL, '2021-11-04 18:19:03');
+(2, 4, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, 90.00, 10, NULL, '2021-11-04 18:19:03'),
+(3, 6, 'Raju 3', '01889967516', 'mkraju.bigm@gmail.com', '63', 'Kaunia', 'Shibu(Lichu bagan), Baruahat', 5440, 90.00, 10, NULL, '2021-11-16 17:21:42');
 
 -- --------------------------------------------------------
 
@@ -4333,7 +4408,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `mobile`, `image`, `status`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(4, 'মো: মোক্তাদিরুল ইসলাম', 'raj6u@mail.com', '01889967514', 'images/user/1634227178img_avatar.png', 1, NULL, '$2y$10$fzAJHvHpiXhRCSa4wpHJzergQXjeZogQFZJibi8EmIHMXnjgjGVCK', NULL, '2021-10-05 09:37:11', '2021-11-04 12:39:52');
+(4, 'মো: মোক্তাদিরুল ইসলাম', 'raj6u@mail.com', '01889967514', 'images/user/1634227178img_avatar.png', 1, NULL, '$2y$10$fzAJHvHpiXhRCSa4wpHJzergQXjeZogQFZJibi8EmIHMXnjgjGVCK', NULL, '2021-10-05 09:37:11', '2021-11-04 12:39:52'),
+(5, 'Raju 2', NULL, '01889967515', NULL, 1, NULL, '$2y$10$/JHfmn0x6eqRxrEZVWYYGOjMYtdS2jZslP/f7EuYrYFnjTo.sfySG', NULL, '2021-11-16 14:32:00', '2021-11-16 14:32:00'),
+(6, 'Raju 3', NULL, '01889967516', NULL, 1, NULL, '$2y$10$UL3VcTHcN5K5CtnqOK4p0.LHcAPD2x8uQE0.izih8CNn45c1NX9pG', NULL, '2021-11-16 15:50:44', '2021-11-16 15:50:44');
 
 -- --------------------------------------------------------
 
@@ -4705,7 +4782,7 @@ ALTER TABLE `about_us`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `billing_addresses`
@@ -4717,13 +4794,13 @@ ALTER TABLE `billing_addresses`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -4735,7 +4812,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `colors`
 --
 ALTER TABLE `colors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `contact_us`
@@ -4747,31 +4824,31 @@ ALTER TABLE `contact_us`
 -- AUTO_INCREMENT for table `coupons`
 --
 ALTER TABLE `coupons`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `coupon_groups`
 --
 ALTER TABLE `coupon_groups`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `coupon_group_users`
 --
 ALTER TABLE `coupon_group_users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `coupon_user_useds`
 --
 ALTER TABLE `coupon_user_useds`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `coupon_valid_users`
 --
 ALTER TABLE `coupon_valid_users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `districts`
@@ -4819,7 +4896,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `mobile_otps`
 --
 ALTER TABLE `mobile_otps`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `new_arrivals_products`
@@ -4831,19 +4908,19 @@ ALTER TABLE `new_arrivals_products`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `order_prices`
 --
 ALTER TABLE `order_prices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `policies`
@@ -4891,13 +4968,13 @@ ALTER TABLE `promotions`
 -- AUTO_INCREMENT for table `promotion_products`
 --
 ALTER TABLE `promotion_products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `review_images`
@@ -4909,7 +4986,7 @@ ALTER TABLE `review_images`
 -- AUTO_INCREMENT for table `shipping_addresses`
 --
 ALTER TABLE `shipping_addresses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sizes`
@@ -4957,7 +5034,7 @@ ALTER TABLE `units`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user_messages`
