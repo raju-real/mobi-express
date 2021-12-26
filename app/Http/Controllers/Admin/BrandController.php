@@ -44,7 +44,7 @@ class BrandController extends Controller
 
     }
 
-   
+
     public function destroy($id){
         $brand = brand::find($id);
         if(Product::where('brand_id',$id)->exists()){
@@ -53,7 +53,7 @@ class BrandController extends Controller
             $brand->delete();
             Toastr::warning('Brand Delete Successfully','warning');
         }
-        
+
         return redirect()->route('admin.brand.index');
     }
 }
