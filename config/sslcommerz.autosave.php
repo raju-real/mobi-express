@@ -10,8 +10,6 @@ return [
     'apiCredentials' => [
         // 'store_id' => env("STORE_ID"),
         // 'store_password' => env("STORE_PASSWORD"),
-        'store_id' => env("mobixpresscombdlive"),
-        'store_password' => env("STORE_PASSWORD"),
     ],
     'apiUrl' => [
         'make_payment' => "/gwprocess/v4/api.php",
