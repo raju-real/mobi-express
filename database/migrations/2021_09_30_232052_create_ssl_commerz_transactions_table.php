@@ -20,6 +20,7 @@ class CreateSslCommerzTransactionsTable extends Migration
             $table->string('order_number');
             $table->string('invoice');
             $table->string('transaction_id');
+            $table->string('transaction_invoice',255)->nullable();
             $table->string('transaction_time');
             $table->string('transaction_ip')->nullable();
             $table->double('transaction_amount', 8, 2);

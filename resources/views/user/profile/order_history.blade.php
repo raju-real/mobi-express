@@ -25,8 +25,8 @@
         border: 1.5px solid white;
         border-radius: 10px;
         padding: 2px 10px;
-        box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.2), 
-        0px 1px 1px 2px rgba(0, 0, 0, 0.14), 
+        box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 2px rgba(0, 0, 0, 0.14),
         0px 2px 1px -1px rgba(0, 0, 0, 0.12);
     }
 </style>
@@ -108,10 +108,10 @@
                                                 <span>Delivered</span>
 
                                             @elseif($order->order_status == 5)
-                                                <span>Cancled</span> 
+                                                <span>Cancled</span>
                                             @elseif($order->order_status == 6)
-                                                <span>Returned</span>   
-                                            @else 
+                                                <span>Returned</span>
+                                            @else
                                                 <span>Un known</span>
                                             @endif
                                         </td>
@@ -119,27 +119,27 @@
                                             {{ $order->order_price }} BDT
                                         </td>
                                         <td style="text-align: left;min-width: fit-content;font-weight: normal;">
-                                            {{-- @if($order->payment_status == 0)
+                                            @if($order->payment_status == 0)
                                                 <a href="{{ route('pay-here',['invoice'=>$order->invoice]) }}" style="color: blue;">Pay Now</a>
                                             @elseif($order->payment_status == 1)
                                                 <span>Paid</span>
                                                 <a href="{{ route('user.payment-details',['invoice'=>$order->invoice]) }}" style="color: green;">
                                                     Details
                                                 </a>
-                                            @endif  --}}  
-                                            @if($order->payment_method == 1) 
+                                            @endif
+                                            @if($order->payment_method == 1)
                                             <span class="cash">
                                                     {{ 'Cash On Delivery' }}
                                                 </span>
-                                            @elseif($order->payment_method == 3) 
+                                            @elseif($order->payment_method == 3)
                                                 @if($order->payment_status == 1)
                                                 <span class="online">
                                                     {{ 'Online Payment' }}
                                                 </span>
-                                                @elseif($order->payment_status == 2)
-                                                <span class="fail">Payment Failed</span>    
+                                                @elseif($order->payment_status == 2 || 3)
+                                                <span class="fail">Payment Failed</span>
                                                 <a class="pay" href="{{ route('pay-here',['invoice'=>$order->invoice]) }}">Pay Now</a>
-                                                @endif                  
+                                                @endif
                                             @endif
                                         </td>
                                         <td style="text-align: left;min-width: fit-content;font-weight: normal;">{{ $order->paid_amount }} BDT</td>

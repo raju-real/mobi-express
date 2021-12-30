@@ -39,7 +39,7 @@ class SslCommerzPaymentController extends Controller
                 if(!isset($billing)){
                     BillingAddress::insert(['user_id'=>Auth::id()]);
                     $billing = BillingAddress::with('district_name')->where('user_id',Auth::id())->first();
-                } 
+                }
                 if (isset($order)) {
                     return view('user.profile.select_payment',compact('order','shipping','billing'));
                 } else{
@@ -76,7 +76,7 @@ class SslCommerzPaymentController extends Controller
                 $post_code = $request->post_code ?? "";
                 $address = $request->address ?? $order->address;
 
-                
+
                 # CUSTOMER INFORMATION
                 $post_data['cus_name'] = $name;
                 $post_data['cus_email'] = $email;
@@ -155,8 +155,7 @@ class SslCommerzPaymentController extends Controller
 
     public function success(Request $request)
     {
-        //dd($request->all());
-        $message = "";
+        dd('success',$request->all());
         $message = "";
 
         $tran_id = $request->input('tran_id');
@@ -221,7 +220,7 @@ class SslCommerzPaymentController extends Controller
                 $type = "danger";
                 Alert::success('Transaction Successfully Completed');
                 return redirect()->route('user.order-history')
-                    ->with('message',$message);    
+                    ->with('message',$message);
             } else {
                 /*
                 That means IPN did not work or IPN URL was not set in your merchant panel and Transation validation failed.
@@ -250,16 +249,21 @@ class SslCommerzPaymentController extends Controller
 
     public function fail(Request $request)
     {
+        dd('fail',$request->all());
         $tran_id = $request->input('tran_id');
         $invoice = $request->input('value_a');
+        if($request->input('status') === "FAILED"){
+            Transaction::where('transaction_id', $tran_id)
+                ->update(['status' => 'FAILED','message'=>$request->input('error')]);
+        }
 
         $message = "Invalid Transaction";
         $transaction = Transaction::where('transaction_id', $tran_id)
             ->select('transaction_id', 'status', 'currency', 'transaction_amount')->first();
 
-        if ($transaction->status == 'Pending') {
+        if ($transaction->status === 'FAILED') {
             Transaction::where('transaction_id', $tran_id)
-                ->update(['status' => 'Failed']);
+                ->update(['status' => 'FAILED']);
             $message = "Transaction Failed";
             Order::where('invoice',$invoice)->update(['payment_status'=>2]);
             Alert::error('Transaction Failed');
@@ -279,24 +283,30 @@ class SslCommerzPaymentController extends Controller
 
     public function cancel(Request $request)
     {
+        dd('cancel',$request->all());
         $tran_id = $request->input('tran_id');
+        $invoice = $request->input('value_a');
+        if($request->input('status') === "CANCELLED"){
+            Transaction::where('transaction_id', $tran_id)
+                ->update(['status' => 'CANCELLED','message'=>$request->input('error')]);
+        }
+
         $message = "Invalid Transaction";
-        $order_detials = DB::table('orders')
-            ->where('transaction_id', $tran_id)
+        $transaction = Transaction::where('transaction_id', $tran_id)
             ->select('transaction_id', 'status', 'currency', 'transaction_amount')->first();
 
-        if ($order_detials->status == 'Pending') {
-            Transaction::where('transaction_id', $tran_id)
-                ->update(['status' => 'Canceled']);
-            $message = "Transaction is Cancel";
+        if ($transaction->status === 'CANCELLED') {
+            $message = "Transaction Cancelled";
+            Order::where('invoice',$invoice)->update(['payment_status'=>3]);
+            Alert::error('Transaction Cancelled');
             return redirect()->route('user.order-history')
                     ->with('message',$message);
-        } else if ($order_detials->status == 'Processing' || $order_detials->status == 'Complete') {
-            $message = "Transaction is already Successful";
+        } else if ($transaction->status == 'VALID' || $transaction->status == 'VALIDATED') {
+            Alert::info('Transaction is already Successful');
             return redirect()->route('user.order-history')
                     ->with('message',$message);
         } else {
-            $message = "Transaction is Invalid";
+            $message = "Transaction Invalid";
             return redirect()->route('user.order-history')
                     ->with('message',$message);
         }
@@ -306,6 +316,7 @@ class SslCommerzPaymentController extends Controller
 
     public function ipn(Request $request)
     {
+        dd('ipn',$request->all());
         #Received all the payement information from the gateway
         $message = "Unknown";
         if ($request->input('tran_id')) #Check transation id is posted or not.

@@ -45,10 +45,9 @@
                             <label>Status</label>
                             <select name="status" class="form-control">
                                 <option value="">Select</option>
-                                <option value="Pending">Pending</option>
-                                <option value="Processing">Processing</option>
-                                <option value="Complete">Complete</option>
-                                <option value="Failed">Failed</option>
+                                <option value="VALIDATED">VALIDATED</option>
+                                <option value="FAILED">FAILED</option>
+                                <option value="CANCELLED">CANCELLED</option>
                             </select>
                         </div>
                         <div class="col-md-1">
@@ -74,7 +73,7 @@
                     </a>
                 </div>
             </div>
-            
+
             <div class="ibox-body">
                 <table class="table table-bordered" width="30%">
                     <thead>
@@ -126,7 +125,7 @@
                             <td>{{ $transaction->invoice }}</td>
                             <td>{{ $transaction->transaction_id }}</td>
                             <td>{{ $transaction->transaction_amount }}</td>
-                            <td>{{ $transaction->store_amount }}</td>
+                            <td>{{ $transaction->store_amount ?? 0 }}</td>
                             <td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($transaction->transaction_time))->format('d-m-y h:m') }}</td>
                             <td>
                                 {{-- {{ $transaction->card_brand }} -  --}}
@@ -161,10 +160,10 @@
             paging: false,
             searching: false,
             info: false
-           
+
         });
     })
 </script>
 
-    
+
 @endpush

@@ -93,7 +93,7 @@ class DashboardController extends Controller
         if(isset($status)){
             $data->where('status',$status);
         }
-        $transactions = $data->latest()->paginate(100);
+        $transactions = $data->orderBy('created_at','desc')->paginate(100);
         return view('admin.reports.transaction_history',compact('transactions'));
     }
 
