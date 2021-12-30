@@ -155,7 +155,7 @@ class SslCommerzPaymentController extends Controller
 
     public function success(Request $request)
     {
-        dd('success',$request->all());
+        //dd('success',$request->all());
         $message = "";
 
         $tran_id = $request->input('tran_id');
@@ -163,12 +163,10 @@ class SslCommerzPaymentController extends Controller
         $currency = $request->input('currency');
 
         $sslc = new SslCommerzNotification();
-
-        #Check order status in order tabel against the transaction id or order id.
         $transaction = Transaction::where('transaction_id', $tran_id)
             ->select('transaction_id', 'status', 'currency', 'transaction_amount')->first();
 
-        if ($transaction->status == 'Pending') {
+        if (($request->input('status') === "VALID") AND ($transaction->status == 'Pending')) {
             $validation = $sslc->orderValidate($request->all(), $tran_id, $amount, $currency);
 
             if ($validation == TRUE) {
@@ -179,7 +177,7 @@ class SslCommerzPaymentController extends Controller
                 */
                 Transaction::where('transaction_id', $tran_id)
                     ->update([
-                        'status' => 'Complete',
+                        'status' => 'COMPLETE',
                         'val_id' => $request->input('val_id'),
                         'card_type' => $request->input('card_type'),
                         'store_amount' => $request->input('store_amount'),
@@ -210,14 +208,13 @@ class SslCommerzPaymentController extends Controller
                         ->select('invoice')->first();
                     $order = Order::where('invoice', $find->invoice)->first();
                     $order->payment_status = 1;
-                    //$order->payment_method = 3;
+                    $order->payment_method = 3;
                     $order->payment_time   = $request->input('tran_date');
                     $order->paid_amount    = $amount;
                     $order->due_amount     =  $order->order_price - $amount;
                     $order->order_status   = 1;
                     $order->save();
                 $message = "Transaction Successfully Completed";
-                $type = "danger";
                 Alert::success('Transaction Successfully Completed');
                 return redirect()->route('user.order-history')
                     ->with('message',$message);
@@ -227,13 +224,13 @@ class SslCommerzPaymentController extends Controller
                 Here you need to update order status as Failed in order table.
                 */
                 Transaction::where('transaction_id', $tran_id)
-                    ->update(['status' => 'Failed']);
+                    ->update(['status' => 'FAILED']);
                 $message = "Transaction Failed";
                 $type = "danger";
                 return redirect()->route('user.order-history')
                     ->with('message',$message);
             }
-        } else if ($transaction->status == 'Processing' || $transaction->status == 'Complete') {
+        } else if ($transaction->status == 'COMPLETE') {
             $message = "Transaction is successfully Completed";
             return redirect()->route('user.order-history')
                     ->with('message',$message);
@@ -249,7 +246,7 @@ class SslCommerzPaymentController extends Controller
 
     public function fail(Request $request)
     {
-        dd('fail',$request->all());
+        //dd('fail',$request->all());
         $tran_id = $request->input('tran_id');
         $invoice = $request->input('value_a');
         if($request->input('status') === "FAILED"){
@@ -269,7 +266,7 @@ class SslCommerzPaymentController extends Controller
             Alert::error('Transaction Failed');
             return redirect()->route('user.order-history')
                     ->with('message',$message);
-        } else if ($transaction->status == 'Processing' || $transaction->status == 'Complete') {
+        } else if ($transaction->status === 'COMPLETE') {
             Alert::info('Transaction is already Successful');
             return redirect()->route('user.order-history')
                     ->with('message',$message);
@@ -283,7 +280,7 @@ class SslCommerzPaymentController extends Controller
 
     public function cancel(Request $request)
     {
-        dd('cancel',$request->all());
+        //dd('cancel',$request->all());
         $tran_id = $request->input('tran_id');
         $invoice = $request->input('value_a');
         if($request->input('status') === "CANCELLED"){
@@ -301,7 +298,7 @@ class SslCommerzPaymentController extends Controller
             Alert::error('Transaction Cancelled');
             return redirect()->route('user.order-history')
                     ->with('message',$message);
-        } else if ($transaction->status == 'VALID' || $transaction->status == 'VALIDATED') {
+        } else if ($transaction->status === "COMPLETE") {
             Alert::info('Transaction is already Successful');
             return redirect()->route('user.order-history')
                     ->with('message',$message);
@@ -316,7 +313,7 @@ class SslCommerzPaymentController extends Controller
 
     public function ipn(Request $request)
     {
-        dd('ipn',$request->all());
+        //dd('ipn',$request->all());
         #Received all the payement information from the gateway
         $message = "Unknown";
         if ($request->input('tran_id')) #Check transation id is posted or not.
@@ -338,7 +335,7 @@ class SslCommerzPaymentController extends Controller
                     Here you can also sent sms or email for successful transaction to customer
                     */
                     Transaction::where('transaction_id', $tran_id)
-                        ->update(['status' => 'Processing']);
+                        ->update(['status' => 'COMPLETE']);
 
                     $message =  "Transaction is successfully Completed";
                     return redirect()->route('user.order-history')
@@ -349,14 +346,14 @@ class SslCommerzPaymentController extends Controller
                     Here you need to update order status as Failed in order table.
                     */
                     Transaction::where('transaction_id', $tran_id)
-                        ->update(['status' => 'Failed']);
+                        ->update(['status' => 'FAILED']);
 
                     $message =  "Transaction Fail";
                     return redirect()->route('user.order-history')
                         ->with('message',$message);
                 }
 
-            } else if ($transaction->status == 'Processing' || $transaction->status == 'Complete') {
+            } else if ($transaction->status === "COMPLETE") {
 
                 #That means Order status already updated. No need to udate database.
 
