@@ -7,15 +7,16 @@ use Illuminate\Support\Facades\Auth;
 
 class Order extends Model
 {
-    protected static function getPaymentAmount($invoice, $payment_type){
+    protected static function getPaymentAmount($invoice, $payment_type,$partial_amount){
         if($payment_type == 1){
             return Order::where('invoice',$invoice)->first()->order_price;
         } elseif($payment_type == 2){
-            return Order::where('invoice',$invoice)->first()->partial_payment;
+            return $partial_amount;
         } else {
             return Order::where('invoice',$invoice)->first()->order_price;
         }
     }
+
     public function products(){
         return $this->hasMany(OrderProduct::class);
     }
@@ -31,7 +32,7 @@ class Order extends Model
     public function online_payment(){
         return $this->belongsTo(SslCommerzTransaction::class,'invoice','invoice');
     }
-    
+
     public static function getOrderNumber()
     {
         $latestOrderNumber = Order::latest('id')->whereNotNull('order_number')->first();

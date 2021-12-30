@@ -45,7 +45,8 @@
                             <label>Status</label>
                             <select name="status" class="form-control">
                                 <option value="">Select</option>
-                                <option value="VALIDATED">VALIDATED</option>
+                                <option value="PENDING">PENDING</option>
+                                <option value="SUCCESS">SUCCESS</option>
                                 <option value="FAILED">FAILED</option>
                                 <option value="CANCELLED">CANCELLED</option>
                             </select>

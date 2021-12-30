@@ -53,13 +53,13 @@
                             <div class="col-md-6" style="border-right: 1px solid black;">
                                 <h4>
                                     Your Billing Details
-                                    <a href="#" 
-                                        class="btn btn-danger btn-sm pull-right" 
-                                        data-tippy-placement="top" 
-                                        data-tippy-arrow="true" 
-                                        data-tippy-inertia="true"  
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#bill-address-update" 
+                                    <a href="#"
+                                        class="btn btn-danger btn-sm pull-right"
+                                        data-tippy-placement="top"
+                                        data-tippy-arrow="true"
+                                        data-tippy-inertia="true"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#bill-address-update"
                                         >
                                             <i class="fa fa-edit"></i>
                                     </a>
@@ -112,7 +112,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <br>
                             <div class="form-group row">
                                 <div class="panel-default">
@@ -120,18 +120,23 @@
                                     <label for="full_payment">
                                         Full Payment ({{ $order->order_price }} BDT)
                                     </label>
-                                    
+
                                     <br>
                                     <input id="partial_payment"  name="payment_type" type="radio" value="2" />
                                     <label for="partial_payment">
-                                        Partial Payment ({{ $order->partial_payment }} BDT)
+                                        Partial Payment
                                     </label>
                                     <p id="payment_type_error" style="color: red;display: none;">Select Payment</p>
                                 </div>
+
+                            </div>
+                            <div class="form-group mt-3" style="display: none;" id="partial_form">
+                                <label for="partial_amount">Partial Amount</label>
+                                <input type="text" name="partial_amount" id="partial_amount" class="form-control" value="{{ $order->partial_payment ?? 0 }}">
                             </div>
                             {{-- <input type="checkbox" name="agree" id="agree" class="mt-2">
                             <label for="agree">
-                                I have read full 
+                                I have read full
                                 <a href="{{ route('terms-condition') }}" target="_blank">
                                     <u style="color: blue;">terms and condition</u>
                                 </a>
@@ -141,7 +146,7 @@
                               Pay Now
                           </button>
                         </form>
-                                        
+
                             </div>
                             <div class="col-md-6">
                                 <h4>Shipping & Order Details</h4>
@@ -155,7 +160,7 @@
                                     {{ $shipping->address ?? '' }},
                                     {{ $shipping->post_code ?? '' }}
                                 </p>
-                                
+
                                 <h5 style="font-weight: bold;">Order Details</h5>
                                 <hr>
                                 <table class="table table-sm table-bordered table-striped">
@@ -168,10 +173,10 @@
                                             <th>Total Price</th>
                                             <th>{{ $order->order_price }} BDT</th>
                                         </tr>
-                                        <tr>
+                                        {{-- <tr>
                                             <th>Partial Payment</th>
-                                            <th>{{ $order->partial_payment }} BDT</th>
-                                        </tr>
+                                            <th></th>
+                                        </tr> --}}
                                     </thead>
                                 </table>
                             </div>
@@ -300,6 +305,12 @@
     $("input[name=payment_type]").change(function(){
         if($('input[name="payment_type"]:checked').length > 0){
             $('#payment_type_error').hide();
+            let value = this.value;
+            if(value == 2){
+                $('#partial_form').show();
+            } else if(value == 1){
+                $('#partial_form').hide();
+            }
         }
     });
 </script>

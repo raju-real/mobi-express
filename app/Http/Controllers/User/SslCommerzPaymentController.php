@@ -9,6 +9,7 @@ use App\Model\ContactUs;
 use App\Model\Order;
 use App\Model\ShippingAddress;
 use App\Model\SslCommerzTransaction as Transaction;
+use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
@@ -56,7 +57,23 @@ class SslCommerzPaymentController extends Controller
 
     public function index(Request $request)
     {
-        $this->validate($request,['payment_type' => 'required']);
+        $customMessages = [
+            //'required' => 'The :attribute field is required.',
+            'required_if' => 'Amount Required For Partial Payment And Minimum 50%',
+        ];
+
+        $this->validate($request,[
+            'payment_type' => 'required',
+            'partial_amount'=>'required_if:payment_type,2'
+        ],$customMessages);
+        if(request()->get('payment_type') == 2){
+            $min = Order::where('invoice',request()->get('invoice'))->first()->partial_payment;
+            if(request()->get('partial_amount') < $min){
+                Toastr::error('Minimum Partial Payment '.$min);
+                return redirect()->back();
+            }
+        }
+
         try{
             $invoice = request()->get('invoice');
             $order = Order::where('invoice',$invoice)->first();
@@ -64,7 +81,8 @@ class SslCommerzPaymentController extends Controller
                 $contact = ContactUs::first();
                 $post_data = array();
                 $payment_type = $request->payment_type;
-                $post_data['total_amount'] = Order::getPaymentAmount($invoice,$payment_type);
+                $partial_amount = request()->get('partial_amount');
+                $post_data['total_amount'] = Order::getPaymentAmount($invoice,$payment_type,$partial_amount);
                 $post_data['currency'] = "BDT";
                 $post_data['tran_id'] = uniqid(); // tran_id must be unique
 
@@ -125,7 +143,7 @@ class SslCommerzPaymentController extends Controller
                         'transaction_time' => Carbon::now(),
                         'transaction_ip' => '125896',
                         'transaction_amount' => $post_data['total_amount'],
-                        'status' => 'Pending',
+                        'status' => 'PENDING',
                         'name' => $name,
                         'mobile' => $mobile,
                         'city_town' => $city_town,
@@ -164,9 +182,9 @@ class SslCommerzPaymentController extends Controller
 
         $sslc = new SslCommerzNotification();
         $transaction = Transaction::where('transaction_id', $tran_id)
-            ->select('transaction_id', 'status', 'currency', 'transaction_amount')->first();
+            ->select('transaction_id', 'status', 'currency', 'transaction_amount')->firstOrFail();
 
-        if (($request->input('status') === "VALID") AND ($transaction->status == 'Pending')) {
+        if (($request->input('status') === "VALID") AND ($transaction->status === 'PENDING')) {
             $validation = $sslc->orderValidate($request->all(), $tran_id, $amount, $currency);
 
             if ($validation == TRUE) {
@@ -177,7 +195,7 @@ class SslCommerzPaymentController extends Controller
                 */
                 Transaction::where('transaction_id', $tran_id)
                     ->update([
-                        'status' => 'COMPLETE',
+                        'status' => 'SUCCESS',
                         'val_id' => $request->input('val_id'),
                         'card_type' => $request->input('card_type'),
                         'store_amount' => $request->input('store_amount'),
@@ -230,13 +248,13 @@ class SslCommerzPaymentController extends Controller
                 return redirect()->route('user.order-history')
                     ->with('message',$message);
             }
-        } else if ($transaction->status == 'COMPLETE') {
+        } else if ($transaction->status === 'SUCCESS') {
             $message = "Transaction is successfully Completed";
             return redirect()->route('user.order-history')
                     ->with('message',$message);
         } else {
             #That means something wrong happened. You can redirect customer to your product page.
-            $message = "Invalid Transaction";
+            $message = "Something Wrong";
             return redirect()->route('user.order-history')
                     ->with('message',$message);
         }
@@ -266,7 +284,7 @@ class SslCommerzPaymentController extends Controller
             Alert::error('Transaction Failed');
             return redirect()->route('user.order-history')
                     ->with('message',$message);
-        } else if ($transaction->status === 'COMPLETE') {
+        } else if ($transaction->status === 'SUCCESS') {
             Alert::info('Transaction is already Successful');
             return redirect()->route('user.order-history')
                     ->with('message',$message);
@@ -298,7 +316,7 @@ class SslCommerzPaymentController extends Controller
             Alert::error('Transaction Cancelled');
             return redirect()->route('user.order-history')
                     ->with('message',$message);
-        } else if ($transaction->status === "COMPLETE") {
+        } else if ($transaction->status === "SUCCESS") {
             Alert::info('Transaction is already Successful');
             return redirect()->route('user.order-history')
                     ->with('message',$message);
@@ -325,7 +343,7 @@ class SslCommerzPaymentController extends Controller
             $transaction = Transaction::where('transaction_id', $tran_id)
                 ->select('transaction_id', 'status', 'currency', 'transaction_amount')->first();
 
-            if ($transaction->status == 'Pending') {
+            if ($transaction->status === 'PENDING') {
                 $sslc = new SslCommerzNotification();
                 $validation = $sslc->orderValidate($request->all(), $tran_id, $transaction->transaction_amount, $transaction->currency);
                 if ($validation == TRUE) {
@@ -335,7 +353,7 @@ class SslCommerzPaymentController extends Controller
                     Here you can also sent sms or email for successful transaction to customer
                     */
                     Transaction::where('transaction_id', $tran_id)
-                        ->update(['status' => 'COMPLETE']);
+                        ->update(['status' => 'SUCCESS']);
 
                     $message =  "Transaction is successfully Completed";
                     return redirect()->route('user.order-history')
@@ -353,7 +371,7 @@ class SslCommerzPaymentController extends Controller
                         ->with('message',$message);
                 }
 
-            } else if ($transaction->status === "COMPLETE") {
+            } else if ($transaction->status === "SUCCESS") {
 
                 #That means Order status already updated. No need to udate database.
 

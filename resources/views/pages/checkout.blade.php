@@ -5,7 +5,7 @@
 <style>
     .error{
         border: 1px solid red !important;
-    } 
+    }
     .width{
         width: 30%;
     }
@@ -132,13 +132,13 @@
                                                 </tr>
                                             </thead>
                                         </table>
-                                        <a href="#" 
-                                        class="btn btn-info btn-sm pull-right" 
-                                        data-tippy-placement="top" 
-                                        data-tippy-arrow="true" 
-                                        data-tippy-inertia="true"  
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#ship-add-update" 
+                                        <a href="#"
+                                        class="btn btn-info btn-sm pull-right"
+                                        data-tippy-placement="top"
+                                        data-tippy-arrow="true"
+                                        data-tippy-inertia="true"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#ship-add-update"
                                         >
                                             Update Shipping Address
                                         </a>
@@ -246,7 +246,7 @@
                                                 </strong>
                                                 @else
                                                     {{ 'Set Shipping District First' }}
-                                                @endif    
+                                                @endif
                                                 </td>
                                             </tr>
                                         </tfoot>
@@ -258,7 +258,7 @@
                                 </h5>
                                 <div class="payment_method">
                                     <div class="panel-default">
-                                        <input id="cash-on-delivery"  
+                                        <input id="cash-on-delivery"
                                         name="payment_method" type="radio" value="1" checked />
                                         <label for="cash-on-delivery">Cash on delivery</label>
                                         {{-- @if($order_price->voucher_apply == true)
@@ -269,16 +269,16 @@
                                         </label>
                                         @endif
                                         --}}
-                                        <br>
+                                        {{-- <br>
                                         <input id="online-payment" name="payment_method" type="radio" value="3"  />
                                         <label for="online-payment">
                                             Online Payment
-                                        </label> 
+                                        </label>  --}}
                                     </div>
                                     <div class="panel-default" id="agree">
                                         <input type="checkbox" name="agree" class="mt-2" id="agree-box" checked>
                                         <label for="agree-box">
-                                            I agree with the  
+                                            I agree with the
                                             <a href="{{ route('terms-condition') }}" target="_blank">
                                                 <u style="color: blue;">terms and condition</u>
                                             </a>
@@ -306,7 +306,7 @@
                                         </button>
                                     </div>
                             </form>
-                                    
+
                                 </div>
 
                                 {{-- Coupon Remove From --}}
@@ -412,7 +412,7 @@
 
 @push('js')
 <script>
-    
+
 
     $('#submit-order-button').click(function(){
         $.ajax({
@@ -444,11 +444,11 @@
                 } else if($('#agree-box').prop("checked") == false){
                     $('#agree-box').attr("required","");
                     $('#agree-message').show();
-                    return false;  
+                    return false;
                 } else if(payment_method == 3 && $('#agree-box').prop("checked") == false){
                     $('#agree-box').attr("required","");
                     $('#agree-message').show();
-                    return false;                 
+                    return false;
                 } else{
                     $('#order-form').submit();
                 }
@@ -487,7 +487,7 @@
     //                 return false;
     //             } else if(payment_method == 3 && $('#agree-box').prop("checked") == false){
     //                 $('#agree-message').show();
-    //                 return false;                 
+    //                 return false;
     //             } else{
     //                 location.replace('submit-order',{payment_method:payment_method});
     //             }
@@ -504,7 +504,7 @@
     }
 
     $("input[name=payment_method]").on('change', function() {
-       let value = $('input[name=payment_method]:checked').val(); 
+       let value = $('input[name=payment_method]:checked').val();
        if(value == 3){
         $('#agree').show();
         $('#agree-box').attr("required","");
