@@ -269,11 +269,11 @@
                                         </label>
                                         @endif
                                         --}}
-                                        {{-- <br>
+                                        <br>
                                         <input id="online-payment" name="payment_method" type="radio" value="3"  />
                                         <label for="online-payment">
                                             Online Payment
-                                        </label>  --}}
+                                        </label>
                                     </div>
                                     <div class="panel-default" id="agree">
                                         <input type="checkbox" name="agree" class="mt-2" id="agree-box" checked>

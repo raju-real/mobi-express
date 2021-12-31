@@ -79,7 +79,7 @@
                                         <th style="text-align: left;font-weight: normal;">Date</th>
                                         <th style="text-align: left;font-weight: normal;">Status</th>
                                         <th style="text-align: left;font-weight: normal;">Total</th>
-                                        {{-- <th style="text-align: left;font-weight: normal;">Payment Method</th> --}}
+                                        <th style="text-align: left;font-weight: normal;">Payment Method</th>
                                         <th style="text-align: left;font-weight: normal;">Paid</th>
                                         <th style="text-align: left;font-weight: normal;">Due</th>
                                         <th style="text-align: left;font-weight: normal;">Order Details</th>
@@ -118,7 +118,7 @@
                                         <td style="text-align: left;min-width: fit-content;font-weight: normal;">
                                             {{ $order->order_price }} BDT
                                         </td>
-                                        {{-- <td style="text-align: left;min-width: fit-content;font-weight: normal;">
+                                        <td style="text-align: left;min-width: fit-content;font-weight: normal;">
                                             @if($order->payment_status == 0)
                                                 <a href="{{ route('pay-here',['invoice'=>$order->invoice]) }}" style="color: blue;">Pay Now</a>
                                             @elseif($order->payment_status == 1)
@@ -141,7 +141,7 @@
                                                 <a class="pay" href="{{ route('pay-here',['invoice'=>$order->invoice]) }}">Pay Now</a>
                                                 @endif
                                             @endif
-                                        </td> --}}
+                                        </td>
                                         <td style="text-align: left;min-width: fit-content;font-weight: normal;">{{ $order->paid_amount }} BDT</td>
                                         <td style="text-align: left;min-width: fit-content;font-weight: normal;">{{ $order->due_amount }} BDT</td>
                                         <td style="text-align: left;font-weight: normal;">
