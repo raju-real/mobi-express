@@ -69,7 +69,7 @@ class SslCommerzPaymentController extends Controller
         if(request()->get('payment_type') == 2){
             $min = Order::where('invoice',request()->get('invoice'))->first()->partial_payment;
             if(request()->get('partial_amount') < $min){
-                Toastr::error('Minimum Partial Payment '.$min);
+                Toastr::error('Minimum Partial Payment 50% ');
                 return redirect()->back();
             }
         }

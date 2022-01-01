@@ -19,11 +19,11 @@
     .card {
         background-color: white;
         border: none;
-        box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.2), 
-        0px 1px 1px 2px rgba(0, 0, 0, 0.14), 
+        box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 2px rgba(0, 0, 0, 0.14),
         0px 2px 1px -1px rgba(0, 0, 0, 0.12);
-    }    
-        
+    }
+
     .card-body {
         font-weight: 300px;
     }
@@ -31,8 +31,8 @@
         border: 1.5px solid white;
         border-radius: 10px;
         padding: 2px 10px;
-        box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.2), 
-        0px 1px 1px 2px rgba(0, 0, 0, 0.14), 
+        box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 2px rgba(0, 0, 0, 0.14),
         0px 2px 1px -1px rgba(0, 0, 0, 0.12);
     }
 </style>
@@ -94,30 +94,37 @@
                                     <div class="card-body">
                                         @if($order->payment_method == 1)
                                             <p>
-                                                Payment Method : 
+                                                Payment Method :
                                                 <span class="cash">
                                                     {{ 'Cash On Delivery' }}
                                                 </span>
                                             </p>
-                                        @elseif($order->payment_method == 2)    
+                                        @elseif($order->payment_method == 2)
                                             {{ 'Voucher Payment' }}
                                         @elseif($order->payment_method == 3)
                                             {{-- <p>
-                                                Payment Method : 
+                                                Payment Method :
                                                 <span class="online">
                                                     {{ 'Online Payment' }}
                                                 </span>
                                             </p> --}}
                                             <p>
-                                                Payment Method: 
+                                                Payment Method:
                                                 {{ $order->online_payment->card_issuer ?? '' }} <br>
-                                                Transaction Id: 
-                                                {{ $order->online_payment->transaction_id ?? '' }} <br>
+                                                Transaction Id:
+                                                @if($order->online_payment->status === "SUCCESS")
+                                                    {{ $order->online_payment->transaction_id ?? '' }}
+                                                @endif
+                                                <br>
                                                 Amount:
-                                                    {{ $order->online_payment->transaction_amount ?? '' }} 
-                                                    {{ $order->online_payment->currency ?? '' }} <br>
+                                                @if ($order->online_payment->status === "SUCCESS")
+                                                    {{ $order->online_payment->transaction_amount ?? '' }}
+                                                    {{ $order->online_payment->currency ?? '' }}
+                                                @endif
+
+                                                    <br>
                                                 Status:
-                                                {{ $order->online_payment->status ?? '' }}    
+                                                {{ $order->online_payment->status ?? '' }}
                                             </p>
                                         @endif
                                     </div>
