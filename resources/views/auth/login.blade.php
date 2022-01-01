@@ -4,7 +4,7 @@
 	<style>
         .error{
             border: 1px solid red !important;
-        }   
+        }
     </style>
 @endpush
 
@@ -36,7 +36,7 @@
                     <div class="account_form register">
                         <h2>Register</h2>
                         <div role="alert" id="alert" style="display: none;">
-                            <strong id="alert-message"></strong> 
+                            <strong id="alert-message"></strong>
                         </div>
                         <form action="{{ route('register') }}" method="POST" id="registraion-form" onsubmit="return registrationValidate()" style="display: none;">
                             @csrf
@@ -75,15 +75,15 @@
                                 <div class="col-md-6">
                                     <p>
                                         <label id="cp_label">
-                                            Confirm Password 
+                                            Confirm Password
                                             <span style="color: red;">*</span>
                                         </label>
                                         <input type="password" name="confirm_password" id="reg_confirm_password" onkeyup="checkConfirmPassword()">
                                     </p>
                                 </div>
                             </div>
-                            
-                            
+
+
                             <div class="login_submit">
                                 <button type="submit">Register</button>
                             </div>
@@ -112,7 +112,7 @@
                             </div>
                         </div>
                         </form>
-                        
+
                     </div>
                 </div>
                 <!--register area end-->
@@ -133,7 +133,7 @@
                             <div class="login_submit">
                                 <a href="{{ route('reset-password') }}">Lost your password?</a>
                                 <label for="remember">
-                                    <input id="remember" type="checkbox">
+                                    <input id="remember" name="remember" type="checkbox" checked>
                                     Remember me
                                 </label>
                                 <button type="submit">login</button>
@@ -149,7 +149,7 @@
     </div>
 </div>
 
-<!-- customer login end -->    
+<!-- customer login end -->
 @endsection
 
 @push('js')
@@ -180,7 +180,7 @@
                     }
                 });
             }
-            
+
         }
 
         function checkOtp(){

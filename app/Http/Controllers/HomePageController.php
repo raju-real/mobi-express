@@ -93,7 +93,7 @@ class HomePageController extends Controller
             } elseif($filter == "low-to-high"){
                 $data->orderBy('unit_price','asc');
             }
-        } 
+        }
         $products = $data->paginate(30);
         if($request->ajax()){
             $output = '';
@@ -113,7 +113,7 @@ class HomePageController extends Controller
             return view('pages.vendor_products',compact('products','title','pageTitle'));
         }
 
-        
+
         //return Response($output);
     }
 
@@ -143,7 +143,7 @@ class HomePageController extends Controller
             } elseif($filter == "low-to-high"){
                 $data->orderBy('unit_price','asc');
             }
-        } 
+        }
         $products = $data->paginate(20);
         $title = 'Voucher Products';
         $pageTitle = 'Voucher Products';
@@ -162,7 +162,7 @@ class HomePageController extends Controller
             } elseif($filter == "low-to-high"){
                 $data->orderBy('unit_price','asc');
             }
-        } 
+        }
         $products = $data->paginate(20);
         $title = 'Offer Products';
         $pageTitle = 'Offer Products';
@@ -201,8 +201,8 @@ class HomePageController extends Controller
             } elseif($filter == "low-to-high"){
                 $data->orderBy('unit_price','asc');
             }
-        }    
-        $products = $data->paginate(20);    
+        }
+        $products = $data->paginate(20);
         $title = 'Best Selling Products';
         $pageTitle = 'Best Selling Products';
         return view('pages.vendor_products',compact('products','title','pageTitle'));
@@ -224,7 +224,7 @@ class HomePageController extends Controller
 
     public function categoryProducts($slug){
         $category = Category::where('slug',$slug)->first();
-        
+
         $data = Product::where('category_id',$category->id);
         $filter = request()->get('filter');
         if(isset($filter)){
@@ -233,7 +233,7 @@ class HomePageController extends Controller
             } elseif($filter == "low-to-high"){
                 $data->orderBy('unit_price','asc');
             }
-        } 
+        }
         $products = $data->paginate(20);
         $title = $category->name;
         $pageTitle = 'Category/'.$category->name;
@@ -265,7 +265,7 @@ class HomePageController extends Controller
             } elseif($filter == "low-to-high"){
                 $data->orderBy('unit_price','asc');
             }
-        } 
+        }
         if(isset($category)){
             $category = Category::where('slug',$category)->first()->id;
             $data->where('category_id',$category);
@@ -295,7 +295,7 @@ class HomePageController extends Controller
             } elseif($filter == "low-to-high"){
                 $data->orderBy('unit_price','asc');
             }
-        } 
+        }
         $products = $data->paginate(20);
         $title = $subcategory->name;
         $pageTitle = 'Subcategory/'.$subcategory->name;
@@ -314,7 +314,7 @@ class HomePageController extends Controller
             } elseif($filter == "low-to-high"){
                 $data->orderBy('unit_price','asc');
             }
-        } 
+        }
         $products = $data->paginate(20);
         $title = $brand->name;
         $pageTitle = 'Brand/'.$brand->name;
@@ -528,8 +528,8 @@ class HomePageController extends Controller
             ];
             $order_price = OrderPrice::where($identify)->first();
             $discount_amount = ($order_price->order_price * $coupon->discount)/100;
-            
-        } 
+
+        }
         $discountAmount = 0;
         if($coupon->up_to > 0){
             if($discount_amount >= $coupon->up_to){
@@ -608,7 +608,7 @@ class HomePageController extends Controller
                 //Find Shipping & Delivery Charge
                 $shipping = ShippingAddress::with('district_name')
                     ->where('user_id',Auth::id())->first();
-                $delivery_charge = 0;    
+                $delivery_charge = 0;
                 if(isset($shipping)){
                     $delivery_charge = $shipping->delivery_charge ?? 0;
                 } else{
@@ -637,7 +637,7 @@ class HomePageController extends Controller
                 //     $orderPrice = $totalPrice;
                 //     Session::forget('coupon_message');
                 // }
-                
+
                 $data = [
                     'session_id' => $session_id,
                     'user_id' => Auth::id(),
@@ -648,7 +648,7 @@ class HomePageController extends Controller
                 ];
 
                 OrderPrice::updateOrInsert($identify,$data);
-                
+
                 // Apply Coupon
                 $coupon_code = request()->get('coupon_code');
                 if(isset($coupon_code)){
@@ -724,10 +724,9 @@ class HomePageController extends Controller
             $order_info->tax = $order_price->tax;
             $order_info->total_price = $order_price->total_price;
             $order_info->payment_method = $request->payment_method;
-            //$order_info->payment_method = 1;
             $order_info->product_discount_price = $order_price->product_discount_price;
             $order_info->order_price = $order_price->order_price;
-            $order_info->partial_payment = round(($order_price->order_price * 30) / 100);
+            $order_info->partial_payment = round(($order_price->order_price * 50) / 100);
             $order_info->due_amount = $order_price->order_price;
             if($order_price->coupon_code != null){
                 $order_info->has_coupon = 'yes';
@@ -826,7 +825,7 @@ class HomePageController extends Controller
                 Alert::success("Order Placed Successfully, Pay Here");
                 return redirect()->route('pay-here',['invoice'=>$order_info->invoice]);
             }
-            
+
 
         } else {
             Session::put('current_url',route('checkout'));

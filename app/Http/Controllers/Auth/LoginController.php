@@ -32,7 +32,7 @@ class LoginController extends Controller
             return response()->json([
                 'status' => 'exists',
                 'message' => 'You Are Already Registered'
-            ]); 
+            ]);
         } else{
             $otp = MobileOtp::getOtpCode();
             $o = "Account Verification";
@@ -50,7 +50,7 @@ class LoginController extends Controller
                 'message' => 'Otp Code Sent To Your Mobile'
             ]);
         }
-        
+
     }
 
     public function checkOtp(){
@@ -88,7 +88,7 @@ class LoginController extends Controller
         $user_id = $user->id;
         $post = array('password' => $user->password, 'mobile' => $user->mobile);
         Auth::loginUsingId($user_id);
-        
+
         if (Auth::check()) {
             if (!empty(session()->get('current_url'))) {
                 return redirect(session()->get('current_url'));
@@ -101,7 +101,7 @@ class LoginController extends Controller
     public function userLogin(Request $request){
         $this->validate($request,['mobile'=>'required','password'=>'required']);
         if (Auth::guard()->attempt(['mobile' => $request->mobile,
-            'password' => $request->password,'status'=>1])) {
+            'password' => $request->password,'status'=>1],$request->remember)) {
             if (Auth::check()) {
                 if (!empty(session()->get('current_url'))) {
                     return redirect(session()->get('current_url'));
