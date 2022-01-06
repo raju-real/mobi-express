@@ -68,7 +68,7 @@ class OrderController extends Controller
         $orders = Order::where('invoice','LIKE',"%{$query}%")
             ->orWhere('mobile','LIKE',"%{$query}%")
             ->paginate($limit);
-        $title = 'Search Result'; 
+        $title = 'Search Result';
         return view('admin.orders.orders',compact('orders','title'));
 
     }
@@ -81,7 +81,7 @@ class OrderController extends Controller
         $title = 'Order List';
         $search = request()->get('search');
         if(isset($search)){
-            $invoice = request()->get('invoice'); 
+            $invoice = request()->get('invoice');
             $from_date = request()->get('from_date');
             $to_date = request()->get('to_date');
             $from  = date('Y-m-d', strtotime($from_date));
@@ -147,7 +147,7 @@ class OrderController extends Controller
             toast('Invalid Invoice Number');
             return redirect()->back();
         }
-        
+
     }
 
     public function changeOrderStatus(){
@@ -176,5 +176,11 @@ class OrderController extends Controller
         $file = PDF::loadView('admin.orders.pdf_invoice',compact('order','contact'));
          //return $file->stream('admin.orders.pdf_invoice',compact('order','contact'));
         return $file->download($invoice . '.pdf');
+    }
+
+    public function makeCashOnDelivery(){
+        Order::where('invoice',request()->get('invoice'))->update(['payment_method'=>1]);
+        //Toastr::success('Change To Cash On Delivery Successfully');
+        return redirect()->back()->with('message','Change To Cash On Delivery Successfully');
     }
 }

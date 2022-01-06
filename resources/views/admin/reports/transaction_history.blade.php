@@ -85,8 +85,8 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ $transactions->sum('transaction_amount') }} BDT</td>
-                            <td>{{ $transactions->sum('store_amount') }} BDT</td>
+                            <td>{{ $transactions->where('status','===','SUCCESS')->sum('transaction_amount') }} BDT</td>
+                            <td>{{ $transactions->where('status','===','SUCCESS')->sum('store_amount') }} BDT</td>
                         </tr>
                     </tbody>
                 </table>
@@ -134,12 +134,12 @@
                             </td>
                             <td>{{ $transaction->status }}</td>
                             <td>
-                            	<a href="" class="badge badge-info">
+                            	<a href="{{ route('admin.transaction-details',['transaction_id'=>$transaction->transaction_id]) }}" class="badge badge-info">
                             		<i class="fa fa-eye"></i>
                             	</a>
-                                <a href="" class="badge badge-info">
+                                {{-- <a href="" class="badge badge-info">
                                     Refund
-                                </a>
+                                </a> --}}
                             </td>
                         </tr>
                         @endforeach

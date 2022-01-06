@@ -97,6 +97,12 @@ class DashboardController extends Controller
         return view('admin.reports.transaction_history',compact('transactions'));
     }
 
+    public function transactionDetails(){
+        $transaction = Transaction::where('transaction_id',request()->get('transaction_id'))->firstOrFail();
+        //return $transaction;
+        return view('admin.reports.transaction_details',compact('transaction'));
+    }
+
     public function admins(){
         $data = Admin::query();
         $data->where('role_id',2);
@@ -147,7 +153,7 @@ class DashboardController extends Controller
         if(isset($request->image) && $request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time().$image->getClientOriginalName();
-            $image_resize = Image::make($image->getRealPath());              
+            $image_resize = Image::make($image->getRealPath());
             $image_resize->resize(100,100);
             $image_resize->save('images/admin/' .$imageName);
             $admin->image = 'images/admin/'.$imageName;
@@ -188,18 +194,18 @@ class DashboardController extends Controller
         if(isset($request->password)){
             $admin->password = Hash::make($request->password);
         }
-        
+
         if($file = $request->file('image')) {
             if(file_exists($admin->image) AND !empty($admin->image)){
                 unlink($admin->image);
             }
             $image = $request->file('image');
             $name = time().$image->getClientOriginalName();
-            $image_resize = Image::make($image->getRealPath());              
+            $image_resize = Image::make($image->getRealPath());
             $image_resize->resize(100,100);
             $image_resize->save('images/admin/' .$name);
             $imageName = 'images/admin/'.$name;
-            
+
         } else{
                 $imageName = $admin->image;
         }

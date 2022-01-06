@@ -18,17 +18,22 @@
         padding: 2px 10px;
     }
 </style>
-@endpush    
+@endpush
 @section('content')
 <div class="row">
 	<div class="col-xl-12">
 		<div class="ibox">
+            @if(Session::has('message'))
+                <div class="alert alert-success">
+                    <strong>{{ Session::get('message') }}</strong>
+                </div>
+            @endif
             <div class="ibox-head">
                 <div class="ibox-title">
                     {{ 'Order Details' }}
                 </div>
             </div>
-            
+
             <div class="ibox-body">
             	<div class="col-md-12 table-responsive">
             		<table class="table table-bordered table-striped" width="100%">
@@ -36,21 +41,21 @@
 						<tr>
 							<th>Payment</th>
 							<th>
-								@if($order->payment_method == 1) 
+								@if($order->payment_method == 1)
                                     <span class="cash">
                                             {{ 'Cash On Delivery' }}
                                         </span>
-                                    @elseif($order->payment_method == 3) 
+                                    @elseif($order->payment_method == 3)
                                         @if($order->payment_status == 1)
                                         <span class="online">
                                             {{ 'Online Payment' }}
                                         </span>
-                                        @elseif($order->payment_status == 2)
-                                        <span class="fail">Payment Failed</span>    
-                                        <a href="#" style="color: blue;">
-                                            Action
+                                        @elseif($order->payment_status == 2 || 3)
+                                        <span class="fail">Payment Failed</span>
+                                        <a href="{{ route('admin.make-cash-on-delivery',['invoice'=>$order->invoice]) }}" style="color: blue;">
+                                            Change To Cash On Delivery
                                         </a>
-                                        @endif                  
+                                        @endif
                                 @endif
 							</th>
 						</tr>
@@ -65,19 +70,19 @@
 						<tr>
 							<th>Action</th>
 							<th>
-								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>1]) }}" 
+								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>1]) }}"
 								class="badge badge-primary {{ ($order->order_status == 1 || $order->order_status == 2 || $order->order_status == 3 || $order->order_status == 4 || $order->order_status == 5 || $order->order_status == 6 ) ? 'btn disabled' : '' }}">
 									Process
 								</a>
-								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>2]) }}" 
+								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>2]) }}"
 									class="badge badge-info {{ ($order->order_status == 0 || $order->order_status == 2 || $order->order_status == 3 || $order->order_status == 4 || $order->order_status == 5 || $order->order_status == 6) ? 'btn disabled' : '' }}">
 									Picked
 								</a>
-								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>3]) }}" 
+								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>3]) }}"
 									class="badge badge-info {{ ($order->order_status == 0  || $order->order_status == 3 || $order->order_status == 4 || $order->order_status == 5 || $order->order_status == 6) ? 'btn disabled' : '' }}">
 									Shipped
 								</a>
-								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>4]) }}" 
+								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>4]) }}"
 									class="badge badge-success {{ ($order->order_status == 0 || $order->order_status == 1  || $order->order_status == 4 || $order->order_status == 5 || $order->order_status == 6) ? 'btn disabled' : '' }}">
 									Deliver
 								</a>
@@ -104,12 +109,12 @@
 									<span class="badge badge-success">Delivered</span>
 
 								@elseif($order->order_status == 5)
-									<span class="badge badge-danger">Cancled</span>	
+									<span class="badge badge-danger">Cancled</span>
 								@elseif($order->order_status == 6)
-									<span class="badge badge-warning">Returned</span>	
-								@else 
+									<span class="badge badge-warning">Returned</span>
+								@else
 									<span class="badge badge-secendary">Un known</span>
-								@endif	
+								@endif
 							</th>
 						</tr>
 						<tr>
@@ -208,7 +213,7 @@
                                         @if($o_p->product)
                                         	<tr>
 	                                            <td>
-	                                                <img 
+	                                                <img
 	                                                src="{{ asset($o_p->product->image) }}"
 	                                                class="img-responsive"
 	                                                style="height: 50px;width: 50px;">
@@ -222,8 +227,8 @@
 	                                            <td>
 	                                            	{{ $o_p->color_id != null ? $o_p->color->name : 'None' }}
 	                                            </td>
-	                                            
-	                                           
+
+
 	                                            <td>
 	                                                {{ $o_p->order_price }}
 	                                            </td>
@@ -240,11 +245,11 @@
 								</div>
 							</th>
 						</tr>
-						
+
 					</thead>
 				</table>
             	</div>
-               	
+
             </div>
         </div>
 	</div>

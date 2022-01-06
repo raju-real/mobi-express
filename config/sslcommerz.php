@@ -8,8 +8,8 @@ return [
     // For Live, use "https://securepay.sslcommerz.com"
     'apiDomain' => env("API_DOMAIN_URL", "https://securepay.sslcommerz.com"),
     'apiCredentials' => [
-        'store_id' => env("STORE_ID"),
-        'store_password' => env("STORE_PASSWORD"),
+        'store_id' => "mobixpresscombdlive",
+        'store_password' => "61CB0B52479B469600",
     ],
     'apiUrl' => [
         'make_payment' => "/gwprocess/v4/api.php",

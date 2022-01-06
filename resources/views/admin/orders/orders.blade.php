@@ -60,7 +60,7 @@
                     </form> --}}
                 </div>
             </div>
-            
+
             <div class="ibox-body">
                 <table class="table table-responsive text-nowrap table-striped table-bordered table-hover text-left" id="order-table" cellspacing="0" width="100%">
                     <thead>
@@ -96,21 +96,21 @@
                             <td>{{ $order->updated_at->format('D, M y') }}</td>
                             <td>{{ $order->invoice }}</td>
                             <td>
-                                @if($order->payment_method == 1) 
+                                @if($order->payment_method == 1)
                                     <span class="cash">
                                             {{ 'Cash On Delivery' }}
                                         </span>
-                                    @elseif($order->payment_method == 3) 
-                                        @if($order->payment_status == 1)
-                                        <span class="online">
-                                            {{ 'Online Payment' }}
-                                        </span>
-                                        @elseif($order->payment_status == 2)
-                                        <span class="fail">Payment Failed</span>    
-                                        <a href="#" style="color: blue;">
-                                            Action
-                                        </a>
-                                        @endif                  
+                                @elseif($order->payment_method == 3)
+                                    @if($order->payment_status == 1)
+                                    <span class="online">
+                                        {{ 'Online Payment' }}
+                                    </span>
+                                    @elseif($order->payment_status == 2)
+                                    <span class="fail">Payment Failed</span>
+                                    <a href="#" style="color: blue;">
+                                        Action
+                                    </a>
+                                    @endif
                                 @endif
                             </td>
                             <td>{{ $order->mobile }}</td>
@@ -147,7 +147,7 @@
                                                     @if($o_p->product)
                                                         <tr>
                                                             <td>
-                                                                <img 
+                                                                <img
                                                                 src="{{ asset($o_p->product->image) }}"
                                                                 class="img-responsive"
                                                                 style="height: 80px;width: 80px;">
@@ -155,7 +155,7 @@
                                                             <td>
                                                                 {{ $o_p->product->name }}
                                                             </td>
-                                                           
+
                                                             <td>
                                                                 {{ $o_p->order_price }}
                                                             </td>
@@ -201,10 +201,10 @@
             paging: false,
             searching: false,
             info: false
-           
+
         });
     })
 </script>
 
-    
+
 @endpush

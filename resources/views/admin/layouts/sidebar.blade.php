@@ -1,7 +1,7 @@
 <nav class="page-sidebar" id="sidebar" style="position: absolute;">
     <div id="sidebar-collapse">
         <div class="admin-block d-flex">
-            
+
             <div class="admin-info">
                 <div class="font-strong">
                 </div><small>
@@ -21,15 +21,15 @@
                         <span class="nav-label">
                             Orders
                             <span class="badge badge-warning" style="float: right;">
-                            {{ 
-                            App\Model\Order::where('order_status',0)->count() 
+                            {{
+                            App\Model\Order::where('order_status',0)->count()
                             }}
                         </span>
                         </span>
 
                     </a>
                 </li>
-                
+
                 {{-- <li>
                     <a href="javascript:;"><i class="sidebar-item-icon fa fa-first-order"></i>
                         <span class="nav-label">Order List</span><i class="fa fa-angle-left arrow"></i></a>
@@ -39,8 +39,8 @@
                                 <i class="fa fa-circle-o"></i>
                                 Pending Order
                                 <span class="badge badge-warning" style="float: right;">
-                                    {{ 
-                                    App\Model\Order::where('order_status',0)->count() 
+                                    {{
+                                    App\Model\Order::where('order_status',0)->count()
                                     }}
                                 </span>
                             </a>
@@ -50,8 +50,8 @@
                                 <i class="fa fa-circle-o"></i>
                                 Processing Order
                                 <span class="badge badge-info" style="float: right;">
-                                    {{ 
-                                    App\Model\Order::where('order_status',1)->count() 
+                                    {{
+                                    App\Model\Order::where('order_status',1)->count()
                                     }}
                                 </span>
                             </a>
@@ -61,8 +61,8 @@
                                 <i class="fa fa-circle-o"></i>
                                 Picked Order
                                 <span class="badge badge-primary" style="float: right;">
-                                    {{ 
-                                    App\Model\Order::where('order_status',2)->count() 
+                                    {{
+                                    App\Model\Order::where('order_status',2)->count()
                                     }}
                                 </span>
                             </a>
@@ -72,8 +72,8 @@
                                 <i class="fa fa-circle-o"></i>
                                 Shipped Order
                                 <span class="badge badge-primary" style="float: right;">
-                                    {{ 
-                                    App\Model\Order::where('order_status',3)->count() 
+                                    {{
+                                    App\Model\Order::where('order_status',3)->count()
                                     }}
                                 </span>
                             </a>
@@ -83,8 +83,8 @@
                                 <i class="fa fa-circle-o"></i>
                                 Delivered Order
                                 <span class="badge badge-success" style="float: right;">
-                                {{ 
-                                    App\Model\Order::where('order_status',4)->count() 
+                                {{
+                                    App\Model\Order::where('order_status',4)->count()
                                 }}
                                 </span>
                             </a>
@@ -94,8 +94,8 @@
                                 <i class="fa fa-circle-o"></i>
                                 Cancled Order
                                 <span class="badge badge-danger" style="float: right;">
-                                {{ 
-                                    App\Model\Order::where('order_status',5)->count() 
+                                {{
+                                    App\Model\Order::where('order_status',5)->count()
                                 }}
                                 </span>
                             </a>
@@ -105,32 +105,32 @@
                                 <i class="fa fa-circle-o"></i>
                                 Returned Order
                                 <span class="badge badge-warning" style="float: right;">
-                                {{ 
-                                    App\Model\Order::where('order_status',6)->count() 
+                                {{
+                                    App\Model\Order::where('order_status',6)->count()
                                 }}
                                 </span>
                             </a>
                         </li>
-                        
+
                     </ul>
                 </li> --}}
                 <li>
                     <a href="javascript:;"><i class="sidebar-item-icon fa fa-bar-chart"></i>
                         <span class="nav-label">Reports</span><i class="fa fa-angle-left arrow"></i></a>
                     <ul class="nav-2-level collapse">
-                        <li>
-                            <a href="{{ route('admin.pending-orders') }}">
+                        {{-- <li>
+                            <a href="{{ route('admin.delivered-orders') }}">
                                 <i class="fa fa-circle-o"></i>
                                 Sales Report
                             </a>
-                        </li>
+                        </li> --}}
                         <li>
                             <a href="{{ route('admin.transaction-history') }}">
                                 <i class="fa fa-circle-o"></i>
                                 Transaction Report
                             </a>
                         </li>
-                        
+
                     </ul>
                 </li>
                 <li>
@@ -229,7 +229,7 @@
                         <span class="nav-label">Voucher Product</span>
                     </a>
                 </li>
-                
+
                 <li>
                     <a href="javascript:;"><i class="sidebar-item-icon fa fa-gift"></i>
                         <span class="nav-label">Coupon</span><i class="fa fa-angle-left arrow"></i></a>
@@ -246,7 +246,7 @@
                                 Coupon Groups
                             </a>
                         </li>
-                        
+
                     </ul>
                 </li>
                 <li>
@@ -269,7 +269,7 @@
                         </span>
                     </a>
                 </li>
-                
+
                 <li>
                     <a href="javascript:;"><i class="sidebar-item-icon fa fa-globe"></i>
                         <span class="nav-label">Website Basic</span><i class="fa fa-angle-left arrow"></i></a>
@@ -301,8 +301,8 @@
                         <span class="nav-label">Districts</span>
                     </a>
                 </li>
-                
-                
+
+
             </ul>
         @endif
 
@@ -321,8 +321,8 @@
                             <span class="nav-label">
                                 Orders
                                 <span class="badge badge-warning" style="float: right;">
-                                {{ 
-                                App\Model\Order::where('order_status',0)->count() 
+                                {{
+                                App\Model\Order::where('order_status',0)->count()
                                 }}
                             </span>
                             </span>
@@ -330,7 +330,7 @@
                         </a>
                     </li>
                 @endif
-                
+
                 @if(Auth()->user()->report_management == 1)
                     <li>
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-bar-chart"></i>
@@ -348,7 +348,7 @@
                                     Transaction Report
                                 </a>
                             </li>
-                            
+
                         </ul>
                     </li>
                 @endif
@@ -406,7 +406,7 @@
                         </ul>
                     </li>
                 @endif
-                
+
                 @if(Auth()->user()->product_binding_management == 1)
                 <li>
                     <a href="javascript:;"><i class="sidebar-item-icon fa fa-plus-circle"></i>
@@ -434,7 +434,7 @@
                     </ul>
                 </li>
                 @endif
-                
+
                 @if(Auth::user()->promotion_management == 1)
                 <li>
                     <a href="{{ route('admin.promotion.index') }}"><i class="sidebar-item-icon fa fa-bullhorn"></i>
@@ -476,7 +476,7 @@
                                 Coupon Groups
                             </a>
                         </li>
-                        
+
                     </ul>
                 </li>
                 @endif
@@ -493,7 +493,7 @@
                     </a>
                 </li>
                 @endif
-                
+
                 @if(Auth::user()->web_basic_management == 1)
                 <li>
                     <a href="javascript:;"><i class="sidebar-item-icon fa fa-globe"></i>
@@ -529,7 +529,7 @@
                     </a>
                 </li>
                 @endif
-                
+
             </ul>
         @endif
     </div>

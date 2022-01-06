@@ -15,8 +15,8 @@ return [
     |
     */
 
+    'default' => env('DB_CONNECTION', ''),
     //'default' => env('DB_CONNECTION', 'e-grocery'),
-    'default' => env('DB_CONNECTION', 'e-grocery'),
 
     /*
     |--------------------------------------------------------------------------
@@ -64,19 +64,27 @@ return [
             ]) : [],
         ],
 
-        'e-grocery' => [
+        'local' => array(
             'driver'    => 'mysql',
             'host'      => '127.0.0.1',
-            'port'      => '3306',
-            'database'  => 'e-grocery',
+            'database'  => 'mobi-xpress',
             'username'  => 'root',
             'password'  => 'Raju@7258',
-            'charset'   => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
-            'strict'    => false,
-            'engine'    => null,
-        ],
+        ),
+
+        'mobi_xpress' => array(
+            'driver'    => 'mysql',
+            'host'      => '127.0.0.1',
+            'database'  => 'mobixp_database',
+            'username'  => 'mobixp_user',
+            'password'  => 'Raju@7258',
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+        ),
 
         'pgsql' => [
             'driver' => 'pgsql',

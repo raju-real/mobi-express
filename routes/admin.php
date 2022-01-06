@@ -23,7 +23,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::resource('product', 'ProductController')->middleware('product');
     Route::delete('remove-image/{id}','ProductController@removeImage')
         ->middleware('product');
-    // Offer    
+    // Offer
     Route::resource('offer','OfferController')->middleware('offer');
 
     // Website Basic
@@ -39,45 +39,45 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::put('update-contact','AboutContactController@updateContactUs')
         ->name('update-contact')->middleware('basic');
 
-    // Voucher Part    
+    // Voucher Part
     Route::resource('voucher-product','VoucherProductController')
         ->middleware('voucher');
-    
+
     // Coupon Part
     Route::resource('coupon','CouponController')->middleware('coupon');
     Route::resource('coupon-group','CouponGroupController')->middleware('coupon');
     Route::post('add-group-user','CouponGroupController@addGroupUser')
         ->name('add-group-user')->middleware('coupon');
-    Route::get('get-coupons','CouponGroupController@getCoupons')    
+    Route::get('get-coupons','CouponGroupController@getCoupons')
         ->name('get-coupons')->middleware('coupon');
     Route::delete('delete-group-user/{id}','CouponGroupController@deleteGroupUser')
         ->name('delete-group-user')->middleware('coupon');
 
-    // Promotion Part    
+    // Promotion Part
     Route::resource('promotion','PromotionController')->middleware('promotion');
     Route::get('promotion/products/{slug}','PromotionController@promotionProducts')
         ->name('promotion-products')->middleware('promotion');
     Route::get('promotion/product/create/{slug}','PromotionController@createPromotionProduct')
         ->name('promotion-product.create')->middleware('promotion');
     Route::post('promotion-product','PromotionController@storePromotionProduct')
-        ->name('promotion-product.store')->middleware('promotion');    
+        ->name('promotion-product.store')->middleware('promotion');
     Route::get('promotion/product/edit/{id}','PromotionController@editPromotionProduct')
         ->name('promotion-product.edit')->middleware('promotion');
     Route::put('promotion/product/update/{id}','PromotionController@promotionProductUpdate')
-        ->name('promotion-product.update')->middleware('promotion');    
+        ->name('promotion-product.update')->middleware('promotion');
     Route::delete('promotion/product/delete/{id}','PromotionController@promotionProductDestroy')
-        ->name('promotion-product.delete')->middleware('promotion');  
+        ->name('promotion-product.delete')->middleware('promotion');
     Route::get('promotion/product/change-status','PromotionController@changePromotionProductStatus')
     ->name('promotion-product.change-status')->middleware('promotion');
     Route::get('promotion/product/update-status','PromotionController@updatePromotionProductStatus')
         ->name('promotion-product.update-status')->middleware('promotion');
 
-    // Slider  
-    Route::resource('slider','SliderController');  
+    // Slider
+    Route::resource('slider','SliderController');
     // Product Binding Part
     Route::resource('featured-products','FeaturedProductController')
-        ->middleware('binding');  
-    Route::resource('new-arrivals','NewArrivalsController')->middleware('binding');  
+        ->middleware('binding');
+    Route::resource('new-arrivals','NewArrivalsController')->middleware('binding');
     Route::resource('front-category','FrontCategoryController')->middleware('binding');
     Route::get('front-category-products','FrontCategoryController@products')
         ->name('front-category-products')->middleware('binding');
@@ -86,8 +86,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::post('add-product-front-cat','FrontCategoryController@addProduct')
         ->name('add-product-front-cat')->middleware('binding');
     Route::get('edit-product-front-cat/{id}','FrontCategoryController@editProduct')
-        ->name('edit-product-front-cat')->middleware('binding'); 
-    Route::put('update-product-front-cat/{id}','FrontCategoryController@updateProduct')->name('update-product-front-cat')->middleware('binding'); 
+        ->name('edit-product-front-cat')->middleware('binding');
+    Route::put('update-product-front-cat/{id}','FrontCategoryController@updateProduct')->name('update-product-front-cat')->middleware('binding');
     Route::delete('delete-product-front-cat/{id}','FrontCategoryController@deleteProduct')->name('delete-product-front-cat')->middleware('binding');
 
     // User Part
@@ -96,7 +96,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('user','DashboardController@userDetails')
         ->name('user.show')->middleware('user');
     Route::get('change-user-status','DashboardController@changeUserStatus')
-        ->name('change-user-status')->middleware('user');    
+        ->name('change-user-status')->middleware('user');
 
     // Admin Part
     Route::get('admins','DashboardController@admins')
@@ -113,7 +113,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         ->name('change-admin-status')->middleware('author');
     Route::get('admins/show','DashboardController@shwoAdmin')
         ->name('admin.show')->middleware('author');
-    
+
 
     // order section
     Route::get('orders/pending','OrderController@pendingOrders')
@@ -123,20 +123,20 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     Route::get('orders/picked','OrderController@pickedOrders')
         ->name('picked-orders')->middleware('order');
     Route::get('orders/shipped','OrderController@shippedOrders')
-        ->name('shipped-orders')->middleware('order');        
+        ->name('shipped-orders')->middleware('order');
     Route::get('orders/delivered','OrderController@deliveredOrders')
         ->name('delivered-orders')->middleware('order');
     Route::get('orders/delivered','OrderController@deliveredOrders')
-        ->name('delivered-orders')->middleware('order');    
+        ->name('delivered-orders')->middleware('order');
     Route::get('orders/cancled','OrderController@cancledOrders')
         ->name('cancled-orders')->middleware('order');
     Route::get('orders/returned','OrderController@returnedOrders')
-        ->name('returned-orders')->middleware('order');    
+        ->name('returned-orders')->middleware('order');
     Route::get('search','OrderController@searchOrder')
-        ->name('search-order')->middleware('order');                     
+        ->name('search-order')->middleware('order');
     Route::get('order','OrderController@orderDetails')
-        ->name('order.show')->middleware('order');  
-    Route::get('change-status','OrderController@changeOrderStatus')         
+        ->name('order.show')->middleware('order');
+    Route::get('change-status','OrderController@changeOrderStatus')
         ->name('change-status')->middleware('order');
     //Route::get('invoice','OrderController@invoice')->name('invoice');
     Route::get('invoice','OrderController@downloadInvoice')
@@ -144,10 +144,14 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
     //Commonly Control
     Route::get('orders','OrderController@orders')
         ->name('orders')->middleware('order');
+    Route::get('make-cash-on-delivery','OrderController@makeCashOnDelivery')
+        ->name('make-cash-on-delivery');
 
     // Report Section
     Route::get('transaction-history','DashboardController@transactionHistory')
         ->name('transaction-history')->middleware('report');
+        Route::get('transaction-details','DashboardController@transactionDetails')
+        ->name('transaction-details')->middleware('report');
 });
 
 
@@ -157,7 +161,7 @@ Route::post('admin-login',function(Request $request){
         return redirect()->intended(route('admin.dashboard'));
 
     } else {
-        
+
         return redirect()->back()->withInput($request->only('email', 'remember'))->with('message','Email & Password Mismatch');
     }
 })->name('admin-login');
