@@ -1,3 +1,4 @@
+@if(sizeof($offers) > 0)
 <div class="widget_list widget_products">
     <h3>Special Offer
         <a href="{{ route('offer-products') }}" class="btn btn-warning btn-sm" style="float: right;">View All</a>
@@ -25,7 +26,7 @@
                 <div class="product_content">
                     <div class="product_content_inner">
                         <h4 class="product_name">
-                            <a href="{{ route('product-details',$offer->product->slug) }}">
+                            <a href="{{ route('product-details',$offer->product->slug ?? "") }}">
                                 {{ $offer->product->name }}
                             </a>
                         </h4>
@@ -60,3 +61,4 @@
         @endforeach
     </div>
 </div>
+@endif

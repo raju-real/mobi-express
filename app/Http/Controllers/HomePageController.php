@@ -30,6 +30,7 @@ use App\Model\VoucherProduct;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
@@ -39,28 +40,43 @@ class HomePageController extends Controller
 {
      public function index(){
         // Promotions
-        $promotions = Promotion::orderBy('serial','asc')->where('status',1)
-        ->get();
-        $categories = Category::OrderBy('serial','asc')->take(5)->get();
-        $offers = SpecialOffer::with('product')
-            ->where('start_date','<=',Carbon::today())
-            ->where('end_date','>=',Carbon::today())
-            ->where('status',1)->get();
+        $promotions = Cache::remember('home',60+60+24,function(){
+            return Promotion::orderBy('serial','asc')->where('status',1)
+            ->get();
+        });
+
+        $categories = Cache::remember('home',60+60+24,function(){
+            return Category::OrderBy('serial','asc')->take(5)->get();
+        });
+
+        $offers = SpecialOffer::with(['product'=>function($query){
+            $query->published();
+        }])
+        ->where('start_date','<=',Carbon::today())
+        ->where('end_date','>=',Carbon::today())
+        ->where('status',1)->get();
             //return $offers;
         // Featured Product
-        $featuredProducts = FeaturedProduct::with(['product'=>function($query){
-            $query->published();
-        }])->orderBy('serial','asc')->take(20)->get();
+        $featuredProducts = Cache::remember('home',60+60+24,function(){
+            return FeaturedProduct::with(['product'=>function($query){
+                $query->published();
+            }])->orderBy('serial','asc')->take(20)->get();
+        });
         // Best Selling Product
-        $orderProducts = OrderProduct::latest()->take(20)
+
+        $bestSellingProducts = Cache::remember('home',60+60+60,function(){
+            $orderProducts = OrderProduct::latest()->take(20)
             ->get()->unique('product_id');
-        $bestSellingProducts = Product::whereIn('id',$orderProducts->pluck('product_id'))
+            return Product::whereIn('id',$orderProducts->pluck('product_id'))
             ->published()->get();
+        });
         // New Arrivals
-        $newArrivals = NewArrivals::with(['product'=>function($query){
+        $newArrivals = Cache::remember('home',60+60+24,function(){
+            return NewArrivals::with(['product'=>function($query){
                 $query->published();
             }])
             ->orderBy('serial','asc')->take(20)->get();
+        });
         // Popular Product
         $popularProducts = Review::with(['product'=>function($query){
                 $query->published();
@@ -70,7 +86,9 @@ class HomePageController extends Controller
             ->take(5)->get()->unique('product_id');
         $frontCategories = FrontCategory::with('category')
             ->inRandomOrder()->take(3)->get();
-        $products = Product::published()->take(20)->get();
+        $products = Cache::remember('home',60+60+24,function(){
+            return Product::published()->take(20)->get();
+        });
         return view('welcome',compact('featuredProducts','bestSellingProducts','categories','offers','popularProducts','frontCategories','newArrivals','promotions','products'));
     }
 
