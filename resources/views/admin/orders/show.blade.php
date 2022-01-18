@@ -45,17 +45,17 @@
                                     <span class="cash">
                                             {{ 'Cash On Delivery' }}
                                         </span>
-                                    @elseif($order->payment_method == 3)
-                                        @if($order->payment_status == 1)
-                                        <span class="online">
-                                            {{ 'Online Payment' }}
-                                        </span>
-                                        @elseif($order->payment_status == 2 || 3)
-                                        <span class="fail">Payment Failed</span>
-                                        <a href="{{ route('admin.make-cash-on-delivery',['invoice'=>$order->invoice]) }}" style="color: blue;">
-                                            Change To Cash On Delivery
-                                        </a>
-                                        @endif
+                                @elseif($order->payment_method == 3)
+                                    @if($order->payment_status == 1)
+                                    <span class="online">
+                                        {{ 'Online Payment' }}
+                                    </span>
+                                    @elseif($order->payment_status == 2 || 3)
+                                    <span class="fail">Payment Failed</span>
+                                    <a href="{{ route('admin.make-cash-on-delivery',['invoice'=>$order->invoice]) }}" style="color: blue;">
+                                        Change To Cash On Delivery
+                                    </a>
+                                    @endif
                                 @endif
 							</th>
 						</tr>
@@ -78,10 +78,42 @@
 									class="badge badge-info {{ ($order->order_status == 0 || $order->order_status == 2 || $order->order_status == 3 || $order->order_status == 4 || $order->order_status == 5 || $order->order_status == 6) ? 'btn disabled' : '' }}">
 									Picked
 								</a>
-								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>3]) }}"
+								{{-- <a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>3]) }}"
 									class="badge badge-info {{ ($order->order_status == 0  || $order->order_status == 3 || $order->order_status == 4 || $order->order_status == 5 || $order->order_status == 6) ? 'btn disabled' : '' }}">
 									Shipped
-								</a>
+								</a> --}}
+                                <!-- Button trigger modal -->
+                                <a href="javascript:void(0)"
+                                class="badge badge-info {{ ($order->order_status == 0  || $order->order_status == 3 || $order->order_status == 4 || $order->order_status == 5 || $order->order_status == 6) ? 'btn disabled' : '' }}" data-toggle="modal" data-target="#model{{ $order->invoice }}">
+                                    Shipped
+                                </a>
+
+                                <!-- Modal -->
+                                <div class="modal fade modal-md" id="model{{ $order->invoice }}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Shipped Order</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{ route('admin.change-status') }}" id="shipped-order-form" method="GET">
+                                                    <input type="hidden" name="invoice" value="{{ $order->invoice }}">
+                                                    <input type="hidden" name="order_status" value="3">
+                                                    <div class="form-group">
+                                                        <label for="message">Message</label>
+                                                        <textarea class="form-control" name="message" id="message" cols="30" rows="10"></textarea>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary pointer" onclick="document.getElementById('shipped-order-form').submit()">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 								<a href="{{ route('admin.change-status',['invoice'=>$order->invoice,'order_status'=>4]) }}"
 									class="badge badge-success {{ ($order->order_status == 0 || $order->order_status == 1  || $order->order_status == 4 || $order->order_status == 5 || $order->order_status == 6) ? 'btn disabled' : '' }}">
 									Deliver

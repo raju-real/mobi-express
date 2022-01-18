@@ -30,7 +30,7 @@
                           <input type="text" name="email" class="form-control">
                         </div>
                       </div>
-                      
+
                       <div class="col-md-2">
                         <div class="form-group">
                           <label for="status">Status</label>
@@ -58,14 +58,14 @@
                 <div class="ibox-title">
                     User List
                 </div>
-                {{-- <div class="ibox-title text-right">
-                	<a href="{{ route('admin.product.create') }}" class="badge badge-primary">
-                		<i class="fa fa-plus-circle"></i>
-                	Add New
+                <div class="ibox-title text-right">
+                	<a href="{{ route('admin.users.index',['download'=>'Yes']) }}" class="badge badge-primary">
+                		<i class="fa fa-download"></i>
+                	Export
                 </a>
-                </div> --}}
+                </div>
             </div>
-            
+
             <div class="ibox-body">
                 <div class="col-md-12 table-responsive">
                     <table id="user-table" class="table table-bordered table-striped table-md">
@@ -90,7 +90,7 @@
                                 <img src="{{ asset($user->image) }}" class="img-responsive img-circle" alt="Responsive image" style="height: 50px;width:50px;">
                               @else
                                 <img src="{{ asset('assets/common/images/avator.png') }}" class="img-responsive img-circle" alt="Responsive image" style="height: 50px;width:50px;">
-                              @endif    
+                              @endif
                             </td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->mobile }}</td>
@@ -99,9 +99,9 @@
                             <td>
                                 @if($user->status == 1)
                                     <span class="badge badge-primary">Active</span>
-                                @elseif($user->status == 0)    
+                                @elseif($user->status == 0)
                                     <span class="badge badge-danger">Blocked</span>
-                                @endif    
+                                @endif
                             </td>
                             <td>
                               <a href="{{ route('admin.user.show',['mobile'=>$user->mobile]) }}" class="badge badge-info"><i class="fa fa-eye"></i></a>
@@ -133,10 +133,10 @@
 <script type="text/javascript">
     $(function() {
         $("#user-table").DataTable({
-            "responsive": true, 
-            "lengthChange": true, 
+            "responsive": true,
+            "lengthChange": true,
             "autoWidth": true,
-            "searching":false    
+            "searching":false
         });
     })
 
@@ -161,5 +161,5 @@
     }
 </script>
 
-    
+
 @endpush

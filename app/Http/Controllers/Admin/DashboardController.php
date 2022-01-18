@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use App\Model\User;
 use App\Model\Admin;
 use App\Model\Order;
-use App\Model\SslCommerzTransaction as Transaction;
-use App\Model\User;
-use Brian2694\Toastr\Facades\Toastr;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
+use App\Model\SslCommerzTransaction as Transaction;
 
 class DashboardController extends Controller
 {
@@ -43,6 +44,31 @@ class DashboardController extends Controller
             $data->where('status',$status);
         }
         $users = $data->latest()->get();
+        $download = request()->get('download');
+        if(isset($download) AND ($download === "Yes")){
+            $headers = array(
+                "Content-type" => "text/csv",
+                "Content-Disposition" => "attachment; filename=users.csv",
+                "Pragma" => "no-cache",
+                "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+                "Expires" => "0"
+            );
+
+            $users = User::where('status',1)->latest()->get();
+            $columns = array('Name', 'Mobile', 'Email', 'Join Date');
+
+            $callback = function() use ($users, $columns)
+            {
+                $file = fopen('php://output', 'w');
+                fputcsv($file, $columns);
+
+                foreach($users as $user) {
+                    fputcsv($file, array($user->name, $user->mobile, $user->email, $user->created_at->format('d-m-Y')));
+                }
+                fclose($file);
+            };
+            return Response::stream($callback, 200, $headers);
+        }
         return view('admin.user.index',compact('users'));
     }
 

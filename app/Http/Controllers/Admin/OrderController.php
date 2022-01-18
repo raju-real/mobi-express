@@ -151,10 +151,18 @@ class OrderController extends Controller
     }
 
     public function changeOrderStatus(){
+        //return request()->all();
         $invoice = request()->get('invoice');
         $order_status = request()->get('order_status');
+        $message = request()->get('message');
+        if(isset($message) AND ($order_status == 3)){
+            $order = Order::where('invoice',$invoice)->first();
+            if($order->mobile != null){
+                Order::sendMessage($order->mobile,$message);
+            }
+        }
         Order::where('invoice',$invoice)->update(['order_status'=>$order_status]);
-        return redirect()->route('admin.order.show',['invoice'=>$invoice]);
+        return redirect()->route('admin.order.show',['invoice'=>$invoice])->with('message','Order Status Changed Successfully');
     }
 
     public function invoice(){

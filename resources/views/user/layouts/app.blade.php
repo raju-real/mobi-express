@@ -382,7 +382,7 @@
         <div class="footer_top">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="widgets_container widget_menu">
                             <h3>Policies</h3>
                             <div class="footer_menu">
@@ -411,7 +411,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="widgets_container widget_menu">
                             <h3>About Us</h3>
                             <div class="footer_menu">
@@ -435,7 +435,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="widgets_container widget_menu">
                             <h3>My Account</h3>
                             <div class="footer_menu">
@@ -459,26 +459,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="widgets_container widget_menu">
-                            <h3>Social Media</h3>
-                            <div class="footer_social">
-                                <ul>
-                                    <li>
-                                        <a class="facebook" href="https://www.facebook.com/mblxpress" target="_blank">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="" href="https://www.facebook.com/groups/217295359843719/" target="_blank">
-                                            <img src="{{ asset('assets/user/images/fb-group.jpeg') }}" alt="">
-                                        </a>
-                                    </li>
-                                    <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
-                                    <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a>
-                                </ul>
-                            </div>
+                            <img class="img-responsive" src="{{ asset('assets/user/images/sslcommerz/SSLCOMMERZ Pay With logo All Size_Aug 21-03-Dec-14-2021-07-16-27-23-AM.png') }}" alt="">
                         </div>
                     </div>
                 </div>
@@ -494,8 +477,22 @@
                     </div>
 
                     <div class="col-lg-10 col-md-10">
-                        <div class="footer_payment text-right">
-                            <img src="{{ asset('assets/user/images/sslcommerz/SSLCOMMERZ Pay With logo All Size_Aug 21-05-Dec-14-2021-07-16-27-46-AM.png') }}" alt="">
+                        <div class="footer_payment text-right footer_social">
+                            <ul>
+                                <li>
+                                    <a class="facebook" href="https://www.facebook.com/mblxpress" target="_blank">
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="" href="https://www.facebook.com/groups/217295359843719/" target="_blank">
+                                        <img src="{{ asset('assets/user/images/fb-group.jpeg') }}" alt="">
+                                    </a>
+                                </li>
+                                <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+                                <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a>
+                            </ul>
                         </div>
                     </div>
                 </div>
