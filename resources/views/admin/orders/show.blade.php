@@ -99,7 +99,8 @@
                                                     </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="{{ route('admin.change-status') }}" id="shipped-order-form" method="GET">
+                                                <form action="{{ route('admin.change-status') }}" id="shipped-order-form" method="POST">
+                                                    @csrf
                                                     <input type="hidden" name="invoice" value="{{ $order->invoice }}">
                                                     <input type="hidden" name="order_status" value="3">
                                                     <div class="form-group">

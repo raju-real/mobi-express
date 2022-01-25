@@ -134,9 +134,9 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'mi
         ->name('returned-orders')->middleware('order');
     Route::get('search','OrderController@searchOrder')
         ->name('search-order')->middleware('order');
-    Route::get('order','OrderController@orderDetails')
+    Route::any('order','OrderController@orderDetails')
         ->name('order.show')->middleware('order');
-    Route::get('change-status','OrderController@changeOrderStatus')
+    Route::any('change-status','OrderController@changeOrderStatus')
         ->name('change-status')->middleware('order');
     //Route::get('invoice','OrderController@invoice')->name('invoice');
     Route::get('invoice','OrderController@downloadInvoice')

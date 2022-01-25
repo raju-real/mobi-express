@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width initial-scale=1.0">
     <title>@yield('title')</title>
+    <link rel="shortcut icon" type="image/x-icon"
+        href="{{ asset('assets/common/images/fav1.png') }}">
     <!-- GLOBAL MAINLY STYLES-->
     <link href="{{ asset('assets/admin/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet" />
     <link href="{{ asset('assets/admin/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" />
@@ -73,12 +75,12 @@
                     <li>
                         <a class="nav-link sidebar-toggler js-sidebar-toggler"><i class="ti-menu"></i></a>
                     </li>
-                    
+
                 </ul>
                 <!-- END TOP-LEFT TOOLBAR-->
                 <!-- START TOP-RIGHT TOOLBAR-->
                 <ul class="nav navbar-toolbar">
-                    
+
                     <li class="dropdown dropdown-user">
                         <a class="nav-link dropdown-toggle link" data-toggle="dropdown">
                             <img src="{{ asset('assets/admin/img/admin-avatar.png') }}" />
@@ -101,7 +103,7 @@
         <!-- START SIDEBAR-->
 
         @include('admin.layouts.sidebar')
-        
+
         <!-- END SIDEBAR-->
         <div class="content-wrapper">
             <div class="page-heading">
@@ -110,7 +112,7 @@
             </div>
             <!-- START PAGE CONTENT-->
             <div class="page-content fade-in-up" style="padding-top: 0px;">
-                
+
                 @yield('content')
 
             </div>
@@ -121,7 +123,7 @@
             </footer>
         </div>
     </div>
-    
+
     <!-- BEGIN PAGA BACKDROPS-->
     <div class="sidenav-backdrop backdrop"></div>
     <div class="preloader-backdrop">
@@ -151,7 +153,7 @@
     <!-- Select 2 -->
     <script src="{{ asset('assets/admin/vendors/select2/dist/js/select2.full.min.js') }}" type="text/javascript"></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    
+
     {{-- <script src="{{ asset('assets/admin/js/scripts/dashboard_1_demo.js') }}" type="text/javascript"></script> --}}
 
     {{--  Toaster  --}}

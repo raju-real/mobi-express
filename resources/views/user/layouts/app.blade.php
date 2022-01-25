@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon"
-        href="assets/img/favicon.ico">
+        href="{{ asset('assets/common/images/fav1.png') }}">
 
     <!-- Plugins CSS -->
     <link rel="stylesheet" href="{{ asset('assets/user/css/plugins.css') }}">
