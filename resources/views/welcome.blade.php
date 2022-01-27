@@ -17,9 +17,9 @@
                         <div class="slider_content slider_c_three color_white">
                             {{-- <h1 style="color: red;font-weight: bold;">{{ $promotion->name }}</h1> --}}
                             @if(sizeof($promotion->products) > 0)
-                                <a class="button" 
+                                <a class="button"
                                 href="{{ route('campaign-products',$promotion->slug) }}">Shop Now</a>
-                            @endif    
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
 
 
 <!--shipping area start-->
-<div class="shipping_area mb-10">
+<div class="shipping_area mb-10 d-none d-md-block">
     <div class="container">
         <div class="shipping_inner">
             <div class="single_shipping">
@@ -183,10 +183,10 @@
                                     </div>
                                     @endforeach
                                 </div>
-                                
+
                             </div>
                         </div>
-                        
+
                         @if(sizeof($popularProducts) > 0)
                         <div class="widget_list widget_products">
                             <h3>Popular Products</h3>
