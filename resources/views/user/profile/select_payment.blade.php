@@ -121,12 +121,12 @@
                                         Full Payment ({{ $order->order_price }} BDT)
                                     </label>
 
-                                    <br>
+                                    {{-- <br>
                                     <input id="partial_payment"  name="payment_type" type="radio" value="2" />
                                     <label for="partial_payment">
                                         Partial Payment
                                     </label>
-                                    <p id="payment_type_error" style="color: red;display: none;">Select Payment</p>
+                                    <p id="payment_type_error" style="color: red;display: none;">Select Payment</p> --}}
                                 </div>
 
                             </div>
