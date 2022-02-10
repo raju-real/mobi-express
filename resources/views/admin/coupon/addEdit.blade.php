@@ -40,13 +40,13 @@
                                         <option value="{{ $coupon->valid_for }}" selected>
                                             @if($coupon->valid_for == 1)
                                                 {{ 'All User' }}
-                                            @elseif($coupon->valid_for == 2)    
+                                            @elseif($coupon->valid_for == 2)
                                                 {{ 'New User' }}
-                                            @elseif($coupon->valid_for ==3)    
+                                            @elseif($coupon->valid_for ==3)
                                                 {{ 'Group User' }}
                                             @else
-                                                {{ 'Valid For' }}    
-                                            @endif 
+                                                {{ 'Valid For' }}
+                                            @endif
                                     </option>
                                     <option value="1">All User</option>
                                     <option value="2">New User</option>
@@ -55,13 +55,13 @@
                                     <option value="{{ old('valid_for') ?? '' }}" selected>
                                         @if(old('valid_for') == 1)
                                             {{ 'All User' }}
-                                        @elseif(old('valid_for') == 2)    
+                                        @elseif(old('valid_for') == 2)
                                             {{ 'New User' }}
-                                        @elseif(old('valid_for') ==3)    
+                                        @elseif(old('valid_for') ==3)
                                             {{ 'Group User' }}
                                         @else
-                                            {{ 'Valid For' }}    
-                                        @endif    
+                                            {{ 'Valid For' }}
+                                        @endif
                                     </option>
                                     <option value="1">All User</option>
                                     <option value="2">New User</option>
@@ -109,11 +109,11 @@
                                         <option value="{{ $coupon->discount_type }}">
                                             @if($coupon->discount_type == 1)
                                                 {{ 'Amount' }}
-                                            @elseif($coupon->discount_type == 2)    
+                                            @elseif($coupon->discount_type == 2)
                                                 {{ 'Percentage' }}
                                             @else
-                                                {{ 'Discount Type' }}    
-                                            @endif 
+                                                {{ 'Discount Type' }}
+                                            @endif
                                         </option>
                                         @if($coupon->discount_type == 2)
                                             <option value="1">Amount</option>
@@ -124,11 +124,11 @@
                                         <option value="{{ old('discount_type') ?? '' }}" selected>
                                             @if(old('discount_type') == 1)
                                                 {{ 'Amount' }}
-                                            @elseif(old('discount_type') == 2)    
+                                            @elseif(old('discount_type') == 2)
                                                 {{ 'Percentage' }}
                                             @else
-                                                {{ 'Discount Type' }}    
-                                            @endif    
+                                                {{ 'Discount Type' }}
+                                            @endif
                                         </option>
                                         <option value="1">Amount</option>
                                         <option value="2">Percentage</option>
@@ -175,7 +175,7 @@
                                     Up To
                                 </label>
                                 <input type="number" name="up_to" class="form-control" id="up_to" value="{{ isset($coupon) ? $coupon->up_to : old('up_to')  }}">
-                                
+
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -221,11 +221,11 @@
                                     <option value="{{ old('status') ?? '' }}" selected>
                                         @if(old('status') == 1)
                                             {{ 'Active' }}
-                                        @elseif(old('status') == 2)    
+                                        @elseif(old('status') == 2)
                                             {{ 'In Active' }}
                                         @else
-                                            {{ 'Select Status' }}    
-                                        @endif    
+                                            {{ 'Select Status' }}
+                                        @endif
                                     </option>
                                     <option value="1">Active</option>
                                     <option value="0">In Active</option>

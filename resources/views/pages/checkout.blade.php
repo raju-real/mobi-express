@@ -276,7 +276,7 @@
                                         </label>
                                     </div>
                                     <div class="panel-default" id="agree">
-                                        <input type="checkbox" name="agree" class="mt-2" id="agree-box" checked>
+                                        <input type="checkbox" name="agree" class="mt-2" id="agree-box" >
                                         <label for="agree-box">
                                             I agree with the
                                             <a href="{{ route('terms-condition') }}" target="_blank">
