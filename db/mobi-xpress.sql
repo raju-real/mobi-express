@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 31, 2021 at 11:54 AM
+-- Generation Time: Mar 19, 2022 at 08:09 AM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -180,7 +180,8 @@ CREATE TABLE `carts` (
 
 INSERT INTO `carts` (`id`, `session_id`, `user_id`, `product_id`, `unit_price`, `order_price`, `quantity`, `total_price`, `total_discount_price`, `color_id`, `size_id`, `created_at`, `updated_at`) VALUES
 (6, 'tm8FVgiN4V8Rw304RzBOQxcD8Z6G5bfjN3dSu3Pz', 4, 405, 380.00, 380.00, 1, 380.00, 0.00, NULL, NULL, '2021-12-16 17:51:59', '2021-12-16 17:53:44'),
-(8, 'tm8FVgiN4V8Rw304RzBOQxcD8Z6G5bfjN3dSu3Pz', 4, 71, 45.00, 45.00, 1, 45.00, 0.00, NULL, NULL, '2021-12-16 17:53:23', '2021-12-16 17:53:44');
+(8, 'tm8FVgiN4V8Rw304RzBOQxcD8Z6G5bfjN3dSu3Pz', 4, 71, 45.00, 45.00, 1, 45.00, 0.00, NULL, NULL, '2021-12-16 17:53:23', '2021-12-16 17:53:44'),
+(9, 'Ka2HMCkoLvLLtaSOeWUYk21fTqmSTwhxHjCo1vyh', 4, 71, 45.00, 45.00, 1, 45.00, 0.00, NULL, NULL, '2022-02-10 17:42:23', '2022-02-10 17:42:28');
 
 -- --------------------------------------------------------
 
@@ -205,7 +206,8 @@ CREATE TABLE `categories` (
 INSERT INTO `categories` (`id`, `name`, `slug`, `image`, `serial`, `created_at`, `updated_at`) VALUES
 (1, 'Head Phone', 'head-phone', 'images/category/1625851535giant_127653.jpeg', 3, '2021-06-11 05:55:29', '2021-10-31 08:25:29'),
 (2, 'Charger', 'charger', 'images/category/1625851526two-pin-3509490_960_720.jpg', 2, '2021-06-11 07:28:01', '2021-10-15 17:52:36'),
-(3, 'Backpad', 'backpad', 'images/category/1625851513maxresdefault.jpg', 1, '2021-06-21 07:54:54', '2021-10-31 08:25:13');
+(3, 'Backpad', 'backpad', 'images/category/1625851513maxresdefault.jpg', 1, '2021-06-21 07:54:54', '2021-10-31 08:25:13'),
+(4, 'Mobile', 'mobile', 'images/category/1642519380Top-10-Mobile-Brands-in-World-1-1.jpg', 1, '2022-01-18 15:23:00', '2022-01-18 15:23:00');
 
 -- --------------------------------------------------------
 
@@ -756,12 +758,15 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `order_number`, `invoice`, `delivery_charge`, `vat`, `tax`, `total_price`, `product_discount_price`, `order_status`, `payment_method`, `voucher_code`, `voucher_mobile`, `voucher_amount`, `has_coupon`, `coupon_code`, `coupon_discount_amount`, `total_discount_amount`, `order_price`, `partial_payment`, `payment_status`, `payment_time`, `paid_amount`, `due_amount`, `name`, `mobile`, `email`, `district_id`, `city_town`, `address`, `post_code`, `note`, `created_at`, `updated_at`) VALUES
-(1, 4, '000001', 'MX-11070188', 90.00, 0.00, 0.00, 45.00, 0.00, '1', 3, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 100.00, 10.00, 1, '2021-12-31 00:13:34', 100.00, 0.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2021-12-29 17:27:16', '2021-12-30 18:13:44'),
-(2, 4, '000002', 'MX-28790292', 90.00, 0.00, 0.00, 45.00, 0.00, '1', 3, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 21.00, 41.00, 1, '2021-12-31 00:04:53', 21.00, 0.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2021-12-29 17:57:12', '2021-12-30 18:04:57'),
-(3, 4, '000003', 'MX-40388575', 90.00, 0.00, 0.00, 1.00, 0.00, '1', 3, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 91.00, 27.00, 1, '2021-12-31 01:14:28', 91.00, 0.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2021-12-29 18:01:52', '2021-12-30 19:15:38'),
-(4, 4, '000004', 'MX-41568668', 90.00, 0.00, 0.00, 45.00, 0.00, '1', 3, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 135.00, 41.00, 1, '2021-12-31 00:09:21', 135.00, 0.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2021-12-29 18:04:15', '2021-12-30 18:09:30'),
-(5, 4, '000005', 'MX-56205055', 90.00, 0.00, 0.00, 1.00, 0.00, '0', 3, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 91.00, 27.00, 0, NULL, 0.00, 91.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2021-12-30 19:17:20', '2021-12-30 19:17:20'),
-(6, 4, '000006', 'MX-28968537', 90.00, 0.00, 0.00, 1.00, 0.00, '0', 3, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 91.00, 27.00, 0, NULL, 0.00, 91.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2021-12-30 19:19:21', '2021-12-30 19:19:21');
+(1, 4, '000001', 'MX-11070188', 90.00, 0.00, 0.00, 45.00, 0.00, '3', 3, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 100.00, 10.00, 1, '2021-12-31 00:13:34', 100.00, 0.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2021-12-29 17:27:16', '2022-01-18 16:40:33'),
+(2, 4, '000002', 'MX-28790292', 90.00, 0.00, 0.00, 45.00, 0.00, '3', 3, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 21.00, 41.00, 1, '2021-12-31 00:04:53', 21.00, 0.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2021-12-29 17:57:12', '2022-01-25 14:15:27'),
+(3, 4, '000003', 'MX-40388575', 90.00, 0.00, 0.00, 1.00, 0.00, '3', 3, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 91.00, 27.00, 1, '2021-12-31 01:14:28', 91.00, 0.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2021-12-29 18:01:52', '2022-01-25 14:17:53'),
+(4, 4, '000004', 'MX-41568668', 90.00, 0.00, 0.00, 45.00, 0.00, '3', 3, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 135.00, 41.00, 1, '2021-12-31 00:09:21', 135.00, 0.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2021-12-29 18:04:15', '2022-01-25 14:18:37'),
+(5, 4, '000005', 'MX-56205055', 90.00, 0.00, 0.00, 1.00, 0.00, '4', 1, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 91.00, 27.00, 2, NULL, 0.00, 91.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2021-12-30 19:17:20', '2022-01-06 14:09:13'),
+(6, 4, '000006', 'MX-28968537', 90.00, 0.00, 0.00, 1.00, 0.00, '4', 1, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 20.00, 10.00, 0, NULL, 0.00, 91.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2021-12-30 19:19:21', '2022-01-18 16:07:32'),
+(7, 4, '000007', 'MX-21696319', 90.00, 0.00, 0.00, 10.00, 0.00, '3', 3, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 10.00, 5.00, 1, '2022-01-01 20:39:45', 10.00, 0.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2022-01-01 14:37:43', '2022-01-25 14:31:31'),
+(8, 4, '000008', 'MX-44166545', 90.00, 0.00, 0.00, 140.00, 0.00, '4', 1, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 230.00, 115.00, 0, NULL, 0.00, 230.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2022-01-01 16:18:56', '2022-01-18 16:06:05'),
+(9, 4, '000009', 'MX-94194801', 90.00, 0.00, 0.00, 400.00, 0.00, '0', 1, NULL, NULL, 0.00, 'no', NULL, 0.00, 0.00, 490.00, 245.00, 0, NULL, 0.00, 490.00, 'Raju Real', '01889967514', 'raj6u@mail.com', '63', 'Dhaka', 'Mohammadpur, Shamoly, Dhaka', 1207, NULL, '2022-01-29 15:52:15', '2022-01-29 15:52:15');
 
 -- --------------------------------------------------------
 
@@ -784,6 +789,13 @@ CREATE TABLE `order_prices` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_prices`
+--
+
+INSERT INTO `order_prices` (`id`, `session_id`, `user_id`, `total_price`, `product_discount_price`, `order_price`, `delivery_charge`, `vat`, `tax`, `coupon_code`, `coupon_discount`, `created_at`, `updated_at`) VALUES
+(1, 'Ka2HMCkoLvLLtaSOeWUYk21fTqmSTwhxHjCo1vyh', 4, 45.00, 0.00, 135.00, 90.00, 0.00, 0.00, NULL, 0.00, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -815,7 +827,10 @@ INSERT INTO `order_products` (`id`, `user_id`, `order_id`, `product_id`, `size_i
 (3, 4, 3, 12, NULL, NULL, 1.00, 1, 1.00, '2021-12-29 18:01:52', '2021-12-29 18:01:52'),
 (4, 4, 4, 71, NULL, NULL, 45.00, 1, 45.00, '2021-12-29 18:04:15', '2021-12-29 18:04:15'),
 (5, 4, 5, 12, NULL, NULL, 1.00, 1, 1.00, '2021-12-30 19:17:20', '2021-12-30 19:17:20'),
-(6, 4, 6, 12, NULL, NULL, 1.00, 1, 1.00, '2021-12-30 19:19:21', '2021-12-30 19:19:21');
+(6, 4, 6, 12, NULL, NULL, 1.00, 1, 1.00, '2021-12-30 19:19:21', '2021-12-30 19:19:21'),
+(7, 4, 7, 12, NULL, NULL, 10.00, 1, 10.00, '2022-01-01 14:37:43', '2022-01-01 14:37:43'),
+(8, 4, 8, 92, NULL, NULL, 140.00, 1, 140.00, '2022-01-01 16:18:56', '2022-01-01 16:18:56'),
+(9, 4, 9, 401, NULL, NULL, 400.00, 1, 400.00, '2022-01-29 15:52:15', '2022-01-29 15:52:15');
 
 -- --------------------------------------------------------
 
@@ -898,7 +913,7 @@ INSERT INTO `products` (`id`, `category_id`, `brand_id`, `subcategory_id`, `prod
 (9, 1, 6, NULL, '0014', 'olympic hello cookies biscuits', 'olympic-hello-cookies-biscuits-Knt8oNwrfMmPTVRpCgqjKYPotzP4U9ha8TywAPCu', '<p>#hellocookie #olympic #biscuite #cookies</p>', NULL, NULL, 50.00, 20.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-10-17 16:58:26'),
 (10, 1, 6, NULL, '0016', 'Teer Soyabean Oil', 'teer-soyabean-oil', '<p>*** Teer soyabean oil</p>\r\n\r\n<p>*** Teer</p>', NULL, NULL, 530.00, 500.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-06-29 08:25:05'),
 (11, 1, 6, NULL, '0025', 'Ahmed mustard oil', 'ahmed-mustard-oil-MvSLmGFDBcWMVZmDODbMhydRte0UnmEvogdjXki1', '<p>#ahmed</p>\r\n\r\n<p>#mustardoil</p>', NULL, NULL, 120.00, 60.00, 1, 100, NULL, NULL, 1, 1, NULL, '2021-11-03 18:08:14'),
-(12, 1, 6, NULL, '0028', 'Fresh moshur dal', 'fresh-moshur-dal', '<p>**Moshur dal</p>\r\n\r\n<p>**Deshi moshur dal</p>', NULL, NULL, 1.00, 0.00, 1, 100, NULL, NULL, 3, 1, NULL, '2021-12-29 18:01:34'),
+(12, 1, 6, NULL, '0028', 'Fresh moshur dal', 'fresh-moshur-dal', '<p>**Moshur dal</p>\r\n\r\n<p>**Deshi moshur dal</p>', NULL, NULL, 10.00, 0.00, 1, 100, NULL, NULL, 3, 1, NULL, '2022-01-01 14:33:31'),
 (13, 1, 6, NULL, '0030', 'Boot dal (packed)', 'boot-dal-packed-zWlmGMOiLUxU4rYYi5xHwDHA4mC28usu84c7IZHC', '<p>***Boot er dal</p>', NULL, NULL, 90.00, 40.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-10-28 18:43:35'),
 (14, 1, 6, NULL, '0031', 'Mug dal (packed)', 'mug-dal-packed', '<p>***Mug dal</p>\r\n\r\n<p>*** no. 1 Mug dal</p>', NULL, NULL, 140.00, 120.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-09-26 09:26:48'),
 (15, 1, 6, NULL, '0032', 'Pran Chinigura Rice | 1 kg', 'pran-chinigura-rice-1-kg-q15a7y9un03xfayxKTsHIVJwAptIsdx0tRdGiIz8', '<p>**chinigura polaw rice</p>', NULL, NULL, 130.00, 100.00, 1, 100, NULL, NULL, 0, 1, NULL, '2021-11-07 06:26:24'),
@@ -1778,7 +1793,7 @@ INSERT INTO `products` (`id`, `category_id`, `brand_id`, `subcategory_id`, `prod
 (885, 1, 6, NULL, '1002', 'Hilsha (ইলিশ) Fish | 1 kg - 1.2 kg', 'hilsha-ilis-fish-1-kg-12-kg-JONvPMesAhip7fkI0riHcAjyqo8B173WLOxyxgv9', '<ul>\r\n	<li>পদ্মার ইলিশ মাছ।</li>\r\n	<li>সরাসরি চাঁদপুর থেকে ।&nbsp;</li>\r\n	<li>তাজা ইলিশ মাছ।&nbsp;</li>\r\n</ul>', NULL, NULL, 1050.00, 0.00, 1, 1000, NULL, NULL, 0, 1, NULL, NULL),
 (886, 1, 6, NULL, '1003', 'Hilsha (ইলিশ) Fish | 1.2 - 1.5 kg', 'hilsha-ilis-fish-12-15-kg-eOTElRhuIiFV6W8xDb6VXB2slu2m45hXF1ZnuZkt', '<ul>\r\n	<li>পদ্মার ইলিশ মাছ।</li>\r\n	<li>সরাসরি চাঁদপুর থেকে ।&nbsp;</li>\r\n	<li>তাজা ইলিশ</li>\r\n</ul>', NULL, NULL, 1350.00, 0.00, 1, 1000, NULL, NULL, 0, 1, NULL, NULL),
 (887, 1, 6, NULL, '1004', 'Hilsha (ইলিশ) Fish | 1kg - 1.2 kg', 'hilsha-ilis-fish-1kg-12-kg-vlFX59uByRjojL99tgr7WMW0VnpJVXdcGHeQCfSs', '<p>পদ্দার ইলিশ</p>', NULL, NULL, 1250.00, 0.00, 1, 100, NULL, NULL, 0, 1, NULL, NULL),
-(888, 1, 6, NULL, '1005', 'TP-Link TL-WR841N 300Mbps Wireless Router', 'tp-link-tl-wr841n-300mbps-wireless-router-vqD2zobVvRxj77FUJrVeXGgUZz26lh7vAuRF6W59', '<ul>\r\n	<li>Model: TP-Link TL-WR841N</li>\r\n	<li>Speed: 11n: Up to 300Mbps</li>\r\n	<li>Frequency: 2.4-2.4835GHz</li>\r\n	<li>Interface: 1 x WAN &amp; 4 x LAN ports</li>\r\n</ul>', NULL, NULL, 2050.00, 0.00, 1, 25, NULL, NULL, 0, 1, NULL, NULL),
+(888, 1, 6, NULL, '1005', 'TP-Link TL-WR841N 300Mbps Wireless Router', 'tp-link-tl-wr841n-300mbps-wireless-router-vqD2zobVvRxj77FUJrVeXGgUZz26lh7vAuRF6W59', '<ul>\r\n	<li>Model: TP-Link TL-WR841N</li>\r\n	<li>Speed: 11n: Up to 300Mbps</li>\r\n	<li>Frequency: 2.4-2.4835GHz</li>\r\n	<li>Interface: 1 x WAN &amp; 4 x LAN ports</li>\r\n</ul>', NULL, NULL, 2050.00, 1000.00, 1, 25, NULL, NULL, 0, 1, NULL, '2022-01-12 15:09:41'),
 (889, 1, 6, NULL, '1006', 'TP-LINK TL-WR850N Wireless Router N300', 'tp-link-tl-wr850n-wireless-router-n300-s94m51EUxx1R3XHOgopeJhlrKjQdzhTHyeEFk0JM', '<ul>\r\n	<li>TP-LINK TL-WR850N Wireless Router N300 Black -</li>\r\n	<li>Share your Network - Speed Up to 300 Mbps -</li>\r\n	<li>WPS Button -</li>\r\n	<li>Agile Configuration</li>\r\n	<li>Support - Maximum Connection - Parental Control</li>\r\n</ul>', NULL, NULL, 1760.00, 0.00, 1, 25, NULL, NULL, 0, 1, NULL, NULL),
 (890, 1, 6, NULL, '1007', 'Tp-link Archer C20 AC750 Dual Band Router', 'tp-link-archer-c20-ac750-dual-band-router-R7N6ZUqJ9feGAnKJRhoJN137jeNI9dBo9NO96zGL', '<ul>\r\n	<li>Model: Tp-link Archerc20 AC750</li>\r\n	<li>4 10/100Mbps LAN ports</li>\r\n	<li>1 10/100Mbps WAN port</li>\r\n	<li>9V/0.6A(EU), 9V/0.85A(US)</li>\r\n</ul>', NULL, NULL, 2850.00, 0.00, 1, 25, NULL, NULL, 0, 1, NULL, NULL),
 (891, 1, 6, NULL, '1008', 'TP-Link TL-WR820N 300Mbps Wireless N Router', 'tp-link-tl-wr820n-300mbps-wireless-n-router-YXlZFc1lmoXhwmy9G3sYDFjksHWS6Ttt7hA8ODmp', '<p>300Mbps Wireless N Speed TL-WR820N 300Mbps wireless transmission rate ideal for both bandwidth sensitive tasks and basic work IPTV supports IGMP Proxy/Snooping, Bridge and Tag VLAN to optimize IPTV streaming Compatible with IPv6 (Internet Protocol version 6) Guest Network provides separate access for guests while securing the host network Parental Controls manage when and how connected devices can access the internet Security protocols protect your home network with firewalls and wireless encryption Wi-Fi Ideal for Everyday Use 300Mbps Wireless N Speed TL-WR820N</p>', NULL, NULL, 1650.00, 0.00, 1, 25, NULL, NULL, 0, 1, NULL, NULL),
@@ -4242,7 +4257,8 @@ CREATE TABLE `special_offers` (
 
 INSERT INTO `special_offers` (`id`, `product_id`, `discount_price`, `start_date`, `end_date`, `status`, `created_at`, `updated_at`) VALUES
 (4, 16, 100.00, '2021-10-17 00:00:00', '2021-10-29 23:59:59', 1, '2021-10-17 17:07:46', '2021-10-28 18:38:12'),
-(5, 13, 40.00, '2021-10-29 00:00:00', '2021-10-29 23:59:59', 1, '2021-10-28 18:43:35', '2021-10-28 18:43:35');
+(5, 13, 40.00, '2021-10-29 00:00:00', '2021-10-29 23:59:59', 1, '2021-10-28 18:43:35', '2021-10-28 18:43:35'),
+(6, 888, 1000.00, '2022-01-12 00:00:00', '2022-01-13 23:59:59', 1, '2022-01-12 15:09:41', '2022-01-12 15:09:41');
 
 -- --------------------------------------------------------
 
@@ -4301,12 +4317,9 @@ CREATE TABLE `ssl_commerz_transactions` (
 --
 
 INSERT INTO `ssl_commerz_transactions` (`id`, `user_id`, `order_id`, `order_number`, `invoice`, `transaction_id`, `transaction_invoice`, `transaction_time`, `transaction_ip`, `transaction_amount`, `vat`, `store_amount`, `currency`, `currency_type`, `currency_amount`, `currency_rate`, `status`, `message`, `val_id`, `card_type`, `card_no`, `bank_tran_id`, `transaction_date`, `error`, `card_issuer`, `card_brand`, `card_sub_brand`, `card_issuer_country`, `card_issuer_country_code`, `store_id`, `verify_sign`, `verify_key`, `verify_sign_sha2`, `base_fair`, `risk_level`, `risk_title`, `name`, `mobile`, `city_town`, `post_code`, `address`, `created_at`, `updated_at`) VALUES
-(2, 4, 1, '000001', 'MX-11070188', '61cdf6ce1736b', NULL, '2021-12-31 00:13:34', '125896', 100.00, NULL, 97.50, 'BDT', 'BDT', '100.00', '1.0000', 'COMPLETE', 'Cancelled by User', '21123101340JpaSphz1hK5YyV2', 'BANKASIA-Bank Asia Internet Banking', NULL, '2112310134009yxrETuQgzg4JX', NULL, NULL, 'Bank Asia Limited', 'IB', 'Classic', 'Bangladesh', 'BD', 'mobix615553a06cc1f', '1b0b966eb1f6bdc1cbc648925e195dfb', 'amount,bank_tran_id,base_fair,card_brand,card_issuer,card_issuer_country,card_issuer_country_code,card_no,card_sub_brand,card_type,currency,currency_amount,currency_rate,currency_type,error,risk_level,risk_title,status,store_amount,store_id,tran_date,tran_id,val_id,value_a,value_b,value_c,value_d', 'd6db169bedb441e9034e8d764a405449106993733cd52deff1730ff2063eda30', '0.00', '1', 'Not Safe', 'Raju Real', '01889967514', 'Dhaka', '1207', 'Mohammadpur, Shamoly, Dhaka', NULL, '2021-12-30 18:13:44'),
-(3, 4, 2, '000002', 'MX-28790292', '61cdf35348521', NULL, '2021-12-31 00:04:53', '125896', 21.00, NULL, 20.48, 'BDT', NULL, NULL, NULL, 'COMPLETE', NULL, '211231004530AdghINsADzfEuA', 'BKASH-BKash', NULL, '21123100453vHjuwZGjDTntuPy', NULL, NULL, 'BKash Mobile Banking', 'MOBILEBANKING', 'Classic', 'Bangladesh', 'BD', 'mobix615553a06cc1f', '801f4cc65f97f04a0d2ef77bcb79f149', 'amount,bank_tran_id,base_fair,card_brand,card_issuer,card_issuer_country,card_issuer_country_code,card_no,card_sub_brand,card_type,currency,currency_amount,currency_rate,currency_type,error,risk_level,risk_title,status,store_amount,store_id,tran_date,tran_id,val_id,value_a,value_b,value_c,value_d', 'e976945707f0ef607d8b1a095e578a4fcaf8a92799762cbfdf5aeaf22e0bbfef', NULL, '0', 'Safe', 'Raju Real', '01889967514', 'Dhaka', '1207', 'Mohammadpur, Shamoly, Dhaka', NULL, '2021-12-30 18:04:57'),
-(4, 4, 3, '000003', 'MX-40388575', '61ce051397d2d', NULL, '2021-12-31 01:14:28', '125896', 91.00, NULL, 88.73, 'BDT', 'BDT', '91.00', '1.0000', 'SUCCESS', 'Invalid expiration date', '211231114331gptPLd5lKeUlPz', 'NAGAD-Nagad', NULL, '211231114331zrTeFkjoDX3Mf9', NULL, NULL, 'Nagad', 'MOBILEBANKING', 'Classic', 'Bangladesh', 'BD', 'mobix615553a06cc1f', '7d10a236d40248ad51889060f30b4fdf', 'amount,bank_tran_id,base_fair,card_brand,card_issuer,card_issuer_country,card_issuer_country_code,card_no,card_sub_brand,card_type,currency,currency_amount,currency_rate,currency_type,error,risk_level,risk_title,status,store_amount,store_id,tran_date,tran_id,val_id,value_a,value_b,value_c,value_d', 'ed4377418a9678c5c65aa62a63d99099bc678f267c95539a91898a47669b07c7', '0.00', '0', 'Safe', 'Raju Real', '01889967514', 'Dhaka', '1207', 'Mohammadpur, Shamoly, Dhaka', NULL, '2021-12-30 19:15:38'),
-(5, 4, 4, '000004', 'MX-41568668', '61cdf5d0a6ff0', NULL, '2021-12-31 00:09:21', '125896', 135.00, NULL, 131.63, 'BDT', 'BDT', '135.00', '1.0000', 'COMPLETE', 'Invalid CVV', '211231009260kf3EF373dxGYrZ', 'NAGAD-Nagad', NULL, '211231009260axsPrZ5gOfHWo7', NULL, NULL, 'Nagad', 'MOBILEBANKING', 'Classic', 'Bangladesh', 'BD', 'mobix615553a06cc1f', '2f4ae990c1cab4537677313fd3dea2df', 'amount,bank_tran_id,base_fair,card_brand,card_issuer,card_issuer_country,card_issuer_country_code,card_no,card_sub_brand,card_type,currency,currency_amount,currency_rate,currency_type,error,risk_level,risk_title,status,store_amount,store_id,tran_date,tran_id,val_id,value_a,value_b,value_c,value_d', 'd268ac28f914b3bf85e0cb1550af6d85cde70929a684acf9da78b5d0a3ae9db3', '0.00', '0', 'Safe', 'Raju Real', '01889967514', 'Dhaka', '1207', 'Mohammadpur, Shamoly, Dhaka', NULL, '2021-12-30 18:09:30'),
-(6, 4, 5, '000005', 'MX-56205055', '61cecbe18c2ed', NULL, '2021-12-31 15:22:41', '125896', 91.00, NULL, NULL, 'BDT', NULL, NULL, NULL, 'PENDING', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Raju Real', '01889967514', 'Dhaka', '1207', 'Mohammadpur, Shamoly, Dhaka', NULL, NULL),
-(7, 4, 6, '000006', 'MX-28968537', '61cecbd396d74', NULL, '2021-12-31 15:22:27', '125896', 27.00, NULL, NULL, 'BDT', NULL, NULL, NULL, 'PENDING', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Raju Real', '01889967514', 'Dhaka', '1207', 'Mohammadpur, Shamoly, Dhaka', NULL, NULL);
+(8, 4, 7, '000007', 'MX-21696319', '61d067b199e82', NULL, '2022-01-01 20:39:45', '125896', 10.00, NULL, 9.75, 'BDT', 'BDT', '10.00', '1.0000', 'SUCCESS', NULL, '22010120404561488746730d79d', 'BKASH-BKash', 'KX9A11P39YTV', 'BGT68792022010191990', NULL, NULL, 'BKash Mobile Banking', 'MOBILEBANKING', 'MB', 'Bangladesh', 'BD', 'mobixpresscombdlive', '66dbc0923309597eb6d766b18e874886', 'amount,bank_tran_id,base_fair,card_brand,card_issuer,card_issuer_country,card_issuer_country_code,card_no,card_sub_brand,card_type,currency,currency_amount,currency_rate,currency_type,error,risk_level,risk_title,status,store_amount,store_id,tran_date,tran_id,val_id,value_a,value_b,value_c,value_d', 'd728906fe8c2e39bb1af2603640ccc5452cf50927611f8a8a9c31fef72cfbd9a', '0.00', '0', 'Safe', 'Raju Real', '01889967514', 'Dhaka', '1207', 'Mohammadpur, Shamoly, Dhaka', NULL, '2022-01-01 14:42:20'),
+(9, 4, 6, '000006', 'MX-28968537', '61d07e944c49d', NULL, '2022-01-01 22:17:24', '125896', 20.00, NULL, NULL, 'BDT', NULL, NULL, NULL, 'PENDING', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Raju Real', '01889967514', 'Dhaka', '1207', 'Mohammadpur, Shamoly, Dhaka', NULL, NULL),
+(10, 4, 5, '000005', 'MX-56205055', '61d6eb01168bf', NULL, '2022-01-06 19:13:37', '125896', 91.00, NULL, NULL, 'BDT', NULL, NULL, NULL, 'FAILED', 'Insufficient balance', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Raju Real', '01889967514', 'Dhaka', '1207', 'Mohammadpur, Shamoly, Dhaka', NULL, '2022-01-06 13:16:33');
 
 -- --------------------------------------------------------
 
@@ -4352,7 +4365,8 @@ CREATE TABLE `sub_categories` (
 INSERT INTO `sub_categories` (`id`, `category_id`, `name`, `slug`, `image`, `created_at`, `updated_at`) VALUES
 (5, 1, 'Wireless Head Phone', 'wireless-head-phone', 'images/subcategory/1625852279giant_127653.jpeg', '2021-06-11 07:36:56', '2021-07-09 11:37:59'),
 (6, 3, 'Black cover', 'black-cover', 'images/subcategory/1625852310maxresdefault.jpg', '2021-07-09 11:38:31', '2021-07-09 11:38:31'),
-(7, 1, 'Promotion Offer', 'promotion-offer', NULL, '2021-07-20 02:49:31', '2021-07-20 02:49:31');
+(7, 1, 'Promotion Offer', 'promotion-offer', NULL, '2021-07-20 02:49:31', '2021-07-20 02:49:31'),
+(8, 4, 'SMARTPHONE', 'smartphone', 'images/subcategory/1642519445Top-10-Mobile-Brands-in-World-1-1.jpg', '2022-01-18 15:24:05', '2022-01-18 15:27:11');
 
 -- --------------------------------------------------------
 
@@ -4401,7 +4415,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `mobile`, `image`, `status`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(4, 'মো: মোক্তাদিরুল ইসলাম', 'raj6u@mail.com', '01889967514', 'images/user/1634227178img_avatar.png', 1, NULL, '$2y$10$fzAJHvHpiXhRCSa4wpHJzergQXjeZogQFZJibi8EmIHMXnjgjGVCK', NULL, '2021-10-05 09:37:11', '2021-11-04 12:39:52'),
+(4, 'মো: মোক্তাদিরুল ইসলাম', 'raj6u@mail.com', '01889967514', 'images/user/1634227178img_avatar.png', 1, NULL, '$2y$10$fzAJHvHpiXhRCSa4wpHJzergQXjeZogQFZJibi8EmIHMXnjgjGVCK', '8C92RS1SPIFcA6BqOHJ1JcAeY5wWRnUGYw9h6osR2Wag5lBXhmZO7xXplQix', '2021-10-05 09:37:11', '2021-11-04 12:39:52'),
 (5, 'Raju 2', NULL, '01889967515', NULL, 1, NULL, '$2y$10$/JHfmn0x6eqRxrEZVWYYGOjMYtdS2jZslP/f7EuYrYFnjTo.sfySG', NULL, '2021-11-16 14:32:00', '2021-11-16 14:32:00'),
 (6, 'Raju 3', NULL, '01889967516', NULL, 1, NULL, '$2y$10$UL3VcTHcN5K5CtnqOK4p0.LHcAPD2x8uQE0.izih8CNn45c1NX9pG', NULL, '2021-11-16 15:50:44', '2021-11-16 15:50:44');
 
@@ -4793,13 +4807,13 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `colors`
@@ -4901,19 +4915,19 @@ ALTER TABLE `new_arrivals_products`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `order_prices`
 --
 ALTER TABLE `order_prices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `policies`
@@ -4997,13 +5011,13 @@ ALTER TABLE `sliders`
 -- AUTO_INCREMENT for table `special_offers`
 --
 ALTER TABLE `special_offers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `ssl_commerz_transactions`
 --
 ALTER TABLE `ssl_commerz_transactions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `subscribers`
@@ -5015,7 +5029,7 @@ ALTER TABLE `subscribers`
 -- AUTO_INCREMENT for table `sub_categories`
 --
 ALTER TABLE `sub_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `units`
