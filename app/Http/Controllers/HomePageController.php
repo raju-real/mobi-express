@@ -60,7 +60,7 @@ class HomePageController extends Controller
         $newArrivals = NewArrivals::with(['product'=>function($query){
                 $query->published();
             }])
-            ->orderBy('serial','asc')->take(20)->get();
+            ->oldest('serial')->take(20)->get();
         // Popular Product
         $popularProducts = Review::with(['product'=>function($query){
                 $query->published();
@@ -182,7 +182,7 @@ class HomePageController extends Controller
                 $data->orderBy('unit_price','asc');
             }
         }
-        $products = $data->paginate(20);
+        $products = $data->inRandomOrder()->paginate(20);
         $title = 'Featured Products';
         $pageTitle = 'Featured Products';
         $url = URL::current();
@@ -202,10 +202,29 @@ class HomePageController extends Controller
                 $data->orderBy('unit_price','asc');
             }
         }
-        $products = $data->paginate(20);
+        $products = $data->inRandomOrder()->paginate(20);
         $title = 'Best Selling Products';
         $pageTitle = 'Best Selling Products';
         return view('pages.vendor_products',compact('products','title','pageTitle'));
+    }
+
+    public function newArrivals(){
+        $ids = NewArrivals::select('product_id')->get();
+        $filter = request()->get('filter');
+        $data = Product::whereIn('id',$ids->pluck('product_id'))
+            ->published();
+        if(isset($filter)){
+            if($filter == "high-to-low"){
+                $data->orderBy('unit_price','desc');
+            } elseif($filter == "low-to-high"){
+                $data->orderBy('unit_price','asc');
+            }
+        }
+        $products = $data->inRandomOrder()->paginate(20);
+        $title = 'New Arrivals';
+        $pageTitle = 'New Arrivals';
+        $url = URL::current();
+        return view('pages.vendor_products',compact('products','title','pageTitle','url'));
     }
 
     public function productDetails($slug){
@@ -218,7 +237,15 @@ class HomePageController extends Controller
             $product->increment('view_count');
             Session::put($productKey,1);
         }
-        $releatedProducts = Product::where('category_id',$product->category_id)->take(20)->get();
+
+        $rProducts = Product::query();
+        if($product->subcategory_id != null){
+            $rProducts->where('subcategory_id',$product->subcategory_id);
+        }else{
+            $rProducts->where('category_id',$product->category_id);
+        }
+        
+        $releatedProducts = $rProducts->inRandomOrder()->get()->take(20);
         return view('pages.product_details',compact('product','releatedProducts'));
     }
 

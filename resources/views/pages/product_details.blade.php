@@ -41,6 +41,7 @@
 }
 
 
+
 </style>
 @endpush
 @section('content')
@@ -61,7 +62,7 @@
 </div>
 <!--breadcrumbs area end-->
 
-<div class="product_page_bg">
+<div class="product_page_bg" style="padding: 19px 0 75px;">
     <div class="container">
         <div class="product_details_wrapper mb-55">
             <!--product details start-->
@@ -98,6 +99,11 @@
                                         <li><i class="ion-android-star" style="font-size: 20px;color: orange;"></i></li>
                                         @endfor
                                     </ul>
+                                </div>
+                                <div class="product_meta">
+                                    <span>Availability: <a href="#" style="color: green;">
+                                        {{ $product->stock_status == 1 ? 'In Stock' : 'Out Of Stock' }}</a>
+                                    </span>
                                 </div>
                                 <div class="product_meta">
                                     <span>Brand: <a href="#">
@@ -165,7 +171,12 @@
                                 <div class="product_variant quantity">
                                     <label>quantity</label>
                                     <input name="quantity" id="quantity" min="1" max="{{ $product->quantity }}" value="1" type="number">
+
+                                    @if($product->stock_status == 1)
                                     <button onclick="addToCart({{ $product->id }})" class="button" type="button">add to cart</button>
+                                    @else
+                                    <button class="button" type="button" disabled>out of stock</button>
+                                    @endif
 
                                 </div>
                                 <div class=" product_d_action">

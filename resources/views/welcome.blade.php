@@ -111,12 +111,13 @@
                     <!--product area end-->
 
                     <!--new arrivals normal start-->
-                    {{-- <div class="product_area">
+                    <div class="product_area">
                         <div class="row">
                             <div class="col-12">
                                 <div class="product_header row">
-                                    <div class="section_title col-xl-auto col-12">
+                                     <div class="section_title">
                                         <h2>New Arrivals</h2>
+                                        <a href="{{ route('new-arrivals') }}" class="btn btn-warning btn-sm" style="float: right;">View All</a>
                                     </div>
                                 </div>
                             </div>
@@ -128,11 +129,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
                     <!--new arrivals normal end-->
 
                     {{-- New Arrivals Ajax load --}}
-                        @include('pages.new_arrivals')
+                        {{-- @include('pages.new_arrivals') --}}
                     {{-- New Arrivals Ajax load --}}
 
                     <!--banner area start-->
